@@ -1,63 +1,97 @@
-# IAC
+# IAC：图像-动作一致性评测基准
 
-Image-Action Consistency (IAC) is a benchmark and scorer for evaluating whether a driving action or trajectory is consistent with future visual evidence. The primary target is World Action Model (WAM) evaluation: given a history clip, a candidate action/trajectory, and generated future frames, IAC reports whether the image evolution matches the action and whether the trajectory is kinematically reasonable.
+IAC（Image-Action Consistency）是一个面向自动驾驶 World Action Model（WAM）的评测基准。它要回答的问题很简单：给定一段历史图像、一个动作或未来轨迹，以及 WAM 生成的未来图像，这些未来图像是否真的反映了这个动作？同时，这条轨迹本身是否符合基本运动学约束？
 
-IAC is an auxiliary metric. It does not generate trajectories, replace a planner, or replace closed-loop simulation. It provides a simulator-free and label-free signal that can be used alongside FID/FVD, PDMS, driving score, and task-specific metrics.
+本项目不是 planner，也不是 world model。IAC 不负责生成图像或生成轨迹，只负责对已有的 WAM 输出进行打分。
 
-## What It Scores
+## 我们的模型评测什么
 
-Each sample contains:
+IAC Critic 有两个输出头：
 
-- `history_images`: past camera frames.
-- `future_images`: logged or WAM-generated future frames.
-- `ego_state`: ego velocity, yaw, acceleration, and yaw-rate features.
-- `candidate_traj`: candidate future trajectory.
+- `consistency`：判断“未来图像”和“候选轨迹/动作”是否一致。例如轨迹明显向左转，但未来画面仍像直行，这一项应该低分。
+- `validity`：判断候选轨迹本身是否合理。例如速度突变、横向偏移过大、航向变化不连续，这一项应该低分。
 
-The critic outputs:
+最终用于 benchmark 的两个分数是：
 
-- `iac_consistency`: whether the trajectory matches the future visual evolution.
-- `iac_validity`: whether the trajectory is context-free kinematically feasible.
+- `iac_consistency`：图像-动作一致性分数，越高表示 WAM 生成的未来图像越符合给定动作。
+- `iac_validity`：轨迹运动学合理性分数，越高表示轨迹本身越可行。
 
-The key benchmark question is:
+## 输入是什么
+
+训练和评测时，每个样本包含四类输入：
+
+- `history_images`：历史相机图像序列。
+- `future_images`：未来图像序列。训练时通常来自 nuPlan 真实未来帧；评测 WAM 时来自 WAM 生成帧。
+- `ego_state`：当前自车状态，例如速度、加速度、yaw、yaw rate 等。
+- `candidate_traj`：待评测的未来轨迹，表示一个动作或动作序列。
+
+WAM benchmark 的 JSONL 输入示例：
+
+```json
+{
+  "wam_name": "my_wam",
+  "group_id": "scene_001",
+  "history_images": ["history_0.jpg", "history_1.jpg", "history_2.jpg", "history_3.jpg"],
+  "future_images": ["wam_future_0.jpg", "wam_future_1.jpg", "wam_future_2.jpg", "wam_future_3.jpg"],
+  "ego_state": [0.0, 0.0, 0.0, 0.0, 0.0],
+  "candidate_traj": [[0.0, 0.0, 0.0], [1.0, 0.1, 0.02]],
+  "action_type": "left_turn"
+}
+```
+
+`consistency_label` 和 `validity_label` 是可选字段。如果输入里提供标签，脚本会额外计算 accuracy、recall、AUROC、PR-AUC 等监督评估指标；如果没有标签，脚本仍然会输出每个 WAM 的 IAC 分数。
+
+## 输出是什么
+
+运行 `benchmark_wam.py` 后会生成两个文件：
 
 ```text
-Given action A, did the WAM generate future images that actually reflect A?
+work_dirs/wam_benchmark/<name>/
+├── wam_iac_scores.jsonl
+└── wam_iac_summary.json
 ```
 
-## Repository Layout
+`wam_iac_scores.jsonl` 是逐样本结果，包含：
 
-```text
-configs/train_consistency_mini.py   IAC training config
-tools/build_consistency_index.py    nuPlan DB + camera images -> IAC JSONL index
-train.py                            IAC critic training
-eval_critic.py                      scorer evaluation on IAC validation data
-stress_test_iac.py                  shortcut/stress probes
-benchmark_wam.py                    WAM output benchmark entry point
-data_paths.py                       environment-aware data path defaults
-```
+- 样本 ID / 分组 ID。
+- WAM 名称。
+- `iac_consistency`。
+- `iac_validity`。
+- 可选的预测标签和原始 logit。
 
-Generated data, checkpoints, logs, local indices, camera archives, and extracted dataset files are intentionally ignored by git.
+`wam_iac_summary.json` 是汇总结果，包含：
 
-## Data Paths
+- overall 平均分。
+- 按 WAM 分组的平均分。
+- 按动作类型分组的平均分。
+- 如果有同一场景下的多候选动作，会计算 ranking 指标。
+- 如果有扰动强度字段，会计算 graded perturbation curve。
 
-By default this project expects the current AutoDL-style layout:
+## 我们是怎么学习的
 
-```text
-/root/autodl-tmp/data/cache/mini
-/root/autodl-tmp/nuplan-v1.1_mini_camera_0
-/root/autodl-tmp/nuplan-v1.1_mini_camera_1
-```
+IAC 使用自监督/弱监督构造训练样本，不需要人工标注“图像和动作是否一致”。
 
-You can override paths with:
+正样本来自真实 nuPlan 片段：
 
-```bash
-export NUPLAN_DATA_ROOT=/path/to/data-root
-export NUPLAN_DB_ROOT=/path/to/data/cache/mini
-export NUPLAN_INDEX_ROOT=/path/to/IAC/indices
-export NUPLAN_CAMERA_ROOTS="/path/to/camera_0:/path/to/camera_1"
-```
+- 历史图像是真实历史帧。
+- 未来图像是真实未来帧。
+- 候选轨迹是真实 ego 未来轨迹。
+- 因此 `consistency_label=1`，`validity_label=1`。
 
-## Build IAC Training Data
+负样本由真实片段自动构造：
+
+- `traj_swap`：图像不变，换成别的场景或别的时刻的轨迹。
+- `image_swap`：轨迹不变，换成别的未来图像。
+- `time_shift_future`：使用时间错位的未来图像。
+- `perturb_lateral`：横向扰动轨迹。
+- `perturb_heading`：扰动航向角。
+- `perturb_speed`：扰动速度/进度。
+
+这些负样本让模型学习“图像变化应该和动作一致”，而不是只记住图像质量或轨迹平滑度。训练时使用二分类损失，`consistency` 头学习图像-轨迹匹配，`validity` 头学习轨迹本身是否符合运动学规则。
+
+## 基本流程
+
+构建 IAC 索引：
 
 ```bash
 python tools/build_consistency_index.py \
@@ -66,32 +100,9 @@ python tools/build_consistency_index.py \
   --output-dir indices
 ```
 
-Smoke test:
+训练 IAC Critic：
 
 ```bash
-python tools/build_consistency_index.py \
-  --max-scenes 2 \
-  --max-samples-per-scene 20 \
-  --output-dir indices_smoke
-```
-
-The index contains positive samples and multiple self-supervised negatives:
-
-- `gt_pos`
-- `traj_swap`
-- `image_swap`
-- `time_shift_future`
-- `perturb_lateral`
-- `perturb_heading`
-- `perturb_speed`
-
-## Train The IAC Critic
-
-Single-node two-GPU example:
-
-```bash
-mkdir -p work_dirs/iac_5epoch_2gpu
-
 PYTHONUNBUFFERED=1 python -m torch.distributed.run \
   --nproc_per_node=2 \
   --master_port=29606 \
@@ -101,20 +112,10 @@ PYTHONUNBUFFERED=1 python -m torch.distributed.run \
   --epochs 5 \
   --batch-size 8 \
   --num-workers 4 \
-  --preflight-samples 256 \
-  2>&1 | tee work_dirs/iac_5epoch_2gpu/train.log
+  --preflight-samples 256
 ```
 
-Training writes normal checkpoints only after a complete epoch and validation:
-
-```text
-work_dirs/<run>/checkpoints/latest.pth
-work_dirs/<run>/checkpoints/best.pth
-```
-
-Interrupted or failed runs are saved separately as `interrupted_epoch_*.pth` or `error_epoch_*.pth` so they are not confused with valid scorer checkpoints.
-
-## Evaluate The Scorer
+评估 IAC Critic：
 
 ```bash
 python eval_critic.py \
@@ -124,49 +125,7 @@ python eval_critic.py \
   --eval-ranking
 ```
 
-Important metrics:
-
-- positive recall on `gt_pos`
-- AUROC / PR-AUC
-- ECE calibration
-- per-negative-type recall
-- graded perturbation curves
-- ranking metrics
-
-Accuracy alone is not sufficient because the dataset is intentionally negative-heavy.
-
-## Stress Test The Scorer
-
-```bash
-python stress_test_iac.py \
-  --checkpoint work_dirs/iac_5epoch_2gpu/checkpoints/best.pth \
-  --split val \
-  --max-samples 256
-```
-
-Stress tests include future-frame reversal, trajectory mirroring, future-image corruption, noise, and trajectory shuffling. A reliable scorer should lower consistency scores under these interventions.
-
-## Benchmark WAM Outputs
-
-`benchmark_wam.py` is the benchmark entry point for WAM-generated future frames.
-
-Input JSONL format:
-
-```json
-{
-  "wam_name": "my_wam",
-  "group_id": "scene_or_anchor_id",
-  "history_images": ["history_0.jpg", "history_1.jpg", "history_2.jpg", "history_3.jpg"],
-  "future_images": ["wam_future_0.jpg", "wam_future_1.jpg", "wam_future_2.jpg", "wam_future_3.jpg"],
-  "ego_state": [0.0, 0.0, 0.0, 0.0, 0.0],
-  "candidate_traj": [[0.0, 0.0, 0.0]],
-  "action_type": "gt_or_perturbed",
-  "consistency_label": 1,
-  "validity_label": 1
-}
-```
-
-Run:
+评测 WAM 输出：
 
 ```bash
 python benchmark_wam.py \
@@ -175,16 +134,49 @@ python benchmark_wam.py \
   --output-dir work_dirs/wam_benchmark/my_wam
 ```
 
-Outputs:
+## 数据路径
+
+默认按 AutoDL 当前环境查找：
 
 ```text
-wam_iac_scores.jsonl
-wam_iac_summary.json
+/root/autodl-tmp/data/cache/mini
+/root/autodl-tmp/nuplan-v1.1_mini_camera_0
+/root/autodl-tmp/nuplan-v1.1_mini_camera_1
 ```
 
-The summary reports overall IAC scores, per-WAM scores, per-action-type scores, ranking metrics, and graded perturbation curves.
+也可以用环境变量覆盖：
 
-## Current Scope
+```bash
+export NUPLAN_DATA_ROOT=/path/to/data-root
+export NUPLAN_DB_ROOT=/path/to/data/cache/mini
+export NUPLAN_INDEX_ROOT=/path/to/IAC/indices
+export NUPLAN_CAMERA_ROOTS="/path/to/camera_0:/path/to/camera_1"
+```
 
-This repository currently targets a nuPlan-mini IAC-WAM benchmark prototype. Multi-dataset evaluation, DriveCritic/ACT-Bench/Vista adapters, human study protocols, and PDMS/CARLA correlation analysis are future extensions.
+## 仓库里保留什么
+
+仓库只保留 IAC benchmark 主链路：
+
+- `train.py`：训练 IAC Critic。
+- `eval_critic.py`：验证 IAC Critic。
+- `benchmark_wam.py`：评测 WAM 输出。
+- `stress_test_iac.py`：检查模型是否依赖捷径。
+- `tools/build_consistency_index.py`：构建训练/验证索引。
+- `configs/train_consistency_mini.py`：默认训练配置。
+- `data_paths.py`：路径配置。
+- `scripts/dlc_train.sh`：训练脚本模板。
+
+以下内容不进入仓库：
+
+- nuPlan 原始数据和相机图像。
+- 训练索引 JSONL。
+- checkpoint。
+- `work_dirs`。
+- 训练日志。
+- `__pycache__`。
+- 本地 smoke/test 输出。
+
+## DrivingWorld 是否有用
+
+当前版本不保留 DrivingWorld 集成。原因是 IAC benchmark 的边界是“评测 WAM 输出”，而不是“在本仓库里运行某个 WAM 生成图像”。如果要评测 DrivingWorld，只需要先用 DrivingWorld 在外部生成未来图像和对应 manifest，再把 manifest 输入 `benchmark_wam.py`。这样 IAC 对 DrivingWorld、Drive-WM 或任何其它 WAM 都是同一个接口、同一套打分逻辑，更适合作为公平 benchmark。
 
