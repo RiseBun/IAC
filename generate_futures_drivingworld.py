@@ -45,15 +45,16 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from generation.drivewm_wrapper import create_world_model, PlaceholderWorldModel
 from generation.drivingworld_wrapper import DrivingWorldWrapper
+from data_paths import DATA_ROOT, GENERATED_DATA_ROOT, INDEX_ROOT
 
 
 @dataclass
 class GenerationConfig:
     """生成配置"""
     # 数据源
-    train_index: str = str(PROJECT_ROOT / "indices/critic_train.jsonl")
-    val_index: str = str(PROJECT_ROOT / "indices/critic_val.jsonl")
-    image_root: str = "/mnt/cpfs/prediction/lipeinan/nuplan_data/mini_set"
+    train_index: str = str(INDEX_ROOT / "consistency_train.jsonl")
+    val_index: str = str(INDEX_ROOT / "consistency_val.jsonl")
+    image_root: str = str(DATA_ROOT)
     
     # 生成参数
     world_model_type: str = "placeholder"  # placeholder | interpolation | drivingworld
@@ -76,7 +77,7 @@ class GenerationConfig:
     device: str = "cuda" if torch.cuda.is_available() else "cpu"
     
     # 输出
-    output_dir: str = "generated_data"
+    output_dir: str = str(GENERATED_DATA_ROOT)
     max_scenes: int = 0  # 0 表示全部
 
 

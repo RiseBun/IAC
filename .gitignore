@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*.log
+
+# Local data and generated artifacts
+data/
+indices/
+indices_*/
+generated_data/
+evaluation_results/
+work_dirs/
+labeled_data/
+
+# nuPlan archives / extracted camera data
+nuplan-v1.1_*/
+nuplan-v1.1_*.zip
+*.zip.tmp
+
+# Checkpoints and tensors
+*.pth
+*.pt
+
+# Editor / system
+.DS_Store
+.vscode/
+.idea/

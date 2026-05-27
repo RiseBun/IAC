@@ -151,7 +151,7 @@ def main():
         print("  python train.py --config configs/train_consistency_mini.py")
         print()
         print("  # 评估模型（包含 Ranking）")
-        print("  python eval_critic.py --checkpoint work_dirs/consistency_mini_v2/checkpoints/best.pth --eval-ranking")
+        print("  python eval_critic.py --checkpoint work_dirs/iac_full/checkpoints/best.pth --eval-ranking")
         print()
         print("=" * 60)
         

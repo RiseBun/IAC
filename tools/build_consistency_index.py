@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """构建 Consistency Critic 训练索引
 
-基于 build_critic_index.py 扩展，增加:
+从 nuPlan DB + camera images 构建新版 IAC 索引，包含:
 - 未来图像帧提取 (future_images)
 - 三种负样本生成: traj_swap / image_swap / perturb
 - 双标签: consistency_label, validity_label
@@ -17,9 +17,15 @@ import json
 import math
 import random
 import sqlite3
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Sequence, Tuple
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+
+from data_paths import DB_ROOT, INDEX_ROOT, camera_roots
 
 
 def parse_args() -> argparse.Namespace:
@@ -28,24 +34,18 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--db-root",
-        default="/mnt/datasets/e2e-datasets/20260227/e2e-datasets/"
-                "dataset_pkgs/nuplan-v1.1/splits/mini",
+        default=str(DB_ROOT),
         help="mini split db 文件目录",
     )
     parser.add_argument(
         "--image-roots",
         nargs="+",
-        default=[
-            "/mnt/cpfs/prediction/lipeinan/nuplan_data/mini_set/"
-            "nuplan-v1.1_mini_camera_0",
-            "/mnt/cpfs/prediction/lipeinan/nuplan_data/mini_set/"
-            "nuplan-v1.1_mini_camera_1",
-        ],
+        default=[str(path) for path in camera_roots()],
         help="已解压的 camera 目录",
     )
     parser.add_argument(
         "--output-dir",
-        default="/mnt/cpfs/prediction/lipeinan/nuplan/indices",
+        default=str(INDEX_ROOT),
         help="输出 JSONL 索引目录",
     )
     parser.add_argument("--camera-channel", default="CAM_F0")
@@ -80,6 +80,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--perturb-speed-range", type=float, nargs=2,
         default=[0.7, 1.3], help="速度缩放范围",
+    )
+    parser.add_argument(
+        "--time-shift-future-steps", type=int, default=2,
+        help="同一 scene 内 future_images 错位的 anchor 步数，用于 hard negative",
     )
     return parser.parse_args()
 
@@ -374,15 +378,83 @@ def _pick_remote_index(
     return rng.choice(candidates)
 
 
+def compute_kinematic_validity(
+    traj: List[List[float]],
+    ego_state: List[float],
+) -> Tuple[int, str]:
+    """只基于 ego + trajectory 判断 context-free 运动学可行性。
+
+    这些阈值刻意保守，用于把明显不连续/不合理的候选轨迹标为 invalid；
+    场景语义是否匹配仍由 consistency_label 负责。
+    """
+    if not traj:
+        return 0, "empty_traj"
+    try:
+        pts = [
+            (
+                float(pt[0]),
+                float(pt[1]) if len(pt) > 1 else 0.0,
+                float(pt[2]) if len(pt) > 2 else 0.0,
+            )
+            for pt in traj
+        ]
+        ego_speed = math.hypot(float(ego_state[0]), float(ego_state[1])) if len(ego_state) >= 2 else 0.0
+    except (TypeError, ValueError):
+        return 0, "non_numeric"
+
+    if any(not math.isfinite(v) for pt in pts for v in pt):
+        return 0, "non_finite"
+
+    max_abs_lateral = max(abs(y) for _, y, _ in pts)
+    max_abs_heading = max(abs(wrap_angle(yaw)) for _, _, yaw in pts)
+    if max_abs_lateral > 8.0:
+        return 0, "lateral_too_large"
+    if max_abs_heading > math.radians(90.0):
+        return 0, "heading_too_large"
+    if pts[-1][0] < -2.0:
+        return 0, "large_reverse_motion"
+
+    prev_x, prev_y = 0.0, 0.0
+    speeds: List[float] = []
+    for x, y, _ in pts:
+        step_dist = math.hypot(x - prev_x, y - prev_y)
+        step_speed = step_dist / 0.5
+        speeds.append(step_speed)
+        if step_speed > 45.0:
+            return 0, "step_speed_too_large"
+        prev_x, prev_y = x, y
+
+    if speeds:
+        first_speed = speeds[0]
+        if ego_speed > 2.0 and abs(first_speed - ego_speed) > max(10.0, 1.5 * ego_speed):
+            return 0, "ego_speed_discontinuity"
+    if len(speeds) >= 2:
+        max_acc = max(abs(speeds[i] - speeds[i - 1]) / 0.5 for i in range(1, len(speeds)))
+        if max_acc > 12.0:
+            return 0, "acceleration_too_large"
+
+    prev_yaw = 0.0
+    for _, _, yaw in pts:
+        if abs(wrap_angle(yaw - prev_yaw)) > math.radians(45.0):
+            return 0, "yaw_step_too_large"
+        prev_yaw = yaw
+
+    return 1, "ok"
+
+
+def with_validity(row: Dict, traj: List[List[float]], ego_state: List[float]) -> Dict:
+    validity, reason = compute_kinematic_validity(traj, ego_state)
+    row["validity_label"] = validity
+    row["validity_reason"] = reason
+    return row
+
+
 def build_traj_swap_negatives(
     anchors: List[ConsistencyAnchor],
     min_gap: int,
     rng: random.Random,
 ) -> List[Dict]:
-    """N1: 替换轨迹为其他 anchor 的轨迹
-
-    consistency=0 (轨迹与图像不匹配), validity=0 (轨迹与当前上下文不匹配)
-    """
+    """N1: 替换轨迹为其他 anchor 的轨迹。Validity 由运动学规则独立计算。"""
     negatives: List[Dict] = []
     n = len(anchors)
     if n < 2:
@@ -390,7 +462,7 @@ def build_traj_swap_negatives(
     for idx, anchor in enumerate(anchors):
         neg_idx = _pick_remote_index(idx, n, min_gap, rng)
         neg_src = anchors[neg_idx]
-        negatives.append({
+        row = {
             "sample_id": f"{anchor.sample_id}__traj_swap",
             "scene_name": anchor.scene_name,
             "timestamp_us": anchor.timestamp_us,
@@ -399,9 +471,10 @@ def build_traj_swap_negatives(
             "ego_state": anchor.ego_state,
             "candidate_traj": neg_src.candidate_traj,
             "consistency_label": 0,
-            "validity_label": 0,
             "source_type": "traj_swap",
-        })
+            "negative_family": "swap",
+        }
+        negatives.append(with_validity(row, neg_src.candidate_traj, anchor.ego_state))
     return negatives
 
 
@@ -410,10 +483,7 @@ def build_image_swap_negatives(
     min_gap: int,
     rng: random.Random,
 ) -> List[Dict]:
-    """N2: 替换未来图像为其他 anchor 的未来图像
-
-    consistency=0 (图像与轨迹不匹配), validity=1 (图像本身是真实合理的)
-    """
+    """N2: 替换未来图像为其他 anchor 的未来图像。轨迹 validity 独立计算。"""
     negatives: List[Dict] = []
     n = len(anchors)
     if n < 2:
@@ -421,7 +491,7 @@ def build_image_swap_negatives(
     for idx, anchor in enumerate(anchors):
         neg_idx = _pick_remote_index(idx, n, min_gap, rng)
         neg_src = anchors[neg_idx]
-        negatives.append({
+        row = {
             "sample_id": f"{anchor.sample_id}__image_swap",
             "scene_name": anchor.scene_name,
             "timestamp_us": anchor.timestamp_us,
@@ -430,9 +500,45 @@ def build_image_swap_negatives(
             "ego_state": anchor.ego_state,
             "candidate_traj": anchor.candidate_traj,
             "consistency_label": 0,
-            "validity_label": 1,
             "source_type": "image_swap",
-        })
+            "negative_family": "swap",
+        }
+        negatives.append(with_validity(row, anchor.candidate_traj, anchor.ego_state))
+    return negatives
+
+
+def build_time_shift_future_negatives(
+    anchors: List[ConsistencyAnchor],
+    shift_steps: int,
+) -> List[Dict]:
+    """N3: 同一 scene 内错位 future images，是比跨 scene image_swap 更强的 hard negative。"""
+    negatives: List[Dict] = []
+    n = len(anchors)
+    if n < 2:
+        return negatives
+    shift = max(1, min(abs(shift_steps), n - 1))
+    for idx, anchor in enumerate(anchors):
+        shift_idx = idx + shift
+        if shift_idx >= n:
+            shift_idx = idx - shift
+        if shift_idx < 0 or shift_idx == idx:
+            continue
+        shifted = anchors[shift_idx]
+        row = {
+            "sample_id": f"{anchor.sample_id}__time_shift_future_{shift}",
+            "scene_name": anchor.scene_name,
+            "timestamp_us": anchor.timestamp_us,
+            "history_images": anchor.history_images,
+            "future_images": shifted.future_images,
+            "ego_state": anchor.ego_state,
+            "candidate_traj": anchor.candidate_traj,
+            "consistency_label": 0,
+            "source_type": "time_shift_future",
+            "negative_family": "time_shift",
+            "time_shift_anchor_steps": shift,
+            "time_shift_timestamp_us": shifted.timestamp_us - anchor.timestamp_us,
+        }
+        negatives.append(with_validity(row, anchor.candidate_traj, anchor.ego_state))
     return negatives
 
 
@@ -443,7 +549,7 @@ def perturb_trajectory(
     lateral_range: Tuple[float, float] = (0.5, 2.0),
     heading_range: Tuple[float, float] = (5.0, 15.0),
     speed_range: Tuple[float, float] = (0.7, 1.3),
-) -> List[List[float]]:
+) -> Tuple[List[List[float]], float]:
     """对 GT 轨迹施加语义扰动，生成 "很像但不匹配" 的轨迹"""
     perturbed = [list(pt) for pt in traj]
     n_steps = len(perturbed)
@@ -451,6 +557,7 @@ def perturb_trajectory(
     if perturb_type == "lateral":
         # 横向偏移: 逐步线性增大，模拟偏航漂移
         offset = rng.uniform(*lateral_range) * rng.choice([-1, 1])
+        magnitude = abs(offset)
         for i, pt in enumerate(perturbed):
             ratio = (i + 1) / n_steps
             pt[1] += offset * ratio
@@ -458,6 +565,7 @@ def perturb_trajectory(
     elif perturb_type == "heading":
         # 航向扰动: 叠加逐步增大的 yaw 偏移
         delta_deg = rng.uniform(*heading_range) * rng.choice([-1, 1])
+        magnitude = abs(delta_deg)
         delta_rad = math.radians(delta_deg)
         for i, pt in enumerate(perturbed):
             ratio = (i + 1) / n_steps
@@ -473,11 +581,15 @@ def perturb_trajectory(
         scale = rng.uniform(*speed_range)
         while 0.9 < scale < 1.1:
             scale = rng.uniform(*speed_range)
+        magnitude = abs(scale - 1.0)
         for pt in perturbed:
             pt[0] *= scale
             pt[1] *= scale
 
-    return perturbed
+    else:
+        magnitude = 0.0
+
+    return perturbed, magnitude
 
 
 def build_perturb_negatives(
@@ -495,7 +607,7 @@ def build_perturb_negatives(
     negatives: List[Dict] = []
     for anchor in anchors:
         ptype = rng.choice(perturb_types)
-        new_traj = perturb_trajectory(
+        new_traj, magnitude = perturb_trajectory(
             anchor.candidate_traj,
             perturb_type=ptype,
             rng=rng,
@@ -503,7 +615,7 @@ def build_perturb_negatives(
             heading_range=heading_range,
             speed_range=speed_range,
         )
-        negatives.append({
+        row = {
             "sample_id": f"{anchor.sample_id}__perturb_{ptype}",
             "scene_name": anchor.scene_name,
             "timestamp_us": anchor.timestamp_us,
@@ -512,9 +624,17 @@ def build_perturb_negatives(
             "ego_state": anchor.ego_state,
             "candidate_traj": new_traj,
             "consistency_label": 0,
-            "validity_label": 0,
             "source_type": f"perturb_{ptype}",
-        })
+            "negative_family": "perturb",
+            "perturb_type": ptype,
+            "perturb_magnitude": magnitude,
+            "perturb_level": (
+                "small" if magnitude < 0.5 else "medium" if magnitude < 1.0 else "large"
+            ) if ptype != "heading" else (
+                "small" if magnitude < 7.5 else "medium" if magnitude < 12.0 else "large"
+            ),
+        }
+        negatives.append(with_validity(row, new_traj, anchor.ego_state))
     return negatives
 
 
@@ -528,8 +648,9 @@ def serialize_split(
     lateral_range: Tuple[float, float],
     heading_range: Tuple[float, float],
     speed_range: Tuple[float, float],
+    time_shift_future_steps: int,
 ) -> List[Dict]:
-    """将 anchor 列表转为正样本 + 三类负样本 (正:负 = 1:3)"""
+    """将 anchor 列表转为正样本 + 四类负样本 (正:负 ~= 1:4)"""
     rng = random.Random(seed)
 
     # 正样本: gt_pos
@@ -543,20 +664,25 @@ def serialize_split(
             "ego_state": a.ego_state,
             "candidate_traj": a.candidate_traj,
             "consistency_label": 1,
-            "validity_label": 1,
             "source_type": "gt_pos",
+            "negative_family": "positive",
         }
         for a in anchors
     ]
+    positives = [
+        with_validity(row, row["candidate_traj"], row["ego_state"])
+        for row in positives
+    ]
 
-    # 三类负样本，每类 1 个/正样本
+    # 四类负样本，每类约 1 个/正样本
     neg_traj = build_traj_swap_negatives(anchors, min_gap, rng)
     neg_img = build_image_swap_negatives(anchors, min_gap, rng)
+    neg_time = build_time_shift_future_negatives(anchors, time_shift_future_steps)
     neg_perturb = build_perturb_negatives(
         anchors, rng, lateral_range, heading_range, speed_range,
     )
 
-    all_rows = positives + neg_traj + neg_img + neg_perturb
+    all_rows = positives + neg_traj + neg_img + neg_time + neg_perturb
     rng.shuffle(all_rows)
     return all_rows
 
@@ -675,6 +801,7 @@ def main() -> None:
         lateral_range=lat_range,
         heading_range=hdg_range,
         speed_range=spd_range,
+        time_shift_future_steps=args.time_shift_future_steps,
     )
     val_rows = serialize_split(
         val_anchors,
@@ -683,6 +810,7 @@ def main() -> None:
         lateral_range=lat_range,
         heading_range=hdg_range,
         speed_range=spd_range,
+        time_shift_future_steps=args.time_shift_future_steps,
     )
 
     train_path = output_dir / "consistency_train.jsonl"
@@ -702,6 +830,7 @@ def main() -> None:
         "perturb_lateral_range": list(args.perturb_lateral_range),
         "perturb_heading_range": list(args.perturb_heading_range),
         "perturb_speed_range": list(args.perturb_speed_range),
+        "time_shift_future_steps": args.time_shift_future_steps,
         "traj_scale_factors": traj_scale,
         "train_scenes": train_scenes,
         "val_scenes": val_scenes,

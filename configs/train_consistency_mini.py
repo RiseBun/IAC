@@ -1,27 +1,26 @@
+import sys
 from pathlib import Path
 
 
 project_root = Path(__file__).resolve().parent.parent
-data_root = Path("/mnt/cpfs/prediction/lipeinan/nuplan_data/mini_set")
-index_root = project_root / "indices"
+sys.path.insert(0, str(project_root))
+
+from data_paths import DATA_ROOT, DB_ROOT, INDEX_ROOT, camera_roots
+
+data_root = DATA_ROOT
+index_root = INDEX_ROOT
 
 
 cfg = dict(
-    experiment_name="nuplan_consistency_mini_v2",
+    experiment_name="nuplan_iac_full",
     model_type="consistency",
     seed=42,
-    work_dir=str(project_root / "work_dirs" / "consistency_mini_v2"),
+    work_dir=str(project_root / "work_dirs" / "iac_full"),
     train_index=str(index_root / "consistency_train.jsonl"),
     val_index=str(index_root / "consistency_val.jsonl"),
     image_root=str(data_root),
-    mini_db_root=(
-        "/mnt/datasets/e2e-datasets/20260227/e2e-datasets/"
-        "dataset_pkgs/nuplan-v1.1/splits/mini"
-    ),
-    camera_roots=[
-        str(data_root / "nuplan-v1.1_mini_camera_0"),
-        str(data_root / "nuplan-v1.1_mini_camera_1"),
-    ],
+    mini_db_root=str(DB_ROOT),
+    camera_roots=[str(path) for path in camera_roots(data_root)],
     camera_channel="CAM_F0",
     log_interval=20,
     val_interval=1,
@@ -35,6 +34,9 @@ cfg = dict(
     history_num_frames=4,
     future_num_frames=4,
     candidate_traj_steps=8,
+    # P0: Consistency 只监督与 4 帧 future image 对齐的前 2s 轨迹；
+    # 完整 8 步轨迹仍用于 context-free Validity。
+    consistency_traj_steps=4,
     future_step_time_s=0.5,
     ego_state_dim=5,
     traj_dim=3,
@@ -42,14 +44,15 @@ cfg = dict(
     lambda_consistency=1.0,
     lambda_validity=0.5,
     positive_weight=1.0,
-    consistency_positive_weight=3.0,  # Consistency Head 正负样本比 1:3
+    consistency_positive_weight=4.0,  # Consistency Head 正负样本比约 1:4
     validity_positive_weight=1.0,     # Validity Head 正负样本比 1:1
     
-    # 多维度 consistency 权重（细粒度评估）
-    lambda_speed_consistency=0.3,
-    lambda_steering_consistency=0.3,
-    lambda_progress_consistency=0.2,
-    lambda_temporal_coherence=0.2,
+    # 细粒度 heads 暂无独立标签，本轮 P0 改造不把它们作为真实监督。
+    lambda_speed_consistency=0.0,
+    lambda_steering_consistency=0.0,
+    lambda_progress_consistency=0.0,
+    lambda_temporal_coherence=0.0,
+    baseline_mode="full",  # full | no_image | ego_only | no_traj | traj_only
     # 优化器
     optimizer=dict(
         lr=1e-4,

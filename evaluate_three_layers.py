@@ -91,37 +91,8 @@ class ThreeLayerEvaluator:
         # 构建模型
         self.critic = ConsistencyCriticModel(cfg)
         
-        # 加载权重（兼容旧版模型）
         model_state = checkpoint['model']
-        current_state = self.critic.state_dict()
-        
-        # 检查是否是多维度版本
-        has_multi_dim = 'speed_consistency_head.weight' in current_state
-        has_old_version = 'speed_consistency_head.weight' not in model_state
-        
-        if has_multi_dim and has_old_version:
-            print("[INFO] 检测到旧版模型（2个head），正在兼容加载...")
-            # 只加载存在的权重
-            matched_keys = set(model_state.keys()) & set(current_state.keys())
-            missing_keys = set(current_state.keys()) - set(model_state.keys())
-            
-            # 加载匹配的部分
-            for key in matched_keys:
-                current_state[key] = model_state[key]
-            
-            # 对于缺失的 head，使用consistency_head 的权重作为初始化
-            if 'consistency_head.weight' in model_state:
-                for missing_key in missing_keys:
-                    if 'head' in missing_key and 'validity' not in missing_key:
-                        current_state[missing_key] = model_state['consistency_head.weight' if 'weight' in missing_key else 'consistency_head.bias']
-                        print(f"  - 使用 consistency_head 初始化: {missing_key}")
-            
-            self.critic.load_state_dict(current_state, strict=False)
-            print(f"  ✅ 加载 {len(matched_keys)} 个匹配权重")
-            print(f"  ⚠️  {len(missing_keys)} 个权重使用默认值（不影响基础评估）")
-        else:
-            # 直接加载
-            self.critic.load_state_dict(model_state)
+        self.critic.load_state_dict(model_state, strict=True)
         self.critic.to(device)
         self.critic.eval()
         

@@ -15,7 +15,7 @@ nuPlan Closed-Loop Evaluation
 
 Usage:
     python closed_loop_evaluation.py \
-        --checkpoint work_dirs/critic_full/checkpoints/best.pth \
+        --checkpoint work_dirs/iac_full/checkpoints/best.pth \
         --val-index indices/consistency_val.jsonl \
         --num-scenes 100 \
         --num-candidates 10 \

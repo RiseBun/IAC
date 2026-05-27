@@ -4,8 +4,8 @@
 # NuPlan Consistency Critic DLC Multi-Node Multi-GPU Training Script
 # =============================================================================
 # Usage:
-#   One-command training (auto data prep + training):
-#     cd /mnt/cpfs/prediction/lipeinan/nuplan && bash scripts/dlc_train.sh
+#   One-command training (auto IAC index build + training):
+#     cd /path/to/nuplan && bash scripts/dlc_train.sh
 #
 #   Custom parameters:
 #     bash scripts/dlc_train.sh --epochs=100 --batch-size=32 --work-dir=work_dirs/my_model
@@ -120,78 +120,44 @@ TRAIN_INDEX="${INDEX_DIR}/consistency_train.jsonl"
 VAL_INDEX="${INDEX_DIR}/consistency_val.jsonl"
 
 if [ ! -f "$TRAIN_INDEX" ] || [ ! -f "$VAL_INDEX" ]; then
-    echo "⚠️  Training index not found!"
+    echo "Training index not found!"
     echo "   Train: $TRAIN_INDEX"
     echo "   Val: $VAL_INDEX"
     echo ""
-    echo "Starting automatic data preparation..."
+    echo "Building fresh IAC index from nuPlan DB and camera images..."
     echo ""
     
-    # Check if raw data exists
-    DATA_ROOT="/mnt/cpfs/prediction/lipeinan/nuplan_data/mini_set"
-    if [ ! -d "$DATA_ROOT" ]; then
-        echo "❌ Error: Raw data not found: $DATA_ROOT"
-        echo "   Please prepare nuPlan data first!"
+    DATA_ROOT="${NUPLAN_DATA_ROOT:-${PROJECT_ROOT}/data/mini_set}"
+    DB_ROOT="${NUPLAN_DB_ROOT:-${PROJECT_ROOT}/data/nuplan-v1.1/splits/mini}"
+    CAMERA_ROOTS="${NUPLAN_CAMERA_ROOTS:-${DATA_ROOT}/nuplan-v1.1_mini_camera_0 ${DATA_ROOT}/nuplan-v1.1_mini_camera_1}"
+
+    if [ ! -d "$DB_ROOT" ]; then
+        echo "Error: NuPlan DB root not found: $DB_ROOT"
+        echo "Set NUPLAN_DB_ROOT or place DB files under project data/."
         exit 1
     fi
-    
-    # Step 1: Generate training data (if not exists)
-    TRAINING_DATA_DIR="/mnt/cpfs/prediction/lipeinan/nuplan_data/critic_training_data"
-    if [ ! -d "$TRAINING_DATA_DIR" ] || [ -z "$(ls -A $TRAINING_DATA_DIR/*.pt 2>/dev/null)" ]; then
-        echo "[1/3] Generating training data with DrivingWorld..."
-        $PYTHON_PATH generate_critic_training_data.py \
-            --data-root "$DATA_ROOT" \
-            --output-dir "$TRAINING_DATA_DIR" \
-            --num-scenes 100 \
-            --samples-per-scene 5 \
-            --device cuda:0
-        
-        if [ $? -ne 0 ]; then
-            echo "❌ Failed to generate training data!"
-            exit 1
-        fi
-    else
-        echo "[1/3] Training data already exists: $TRAINING_DATA_DIR"
-    fi
-    
-    # Step 2: Compute labels (if not exists)
-    LABELED_DATA_DIR="/mnt/cpfs/prediction/lipeinan/nuplan_data/critic_training_data_labeled"
-    if [ ! -d "$LABELED_DATA_DIR" ] || [ -z "$(ls -A $LABELED_DATA_DIR/*.pt 2>/dev/null)" ]; then
-        echo ""
-        echo "[2/3] Computing training labels..."
-        $PYTHON_PATH compute_training_labels.py \
-            --data-dir "$TRAINING_DATA_DIR" \
-            --output-dir "$LABELED_DATA_DIR" \
-            --device cuda:0
-        
-        if [ $? -ne 0 ]; then
-            echo "❌ Failed to compute labels!"
-            exit 1
-        fi
-    else
-        echo "[2/3] Labeled data already exists: $LABELED_DATA_DIR"
-    fi
-    
-    # Step 3: Build index
+
+    echo "  DB root: $DB_ROOT"
+    echo "  Camera roots: $CAMERA_ROOTS"
+    echo "  Output: $INDEX_DIR"
     echo ""
-    echo "[3/3] Building training index..."
     mkdir -p "$INDEX_DIR"
-    $PYTHON_PATH build_critic_index.py \
-        --data-dir "$LABELED_DATA_DIR" \
-        --output-dir "$INDEX_DIR" \
-        --train-ratio 0.8 \
-        --balance-classes
+    # shellcheck disable=SC2086
+    $PYTHON_PATH tools/build_consistency_index.py \
+        --db-root "$DB_ROOT" \
+        --image-roots $CAMERA_ROOTS \
+        --output-dir "$INDEX_DIR"
     
     if [ $? -ne 0 ]; then
-        echo "❌ Failed to build index!"
+        echo "Failed to build IAC index!"
         exit 1
     fi
     
     echo ""
-    echo "✅ Data preparation completed!"
+    echo "IAC index build completed!"
     echo ""
 else
-    echo "✅ Training index found:"
+    echo "Training index found:"
     echo "   Train: $TRAIN_INDEX"
     echo "   Val: $VAL_INDEX"
     echo ""
@@ -202,7 +168,7 @@ fi
 # Default values (can be overridden by command line args)
 DEFAULT_EPOCHS=50
 DEFAULT_BATCH_SIZE=16
-DEFAULT_WORK_DIR="work_dirs/critic_full"
+DEFAULT_WORK_DIR="work_dirs/iac_full"
 
 # Parse arguments (simple key-value parsing)
 EPOCHS=$DEFAULT_EPOCHS

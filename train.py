@@ -11,7 +11,7 @@ import sys
 import time
 import traceback
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Sequence
 
 import numpy as np
 import torch
@@ -30,8 +30,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--epochs", type=int, default=None, help="Override epochs")
     parser.add_argument("--batch-size", type=int, default=None, help="Override batch size")
     parser.add_argument("--num-workers", type=int, default=None, help="Override workers")
+    parser.add_argument(
+        "--baseline-mode",
+        choices=["full", "no_image", "ego_only", "no_traj", "traj_only"],
+        default=None,
+        help="P0 shortcut audit baseline mode for consistency critic",
+    )
     parser.add_argument("--max-train-steps", type=int, default=None, help="Debug: cap train iterations per epoch")
     parser.add_argument("--max-val-steps", type=int, default=None, help="Debug: cap val iterations per epoch")
+    parser.add_argument(
+        "--preflight-samples",
+        type=int,
+        default=128,
+        help="Validate image paths from each index before training; 0 disables.",
+    )
     return parser.parse_args()
 
 
@@ -116,142 +128,6 @@ def sigterm_received() -> bool:
     return _SIGTERM_RECEIVED
 
 
-class CriticJsonlDataset(Dataset):
-    def __init__(self, index_path: str, cfg: Dict[str, Any], training: bool) -> None:
-        self.index_path = Path(index_path)
-        if not self.index_path.exists():
-            raise FileNotFoundError(
-                f"Index file not found: {self.index_path}. "
-                "Please build critic_train.jsonl / critic_val.jsonl first."
-            )
-        self.training = training
-        self.image_root = Path(cfg["image_root"])
-        self.image_size = int(cfg["image_size"])
-        self.history_num_frames = int(cfg["history_num_frames"])
-        self.candidate_traj_steps = int(cfg["candidate_traj_steps"])
-        self.ego_state_dim = int(cfg["ego_state_dim"])
-        self.traj_dim = int(cfg["traj_dim"])
-        dataset_cfg = cfg.get("dataset", {})
-        self.normalize_ego_state = bool(dataset_cfg.get("normalize_ego_state", True))
-        self.normalize_candidate_traj = bool(dataset_cfg.get("normalize_candidate_traj", True))
-        self.image_mean = torch.tensor(dataset_cfg.get("image_mean", [0.485, 0.456, 0.406]), dtype=torch.float32)
-        self.image_std = torch.tensor(dataset_cfg.get("image_std", [0.229, 0.224, 0.225]), dtype=torch.float32)
-        self.samples = self._load_jsonl()
-
-    def _load_jsonl(self) -> List[Dict[str, Any]]:
-        samples: List[Dict[str, Any]] = []
-        with self.index_path.open("r", encoding="utf-8") as f:
-            for line_idx, line in enumerate(f, start=1):
-                line = line.strip()
-                if not line:
-                    continue
-                sample = json.loads(line)
-                required_keys = {"history_images", "ego_state", "candidate_traj", "label"}
-                missing = required_keys - set(sample)
-                if missing:
-                    raise ValueError(
-                        f"Missing keys {sorted(missing)} in {self.index_path}:{line_idx}"
-                    )
-                samples.append(sample)
-        if not samples:
-            raise ValueError(f"No samples found in {self.index_path}")
-        return samples
-
-    def __len__(self) -> int:
-        return len(self.samples)
-
-    def _resolve_image_path(self, image_path: str) -> Path:
-        path = Path(image_path)
-        return path if path.is_absolute() else self.image_root / path
-
-    def _load_image(self, image_path: str) -> torch.Tensor:
-        path = self._resolve_image_path(image_path)
-        with Image.open(path) as img:
-            image = img.convert("RGB").resize((self.image_size, self.image_size))
-        arr = np.asarray(image, dtype=np.float32) / 255.0
-        tensor = torch.from_numpy(arr).permute(2, 0, 1)
-        tensor = (tensor - self.image_mean[:, None, None]) / self.image_std[:, None, None]
-        return tensor
-
-    def _prepare_history_images(self, image_paths: List[str]) -> torch.Tensor:
-        selected = list(image_paths[-self.history_num_frames :])
-        if len(selected) < self.history_num_frames:
-            selected = [selected[0]] * (self.history_num_frames - len(selected)) + selected
-        frames = [self._load_image(path) for path in selected]
-        return torch.stack(frames, dim=0)
-
-    def _prepare_vector(self, values: List[Any], length: int) -> torch.Tensor:
-        tensor = torch.tensor(values, dtype=torch.float32)
-        if tensor.numel() < length:
-            tensor = F.pad(tensor, (0, length - tensor.numel()))
-        elif tensor.numel() > length:
-            tensor = tensor[:length]
-        return tensor
-
-    def _prepare_traj(self, traj: List[List[Any]]) -> torch.Tensor:
-        tensor = torch.tensor(traj, dtype=torch.float32)
-        if tensor.ndim != 2:
-            raise ValueError(f"candidate_traj must be 2D, got shape={tuple(tensor.shape)}")
-        steps, dims = tensor.shape
-        if dims < self.traj_dim:
-            tensor = F.pad(tensor, (0, self.traj_dim - dims))
-        elif dims > self.traj_dim:
-            tensor = tensor[:, : self.traj_dim]
-        if steps < self.candidate_traj_steps:
-            tensor = F.pad(tensor, (0, 0, 0, self.candidate_traj_steps - steps))
-        elif steps > self.candidate_traj_steps:
-            tensor = tensor[: self.candidate_traj_steps]
-        return tensor
-
-    def __getitem__(self, index: int) -> Dict[str, torch.Tensor]:
-        sample = self.samples[index]
-        images = self._prepare_history_images(sample["history_images"])
-        ego_state = self._prepare_vector(sample["ego_state"], self.ego_state_dim)
-        candidate_traj = self._prepare_traj(sample["candidate_traj"])
-
-        if self.normalize_ego_state:
-            ego_state = torch.tanh(ego_state)
-        if self.normalize_candidate_traj:
-            candidate_traj = torch.tanh(candidate_traj)
-
-        label = torch.tensor(float(sample["label"]), dtype=torch.float32)
-        return {
-            "images": images,
-            "ego_state": ego_state,
-            "candidate_traj": candidate_traj,
-            "label": label,
-        }
-
-
-class SimpleImageEncoder(nn.Module):
-    def __init__(self, out_dim: int) -> None:
-        super().__init__()
-        self.backbone = nn.Sequential(
-            nn.Conv2d(3, 32, kernel_size=5, stride=2, padding=2),
-            nn.BatchNorm2d(32),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(32, 64, kernel_size=3, stride=2, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(64, 128, kernel_size=3, stride=2, padding=1),
-            nn.BatchNorm2d(128),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(128, 256, kernel_size=3, stride=2, padding=1),
-            nn.BatchNorm2d(256),
-            nn.ReLU(inplace=True),
-            nn.AdaptiveAvgPool2d(1),
-        )
-        self.proj = nn.Linear(256, out_dim)
-
-    def forward(self, images: torch.Tensor) -> torch.Tensor:
-        batch_size, history, channels, height, width = images.shape
-        x = images.reshape(batch_size * history, channels, height, width)
-        x = self.backbone(x).flatten(1)
-        x = self.proj(x)
-        x = x.reshape(batch_size, history, -1).mean(dim=1)
-        return x
-
-
 class TrajectoryEncoder(nn.Module):
     def __init__(self, input_dim: int, hidden_dim: int, out_dim: int) -> None:
         super().__init__()
@@ -264,46 +140,6 @@ class TrajectoryEncoder(nn.Module):
 
     def forward(self, traj: torch.Tensor) -> torch.Tensor:
         return self.net(traj.flatten(1))
-
-
-class CriticModel(nn.Module):
-    def __init__(self, cfg: Dict[str, Any]) -> None:
-        super().__init__()
-        model_cfg = cfg["model"]
-        image_dim = int(model_cfg["image_feature_dim"])
-        action_dim = int(model_cfg["action_feature_dim"])
-        hidden_dim = int(model_cfg["hidden_dim"])
-        dropout = float(model_cfg.get("dropout", 0.0))
-        ego_state_dim = int(cfg["ego_state_dim"])
-        candidate_traj_steps = int(cfg["candidate_traj_steps"])
-        traj_dim = int(cfg["traj_dim"])
-
-        self.image_encoder = SimpleImageEncoder(image_dim)
-        self.traj_encoder = TrajectoryEncoder(candidate_traj_steps * traj_dim, hidden_dim, action_dim)
-        self.ego_encoder = nn.Sequential(
-            nn.Linear(ego_state_dim, hidden_dim // 2),
-            nn.ReLU(inplace=True),
-            nn.Linear(hidden_dim // 2, action_dim),
-            nn.ReLU(inplace=True),
-        )
-        fusion_dim = image_dim + action_dim + action_dim
-        self.head = nn.Sequential(
-            nn.Linear(fusion_dim, hidden_dim),
-            nn.ReLU(inplace=True),
-            nn.Dropout(dropout),
-            nn.Linear(hidden_dim, hidden_dim // 2),
-            nn.ReLU(inplace=True),
-            nn.Dropout(dropout),
-            nn.Linear(hidden_dim // 2, 1),
-        )
-
-    def forward(self, images: torch.Tensor, ego_state: torch.Tensor, candidate_traj: torch.Tensor) -> torch.Tensor:
-        image_feat = self.image_encoder(images)
-        traj_feat = self.traj_encoder(candidate_traj)
-        ego_feat = self.ego_encoder(ego_state)
-        fused = torch.cat([image_feat, traj_feat, ego_feat], dim=-1)
-        return self.head(fused).squeeze(-1)
-
 
 
 # ────────────────── Consistency Critic ──────────────────
@@ -327,6 +163,9 @@ class ConsistencyDataset(Dataset):
         self.history_num_frames = int(cfg["history_num_frames"])
         self.future_num_frames = int(cfg["future_num_frames"])
         self.candidate_traj_steps = int(cfg["candidate_traj_steps"])
+        self.consistency_traj_steps = int(
+            cfg.get("consistency_traj_steps", min(self.future_num_frames, self.candidate_traj_steps)),
+        )
         self.ego_state_dim = int(cfg["ego_state_dim"])
         self.traj_dim = int(cfg["traj_dim"])
         ds_cfg = cfg.get("dataset", {})
@@ -409,6 +248,16 @@ class ConsistencyDataset(Dataset):
             )
         return torch.stack([self._load_image(p) for p in selected], dim=0)
 
+    def selected_image_paths(
+        self, sample: Dict[str, Any], key: str, num_frames: int,
+    ) -> List[Path]:
+        paths = list(sample[key][-num_frames:])
+        if not paths:
+            raise ValueError(f"样本缺少图像路径字段: {key}")
+        if len(paths) < num_frames:
+            paths = [paths[0]] * (num_frames - len(paths)) + paths
+        return [self._resolve_path(path) for path in paths]
+
     def _prepare_vector(
         self, values: List[Any], length: int,
     ) -> torch.Tensor:
@@ -474,27 +323,18 @@ class ConsistencyDataset(Dataset):
 
 
 class ConsistencyCriticModel(nn.Module):
-    """多维度 Action-Image Consistency Critic
+    """P0-audited Action-Image Consistency Critic
 
-    三层评估框架:
-        Layer 1: 生成质量评估 (history + future image coherence)
-        Layer 2: Action一致性评估 (speed, steering, progress, temporal)
-        Layer 3: 驾驶合理性评估 (validity)
-    
     结构:
         HistoryImageEncoder -> z_hist (256)
         FutureImageEncoder  -> z_future (256)
-        TrajectoryEncoder   -> z_traj (128)
+        ConsistencyTrajectoryEncoder -> z_traj_consistency (128)
+        ValidityTrajectoryEncoder    -> z_traj_validity (128)
         EgoEncoder          -> z_ego (128)
-        Concat -> z_all (768) -> SharedFusion (256)
-        
-        Heads:
-        -> ConsistencyHead -> 1 (overall consistency)
-        -> SpeedConsistencyHead -> 1 (speed consistency)
-        -> SteeringConsistencyHead -> 1 (steering consistency)
-        -> ProgressConsistencyHead -> 1 (progress consistency)
-        -> TemporalCoherenceHead -> 1 (temporal coherence)
-        -> ValidityHead -> 1 (driving validity)
+
+    P0 约束:
+        Consistency 只看与 future images 对齐的前 consistency_traj_steps 步轨迹。
+        Validity 只看 ego + 完整轨迹，不接图像特征，避免场景 shortcut。
     """
 
     def __init__(self, cfg: Dict[str, Any]) -> None:
@@ -507,7 +347,12 @@ class ConsistencyCriticModel(nn.Module):
         dropout = float(mcfg.get("dropout", 0.0))
         ego_dim = int(cfg["ego_state_dim"])
         traj_steps = int(cfg["candidate_traj_steps"])
+        consistency_traj_steps = int(
+            cfg.get("consistency_traj_steps", min(int(cfg.get("future_num_frames", traj_steps)), traj_steps)),
+        )
         traj_d = int(cfg["traj_dim"])
+        self.baseline_mode = str(cfg.get("baseline_mode", "full"))
+        self.consistency_traj_steps = consistency_traj_steps
 
         # 共享 CNN backbone
         self.shared_backbone = nn.Sequential(
@@ -528,7 +373,10 @@ class ConsistencyCriticModel(nn.Module):
         self.history_proj = nn.Linear(256, img_dim)
         self.future_proj = nn.Linear(256, img_dim)
 
-        self.traj_encoder = TrajectoryEncoder(
+        self.consistency_traj_encoder = TrajectoryEncoder(
+            consistency_traj_steps * traj_d, hidden, act_dim,
+        )
+        self.validity_traj_encoder = TrajectoryEncoder(
             traj_steps * traj_d, hidden, act_dim,
         )
         self.ego_encoder = nn.Sequential(
@@ -538,17 +386,27 @@ class ConsistencyCriticModel(nn.Module):
             nn.ReLU(inplace=True),
         )
 
-        total_dim = img_dim * 2 + act_dim * 2
+        consistency_dim = img_dim * 2 + act_dim * 2
         self.shared_fusion = nn.Sequential(
-            nn.Linear(total_dim, fusion_dim),
+            nn.Linear(consistency_dim, fusion_dim),
             nn.ReLU(inplace=True),
             nn.Dropout(dropout),
             nn.Linear(fusion_dim, fusion_dim),
             nn.ReLU(inplace=True),
             nn.Dropout(dropout),
         )
-        
-        # 多维度评估头
+
+        validity_dim = act_dim * 2
+        self.validity_fusion = nn.Sequential(
+            nn.Linear(validity_dim, fusion_dim),
+            nn.ReLU(inplace=True),
+            nn.Dropout(dropout),
+            nn.Linear(fusion_dim, fusion_dim),
+            nn.ReLU(inplace=True),
+            nn.Dropout(dropout),
+        )
+
+        # Consistency 是主监督。细粒度 heads 仅保留为审计输出，默认 loss 权重为 0。
         self.consistency_head = nn.Linear(fusion_dim, 1)  # overall consistency
         self.speed_consistency_head = nn.Linear(fusion_dim, 1)  # speed consistency
         self.steering_consistency_head = nn.Linear(fusion_dim, 1)  # steering consistency
@@ -576,11 +434,24 @@ class ConsistencyCriticModel(nn.Module):
     ) -> Dict[str, torch.Tensor]:
         z_hist = self._encode_images(history_images, self.history_proj)
         z_fut = self._encode_images(future_images, self.future_proj)
-        z_traj = self.traj_encoder(candidate_traj)
+        consistency_traj = candidate_traj[:, : self.consistency_traj_steps, :]
+        z_traj_consistency = self.consistency_traj_encoder(consistency_traj)
+        z_traj_validity = self.validity_traj_encoder(candidate_traj)
         z_ego = self.ego_encoder(ego_state)
 
-        z_all = torch.cat([z_hist, z_fut, z_traj, z_ego], dim=-1)
+        mode = self.baseline_mode
+        if mode in {"no_image", "ego_only", "traj_only"}:
+            z_hist = torch.zeros_like(z_hist)
+            z_fut = torch.zeros_like(z_fut)
+        if mode in {"no_traj", "ego_only"}:
+            z_traj_consistency = torch.zeros_like(z_traj_consistency)
+            z_traj_validity = torch.zeros_like(z_traj_validity)
+        if mode == "traj_only":
+            z_ego = torch.zeros_like(z_ego)
+
+        z_all = torch.cat([z_hist, z_fut, z_traj_consistency, z_ego], dim=-1)
         z_shared = self.shared_fusion(z_all)
+        z_validity = self.validity_fusion(torch.cat([z_traj_validity, z_ego], dim=-1))
 
         return {
             # Layer 2: Action一致性评估（多维度）
@@ -590,7 +461,7 @@ class ConsistencyCriticModel(nn.Module):
             "progress_consistency_logit": self.progress_consistency_head(z_shared).squeeze(-1),
             "temporal_coherence_logit": self.temporal_coherence_head(z_shared).squeeze(-1),
             # Layer 3: 驾驶合理性评估
-            "validity_logit": self.validity_head(z_shared).squeeze(-1),
+            "validity_logit": self.validity_head(z_validity).squeeze(-1),
         }
 
 
@@ -719,18 +590,21 @@ def run_consistency_epoch(
         
         total_samples += bs
 
-        if is_main_process() and training and step % log_interval == 0:
+        if is_main_process() and step % log_interval == 0:
+            phase = "Train" if training else "Val"
             print(
-                f"[Train] epoch={epoch} step={step}/{len(loader)} "
+                f"[{phase}] epoch={epoch} step={step}/{len(loader)} "
                 f"loss={loss.detach().item():.4f} "
                 f"c_loss={loss_c.detach().item():.4f} "
-                f"v_loss={loss_v.detach().item():.4f}"
+                f"v_loss={loss_v.detach().item():.4f}",
+                flush=True,
             )
         if max_steps and step >= max_steps:
             break
         if sigterm_received():
             if is_main_process():
-                print(f"[WARNING] SIGTERM 中断训练，已完成 step={step}/{len(loader)}")
+                phase = "训练" if training else "验证"
+                print(f"[WARNING] SIGTERM 中断{phase}，已完成 step={step}/{len(loader)}")
             break
 
     metrics = torch.tensor(
@@ -764,11 +638,7 @@ def run_consistency_epoch(
 
 
 def build_dataloader(cfg: Dict[str, Any], index_path: str, training: bool) -> DataLoader:
-    model_type = cfg.get("model_type", "critic")
-    if model_type == "consistency":
-        dataset = ConsistencyDataset(index_path=index_path, cfg=cfg, training=training)
-    else:
-        dataset = CriticJsonlDataset(index_path=index_path, cfg=cfg, training=training)
+    dataset = ConsistencyDataset(index_path=index_path, cfg=cfg, training=training)
     sampler = None
     if dist.is_available() and dist.is_initialized():
         sampler = DistributedSampler(dataset, shuffle=training, drop_last=training)
@@ -783,68 +653,59 @@ def build_dataloader(cfg: Dict[str, Any], index_path: str, training: bool) -> Da
     )
 
 
-def run_one_epoch(
-    model: nn.Module,
-    loader: DataLoader,
-    optimizer: torch.optim.Optimizer,
-    device: torch.device,
-    epoch: int,
+def _preflight_indices(num_items: int, max_samples: int, seed: int) -> List[int]:
+    if max_samples <= 0 or num_items <= max_samples:
+        return list(range(num_items))
+    rng = random.Random(seed)
+    picked = {0, num_items - 1}
+    picked.update(rng.sample(range(num_items), max_samples - len(picked)))
+    return sorted(picked)
+
+
+def validate_index_image_paths(
     cfg: Dict[str, Any],
-    training: bool,
-    max_steps: int = 0,
-) -> Dict[str, float]:
-    model.train(training)
-    criterion = nn.BCEWithLogitsLoss(pos_weight=torch.tensor(cfg["positive_weight"], device=device))
-    total_loss = 0.0
-    total_correct = 0.0
-    total_samples = 0
-    log_interval = int(cfg["log_interval"])
+    index_paths: Sequence[str],
+    max_samples: int,
+) -> None:
+    if max_samples <= 0:
+        return
 
-    if training and isinstance(loader.sampler, DistributedSampler):
-        loader.sampler.set_epoch(epoch)
-
-    for step, batch in enumerate(loader, start=1):
-        images = batch["images"].to(device, non_blocking=True)
-        ego_state = batch["ego_state"].to(device, non_blocking=True)
-        candidate_traj = batch["candidate_traj"].to(device, non_blocking=True)
-        labels = batch["label"].to(device, non_blocking=True)
-
-        with torch.set_grad_enabled(training):
-            logits = model(images, ego_state, candidate_traj)
-            loss = criterion(logits, labels)
-            if training:
-                optimizer.zero_grad(set_to_none=True)
-                loss.backward()
-                optimizer.step()
-
-        preds = (torch.sigmoid(logits) >= 0.5).float()
-        total_loss += loss.detach().item() * labels.size(0)
-        total_correct += (preds == labels).float().sum().item()
-        total_samples += labels.size(0)
-
-        if is_main_process() and training and step % log_interval == 0:
-            print(
-                f"[Train] epoch={epoch} step={step}/{len(loader)} "
-                f"loss={loss.detach().item():.4f}"
+    for index_path in index_paths:
+        dataset = ConsistencyDataset(index_path=index_path, cfg=cfg, training=False)
+        indices = _preflight_indices(len(dataset), max_samples, int(cfg.get("seed", 42)))
+        missing: List[str] = []
+        checked = 0
+        for idx in indices:
+            sample = dataset.samples[idx]
+            image_paths = (
+                dataset.selected_image_paths(
+                    sample, "history_images", dataset.history_num_frames,
+                )
+                + dataset.selected_image_paths(
+                    sample, "future_images", dataset.future_num_frames,
+                )
             )
-        if max_steps and step >= max_steps:
-            break
-        if sigterm_received():
-            if is_main_process():
-                print(f"[WARNING] SIGTERM 中断训练，已完成 step={step}/{len(loader)}")
-            break
-
-    metrics = torch.tensor(
-        [total_loss, total_correct, float(total_samples)],
-        dtype=torch.float64,
-        device=device,
-    )
-    metrics = reduce_mean(metrics)
-    denom = max(float(metrics[2].item()), 1.0)
-    return {
-        "loss": float(metrics[0].item() / denom),
-        "acc": float(metrics[1].item() / denom),
-    }
+            for path in image_paths:
+                checked += 1
+                if not path.exists():
+                    missing.append(str(path))
+                    if len(missing) >= 10:
+                        break
+            if len(missing) >= 10:
+                break
+        if missing:
+            preview = "\n  ".join(missing)
+            raise FileNotFoundError(
+                f"索引图片预检失败: {index_path}\n"
+                f"image_root={cfg['image_root']}\n"
+                f"检查样本数={len(indices)}, 图片数={checked}\n"
+                f"缺失示例:\n  {preview}"
+            )
+        print(
+            f"[Preflight] {index_path}: "
+            f"checked_samples={len(indices)} checked_images={checked}",
+            flush=True,
+        )
 
 
 def save_checkpoint(
@@ -855,6 +716,8 @@ def save_checkpoint(
     cfg: Dict[str, Any],
     best_val_loss: float,
     is_best: bool,
+    tag: str = "latest",
+    interrupted: bool = False,
 ) -> None:
     state = {
         "epoch": epoch,
@@ -862,12 +725,13 @@ def save_checkpoint(
         "optimizer": optimizer.state_dict(),
         "config": cfg,
         "best_val_loss": best_val_loss,
+        "interrupted": interrupted,
+        "checkpoint_tag": tag,
     }
     checkpoint_dir = work_dir / "checkpoints"
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
-    latest_path = checkpoint_dir / "latest.pth"
-    torch.save(state, latest_path)
-    if is_best:
+    torch.save(state, checkpoint_dir / f"{tag}.pth")
+    if tag == "latest" and is_best and not interrupted:
         torch.save(state, checkpoint_dir / "best.pth")
 
 
@@ -882,6 +746,10 @@ def main() -> None:
         cfg["batch_size"] = args.batch_size
     if args.num_workers is not None:
         cfg["num_workers"] = args.num_workers
+    if args.baseline_mode is not None:
+        cfg["baseline_mode"] = args.baseline_mode
+    if cfg.get("model_type") != "consistency":
+        raise ValueError("新版训练入口只支持 model_type='consistency' 的 IAC 配置。")
 
     # 注册 SIGTERM 信号处理器，收到终止信号时优雅退出
     signal.signal(signal.SIGTERM, _sigterm_handler)
@@ -899,14 +767,19 @@ def main() -> None:
         with (work_dir / "config_snapshot.json").open("w", encoding="utf-8") as f:
             json.dump(cfg, f, ensure_ascii=False, indent=2)
 
+    if is_main_process() and int(args.preflight_samples) > 0:
+        validate_index_image_paths(
+            cfg,
+            [cfg["train_index"], cfg["val_index"]],
+            int(args.preflight_samples),
+        )
+    if dist.is_available() and dist.is_initialized():
+        dist.barrier()
+
     train_loader = build_dataloader(cfg, cfg["train_index"], training=True)
     val_loader = build_dataloader(cfg, cfg["val_index"], training=False)
 
-    model_type = cfg.get("model_type", "critic")
-    if model_type == "consistency":
-        model = ConsistencyCriticModel(cfg).to(device)
-    else:
-        model = CriticModel(cfg).to(device)
+    model = ConsistencyCriticModel(cfg).to(device)
     if dist.is_available() and dist.is_initialized():
         model = DDP(
             model,
@@ -928,10 +801,7 @@ def main() -> None:
 
     if is_main_process():
         print("=" * 60)
-        title = ("NuPlan Consistency Critic Training"
-                 if model_type == "consistency"
-                 else "NuPlan Critic Training")
-        print(title)
+        print("NuPlan IAC Consistency Critic Training")
         print(f"Config: {cfg['_config_path']}")
         print(f"Work dir: {work_dir}")
         print(f"Device: {device}")
@@ -943,10 +813,7 @@ def main() -> None:
 
     try:
         for epoch in range(1, total_epochs + 1):
-            epoch_fn = (run_consistency_epoch
-                        if model_type == "consistency"
-                        else run_one_epoch)
-            train_metrics = epoch_fn(
+            train_metrics = run_consistency_epoch(
                 model=model,
                 loader=train_loader,
                 optimizer=optimizer,
@@ -956,7 +823,7 @@ def main() -> None:
                 training=True,
                 max_steps=args.max_train_steps or 0,
             )
-            val_metrics = epoch_fn(
+            val_metrics = run_consistency_epoch(
                 model=model,
                 loader=val_loader,
                 optimizer=optimizer,
@@ -972,28 +839,19 @@ def main() -> None:
                 best_val_loss = val_metrics["loss"]
 
             if is_main_process():
-                if model_type == "consistency":
-                    print(
-                        f"[Epoch {epoch}/{total_epochs}] "
-                        f"loss={train_metrics['loss']:.4f} "
-                        f"c_acc={train_metrics['c_acc']:.4f} "
-                        f"v_acc={train_metrics['v_acc']:.4f} "
-                        f"speed_acc={train_metrics['speed_acc']:.4f} "
-                        f"steering_acc={train_metrics['steering_acc']:.4f} "
-                        f"progress_acc={train_metrics['progress_acc']:.4f} "
-                        f"temporal_acc={train_metrics['temporal_acc']:.4f} "
-                        f"val_loss={val_metrics['loss']:.4f} "
-                        f"val_c_acc={val_metrics['c_acc']:.4f} "
-                        f"val_v_acc={val_metrics['v_acc']:.4f}"
-                    )
-                else:
-                    print(
-                        f"[Epoch {epoch}/{total_epochs}] "
-                        f"train_loss={train_metrics['loss']:.4f} "
-                        f"train_acc={train_metrics['acc']:.4f} "
-                        f"val_loss={val_metrics['loss']:.4f} "
-                        f"val_acc={val_metrics['acc']:.4f}"
-                    )
+                print(
+                    f"[Epoch {epoch}/{total_epochs}] "
+                    f"loss={train_metrics['loss']:.4f} "
+                    f"c_acc={train_metrics['c_acc']:.4f} "
+                    f"v_acc={train_metrics['v_acc']:.4f} "
+                    f"speed_acc={train_metrics['speed_acc']:.4f} "
+                    f"steering_acc={train_metrics['steering_acc']:.4f} "
+                    f"progress_acc={train_metrics['progress_acc']:.4f} "
+                    f"temporal_acc={train_metrics['temporal_acc']:.4f} "
+                    f"val_loss={val_metrics['loss']:.4f} "
+                    f"val_c_acc={val_metrics['c_acc']:.4f} "
+                    f"val_v_acc={val_metrics['v_acc']:.4f}"
+                )
                 if epoch % int(cfg["save_interval"]) == 0:
                     save_checkpoint(
                         work_dir=work_dir,
@@ -1008,7 +866,7 @@ def main() -> None:
             # 收到 SIGTERM 时保存当前进度并退出
             if sigterm_received():
                 if is_main_process():
-                    print(f"[WARNING] 收到终止信号，保存 epoch={epoch} 的 checkpoint...")
+                    print(f"[WARNING] 收到终止信号，保存 epoch={epoch} 的 interrupted checkpoint...")
                     save_checkpoint(
                         work_dir=work_dir,
                         epoch=epoch,
@@ -1017,8 +875,10 @@ def main() -> None:
                         cfg=cfg,
                         best_val_loss=best_val_loss,
                         is_best=False,
+                        tag=f"interrupted_epoch_{epoch}",
+                        interrupted=True,
                     )
-                    print("[WARNING] checkpoint 已保存，训练提前退出")
+                    print("[WARNING] interrupted checkpoint 已保存，训练提前退出")
                 break
     except Exception as e:
         # 打印详细错误信息，包含 GPU 显存状态，便于定位 OOM 等问题
@@ -1033,10 +893,10 @@ def main() -> None:
                 f"allocated={mem_alloc:.2f}GB, reserved={mem_reserved:.2f}GB",
                 flush=True,
             )
-        # 异常退出前尝试保存 checkpoint
+        # 异常退出前只保存带 error 标记的 checkpoint，避免误用为正常结果。
         if is_main_process():
             try:
-                print("[ERROR] 尝试保存紧急 checkpoint...", flush=True)
+                print("[ERROR] 尝试保存 error checkpoint...", flush=True)
                 save_checkpoint(
                     work_dir=work_dir,
                     epoch=epoch,
@@ -1045,10 +905,12 @@ def main() -> None:
                     cfg=cfg,
                     best_val_loss=best_val_loss,
                     is_best=False,
+                    tag=f"error_epoch_{epoch}",
+                    interrupted=True,
                 )
-                print(f"[ERROR] 紧急 checkpoint 已保存至 {work_dir}/checkpoints/", flush=True)
+                print(f"[ERROR] error checkpoint 已保存至 {work_dir}/checkpoints/", flush=True)
             except Exception:
-                print("[ERROR] 紧急 checkpoint 保存失败", flush=True)
+                print("[ERROR] error checkpoint 保存失败", flush=True)
         cleanup_distributed()
         sys.exit(1)
 
