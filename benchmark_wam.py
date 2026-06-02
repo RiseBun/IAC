@@ -36,6 +36,14 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from eval_critic import _compute_head_metrics
 from train import ConsistencyCriticModel, load_config
+from iac_video_metrics import compute_all_visual_metrics, load_frames_from_paths
+from iac_traj_metrics import (
+    compute_trajectory_accuracy,
+    estimate_trajectory_from_video,
+    ego_state_to_traj,
+    candidate_traj_to_traj,
+)
+from iac_memory_metrics import compute_memory_symmetry, compute_loop_closure_drift
 
 
 def parse_args() -> argparse.Namespace:
@@ -51,6 +59,27 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", default=None)
     parser.add_argument("--group-key", default="group_id", help="Group key for candidate ranking")
     parser.add_argument("--wam-key", default="wam_name", help="Field identifying the WAM/model")
+    parser.add_argument(
+        "--visual-metrics",
+        action="store_true",
+        help="Also compute iWorld-Bench style no-reference visual metrics (brightness/color/sharpness/iq).",
+    )
+    parser.add_argument(
+        "--visual-size",
+        type=int,
+        default=224,
+        help="Resize for visual metrics (kept small for speed).",
+    )
+    parser.add_argument(
+        "--geometric-metrics",
+        action="store_true",
+        help="Also compute iWorld-Bench style geometry metrics (recover trajectory from future frames, compare to GT).",
+    )
+    parser.add_argument(
+        "--memory-metrics",
+        action="store_true",
+        help="Also compute iWorld-Bench style memory symmetry / loop-closure drift.",
+    )
     return parser.parse_args()
 
 
@@ -252,7 +281,14 @@ def _ranking_summary(scored: List[Dict[str, Any]], group_key: str) -> Dict[str, 
     }
 
 
-def _summary(scored: List[Dict[str, Any]], wam_key: str, group_key: str) -> Dict[str, Any]:
+def _summary(
+    scored: List[Dict[str, Any]],
+    wam_key: str,
+    group_key: str,
+    visual_metrics: List[Dict[str, Any]] | None = None,
+    geometric_metrics: List[Dict[str, Any]] | None = None,
+    memory_metrics: List[Dict[str, Any]] | None = None,
+) -> Dict[str, Any]:
     c_labels = [row.get("consistency_label") for row in scored]
     v_labels = [row.get("validity_label") for row in scored]
     c_scores = torch.tensor([row["iac_consistency"] for row in scored], dtype=torch.float32)
@@ -269,6 +305,27 @@ def _summary(scored: List[Dict[str, Any]], wam_key: str, group_key: str) -> Dict
         "ranking": _ranking_summary(scored, group_key),
         "graded_perturbation_curve": {},
     }
+
+    if visual_metrics:
+        # Aggregate per-key mean across all rows that have a value.
+        keys = set().union(*(m.keys() for m in visual_metrics if m))
+        agg = {k: float(np.mean([m[k] for m in visual_metrics if k in m and m[k] is not None]))
+               for k in keys}
+        summary["visual_metrics"] = agg
+    if geometric_metrics:
+        keys = set().union(*(m.keys() for m in geometric_metrics if m))
+        agg = {k: float(np.mean([m[k] for m in geometric_metrics if k in m]))
+               for k in keys}
+        summary["geometric_metrics"] = agg
+    if memory_metrics:
+        keys = set().union(*(m.keys() for m in memory_metrics if m))
+        agg = {k: float(np.mean([m[k] for m in memory_metrics if k in m and isinstance(m[k], (int, float))]))
+               for k in keys if k != "loop_closure"}
+        summary["memory_metrics"] = agg
+        # Loop-closure is a list of dicts, not a scalar
+        summary["memory_metrics_loop_closure"] = [
+            m for m in memory_metrics if "loop_closure" in m
+        ]
 
     if all(label is not None for label in c_labels):
         labels = torch.tensor([float(label) for label in c_labels], dtype=torch.float32)
@@ -321,7 +378,11 @@ def main() -> None:
     loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers, pin_memory=True)
 
     scored: List[Dict[str, Any]] = []
+    visual_metrics_rows: List[Dict[str, Any]] = []
+    geometric_metrics_rows: List[Dict[str, Any]] = []
+    memory_metrics_rows: List[Dict[str, Any]] = []
     offset = 0
+    image_root_path = Path(args.image_root) if args.image_root else Path(cfg["image_root"])
     with torch.no_grad():
         for batch in loader:
             out = model(
@@ -343,6 +404,62 @@ def main() -> None:
                 if v_label is not None:
                     row["validity_label"] = v_label
                 scored.append(row)
+
+                # Optional: iWorld-Bench style cross-validation metrics
+                if args.visual_metrics:
+                    try:
+                        fut_paths = row.get("future_images") or row.get("generated_future_images") or row.get("generated_images")
+                        if isinstance(fut_paths, list) and fut_paths and all(isinstance(x, str) for x in fut_paths):
+                            abs_paths = [
+                                str(p if Path(x).is_absolute() else image_root_path / x)
+                                for x in fut_paths
+                            ]
+                            frames = load_frames_from_paths(abs_paths, size=args.visual_size)
+                            visual_metrics_rows.append(compute_all_visual_metrics(frames))
+                        else:
+                            visual_metrics_rows.append({})
+                    except Exception as exc:  # noqa: BLE001
+                        visual_metrics_rows.append({"error": str(exc)})
+
+                if args.geometric_metrics:
+                    try:
+                        fut_paths = row.get("future_images") or row.get("generated_future_images") or row.get("generated_images")
+                        if isinstance(fut_paths, list) and fut_paths and all(isinstance(x, str) for x in fut_paths):
+                            abs_paths = [
+                                str(p if Path(x).is_absolute() else image_root_path / x)
+                                for x in fut_paths
+                            ]
+                            est = estimate_trajectory_from_video(abs_paths, size=args.visual_size)
+                            gt = candidate_traj_to_traj(row["candidate_traj"])
+                            geometric_metrics_rows.append({
+                                "trajectory_accuracy": compute_trajectory_accuracy(est, gt),
+                            })
+                        else:
+                            geometric_metrics_rows.append({})
+                    except Exception as exc:  # noqa: BLE001
+                        geometric_metrics_rows.append({"error": str(exc)})
+
+                if args.memory_metrics:
+                    row_mm: Dict[str, Any] = {}
+                    try:
+                        fut_paths = row.get("future_images") or row.get("generated_future_images") or row.get("generated_images")
+                        if isinstance(fut_paths, list) and fut_paths and all(isinstance(x, str) for x in fut_paths):
+                            abs_paths = [
+                                str(p if Path(x).is_absolute() else image_root_path / x)
+                                for x in fut_paths
+                            ]
+                            frames = load_frames_from_paths(abs_paths, size=args.visual_size)
+                            row_mm["memory_symmetry"] = compute_memory_symmetry(frames)
+                    except Exception as exc:  # noqa: BLE001
+                        row_mm["memory_symmetry_error"] = str(exc)
+                    # Loop-closure drift uses GT traj + reverse traj if supplied
+                    rev = row.get("reverse_candidate_traj")
+                    if rev is not None:
+                        fwd = candidate_traj_to_traj(row["candidate_traj"])
+                        rev_t = candidate_traj_to_traj(rev)
+                        row_mm["loop_closure"] = compute_loop_closure_drift(fwd, rev_t)
+                    memory_metrics_rows.append(row_mm)
+
             offset += len(c_scores)
 
     out_dir = Path(args.output_dir)
@@ -352,7 +469,12 @@ def main() -> None:
         for row in scored:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
-    summary = _summary(scored, args.wam_key, args.group_key)
+    summary = _summary(
+        scored, args.wam_key, args.group_key,
+        visual_metrics=visual_metrics_rows or None,
+        geometric_metrics=geometric_metrics_rows or None,
+        memory_metrics=memory_metrics_rows or None,
+    )
     summary["input"] = str(args.input)
     summary["checkpoint"] = str(args.checkpoint)
     summary_path = out_dir / "wam_iac_summary.json"

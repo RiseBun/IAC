@@ -27,6 +27,14 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from data_paths import DB_ROOT, INDEX_ROOT, camera_roots
 
+# Optional integration with iWorld-Bench-style modules
+try:
+    from iac_memory_metrics import build_reverse_traj_negatives
+    from iac_quality_filter import filter_anchors, FilterStats
+    _HAS_IAC_MODULES = True
+except ImportError:
+    _HAS_IAC_MODULES = False
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -84,6 +92,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--time-shift-future-steps", type=int, default=2,
         help="同一 scene 内 future_images 错位的 anchor 步数，用于 hard negative",
+    )
+    # iWorld-Bench style options
+    parser.add_argument(
+        "--add-reverse-traj",
+        action="store_true",
+        help="Add reverse_traj negatives (iWorld-Bench memory task style)",
+    )
+    parser.add_argument(
+        "--quality-filter",
+        action="store_true",
+        help="Apply iWorld-Bench style brightness / stationary filter to anchors before serialisation",
     )
     return parser.parse_args()
 
@@ -649,6 +668,7 @@ def serialize_split(
     heading_range: Tuple[float, float],
     speed_range: Tuple[float, float],
     time_shift_future_steps: int,
+    add_reverse_traj: bool = False,
 ) -> List[Dict]:
     """将 anchor 列表转为正样本 + 四类负样本 (正:负 ~= 1:4)"""
     rng = random.Random(seed)
@@ -683,6 +703,13 @@ def serialize_split(
     )
 
     all_rows = positives + neg_traj + neg_img + neg_time + neg_perturb
+
+    # Optional: iWorld-Bench memory task → reverse_traj negatives
+    if add_reverse_traj and _HAS_IAC_MODULES:
+        rev_rows = build_reverse_traj_negatives(positives)
+        all_rows.extend(rev_rows)
+        print(f"  + reverse_traj negatives: {len(rev_rows)}")
+
     rng.shuffle(all_rows)
     return all_rows
 
@@ -802,6 +829,7 @@ def main() -> None:
         heading_range=hdg_range,
         speed_range=spd_range,
         time_shift_future_steps=args.time_shift_future_steps,
+        add_reverse_traj=args.add_reverse_traj,
     )
     val_rows = serialize_split(
         val_anchors,
@@ -811,7 +839,39 @@ def main() -> None:
         heading_range=hdg_range,
         speed_range=spd_range,
         time_shift_future_steps=args.time_shift_future_steps,
+        add_reverse_traj=args.add_reverse_traj,
     )
+
+    # Optional: iWorld-Bench style quality filter
+    if args.quality_filter and _HAS_IAC_MODULES:
+        stats = FilterStats()
+        train_anchors_dicts = [a.__dict__ for a in train_anchors]
+        val_anchors_dicts = [a.__dict__ for a in val_anchors]
+        train_anchors_dicts = filter_anchors(train_anchors_dicts, stats=stats)
+        val_anchors_dicts = filter_anchors(val_anchors_dicts, stats=stats)
+        print(f"\n[Quality filter] {stats.summary()}")
+        # Re-serialise from filtered anchors so the quality-filtered
+        # positives feed into negative generation.
+        train_rows = serialize_split(
+            [ConsistencyAnchor(**a) for a in train_anchors_dicts],
+            seed=args.seed,
+            min_gap=args.min_negative_index_gap,
+            lateral_range=lat_range,
+            heading_range=hdg_range,
+            speed_range=spd_range,
+            time_shift_future_steps=args.time_shift_future_steps,
+            add_reverse_traj=args.add_reverse_traj,
+        )
+        val_rows = serialize_split(
+            [ConsistencyAnchor(**a) for a in val_anchors_dicts],
+            seed=args.seed + 1,
+            min_gap=max(1, args.min_negative_index_gap // 2),
+            lateral_range=lat_range,
+            heading_range=hdg_range,
+            speed_range=spd_range,
+            time_shift_future_steps=args.time_shift_future_steps,
+            add_reverse_traj=args.add_reverse_traj,
+        )
 
     train_path = output_dir / "consistency_train.jsonl"
     val_path = output_dir / "consistency_val.jsonl"

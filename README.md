@@ -180,3 +180,41 @@ export NUPLAN_CAMERA_ROOTS="/path/to/camera_0:/path/to/camera_1"
 
 当前版本不保留 DrivingWorld 集成。原因是 IAC benchmark 的边界是“评测 WAM 输出”，而不是“在本仓库里运行某个 WAM 生成图像”。如果要评测 DrivingWorld，只需要先用 DrivingWorld 在外部生成未来图像和对应 manifest，再把 manifest 输入 `benchmark_wam.py`。这样 IAC 对 DrivingWorld、Drive-WM 或任何其它 WAM 都是同一个接口、同一套打分逻辑，更适合作为公平 benchmark。
 
+## 借鉴 iWorld-Bench 的扩展
+
+`benchmark_wam.py` 现在可选 3 个 iWorld-Bench 风格的交叉验证维度，对 critic 打分做正交补充：
+
+| 模块 | 借鉴 iWorld-Bench 的 | 用法 | 关注风险 |
+|------|---------------------|------|----------|
+| `iac_video_metrics.py` | 4 个无参考视觉指标（Brightness Consistency / Color Temperature / Sharpness Retention / Image Quality via MUSIQ） | `benchmark_wam.py --visual-metrics` | 防止 critic 学会图像质量 shortcut |
+| `iac_traj_metrics.py` | Trajectory Accuracy（Eq. 13）+ Tolerance（Eq. 14）+ Alignment（Eq. 17），用 OpenCV 必备矩阵 + LK 光流替代 VIPe | `benchmark_wam.py --geometric-metrics` | 几何硬评测，不依赖 critic |
+| `iac_memory_metrics.py` | Memory Symmetry（Eq. 15-16）+ Loop-Closure Drift | `benchmark_wam.py --memory-metrics` | 测 WAM 是否能回到起点 |
+
+索引构建也吸收了 2 个 iWorld-Bench 设计：
+
+| 选项 | 来源 | 行为 |
+|------|------|------|
+| `tools/build_consistency_index.py --add-reverse-traj` | iWorld-Bench memory task | 加入 `reverse_traj` 负样本，用 `iac_memory_metrics.reverse_candidate_traj()` 严格反演 |
+| `tools/build_consistency_index.py --quality-filter` | iWorld-Bench Algorithm 1 | 跑 Z-score 亮度异常 + 静止帧检测 + 时长过滤，丢弃可疑 anchor |
+
+`iac_difficulty_sampler.py` 把样本按 D1–D4 难度分桶（iWorld-Bench §3.2.2 思想），可作为 train.py 训练采样器使用，平衡 D1 单轴扰动和 D2/D3 复合扰动的暴露频率——直接针对 v4 中 `perturb_speed` / `time_shift_future` 召回偏低的问题。
+
+依赖说明：
+- `iac_video_metrics.py` 可选 `musiq`、`scipy`；缺时回退到 BRISQUE-lite proxy，函数永不抛错。
+- `iac_traj_metrics.py` 仅依赖 `opencv-python`（已在 nuPlan 栈中）。
+- `iac_memory_metrics.py` 仅依赖 numpy。
+
+## 借鉴的边界
+
+不引入 iWorld-Bench 的以下部分：
+- **4 个仿真器**（aerial_VLN / UAV_ON / Openfly / EmbodiedCity）—— 视角与自动驾驶不同
+- **NeRF / 3D 重建指标**（DL3DV / RealEstate）—— 4 帧未来不需要
+- **多视角统一编码**（UAV / UGV / Human / Robot）—— IAC 专注前向驾驶
+- **GPT-4o 标注**（$28k / 330k 视频）—— nuPlan 本身有真值
+- **3D Simulator 仿真数据**—— nuPlan 已是真实采集
+
+借鉴的核心只有 3 件事：
+1. **用无参考视觉指标做交叉验证**，不全押在 critic 上
+2. **用对极几何反推轨迹做硬评测**，绕开 critic 偏置
+3. **难度分级 + 数据精炼**，让 critic 学到更鲁棒的特征
+
