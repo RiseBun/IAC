@@ -660,21 +660,21 @@ def build_dataloader(
         )
         # Map raw index source_type → difficulty bucket
         buckets = {1: [], 2: [], 3: [], 4: []}
-        positives = []
         for i, s in enumerate(dataset.samples):
             if s.get("consistency_label", 1) == 1:
-                positives.append(i)
-            else:
-                buckets[max(1, assign_difficulty(s))].append(i)
-        from collections import defaultdict
-        bdict = defaultdict(list, {0: positives, **buckets})
+                continue  # positives handled inside the stratified sampler
+            buckets[max(1, assign_difficulty(s))].append(i)
 
-        n_per_epoch = int(
-            difficulty_cfg.get(
-                "num_samples_per_epoch",
-                max(len(dataset.samples), int(cfg["batch_size"]) * 100),
-            )
-        )
+        # num_samples_per_epoch == 0 means "auto" — fall back to
+        # batch_size × 100 (≈ one epoch over 35k anchors per rank),
+        # bounded by the actual dataset size. Without this fallback
+        # a config like the shipped one (num_samples_per_epoch=0)
+        # would silently produce a zero-length sampler and the
+        # DataLoader would emit zero batches.
+        cfg_n = int(difficulty_cfg.get("num_samples_per_epoch", 0))
+        if cfg_n <= 0:
+            cfg_n = max(len(dataset.samples), int(cfg["batch_size"]) * 100)
+        n_per_epoch = cfg_n
         mix = tuple(difficulty_cfg.get("mix", (0.30, 0.30, 0.25, 0.15)))
         pos_ratio = float(difficulty_cfg.get("positive_ratio", 0.25))
         seed = int(cfg.get("seed", 42))

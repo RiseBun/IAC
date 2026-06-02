@@ -177,14 +177,6 @@ def compose_perturb_negatives(
     from the anchor and the *GT future_images*; the perturbations only
     modify the candidate_traj, so consistency_label=0.)
     """
-    from build_consistency_index import perturb_trajectory  # type: ignore
-
-    out: List[dict] = []
-    axis_map = {
-        "lateral": ("lateral", lateral_range),
-        "heading": ("heading", heading_range),
-        "speed": ("speed", speed_range),
-    }
     # perturb_trajectory lives in tools/build_consistency_index.py.
     # We add the tools/ directory to sys.path so the import works
     # whether the sampler is invoked from the project root or from
