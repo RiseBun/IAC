@@ -83,4 +83,14 @@ cfg = dict(
         num_candidates_per_scene=5,       # 每个scene的候选数
         ranking_metrics=["ndcg@3", "ndcg@5", "mrr", "top1_hit_rate"],
     ),
+    # iWorld-Bench style difficulty-stratified sampling (D1..D4).
+    # 默认关闭，启用时 train.py 的 build_dataloader() 会替换
+    # 默认 sampler，避免 v4 出现的 perturb_speed / time_shift_future
+    # 召回偏低问题。
+    difficulty_sampling=dict(
+        enabled=False,                   # 设 True 启用
+        mix=(0.30, 0.30, 0.25, 0.15),    # D1/D2/D3/D4 比例
+        positive_ratio=0.25,             # 正样本占 batch 的比例
+        num_samples_per_epoch=0,         # 0 = 自动按 batch_size×100 估算
+    ),
 )

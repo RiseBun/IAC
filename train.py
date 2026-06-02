@@ -637,11 +637,91 @@ def run_consistency_epoch(
     }
 
 
-def build_dataloader(cfg: Dict[str, Any], index_path: str, training: bool) -> DataLoader:
+def build_dataloader(
+    cfg: Dict[str, Any],
+    index_path: str,
+    training: bool,
+    epoch: int = 0,
+) -> DataLoader:
     dataset = ConsistencyDataset(index_path=index_path, cfg=cfg, training=training)
     sampler = None
-    if dist.is_available() and dist.is_initialized():
+
+    # iWorld-Bench style difficulty-stratified sampling (single-GPU
+    # path). When DDP is active we wrap the stratified sampler with
+    # DistributedSampler-equivalent shuffling (different shuffle per
+    # rank) so each rank sees a different reordering of the same
+    # stratified index stream.
+    difficulty_cfg = cfg.get("difficulty_sampling", {})
+    use_difficulty = bool(difficulty_cfg.get("enabled", False)) and training
+    if use_difficulty:
+        from iac_difficulty_sampler import (
+            DifficultyStratifiedSampler,
+            assign_difficulty,
+        )
+        # Map raw index source_type → difficulty bucket
+        buckets = {1: [], 2: [], 3: [], 4: []}
+        positives = []
+        for i, s in enumerate(dataset.samples):
+            if s.get("consistency_label", 1) == 1:
+                positives.append(i)
+            else:
+                buckets[max(1, assign_difficulty(s))].append(i)
+        from collections import defaultdict
+        bdict = defaultdict(list, {0: positives, **buckets})
+
+        n_per_epoch = int(
+            difficulty_cfg.get(
+                "num_samples_per_epoch",
+                max(len(dataset.samples), int(cfg["batch_size"]) * 100),
+            )
+        )
+        mix = tuple(difficulty_cfg.get("mix", (0.30, 0.30, 0.25, 0.15)))
+        pos_ratio = float(difficulty_cfg.get("positive_ratio", 0.25))
+        seed = int(cfg.get("seed", 42))
+
+        base_sampler = DifficultyStratifiedSampler(
+            samples=dataset.samples,
+            num_samples_per_epoch=n_per_epoch,
+            mix=mix,
+            positive_ratio=pos_ratio,
+            seed=seed,
+        )
+        # initialise epoch counter so external set_epoch(epoch) propagates
+        base_sampler.set_epoch(epoch)
+
+        if dist.is_available() and dist.is_initialized():
+            # Custom wrapper: keep base_sampler's stratified draws but
+            # apply rank-aware shuffling so each rank sees different
+            # ordering while preserving the difficulty mix.
+            class _RankedStratifiedSampler:
+                def __init__(self, base, world_size: int, rank: int) -> None:
+                    self.base = base
+                    self.world_size = world_size
+                    self.rank = rank
+
+                def set_epoch(self, epoch: int) -> None:
+                    self.base.set_epoch(epoch * max(self.world_size, 1) + self.rank)
+
+                def __iter__(self):
+                    import random as _r
+                    indices = list(self.base)
+                    rng = _r.Random(self.base.seed + self.base.epoch + self.rank)
+                    rng.shuffle(indices)
+                    return iter(indices)
+
+                def __len__(self) -> int:
+                    return len(self.base)
+
+            sampler = _RankedStratifiedSampler(
+                base_sampler,
+                world_size=dist.get_world_size(),
+                rank=dist.get_rank(),
+            )
+        else:
+            sampler = base_sampler
+    elif dist.is_available() and dist.is_initialized():
         sampler = DistributedSampler(dataset, shuffle=training, drop_last=training)
+
     return DataLoader(
         dataset,
         batch_size=int(cfg["batch_size"]),
@@ -776,7 +856,7 @@ def main() -> None:
     if dist.is_available() and dist.is_initialized():
         dist.barrier()
 
-    train_loader = build_dataloader(cfg, cfg["train_index"], training=True)
+    train_loader = build_dataloader(cfg, cfg["train_index"], training=True, epoch=0)
     val_loader = build_dataloader(cfg, cfg["val_index"], training=False)
 
     model = ConsistencyCriticModel(cfg).to(device)

@@ -190,9 +190,9 @@ def _cosine(a: np.ndarray, b: np.ndarray) -> float:
 def _rescale_to_match_length(est: Traj2D, gt: Traj2D) -> Traj2D:
     """Scale the estimated trajectory to match GT length (since optical
     flow + essential matrix recover motion only up to scale)."""
-    est_len = np.linalg.norm(np.diff(est.xs).sum(), np.diff(est.ys).sum()) + 1e-8
-    gt_len = np.linalg.norm(np.diff(gt.xs).sum(), np.diff(gt.ys).sum()) + 1e-8
-    scale = gt_len / est_len
+    est_path = float(np.linalg.norm(np.array([float(np.diff(est.xs).sum()), float(np.diff(est.ys).sum())]))) + 1e-8
+    gt_path = float(np.linalg.norm(np.array([float(np.diff(gt.xs).sum()), float(np.diff(gt.ys).sum())]))) + 1e-8
+    scale = gt_path / est_path
     return Traj2D(est.xs * scale, est.ys * scale, est.yaws)
 
 
@@ -245,8 +245,16 @@ def compute_trajectory_alignment(forward: Traj2D, reverse: Traj2D) -> float:
     T_f, T_r = forward.T, reverse.T
     if T_f < 2 or T_r < 2:
         return 0.0
-    L_f = max(np.linalg.norm(np.diff(forward.xs).sum(), np.diff(forward.ys).sum()), 1e-8)
-    L_r = max(np.linalg.norm(np.diff(reverse.xs).sum(), np.diff(reverse.ys).sum()), 1e-8)
+    fwd_path_vec = np.array([
+        float(np.diff(forward.xs).sum()),
+        float(np.diff(forward.ys).sum()),
+    ])
+    rev_path_vec = np.array([
+        float(np.diff(reverse.xs).sum()),
+        float(np.diff(reverse.ys).sum()),
+    ])
+    L_f = float(np.linalg.norm(fwd_path_vec)) + 1e-8
+    L_r = float(np.linalg.norm(rev_path_vec)) + 1e-8
     f_n = Traj2D(forward.xs / L_f, forward.ys / L_f, forward.yaws)
     r_n = Traj2D(reverse.xs / L_r, reverse.ys / L_r, reverse.yaws)
 
@@ -342,3 +350,44 @@ if __name__ == "__main__":
         "ys": traj.ys.tolist(),
         "yaws": traj.yaws.tolist(),
     }, indent=2))
+
+    # ── self-test: synthetic GT traj and a "shifted" estimate ──
+    print("\n[iac_traj_metrics self-test]")
+    gt = Traj2D(
+        np.array([0.0, 1.0, 2.0, 3.0]),
+        np.array([0.0, 0.0, 0.0, 0.0]),
+        np.array([0.0, 0.0, 0.0, 0.0]),
+    )
+    aligned = Traj2D(
+        np.array([0.0, 1.0, 2.0, 3.0]) * 0.5,  # half scale, will be rescaled up
+        np.array([0.0, 0.0, 0.0, 0.0]),
+        np.array([0.0, 0.0, 0.0, 0.0]),
+    )
+    mirror = Traj2D(
+        np.array([0.0, 0.5, 1.0, 1.5]),  # half speed forward
+        np.array([0.0, 0.0, 0.0, 0.0]),
+        np.array([0.0, 0.0, 0.0, 0.0]),
+    )
+    rev = Traj2D(
+        np.array([1.5, 1.0, 0.5, 0.0]),  # reverse: should mirror mirror
+        np.array([0.0, 0.0, 0.0, 0.0]),
+        np.array([0.0, 0.0, 0.0, 0.0]),
+    )
+    acc = compute_trajectory_accuracy(aligned, gt)
+    tol = compute_trajectory_tolerance(aligned, mirror, gt)
+    align = compute_trajectory_alignment(forward=mirror, reverse=rev)
+    print(f"  trajectory_accuracy(aligned, gt)  = {acc:.4f}  (expect ~1.0)")
+    print(f"  trajectory_tolerance(aligned, mirror, gt) = {tol:.4f}  (expect ~1.0)")
+    print(f"  trajectory_alignment(mirror, rev) = {align:.4f}  (expect ~1.0)")
+    # Orthogonal test: random walk should give a lower score
+    rng = np.random.default_rng(0)
+    bad = Traj2D(
+        np.cumsum(rng.normal(0, 1, 4)),
+        np.cumsum(rng.normal(0, 1, 4)),
+        np.zeros(4),
+    )
+    bad_acc = compute_trajectory_accuracy(bad, gt)
+    print(f"  trajectory_accuracy(bad, gt)     = {bad_acc:.4f}  (expect << {acc:.4f})")
+    assert acc > 0.9, f"aligned traj should give high accuracy, got {acc}"
+    assert bad_acc < acc, f"random walk should score lower than aligned, got {bad_acc} vs {acc}"
+    print("  ✓ all assertions passed")

@@ -185,6 +185,29 @@ def compose_perturb_negatives(
         "heading": ("heading", heading_range),
         "speed": ("speed", speed_range),
     }
+    # perturb_trajectory lives in tools/build_consistency_index.py.
+    # We add the tools/ directory to sys.path so the import works
+    # whether the sampler is invoked from the project root or from
+    # inside tools/ (e.g. by build_consistency_index.py itself).
+    import sys
+    from pathlib import Path
+    _TOOLS = Path(__file__).resolve().parent / "tools"
+    if str(_TOOLS) not in sys.path:
+        sys.path.insert(0, str(_TOOLS))
+    try:
+        from build_consistency_index import perturb_trajectory  # type: ignore
+    except ImportError as e:
+        raise ImportError(
+            f"Could not import perturb_trajectory from tools/build_consistency_index.py: {e}. "
+            "Make sure IAC/ is on sys.path and tools/ contains build_consistency_index.py."
+        ) from e
+
+    out: List[dict] = []
+    axis_map = {
+        "lateral": ("lateral", lateral_range),
+        "heading": ("heading", heading_range),
+        "speed": ("speed", speed_range),
+    }
     for anchor in anchors_samples:
         base_traj = anchor["candidate_traj"]
         ego_state = anchor["ego_state"]
@@ -196,7 +219,9 @@ def compose_perturb_negatives(
             magnitude = 0.0
             for axis in axes:
                 kind, rng_range = axis_map[axis]
-                new_traj, mag = perturb_trajectory(new_traj, kind, rng, lateral_range, heading_range, speed_range)
+                new_traj, mag = perturb_trajectory(
+                    new_traj, kind, rng, lateral_range, heading_range, speed_range
+                )
                 magnitude += mag
             row = dict(anchor)
             row["sample_id"] = f"{anchor['sample_id']}__{target}"
