@@ -117,6 +117,14 @@ def parse_args() -> argparse.Namespace:
         default=False,
         help="Unfreeze DINOv2 backbone for fine-tuning.",
     )
+    p.add_argument(
+        "--no-dinov2",
+        dest="no_dinov2",
+        action="store_true",
+        default=False,
+        help="Disable DINOv2 backbone and use the 4-layer CNN from train.py instead. "
+        "Lets you A/B the D1-D4 sampling effect with the original backbone.",
+    )
     return p.parse_args()
 
 
@@ -208,8 +216,14 @@ class DINOv2Encoder(nn.Module):
 class DINOv2ConsistencyCritic(nn.Module):
     """Minimal DINOv2 critic: single-layer backbone + explicit distance fusion.
 
+    When ``cfg['dinov2']['enabled']`` is False the model falls back to
+    the original 4-layer CNN backbone from train.py, with the same
+    fusion head and explicit-distance option. This makes the trainer
+    a strict superset of train.py so that running it with dinov2
+    disabled is a clean A/B against train.py itself.
+
     Shape contract identical to train.ConsistencyCriticModel so that
-    eval_critic.py and benchmark_wam.py work without modification.
+    eval_dinov2_critic.py and benchmark_wam.py work without modification.
     """
 
     def __init__(self, cfg: Dict[str, Any]) -> None:
@@ -233,21 +247,31 @@ class DINOv2ConsistencyCritic(nn.Module):
         traj_d = int(cfg["traj_dim"])
         self.baseline_mode = str(cfg.get("baseline_mode", "full"))
         self.consistency_traj_steps = consistency_traj_steps
-
-        model_name = str(dcfg.get("model_name", "dinov2_vits14"))
-        layer_index = int(dcfg.get("layer_index", 11))
-        freeze = bool(dcfg.get("freeze", True))
+        self.use_dinov2 = bool(dcfg.get("enabled", True))
         self.use_explicit_distance = bool(dcfg.get("use_explicit_distance", True))
 
-        self.image_encoder = DINOv2Encoder(
-            model_name=model_name,
-            layer_index=layer_index,
-            out_dim=img_dim,
-            freeze=freeze,
-        )
-        # Share the same encoder for history and future (saves a copy).
-        self.history_proj = self.image_encoder.proj  # kept for state-dict stability
-        self.future_proj = self.image_encoder.proj
+        if self.use_dinov2:
+            model_name = str(dcfg.get("model_name", "dinov2_vits14"))
+            layer_index = int(dcfg.get("layer_index", 11))
+            freeze = bool(dcfg.get("freeze", True))
+            self.image_encoder = DINOv2Encoder(
+                model_name=model_name,
+                layer_index=layer_index,
+                out_dim=img_dim,
+                freeze=freeze,
+            )
+            self.history_proj = self.image_encoder.proj
+            self.future_proj = self.image_encoder.proj
+        else:
+            # Fall back to the original 4-layer CNN backbone. We
+            # import lazily so that a pure DINOv2 run never has to
+            # load train.py's ConsistencyCriticModel class.
+            from train import ConsistencyCriticModel as _CNNCritic  # type: ignore
+            cnn = _CNNCritic(cfg)
+            self.image_encoder = cnn  # for state-dict symmetry
+            self.history_proj = cnn.history_proj
+            self.future_proj = cnn.future_proj
+            self._cnn_shared_backbone = cnn.shared_backbone
 
         self.consistency_traj_encoder = nn.Sequential(
             nn.Linear(consistency_traj_steps * traj_d, hidden),
@@ -299,13 +323,16 @@ class DINOv2ConsistencyCritic(nn.Module):
         self.validity_head = nn.Linear(fusion_dim, 1)
 
     def _encode_images(
-        self, images: torch.Tensor, proj: nn.Module,
+        self, images: torch.Tensor,
     ) -> torch.Tensor:
-        """Encode (B, T, 3, H, W) → (B, out_dim) using the shared DINOv2 encoder."""
+        """Encode (B, T, 3, H, W) → (B, out_dim)."""
         b, t, c, h, w = images.shape
         flat = images.reshape(b * t, c, h, w)
-        # We use the shared encoder's projection (proj is the same module).
-        feat = self.image_encoder(flat)
+        if self.use_dinov2:
+            feat = self.image_encoder(flat)
+        else:
+            feat = self._cnn_shared_backbone(flat).flatten(1)
+            feat = self.history_proj(feat)
         return feat.reshape(b, t, -1).mean(dim=1)
 
     def forward(
@@ -315,8 +342,8 @@ class DINOv2ConsistencyCritic(nn.Module):
         ego_state: torch.Tensor,
         candidate_traj: torch.Tensor,
     ) -> Dict[str, torch.Tensor]:
-        z_hist = self._encode_images(history_images, self.history_proj)
-        z_fut = self._encode_images(future_images, self.future_proj)
+        z_hist = self._encode_images(history_images)
+        z_fut = self._encode_images(future_images)
         consistency_traj = candidate_traj[:, : self.consistency_traj_steps, :]
         z_traj_cons = self.consistency_traj_encoder(consistency_traj)
         z_traj_val = self.validity_traj_encoder(candidate_traj)
@@ -406,6 +433,8 @@ def main() -> None:
         dcfg["freeze"] = True
     if args.dinov2_trainable:
         dcfg["freeze"] = False
+    if args.no_dinov2:
+        dcfg["enabled"] = False
 
     signal.signal(signal.SIGTERM, _sigterm_handler)
     dist_info = setup_distributed()
@@ -453,16 +482,16 @@ def main() -> None:
 
     if is_main_process():
         print("=" * 60)
-        print("DINOv2 Consistency Critic v5 (minimal)")
-        print(f"  DINOv2 model   : {dcfg.get('model_name', 'dinov2_vits14')}")
-        print(f"  Layer index   : {dcfg.get('layer_index', 11)}")
-        print(f"  Freeze        : {dcfg.get('freeze', True)}")
-        print(f"  Explicit dist : {dcfg.get('use_explicit_distance', True)}")
-        print(f"  Work dir      : {work_dir}")
-        print(f"  World size    : {dist_info['world_size']}")
+        print("DINOv2 Consistency Critic v5 (minimal, ablation-aware)")
+        print(f"  Backbone        : {'DINOv2 ' + dcfg.get('model_name','dinov2_vits14') + ' layer[' + str(dcfg.get('layer_index',11)) + ']' if dcfg.get('enabled', True) else '4-layer CNN (from train.py)'}")
+        print(f"  DINOv2 freeze   : {dcfg.get('freeze', True) if dcfg.get('enabled', True) else 'N/A'}")
+        print(f"  Explicit dist   : {dcfg.get('use_explicit_distance', True)}")
+        print(f"  D1-D4 sampling  : {cfg.get('difficulty_sampling', {}).get('enabled', False)}")
+        print(f"  Work dir        : {work_dir}")
+        print(f"  World size      : {dist_info['world_size']}")
         if torch.cuda.is_available():
             mem_total = torch.cuda.get_device_properties(device).total_memory / (1024 ** 3)
-            print(f"  GPU memory    : {mem_total:.1f} GB")
+            print(f"  GPU memory      : {mem_total:.1f} GB")
         print("=" * 60)
 
     try:

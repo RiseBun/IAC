@@ -107,15 +107,18 @@ cfg = dict(
     ),
 
     # ── DINOv2 最小配置 ──
+    #   enabled=False  → 退化为 train.py 的 4 层 CNN（用于 A/B 消融）
+    #   enabled=True   → 用 DINOv2 backbone
     #   ✘ 多层融合 (只取最后一层)
     #   ✘ AvgPool (不削弱 patch 特征)
     #   ✘ Ridge 预训练 (nuPlan 数据量不足，且无 ablation 证据)
     #   ✔ 显式距离特征 (zero-cost, 强收益)
     dinov2=dict(
-        model_name="dinov2_vits14",   # 21M params, 384 feat_dim
-        layer_index=11,                # 只取最后一层
-        freeze=True,                   # 冻住
-        use_explicit_distance=True,    # 把 (diff, l2, cos) 拼进 fusion
+        enabled=True,                    # 关闭则退化为 4 层 CNN
+        model_name="dinov2_vits14",      # 21M params, 384 feat_dim
+        layer_index=11,                  # 只取最后一层
+        freeze=True,                     # 冻住
+        use_explicit_distance=True,      # 把 (diff, l2, cos) 拼进 fusion
     ),
 
     # ── 数据集 ──
