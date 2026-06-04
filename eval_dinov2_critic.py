@@ -41,6 +41,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--batch-size", type=int, default=16)
     p.add_argument("--max-samples", type=int, default=0)
     p.add_argument("--eval-ranking", action="store_true")
+    p.add_argument("--max-ranking-groups", type=int, default=0)
     p.add_argument(
         "--baseline-mode",
         choices=["full", "no_image", "ego_only", "no_traj", "traj_only"],
@@ -133,7 +134,11 @@ def main() -> None:
         print("Ranking evaluation...")
         print("=" * 60)
         ranking_metrics = eval_critic.compute_ranking_metrics(
-            model=model, dataset=dataset, device=device, batch_size=args.batch_size,
+            model=model,
+            dataset=dataset,
+            device=device,
+            batch_size=args.batch_size,
+            max_groups=args.max_ranking_groups,
         )
         if ranking_metrics:
             print("\n[Ranking Metrics]")

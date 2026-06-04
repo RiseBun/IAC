@@ -618,42 +618,42 @@ def build_perturb_negatives(
     heading_range: Tuple[float, float],
     speed_range: Tuple[float, float],
 ) -> List[Dict]:
-    """N3: 对 GT 轨迹做语义扰动
+    """N4-N6: 对 GT 轨迹做语义扰动
 
     consistency=0 (轨迹被修改，不再匹配真实未来), validity=0
     """
     perturb_types = ["lateral", "heading", "speed"]
     negatives: List[Dict] = []
     for anchor in anchors:
-        ptype = rng.choice(perturb_types)
-        new_traj, magnitude = perturb_trajectory(
-            anchor.candidate_traj,
-            perturb_type=ptype,
-            rng=rng,
-            lateral_range=lateral_range,
-            heading_range=heading_range,
-            speed_range=speed_range,
-        )
-        row = {
-            "sample_id": f"{anchor.sample_id}__perturb_{ptype}",
-            "scene_name": anchor.scene_name,
-            "timestamp_us": anchor.timestamp_us,
-            "history_images": anchor.history_images,
-            "future_images": anchor.future_images,
-            "ego_state": anchor.ego_state,
-            "candidate_traj": new_traj,
-            "consistency_label": 0,
-            "source_type": f"perturb_{ptype}",
-            "negative_family": "perturb",
-            "perturb_type": ptype,
-            "perturb_magnitude": magnitude,
-            "perturb_level": (
-                "small" if magnitude < 0.5 else "medium" if magnitude < 1.0 else "large"
-            ) if ptype != "heading" else (
-                "small" if magnitude < 7.5 else "medium" if magnitude < 12.0 else "large"
-            ),
-        }
-        negatives.append(with_validity(row, new_traj, anchor.ego_state))
+        for ptype in perturb_types:
+            new_traj, magnitude = perturb_trajectory(
+                anchor.candidate_traj,
+                perturb_type=ptype,
+                rng=rng,
+                lateral_range=lateral_range,
+                heading_range=heading_range,
+                speed_range=speed_range,
+            )
+            row = {
+                "sample_id": f"{anchor.sample_id}__perturb_{ptype}",
+                "scene_name": anchor.scene_name,
+                "timestamp_us": anchor.timestamp_us,
+                "history_images": anchor.history_images,
+                "future_images": anchor.future_images,
+                "ego_state": anchor.ego_state,
+                "candidate_traj": new_traj,
+                "consistency_label": 0,
+                "source_type": f"perturb_{ptype}",
+                "negative_family": "perturb",
+                "perturb_type": ptype,
+                "perturb_magnitude": magnitude,
+                "perturb_level": (
+                    "small" if magnitude < 0.5 else "medium" if magnitude < 1.0 else "large"
+                ) if ptype != "heading" else (
+                    "small" if magnitude < 7.5 else "medium" if magnitude < 12.0 else "large"
+                ),
+            }
+            negatives.append(with_validity(row, new_traj, anchor.ego_state))
     return negatives
 
 
@@ -670,7 +670,7 @@ def serialize_split(
     time_shift_future_steps: int,
     add_reverse_traj: bool = False,
 ) -> List[Dict]:
-    """将 anchor 列表转为正样本 + 四类负样本 (正:负 ~= 1:4)"""
+    """将 anchor 列表转为正样本 + 六类负样本 (默认正:负 ~= 1:6)"""
     rng = random.Random(seed)
 
     # 正样本: gt_pos
@@ -694,7 +694,7 @@ def serialize_split(
         for row in positives
     ]
 
-    # 四类负样本，每类约 1 个/正样本
+    # 六类负样本，每类约 1 个/正样本
     neg_traj = build_traj_swap_negatives(anchors, min_gap, rng)
     neg_img = build_image_swap_negatives(anchors, min_gap, rng)
     neg_time = build_time_shift_future_negatives(anchors, time_shift_future_steps)

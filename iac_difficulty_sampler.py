@@ -1,18 +1,25 @@
 #!/usr/bin/env python3
 """Difficulty-stratified sampler for IAC training (iWorld-Bench §3.2.2).
 
-iWorld-Bench designs 4 difficulty levels D1..D4 based on how many
-independent perturbation axes are applied simultaneously. We mirror
-that idea for the IAC critic's training data:
+iWorld-Bench stratifies action-control tasks into D1..D4 so models cannot
+win by only solving easy controls. For IAC the useful first principle is
+not "how many perturbation axes were applied", but "how often this source
+type fools the critic". We therefore map source types to empirical IAC
+difficulty buckets:
 
-  D1 (single-axis): one perturbation, easy negatives
-        - image_swap, traj_swap, perturb_lateral, perturb_heading,
-          perturb_speed, time_shift_future, reverse_traj
-  D2 (2-axis):      two perturbations composed
-        - perturb_lateral+heading, perturb_heading+speed,
-          perturb_lateral+speed, traj_swap+perturb_lateral, ...
-  D3 (3-axis):      three perturbations composed
-  D4 (adversarial): all 4 axes + reverse
+  D1: visually obvious / already near-solved negatives
+        - image_swap, perturb_lateral
+  D2: moderate action-shape mismatch
+        - perturb_heading
+  D3: hard temporal/action mismatch
+        - traj_swap, time_shift_future, reverse_traj
+  D4: hardest speed/progress mismatch
+        - perturb_speed
+
+Composed negatives still use their explicit axis count when they are
+present in an index, but the default shipped nuPlan index mostly contains
+single-source negatives. This mapping keeps D1-D4 useful even without
+extra composed samples.
 
 The sampler groups negative samples by their difficulty bucket and
 yields batches that respect a configurable mix ratio (default: 30%
@@ -45,16 +52,16 @@ from train import ConsistencyDataset
 # ───────────────────────── Difficulty assignment ─────────────────────────
 
 
-# Map each source_type to a baseline difficulty axis count.
+# Map each source_type to an empirical IAC difficulty bucket.
 _BASE_AXES: Dict[str, int] = {
     "gt_pos": 0,
     "image_swap": 1,
-    "traj_swap": 1,
-    "time_shift_future": 1,
-    "reverse_traj": 1,
     "perturb_lateral": 1,
-    "perturb_heading": 1,
-    "perturb_speed": 1,
+    "perturb_heading": 2,
+    "traj_swap": 3,
+    "time_shift_future": 3,
+    "reverse_traj": 3,
+    "perturb_speed": 4,
     # Compositional
     "perturb_lateral+heading": 2,
     "perturb_lateral+speed": 2,
@@ -67,8 +74,8 @@ _BASE_AXES: Dict[str, int] = {
 def assign_difficulty(sample: dict) -> int:
     """Return a difficulty bucket 1..4 for a sample.
 
-    Composed negatives carry the explicit D in their source_type; if not
-    present we fall back to the source_type's base axis count.
+    Positive samples are D0. Negatives use empirical IAC confusion
+    difficulty; composed negatives fall back to their explicit bucket.
     """
     st = sample.get("source_type", "unknown")
     if sample.get("consistency_label", 1) == 1:

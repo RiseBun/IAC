@@ -69,18 +69,26 @@ cfg = dict(
     lambda_steering_consistency=0.0,
     lambda_progress_consistency=0.0,
     lambda_temporal_coherence=0.0,
-    lambda_group_ranking=0.2,           # 沿用 v4 ranking loss
+    lambda_group_ranking=0.35,          # failure analysis: ranking is the bottleneck
     group_ranking_margin=0.2,
+    default_consistency_weight=1.0,
 
-    # 负样本权重（与 v4 一致）
+    # 负样本权重：按 v5 failure export 重新加压 hard negatives。
     consistency_source_weights=dict(
         gt_pos=1.0,
-        image_swap=1.0,
-        traj_swap=2.0,
-        time_shift_future=2.0,
-        perturb_lateral=2.5,
-        perturb_heading=2.5,
-        perturb_speed=2.5,
+        image_swap=0.8,
+        traj_swap=3.0,
+        time_shift_future=3.5,
+        perturb_lateral=1.2,
+        perturb_heading=2.0,
+        perturb_speed=4.0,
+        reverse_traj=3.0,
+    ),
+    consistency_source_margins=dict(
+        traj_swap=0.30,
+        time_shift_future=0.35,
+        perturb_speed=0.40,
+        reverse_traj=0.30,
     ),
     label_quality_weights=dict(
         positive=1.0,
@@ -134,7 +142,20 @@ cfg = dict(
     # ── Ranking 评估 ──
     ranking=dict(
         enabled=True,
+        group_batches=True,
+        loss_weight=0.2,
+        margin=0.2,
         num_candidates_per_scene=5,
+        # Train on more groups per batch by keeping the positive and the
+        # most failure-prone negatives from each candidate set. Validation
+        # still evaluates full groups.
+        max_negatives_per_group=3,
+        hard_negative_sources=[
+            "perturb_speed",
+            "time_shift_future",
+            "traj_swap",
+            "reverse_traj",
+        ],
         ranking_metrics=["ndcg@3", "ndcg@5", "mrr", "top1_hit_rate"],
     ),
 
@@ -143,7 +164,7 @@ cfg = dict(
     # 是 D1-D4 采样器要解决的核心问题。
     difficulty_sampling=dict(
         enabled=True,
-        mix=(0.30, 0.30, 0.25, 0.15),    # D1/D2/D3/D4 比例
+        mix=(0.10, 0.15, 0.35, 0.40),    # empirical D1/D2/D3/D4 hard-negative mix
         positive_ratio=0.25,
         num_samples_per_epoch=0,         # 0 = auto: max(len(dataset), batch*100)
     ),

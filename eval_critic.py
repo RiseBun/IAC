@@ -65,6 +65,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="覆盖 checkpoint/config 中的 P0 baseline mode",
     )
+    parser.add_argument(
+        "--max-ranking-groups",
+        type=int,
+        default=0,
+        help="Maximum group_id groups for ranking evaluation; 0 means all.",
+    )
     return parser.parse_args()
 
 
@@ -485,6 +491,95 @@ def compute_ranking_metrics(
         "num_scenes": len(multi_candidate_scenes),
     }
 
+def compute_ranking_metrics(
+    model: nn.Module,
+    dataset: "ConsistencyDataset",
+    device: torch.device,
+    batch_size: int = 32,
+    max_groups: int = 0,
+    group_key: str = "group_id",
+) -> Dict[str, Any]:
+    """Evaluate ranking within group_id candidate sets."""
+
+    ranking_groups = defaultdict(list)
+    for idx, sample in enumerate(dataset.samples):
+        group_id = (
+            sample.get(group_key)
+            or sample.get("anchor_id")
+            or f"{sample.get('scene_name', 'unknown')}::{sample.get('timestamp_us', idx)}"
+        )
+        ranking_groups[str(group_id)].append(
+            {
+                "index": idx,
+                "consistency_label": sample.get("consistency_label", 0),
+            }
+        )
+
+    groups = [
+        (gid, items)
+        for gid, items in ranking_groups.items()
+        if len(items) >= 2 and any(item["consistency_label"] == 1 for item in items)
+    ]
+    if max_groups and max_groups > 0:
+        groups = groups[:max_groups]
+    if not groups:
+        print("[WARNING] No multi-candidate ranking groups found; skipping ranking.")
+        return {}
+
+    print(f"\n[Ranking Evaluation] groups={len(groups)} group_key={group_key}")
+
+    def ndcg(scores, labels, k):
+        order = np.argsort(scores)[::-1][:k]
+        gains = np.asarray(labels, dtype=np.float64)[order]
+        discounts = 1.0 / np.log2(np.arange(len(gains)) + 2)
+        dcg = float(np.sum(gains * discounts))
+        ideal = np.sort(np.asarray(labels, dtype=np.float64))[::-1][:k]
+        idcg = float(np.sum(ideal * discounts[: len(ideal)]))
+        return dcg / idcg if idcg > 0 else 0.0
+
+    top1_hits, mrrs, ndcg3, ndcg5 = [], [], [], []
+    model.eval()
+    with torch.no_grad():
+        for group_idx, (group_id, candidates) in enumerate(groups, start=1):
+            scores = []
+            labels = [float(item["consistency_label"]) for item in candidates]
+
+            for start in range(0, len(candidates), batch_size):
+                chunk = candidates[start:start + batch_size]
+                samples = [dataset[item["index"]] for item in chunk]
+                h_imgs = torch.stack([s["history_images"] for s in samples]).to(device)
+                f_imgs = torch.stack([s["future_images"] for s in samples]).to(device)
+                ego = torch.stack([s["ego_state"] for s in samples]).to(device)
+                traj = torch.stack([s["candidate_traj"] for s in samples]).to(device)
+                out = model(h_imgs, f_imgs, ego, traj)
+                scores.extend(
+                    torch.sigmoid(out["consistency_logit"]).detach().cpu().tolist()
+                )
+
+            order = np.argsort(scores)[::-1]
+            sorted_labels = np.asarray(labels, dtype=np.float64)[order]
+            top1_hits.append(float(sorted_labels[0] > 0))
+            first_pos = np.where(sorted_labels > 0)[0]
+            mrrs.append(1.0 / float(first_pos[0] + 1) if len(first_pos) else 0.0)
+            ndcg3.append(ndcg(scores, labels, 3))
+            ndcg5.append(ndcg(scores, labels, 5))
+
+            if group_idx % 100 == 0 or group_idx == len(groups):
+                print(
+                    f"[Ranking] group={group_idx}/{len(groups)} "
+                    f"candidates={len(candidates)} group_id={group_id}",
+                    flush=True,
+                )
+
+    return {
+        "num_groups": len(groups),
+        "num_scenes": len(groups),
+        "ndcg@3": float(np.mean(ndcg3)) if ndcg3 else 0.0,
+        "ndcg@5": float(np.mean(ndcg5)) if ndcg5 else 0.0,
+        "mrr": float(np.mean(mrrs)) if mrrs else 0.0,
+        "top1_hit_rate": float(np.mean(top1_hits)) if top1_hits else 0.0,
+    }
+
 
 def main() -> None:
     args = parse_args()
@@ -591,6 +686,7 @@ def main() -> None:
             dataset=dataset,
             device=device,
             batch_size=args.batch_size,
+            max_groups=args.max_ranking_groups,
         )
         
         if ranking_metrics:

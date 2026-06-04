@@ -100,6 +100,18 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--max-val-steps", type=int, default=None)
     p.add_argument("--preflight-samples", type=int, default=128)
     p.add_argument(
+        "--resume-from",
+        type=str,
+        default=None,
+        help="Resume model/optimizer state from a checkpoint.",
+    )
+    p.add_argument(
+        "--amp",
+        action="store_true",
+        default=False,
+        help="Enable CUDA autocast mixed precision.",
+    )
+    p.add_argument(
         "--dinov2-model", type=str, default=None,
         choices=list(_DINOV2_MODEL_NAMES),
     )
@@ -167,10 +179,18 @@ class DINOv2Encoder(nn.Module):
         self.feat_dim = spec["feat_dim"]
         self.freeze = freeze
 
-        # Load via torch.hub. We defer the actual load to the first
-        # forward to keep --help snappy and to surface Hub errors at
-        # the right place.
-        self.model = torch.hub.load("facebookresearch/dinov2", model_name)
+        # Prefer the already-cached torch hub checkout on servers. This avoids
+        # occasional torch.hub network/trust-list stalls during evaluation.
+        hub_dir = os.environ.get("DINOV2_HUB_DIR")
+        if not hub_dir:
+            torch_home = Path(os.environ.get("TORCH_HOME", Path.home() / ".cache" / "torch"))
+            cached_hub = torch_home / "hub" / "facebookresearch_dinov2_main"
+            if cached_hub.exists():
+                hub_dir = str(cached_hub)
+        if hub_dir and Path(hub_dir).exists():
+            self.model = torch.hub.load(hub_dir, model_name, source="local")
+        else:
+            self.model = torch.hub.load("facebookresearch/dinov2", model_name)
         if freeze:
             for p in self.model.parameters():
                 p.requires_grad = False
@@ -345,8 +365,8 @@ class DINOv2ConsistencyCritic(nn.Module):
         z_hist = self._encode_images(history_images)
         z_fut = self._encode_images(future_images)
         consistency_traj = candidate_traj[:, : self.consistency_traj_steps, :]
-        z_traj_cons = self.consistency_traj_encoder(consistency_traj)
-        z_traj_val = self.validity_traj_encoder(candidate_traj)
+        z_traj_cons = self.consistency_traj_encoder(consistency_traj.flatten(1))
+        z_traj_val = self.validity_traj_encoder(candidate_traj.flatten(1))
         z_ego = self.ego_encoder(ego_state)
 
         mode = self.baseline_mode
@@ -435,6 +455,8 @@ def main() -> None:
         dcfg["freeze"] = False
     if args.no_dinov2:
         dcfg["enabled"] = False
+    if args.amp:
+        cfg["amp"] = True
 
     signal.signal(signal.SIGTERM, _sigterm_handler)
     dist_info = setup_distributed()
@@ -478,6 +500,42 @@ def main() -> None:
 
     best_val_loss = math.inf
     total_epochs = int(cfg["epochs"])
+    start_epoch = 1
+    if args.resume_from:
+        resume_path = Path(args.resume_from)
+        if not resume_path.exists():
+            raise FileNotFoundError(f"resume checkpoint not found: {resume_path}")
+        checkpoint = torch.load(
+            resume_path,
+            map_location=device,
+            weights_only=False,
+        )
+        target_model = model.module if isinstance(model, DDP) else model
+        missing, unexpected = target_model.load_state_dict(
+            checkpoint["model"],
+            strict=False,
+        )
+        if checkpoint.get("optimizer"):
+            optimizer.load_state_dict(checkpoint["optimizer"])
+        best_val_loss = float(checkpoint.get("best_val_loss", math.inf))
+        interrupted = bool(checkpoint.get("interrupted", False))
+        if interrupted:
+            # The interrupted checkpoint may have been written after a
+            # one-step validation pass. Reset best tracking for the resumed
+            # run so best.pth reflects a full validation epoch in this workdir.
+            best_val_loss = math.inf
+        ckpt_epoch = int(checkpoint.get("epoch", 0))
+        start_epoch = ckpt_epoch if interrupted else ckpt_epoch + 1
+        if is_main_process():
+            print(
+                f"[Resume] loaded {resume_path} "
+                f"epoch={ckpt_epoch} start_epoch={start_epoch} "
+                f"best_val_loss={best_val_loss}"
+            )
+            if missing:
+                print(f"[Resume][WARNING] missing keys: {missing[:8]}")
+            if unexpected:
+                print(f"[Resume][WARNING] unexpected keys: {unexpected[:8]}")
     start_time = time.time()
 
     if is_main_process():
@@ -486,6 +544,13 @@ def main() -> None:
         print(f"  Backbone        : {'DINOv2 ' + dcfg.get('model_name','dinov2_vits14') + ' layer[' + str(dcfg.get('layer_index',11)) + ']' if dcfg.get('enabled', True) else '4-layer CNN (from train.py)'}")
         print(f"  DINOv2 freeze   : {dcfg.get('freeze', True) if dcfg.get('enabled', True) else 'N/A'}")
         print(f"  Explicit dist   : {dcfg.get('use_explicit_distance', True)}")
+        group_batches = bool(
+            cfg.get("ranking", {}).get(
+                "group_batches",
+                float(cfg.get("lambda_group_ranking", 0.0)) > 0.0,
+            )
+        )
+        print(f"  Group batches   : {group_batches}")
         print(f"  D1-D4 sampling  : {cfg.get('difficulty_sampling', {}).get('enabled', False)}")
         print(f"  Work dir        : {work_dir}")
         print(f"  World size      : {dist_info['world_size']}")
@@ -495,7 +560,7 @@ def main() -> None:
         print("=" * 60)
 
     try:
-        for epoch in range(1, total_epochs + 1):
+        for epoch in range(start_epoch, total_epochs + 1):
             train_metrics = run_consistency_epoch(
                 model=model, loader=train_loader, optimizer=optimizer,
                 device=device, epoch=epoch, cfg=cfg, training=True,
@@ -515,9 +580,11 @@ def main() -> None:
                     f"loss={train_metrics['loss']:.4f} "
                     f"c_acc={train_metrics['c_acc']:.4f} "
                     f"v_acc={train_metrics['v_acc']:.4f} "
+                    f"rank_loss={train_metrics.get('group_rank_loss', 0.0):.4f} "
                     f"val_loss={val_metrics['loss']:.4f} "
                     f"val_c_acc={val_metrics['c_acc']:.4f} "
-                    f"val_v_acc={val_metrics['v_acc']:.4f}"
+                    f"val_v_acc={val_metrics['v_acc']:.4f} "
+                    f"val_rank_loss={val_metrics.get('group_rank_loss', 0.0):.4f}"
                 )
                 if epoch % int(cfg["save_interval"]) == 0:
                     save_checkpoint(
