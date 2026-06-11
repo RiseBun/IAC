@@ -6,8 +6,9 @@ This is the *minimal* DINOv2 integration for IAC, deliberately scoped:
   ✔ 1️⃣ DINOv2-vits14 backbone replaces the 4-layer CNN
   ✔ 3️⃣ Explicit `diff / l2_norm / cos_sim` features concatenated into
      the fusion head (zero-cost, high-yield shortcut signal)
-  ✘ 2️⃣ Multi-layer fusion (start with single layer [11] — multi-layer
-     adds 6×proj params and overfits on the 357k anchor set)
+  ✔/✘ 2️⃣ Multi-layer fusion is config-controlled. The default minimal
+     config keeps single layer [11], while a separate multilayer config
+     can enable layers [6, 7, 8, 9, 10, 11].
   ✘ 4️⃣ AvgPool(k=2) (no ablation evidence, default off)
   ✘ 5️⃣ Ridge pretrain of layer weights (nuPlan data is too small to
      justify; PDF-cited "nuScenes SROCC 0.9275" has no source)
@@ -140,25 +141,25 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-# ─────────────────────────── DINOv2 encoder (single-layer, no AvgPool) ───────────────────────────
+# ─────────────────────────── DINOv2 encoder (single or multi-layer, no AvgPool) ───────────────────────────
 
 
 class DINOv2Encoder(nn.Module):
-    """DINOv2 single-layer encoder. Returns a (B, out_dim) vector per image batch.
+    """DINOv2 encoder. Returns a (B, out_dim) vector per image batch.
 
     Differences from the PDF-supplied v3 script:
-      * Single layer only (default [11]).
+      * Supports single-layer or multi-layer fusion.
       * No AvgPool — DINOv2 patch tokens are used as-is.
-      * No Ridge pretrain — layer weights are uniform 1.0.
+      * No Ridge pretrain — layer fusion weights are learned from scratch.
       * mean() pool over patch tokens (excluding the CLS token) for a
-        dense single-vector representation; cheaper than concatenating
-        6 layers and avoids overfitting on 357k samples.
+        dense single-vector representation.
     """
 
     def __init__(
         self,
         model_name: str = "dinov2_vits14",
         layer_index: int = 11,
+        layer_indices: Sequence[int] | None = None,
         out_dim: int = 256,
         freeze: bool = True,
     ) -> None:
@@ -170,12 +171,19 @@ class DINOv2Encoder(nn.Module):
             )
         spec = _DINOV2_SPECS[model_name]
         n_blocks = spec["n_blocks"]
-        if layer_index < 0 or layer_index >= n_blocks:
-            raise ValueError(
-                f"layer_index {layer_index} out of range [0, {n_blocks - 1}]"
-            )
+        if layer_indices is None:
+            layer_indices = [layer_index]
+        self.layer_indices = [int(idx) for idx in layer_indices]
+        if not self.layer_indices:
+            raise ValueError("layer_indices must contain at least one DINOv2 layer.")
+        for idx in self.layer_indices:
+            if idx < 0 or idx >= n_blocks:
+                raise ValueError(
+                    f"layer index {idx} out of range [0, {n_blocks - 1}]"
+                )
         self.model_name = model_name
-        self.layer_index = layer_index
+        self.layer_index = self.layer_indices[-1]
+        self.max_layer_index = max(self.layer_indices)
         self.feat_dim = spec["feat_dim"]
         self.freeze = freeze
 
@@ -195,10 +203,21 @@ class DINOv2Encoder(nn.Module):
             for p in self.model.parameters():
                 p.requires_grad = False
             self.model.eval()
-        self.proj = nn.Sequential(
-            nn.Linear(self.feat_dim, out_dim),
-            nn.LayerNorm(out_dim),
+        self.projs = nn.ModuleList(
+            [
+                nn.Sequential(
+                    nn.Linear(self.feat_dim, out_dim),
+                    nn.LayerNorm(out_dim),
+                )
+                for _ in self.layer_indices
+            ]
         )
+        self.layer_logits = nn.Parameter(torch.zeros(len(self.layer_indices)))
+
+        # Backward-compatible alias used by the CNN-fallback symmetry code and
+        # a few older checkpoints/scripts. For multilayer fusion this points to
+        # the last layer projection, while forward() uses all projections.
+        self.proj = self.projs[-1]
 
     def train(self, mode: bool = True):
         super().train(mode)
@@ -220,14 +239,19 @@ class DINOv2Encoder(nn.Module):
         ctx = torch.no_grad if self.freeze else torch.enable_grad
         with ctx():
             outputs = self.model.get_intermediate_layers(
-                x, n=self.layer_index + 1, return_class_token=True,
+                x, n=self.max_layer_index + 1, return_class_token=True,
             )
         # outputs: tuple of (patch_tokens, cls_token) per layer
         # patch_tokens: (B*T, n_patches, feat_dim); cls_token: (B*T, feat_dim)
-        patch_tokens, cls_token = outputs[self.layer_index]
-        # mean-pool patch tokens (robust to image resizing)
-        feat = patch_tokens.mean(dim=1)
-        return self.proj(feat)
+        layer_feats: List[torch.Tensor] = []
+        for proj, layer_idx in zip(self.projs, self.layer_indices):
+            patch_tokens, cls_token = outputs[layer_idx]
+            # mean-pool patch tokens (robust to image resizing)
+            feat = patch_tokens.mean(dim=1)
+            layer_feats.append(proj(feat))
+        stacked = torch.stack(layer_feats, dim=0)  # (L, B*T, out_dim)
+        weights = torch.softmax(self.layer_logits, dim=0).view(-1, 1, 1)
+        return (weights * stacked).sum(dim=0)
 
 
 # ─────────────────────────── Critic model ───────────────────────────
@@ -272,11 +296,18 @@ class DINOv2ConsistencyCritic(nn.Module):
 
         if self.use_dinov2:
             model_name = str(dcfg.get("model_name", "dinov2_vits14"))
+            layer_indices_raw = dcfg.get("layer_indices")
+            layer_indices = (
+                [int(v) for v in layer_indices_raw]
+                if layer_indices_raw is not None
+                else None
+            )
             layer_index = int(dcfg.get("layer_index", 11))
             freeze = bool(dcfg.get("freeze", True))
             self.image_encoder = DINOv2Encoder(
                 model_name=model_name,
                 layer_index=layer_index,
+                layer_indices=layer_indices,
                 out_dim=img_dim,
                 freeze=freeze,
             )
