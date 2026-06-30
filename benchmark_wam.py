@@ -46,6 +46,87 @@ from iac_traj_metrics import (
 from iac_memory_metrics import compute_memory_symmetry, compute_loop_closure_drift
 
 
+def _threshold_metrics(scores: torch.Tensor, labels: torch.Tensor, threshold: float) -> Dict[str, Any]:
+    preds = scores >= threshold
+    positives = labels > 0.5
+    negatives = ~positives
+    tp = int((preds & positives).sum().item())
+    fp = int((preds & negatives).sum().item())
+    fn = int(((~preds) & positives).sum().item())
+    tn = int(((~preds) & negatives).sum().item())
+    precision = tp / (tp + fp) if tp + fp else None
+    recall = tp / (tp + fn) if tp + fn else None
+    tnr = tn / (tn + fp) if tn + fp else None
+    f1 = (
+        2 * precision * recall / (precision + recall)
+        if precision is not None and recall is not None and precision + recall > 0
+        else None
+    )
+    balanced_accuracy = (
+        (recall + tnr) / 2.0
+        if recall is not None and tnr is not None
+        else None
+    )
+    total = max(1, len(labels))
+    return {
+        "threshold": float(threshold),
+        "accuracy": float((tp + tn) / total),
+        "precision": precision,
+        "recall": recall,
+        "tnr": tnr,
+        "f1": f1,
+        "balanced_accuracy": balanced_accuracy,
+        "tp": tp,
+        "fp": fp,
+        "fn": fn,
+        "tn": tn,
+    }
+
+
+def _threshold_sweep(scores: torch.Tensor, labels: torch.Tensor) -> Dict[str, Any]:
+    raw_thresholds = [float(v) for v in torch.unique(scores.detach().cpu())]
+    if raw_thresholds:
+        eps = 1e-6
+        raw_thresholds.extend([min(raw_thresholds) - eps, max(raw_thresholds) + eps])
+    thresholds = sorted(set(raw_thresholds))
+    if not thresholds:
+        return {"num_labeled": int(labels.numel())}
+    best_balanced: Dict[str, Any] | None = None
+    best_f1: Dict[str, Any] | None = None
+    for threshold in thresholds:
+        metrics = _threshold_metrics(scores, labels, threshold)
+        balanced = metrics.get("balanced_accuracy")
+        if (
+            balanced is not None
+            and (
+                best_balanced is None
+                or balanced > float(best_balanced["balanced_accuracy"])
+                or (
+                    balanced == float(best_balanced["balanced_accuracy"])
+                    and (metrics.get("f1") or 0.0) > (best_balanced.get("f1") or 0.0)
+                )
+            )
+        ):
+            best_balanced = metrics
+        if (
+            metrics.get("f1") is not None
+            and (
+                best_f1 is None
+                or float(metrics["f1"]) > float(best_f1["f1"])
+                or (
+                    metrics["f1"] == best_f1["f1"]
+                    and (balanced or 0.0) > (best_f1.get("balanced_accuracy") or 0.0)
+                )
+            )
+        ):
+            best_f1 = metrics
+    return {
+        "num_labeled": int(labels.numel()),
+        "best_balanced_accuracy": best_balanced,
+        "best_f1": best_f1,
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run IAC benchmark on WAM outputs")
     parser.add_argument("--input", required=True, help="WAM output manifest: .jsonl/.json/.pt")
@@ -79,6 +160,12 @@ def parse_args() -> argparse.Namespace:
         "--memory-metrics",
         action="store_true",
         help="Also compute iWorld-Bench style memory symmetry / loop-closure drift.",
+    )
+    parser.add_argument(
+        "--model-kind",
+        choices=["auto", "cnn", "dinov2"],
+        default="auto",
+        help="Checkpoint model family. auto uses checkpoint/config metadata.",
     )
     return parser.parse_args()
 
@@ -217,12 +304,55 @@ class WAMManifestDataset(Dataset):
         }
 
 
-def _load_model(checkpoint_path: Path, cfg: Dict[str, Any], device: torch.device) -> ConsistencyCriticModel:
+def _state_looks_dinov2(state: Dict[str, Any]) -> bool:
+    return any(
+        key.startswith("image_encoder.")
+        or key.startswith("module.image_encoder.")
+        or key.startswith("_cnn_shared_backbone.")
+        for key in state
+    )
+
+
+def _resolve_model_kind(
+    requested: str,
+    cfg: Dict[str, Any],
+    checkpoint: Dict[str, Any],
+) -> str:
+    if requested != "auto":
+        return requested
+    dcfg = cfg.get("dinov2")
+    if isinstance(dcfg, dict) and bool(dcfg.get("enabled", False)):
+        return "dinov2"
+    state = checkpoint.get("model", {})
+    if isinstance(state, dict) and _state_looks_dinov2(state):
+        return "dinov2"
+    return "cnn"
+
+
+def _load_model(
+    checkpoint_path: Path,
+    cfg: Dict[str, Any],
+    device: torch.device,
+    model_kind: str,
+) -> tuple[torch.nn.Module, Dict[str, Any]]:
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
-    model = ConsistencyCriticModel(cfg).to(device)
-    model.load_state_dict(checkpoint["model"], strict=True)
+    resolved_kind = _resolve_model_kind(model_kind, cfg, checkpoint)
+    if resolved_kind == "dinov2":
+        from train_dinov2_v5_minimal import DINOv2ConsistencyCritic
+
+        model = DINOv2ConsistencyCritic(cfg).to(device)
+        missing, unexpected = model.load_state_dict(checkpoint["model"], strict=False)
+    else:
+        model = ConsistencyCriticModel(cfg).to(device)
+        missing, unexpected = model.load_state_dict(checkpoint["model"], strict=True)
     model.eval()
-    return model
+    return model, {
+        "kind": resolved_kind,
+        "epoch": checkpoint.get("epoch"),
+        "best_val_loss": checkpoint.get("best_val_loss"),
+        "missing_keys": missing,
+        "unexpected_keys": unexpected,
+    }
 
 
 def _label(row: Dict[str, Any], key: str, fallback: str = "label") -> float | None:
@@ -248,10 +378,28 @@ def _ndcg(labels: List[float], scores: List[float], k: int) -> float:
     return dcg / idcg if idcg > 0 else 0.0
 
 
+def _candidate_group_id(row: Dict[str, Any], group_key: str) -> str | None:
+    group = row.get(group_key) or row.get("anchor_id") or row.get("group_id")
+    if group is not None:
+        return str(group)
+    sample_id = row.get("sample_id")
+    if sample_id is None:
+        return None
+    sample_id = str(sample_id)
+    source = row.get("source_type") or row.get("sample_type") or row.get("action_type")
+    if source is not None:
+        suffix = f"__{source}"
+        if sample_id.endswith(suffix):
+            return sample_id[: -len(suffix)]
+    if "__" in sample_id:
+        return sample_id.rsplit("__", 1)[0]
+    return sample_id
+
+
 def _ranking_summary(scored: List[Dict[str, Any]], group_key: str) -> Dict[str, Any]:
     groups: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for row in scored:
-        group = row.get(group_key) or row.get("anchor_id") or row.get("sample_id")
+        group = _candidate_group_id(row, group_key)
         if group is not None and row.get("consistency_label") is not None:
             groups[str(group)].append(row)
 
@@ -331,10 +479,16 @@ def _summary(
         labels = torch.tensor([float(label) for label in c_labels], dtype=torch.float32)
         logits = torch.logit(c_scores.clamp(1e-6, 1 - 1e-6))
         summary["overall"]["consistency_binary"] = _compute_head_metrics(logits, labels)
+        summary["overall"]["consistency_threshold_sweep"] = _threshold_sweep(
+            c_scores, labels,
+        )
     if all(label is not None for label in v_labels):
         labels = torch.tensor([float(label) for label in v_labels], dtype=torch.float32)
         logits = torch.logit(v_scores.clamp(1e-6, 1 - 1e-6))
         summary["overall"]["validity_binary"] = _compute_head_metrics(logits, labels)
+        summary["overall"]["validity_threshold_sweep"] = _threshold_sweep(
+            v_scores, labels,
+        )
 
     for key_name, output_key in ((wam_key, "by_wam"), ("action_type", "by_action_type")):
         groups: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
@@ -373,7 +527,7 @@ def main() -> None:
         rows = rows[: args.max_samples]
 
     device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
-    model = _load_model(Path(args.checkpoint), cfg, device)
+    model, model_info = _load_model(Path(args.checkpoint), cfg, device, args.model_kind)
     dataset = WAMManifestDataset(rows, cfg, args.image_root)
     loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers, pin_memory=True)
 
@@ -395,6 +549,10 @@ def main() -> None:
             v_scores = torch.sigmoid(out["validity_logit"]).cpu().tolist()
             for i, (c_score, v_score) in enumerate(zip(c_scores, v_scores)):
                 row = dict(rows[offset + i])
+                if row.get(args.group_key) is None and row.get("group_id") is None:
+                    inferred_group = _candidate_group_id(row, args.group_key)
+                    if inferred_group is not None:
+                        row["group_id"] = inferred_group
                 row["iac_consistency"] = float(c_score)
                 row["iac_validity"] = float(v_score)
                 c_label = _label(row, "consistency_label")
@@ -411,7 +569,7 @@ def main() -> None:
                         fut_paths = row.get("future_images") or row.get("generated_future_images") or row.get("generated_images")
                         if isinstance(fut_paths, list) and fut_paths and all(isinstance(x, str) for x in fut_paths):
                             abs_paths = [
-                                str(p if Path(x).is_absolute() else image_root_path / x)
+                                str(Path(x) if Path(x).is_absolute() else image_root_path / x)
                                 for x in fut_paths
                             ]
                             frames = load_frames_from_paths(abs_paths, size=args.visual_size)
@@ -426,7 +584,7 @@ def main() -> None:
                         fut_paths = row.get("future_images") or row.get("generated_future_images") or row.get("generated_images")
                         if isinstance(fut_paths, list) and fut_paths and all(isinstance(x, str) for x in fut_paths):
                             abs_paths = [
-                                str(p if Path(x).is_absolute() else image_root_path / x)
+                                str(Path(x) if Path(x).is_absolute() else image_root_path / x)
                                 for x in fut_paths
                             ]
                             est = estimate_trajectory_from_video(abs_paths, size=args.visual_size)
@@ -445,7 +603,7 @@ def main() -> None:
                         fut_paths = row.get("future_images") or row.get("generated_future_images") or row.get("generated_images")
                         if isinstance(fut_paths, list) and fut_paths and all(isinstance(x, str) for x in fut_paths):
                             abs_paths = [
-                                str(p if Path(x).is_absolute() else image_root_path / x)
+                                str(Path(x) if Path(x).is_absolute() else image_root_path / x)
                                 for x in fut_paths
                             ]
                             frames = load_frames_from_paths(abs_paths, size=args.visual_size)
@@ -477,6 +635,13 @@ def main() -> None:
     )
     summary["input"] = str(args.input)
     summary["checkpoint"] = str(args.checkpoint)
+    summary["model"] = {
+        "kind": model_info["kind"],
+        "epoch": model_info["epoch"],
+        "best_val_loss": model_info["best_val_loss"],
+        "missing_key_count": len(model_info["missing_keys"]),
+        "unexpected_key_count": len(model_info["unexpected_keys"]),
+    }
     summary_path = out_dir / "wam_iac_summary.json"
     summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
 

@@ -11,6 +11,8 @@
     # Ranking 评估（需要索引中包含 ranking_groups）
     python eval_critic.py --checkpoint work_dirs/iac_full/checkpoints/best.pth --eval-ranking
 """
+from __future__ import annotations
+
 import argparse
 import json
 from pathlib import Path

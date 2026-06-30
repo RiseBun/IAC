@@ -559,6 +559,8 @@ class GroupRankingBatchSampler:
         source_weights: Dict[str, float] | None = None,
         hard_negative_sources: Sequence[str] | None = None,
         max_negatives_per_group: int = 0,
+        sample_difficulties: Sequence[int] | None = None,
+        difficulty_mix: Sequence[float] | None = None,
     ) -> None:
         self.samples = samples
         self.batch_size = max(1, int(batch_size))
@@ -574,6 +576,17 @@ class GroupRankingBatchSampler:
             str(v) for v in (hard_negative_sources or ())
         }
         self.max_negatives_per_group = max(0, int(max_negatives_per_group))
+        self.sample_difficulties = (
+            [int(v) for v in sample_difficulties]
+            if sample_difficulties is not None
+            else []
+        )
+        mix = list(difficulty_mix or ())
+        self.difficulty_mix = (
+            [float(v) for v in mix[:4]]
+            if len(mix) >= 4 and sum(float(v) for v in mix[:4]) > 0
+            else []
+        )
         self.epoch = 0
 
         groups: Dict[str, List[int]] = {}
@@ -615,7 +628,15 @@ class GroupRankingBatchSampler:
         priority = self.source_weights.get(source, 1.0)
         if source in self.hard_negative_sources:
             priority += max(priority, 1.0)
+        difficulty = self._sample_difficulty(index)
+        if self.difficulty_mix and difficulty > 0:
+            priority *= 1.0 + self.difficulty_mix[difficulty - 1]
         return float(priority)
+
+    def _sample_difficulty(self, index: int) -> int:
+        if 0 <= index < len(self.sample_difficulties):
+            return max(0, min(4, int(self.sample_difficulties[index])))
+        return 0
 
     def _group_weight(self, indices: List[int]) -> float:
         neg_priorities = [
@@ -631,10 +652,13 @@ class GroupRankingBatchSampler:
         negatives = [i for i in indices if not self._is_positive(i)]
         rng.shuffle(positives)
         rng.shuffle(negatives)
-        negatives.sort(key=lambda i: self._source_priority(i), reverse=True)
+        negatives.sort(
+            key=lambda i: (self._sample_difficulty(i), self._source_priority(i)),
+            reverse=True,
+        )
 
         if self.max_negatives_per_group > 0:
-            negatives = negatives[: self.max_negatives_per_group]
+            negatives = self._select_group_negatives(negatives, rng)
             indices = positives[:1] + negatives
             if len(indices) <= self.batch_size:
                 out = list(indices)
@@ -660,6 +684,52 @@ class GroupRankingBatchSampler:
 
         rng.shuffle(out)
         return out
+
+    def _select_group_negatives(
+        self, negatives: List[int], rng: random.Random,
+    ) -> List[int]:
+        if self.max_negatives_per_group <= 0:
+            return negatives
+
+        selected: List[int] = []
+        used = set()
+
+        if self.difficulty_mix:
+            raw = [self.max_negatives_per_group * m for m in self.difficulty_mix]
+            quotas = [int(math.floor(v)) for v in raw]
+            remaining_quota = self.max_negatives_per_group - sum(quotas)
+            order = sorted(
+                range(4),
+                key=lambda i: (raw[i] - quotas[i], i),
+                reverse=True,
+            )
+            for i in order[:remaining_quota]:
+                quotas[i] += 1
+
+            for difficulty in (4, 3, 2, 1):
+                quota = quotas[difficulty - 1]
+                if quota <= 0:
+                    continue
+                bucket = [
+                    i for i in negatives
+                    if i not in used and self._sample_difficulty(i) == difficulty
+                ]
+                bucket.sort(key=lambda i: self._source_priority(i), reverse=True)
+                for idx in bucket[:quota]:
+                    selected.append(idx)
+                    used.add(idx)
+                    if len(selected) >= self.max_negatives_per_group:
+                        rng.shuffle(selected)
+                        return selected
+
+        remainder = [i for i in negatives if i not in used]
+        remainder.sort(key=lambda i: self._source_priority(i), reverse=True)
+        for idx in remainder:
+            selected.append(idx)
+            if len(selected) >= self.max_negatives_per_group:
+                break
+        rng.shuffle(selected)
+        return selected
 
     def __iter__(self):
         rng = random.Random(self.seed + self.epoch)
@@ -787,6 +857,9 @@ def run_consistency_epoch(
     lambda_progress = float(cfg.get("lambda_progress_consistency", 0.2))
     lambda_temporal = float(cfg.get("lambda_temporal_coherence", 0.2))
     lambda_group_rank = float(cfg.get("lambda_group_ranking", 0.0))
+    lambda_future_traj_geometry = float(
+        cfg.get("lambda_future_traj_geometry", 0.0)
+    )
     group_rank_margin = float(cfg.get("group_ranking_margin", 0.2))
     source_weight_cfg = {
         str(k): float(v)
@@ -801,6 +874,12 @@ def run_consistency_epoch(
         for k, v in cfg.get("label_quality_weights", {}).items()
     }
     validity_negative_weight = float(cfg.get("validity_negative_weight", 1.0))
+    consistency_class_balanced_loss = bool(
+        cfg.get("consistency_class_balanced_loss", False)
+    )
+    consistency_negative_loss_weight = float(
+        cfg.get("consistency_negative_loss_weight", 1.0)
+    )
     
     # 正样本权重
     c_pw = torch.tensor(
@@ -826,6 +905,7 @@ def run_consistency_epoch(
     total_progress_loss = 0.0
     total_temporal_loss = 0.0
     total_group_rank_loss = 0.0
+    total_future_traj_geometry_loss = 0.0
     
     total_c_correct = 0.0
     total_v_correct = 0.0
@@ -887,10 +967,31 @@ def run_consistency_epoch(
                     label_qualities, quality_weight_cfg, device,
                 )
                 c_weights = c_weights * quality_weights
-                loss_c = (
-                    (c_loss_each * c_weights).sum()
-                    / c_weights.sum().clamp_min(1.0)
-                )
+                if consistency_class_balanced_loss:
+                    pos_mask = c_labels > 0.5
+                    neg_mask = ~pos_mask
+                    pos_loss = (c_loss_each * c_weights * pos_mask.float()).sum()
+                    pos_loss = pos_loss / (
+                        (c_weights * pos_mask.float()).sum().clamp_min(1.0)
+                    )
+                    neg_loss = (c_loss_each * c_weights * neg_mask.float()).sum()
+                    neg_loss = neg_loss / (
+                        (c_weights * neg_mask.float()).sum().clamp_min(1.0)
+                    )
+                    if bool(pos_mask.any()) and bool(neg_mask.any()):
+                        loss_c = (
+                            pos_loss
+                            + consistency_negative_loss_weight * neg_loss
+                        ) / (1.0 + consistency_negative_loss_weight)
+                    elif bool(pos_mask.any()):
+                        loss_c = pos_loss
+                    else:
+                        loss_c = neg_loss
+                else:
+                    loss_c = (
+                        (c_loss_each * c_weights).sum()
+                        / c_weights.sum().clamp_min(1.0)
+                    )
                 v_loss_each = F.binary_cross_entropy_with_logits(
                     out["validity_logit"],
                     v_labels,
@@ -919,6 +1020,26 @@ def run_consistency_epoch(
                     source_margin_cfg,
                     group_rank_margin,
                 )
+                if (
+                    lambda_future_traj_geometry > 0.0
+                    and "future_traj_geometry_pred" in out
+                    and "future_traj_geometry_target" in out
+                ):
+                    pos_mask = c_labels > 0.5
+                    if bool(pos_mask.any()):
+                        loss_future_traj_geometry = F.smooth_l1_loss(
+                            out["future_traj_geometry_pred"][pos_mask],
+                            out["future_traj_geometry_target"][pos_mask],
+                        )
+                    else:
+                        loss_future_traj_geometry = out[
+                            "future_traj_geometry_pred"
+                        ].sum() * 0.0
+                else:
+                    loss_future_traj_geometry = out[
+                        "consistency_logit"
+                    ].sum() * 0.0
+
             
                 # 加权组合
                 loss = (lambda_c * loss_c + 
@@ -927,7 +1048,8 @@ def run_consistency_epoch(
                        lambda_steering * loss_steering +
                        lambda_progress * loss_progress +
                        lambda_temporal * loss_temporal +
-                       lambda_group_rank * loss_group_rank)
+                       lambda_group_rank * loss_group_rank +
+                       lambda_future_traj_geometry * loss_future_traj_geometry)
             
             if training:
                 optimizer.zero_grad(set_to_none=True)
@@ -952,6 +1074,9 @@ def run_consistency_epoch(
         total_progress_loss += loss_progress.detach().item() * bs
         total_temporal_loss += loss_temporal.detach().item() * bs
         total_group_rank_loss += loss_group_rank.detach().item() * bs
+        total_future_traj_geometry_loss += (
+            loss_future_traj_geometry.detach().item() * bs
+        )
         
         total_c_correct += (c_preds == c_labels).float().sum().item()
         total_v_correct += (v_preds == v_labels).float().sum().item()
@@ -984,7 +1109,7 @@ def run_consistency_epoch(
         [
             total_loss, total_c_loss, total_v_loss,
             total_speed_loss, total_steering_loss, total_progress_loss, total_temporal_loss,
-            total_group_rank_loss,
+            total_group_rank_loss, total_future_traj_geometry_loss,
             total_c_correct, total_v_correct,
             total_speed_correct, total_steering_correct, total_progress_correct, total_temporal_correct,
             float(total_samples),
@@ -993,7 +1118,7 @@ def run_consistency_epoch(
         device=device,
     )
     metrics = reduce_mean(metrics)
-    n = max(float(metrics[14].item()), 1.0)
+    n = max(float(metrics[15].item()), 1.0)
     return {
         "loss": float(metrics[0].item() / n),
         "c_loss": float(metrics[1].item() / n),
@@ -1003,12 +1128,13 @@ def run_consistency_epoch(
         "progress_loss": float(metrics[5].item() / n),
         "temporal_loss": float(metrics[6].item() / n),
         "group_rank_loss": float(metrics[7].item() / n),
-        "c_acc": float(metrics[8].item() / n),
-        "v_acc": float(metrics[9].item() / n),
-        "speed_acc": float(metrics[10].item() / n),
-        "steering_acc": float(metrics[11].item() / n),
-        "progress_acc": float(metrics[12].item() / n),
-        "temporal_acc": float(metrics[13].item() / n),
+        "future_traj_geometry_loss": float(metrics[8].item() / n),
+        "c_acc": float(metrics[9].item() / n),
+        "v_acc": float(metrics[10].item() / n),
+        "speed_acc": float(metrics[11].item() / n),
+        "steering_acc": float(metrics[12].item() / n),
+        "progress_acc": float(metrics[13].item() / n),
+        "temporal_acc": float(metrics[14].item() / n),
     }
 
 
@@ -1044,6 +1170,13 @@ def build_dataloader(
         n_per_epoch = int(difficulty_cfg.get("num_samples_per_epoch", 0))
         if n_per_epoch <= 0:
             n_per_epoch = len(dataset.samples)
+        sample_difficulties = None
+        if bool(difficulty_cfg.get("enabled", False)) and training:
+            from iac_difficulty_sampler import assign_difficulty
+
+            sample_difficulties = [
+                assign_difficulty(sample) for sample in dataset.samples
+            ]
         rank = dist.get_rank() if dist.is_available() and dist.is_initialized() else 0
         world_size = (
             dist.get_world_size()
@@ -1067,6 +1200,8 @@ def build_dataloader(
                 if training
                 else 0
             ),
+            sample_difficulties=sample_difficulties,
+            difficulty_mix=difficulty_cfg.get("mix", ()),
         )
         batch_sampler.set_epoch(epoch)
         return DataLoader(

@@ -293,6 +293,34 @@ class DINOv2ConsistencyCritic(nn.Module):
         self.consistency_traj_steps = consistency_traj_steps
         self.use_dinov2 = bool(dcfg.get("enabled", True))
         self.use_explicit_distance = bool(dcfg.get("use_explicit_distance", True))
+        self.use_motion_features = bool(dcfg.get("use_motion_features", False))
+        self.use_traj_geometry_features = bool(
+            dcfg.get("use_traj_geometry_features", False)
+        )
+        self.use_future_traj_geometry_prediction = bool(
+            dcfg.get("use_future_traj_geometry_prediction", False)
+        )
+        self.use_action_visual_interaction = bool(
+            mcfg.get("use_action_visual_interaction", False)
+        )
+        self.temporal_encoder_type = str(mcfg.get("temporal_encoder", "mean"))
+        if self.temporal_encoder_type not in {"mean", "gru"}:
+            raise ValueError("model.temporal_encoder must be one of: mean, gru")
+
+        if self.temporal_encoder_type == "gru":
+            self.history_temporal_encoder = nn.GRU(
+                input_size=img_dim,
+                hidden_size=img_dim,
+                batch_first=True,
+            )
+            self.future_temporal_encoder = nn.GRU(
+                input_size=img_dim,
+                hidden_size=img_dim,
+                batch_first=True,
+            )
+        else:
+            self.history_temporal_encoder = None
+            self.future_temporal_encoder = None
 
         if self.use_dinov2:
             model_name = str(dcfg.get("model_name", "dinov2_vits14"))
@@ -324,6 +352,16 @@ class DINOv2ConsistencyCritic(nn.Module):
             self.future_proj = cnn.future_proj
             self._cnn_shared_backbone = cnn.shared_backbone
 
+        if self.use_action_visual_interaction:
+            self.action_to_visual_delta = nn.Sequential(
+                nn.Linear(act_dim * 2, hidden),
+                nn.ReLU(inplace=True),
+                nn.Linear(hidden, img_dim),
+                nn.ReLU(inplace=True),
+            )
+        else:
+            self.action_to_visual_delta = None
+
         self.consistency_traj_encoder = nn.Sequential(
             nn.Linear(consistency_traj_steps * traj_d, hidden),
             nn.ReLU(inplace=True),
@@ -342,11 +380,28 @@ class DINOv2ConsistencyCritic(nn.Module):
             nn.Linear(hidden // 2, act_dim),
             nn.ReLU(inplace=True),
         )
+        if self.use_future_traj_geometry_prediction:
+            self.future_traj_geometry_head = nn.Sequential(
+                nn.Linear(img_dim * 3, hidden),
+                nn.ReLU(inplace=True),
+                nn.Linear(hidden, 8),
+            )
+        else:
+            self.future_traj_geometry_head = None
 
-        # consistency_dim = hist + fut (+ diff + l2 + cos if explicit) + traj + ego
+        # consistency_dim = hist + fut (+ diff + l2 + cos if explicit)
+        # + optional action-visual interaction, motion, and geometry features
         consistency_dim = img_dim * 2 + act_dim * 2
         if self.use_explicit_distance:
-            consistency_dim += img_dim + 1 + 1
+            consistency_dim += img_dim + 2
+        if self.use_action_visual_interaction:
+            consistency_dim += img_dim * 5
+        if self.use_motion_features:
+            consistency_dim += img_dim * 2 + 4 + 6
+        if self.use_traj_geometry_features:
+            consistency_dim += 8
+        if self.use_future_traj_geometry_prediction:
+            consistency_dim += 8 * 3
 
         self.shared_fusion = nn.Sequential(
             nn.Linear(consistency_dim, fusion_dim),
@@ -373,10 +428,10 @@ class DINOv2ConsistencyCritic(nn.Module):
         self.temporal_coherence_head = nn.Linear(fusion_dim, 1)
         self.validity_head = nn.Linear(fusion_dim, 1)
 
-    def _encode_images(
+    def _encode_image_sequence(
         self, images: torch.Tensor,
     ) -> torch.Tensor:
-        """Encode (B, T, 3, H, W) → (B, out_dim)."""
+        """Encode (B, T, 3, H, W) ? (B, T, out_dim)."""
         b, t, c, h, w = images.shape
         flat = images.reshape(b * t, c, h, w)
         if self.use_dinov2:
@@ -384,7 +439,70 @@ class DINOv2ConsistencyCritic(nn.Module):
         else:
             feat = self._cnn_shared_backbone(flat).flatten(1)
             feat = self.history_proj(feat)
-        return feat.reshape(b, t, -1).mean(dim=1)
+        return feat.reshape(b, t, -1)
+
+    def _encode_images(
+        self, images: torch.Tensor,
+    ) -> torch.Tensor:
+        return self._encode_image_sequence(images).mean(dim=1)
+
+    def _encode_sequence(
+        self,
+        sequence: torch.Tensor,
+        temporal_encoder: nn.GRU | None,
+    ) -> torch.Tensor:
+        if temporal_encoder is None:
+            return sequence.mean(dim=1)
+        _, hidden = temporal_encoder(sequence)
+        return hidden[-1]
+
+    def _traj_motion_features(self, traj: torch.Tensor) -> torch.Tensor:
+        xy = traj[:, : self.consistency_traj_steps, :2]
+        origin = torch.zeros_like(xy[:, :1, :])
+        prev = torch.cat([origin, xy[:, :-1, :]], dim=1)
+        step = xy - prev
+        step_dist = torch.norm(step, p=2, dim=-1)
+        path_len = step_dist.sum(dim=1, keepdim=True)
+        final_xy = xy[:, -1, :]
+        final_disp = torch.norm(final_xy, p=2, dim=-1, keepdim=True)
+        progress_x = final_xy[:, :1]
+        lateral_abs = final_xy[:, 1:2].abs()
+        mean_step = step_dist.mean(dim=1, keepdim=True)
+        max_step = step_dist.max(dim=1, keepdim=True).values
+        return torch.cat(
+            [path_len, final_disp, progress_x, lateral_abs, mean_step, max_step],
+            dim=-1,
+        )
+
+    def _traj_geometry_features(self, traj: torch.Tensor) -> torch.Tensor:
+        xy = traj[:, : self.consistency_traj_steps, :2]
+        origin = torch.zeros_like(xy[:, :1, :])
+        prev = torch.cat([origin, xy[:, :-1, :]], dim=1)
+        step = xy - prev
+        step_dist = torch.norm(step, p=2, dim=-1)
+        path_len = step_dist.sum(dim=1, keepdim=True)
+        final_xy = xy[:, -1, :]
+        final_disp = torch.norm(final_xy, p=2, dim=-1, keepdim=True)
+        progress_x = final_xy[:, :1]
+        lateral_abs = final_xy[:, 1:2].abs()
+        mean_step = step_dist.mean(dim=1, keepdim=True)
+        max_step = step_dist.max(dim=1, keepdim=True).values
+        yaw = traj[:, : self.consistency_traj_steps, 2:3]
+        yaw_delta = yaw[:, -1, :] - yaw[:, 0, :]
+        yaw_abs_delta = yaw_delta.abs()
+        return torch.cat(
+            [
+                path_len,
+                final_disp,
+                progress_x,
+                lateral_abs,
+                mean_step,
+                max_step,
+                yaw_delta,
+                yaw_abs_delta,
+            ],
+            dim=-1,
+        )
 
     def forward(
         self,
@@ -393,8 +511,10 @@ class DINOv2ConsistencyCritic(nn.Module):
         ego_state: torch.Tensor,
         candidate_traj: torch.Tensor,
     ) -> Dict[str, torch.Tensor]:
-        z_hist = self._encode_images(history_images)
-        z_fut = self._encode_images(future_images)
+        hist_seq = self._encode_image_sequence(history_images)
+        fut_seq = self._encode_image_sequence(future_images)
+        z_hist = self._encode_sequence(hist_seq, self.history_temporal_encoder)
+        z_fut = self._encode_sequence(fut_seq, self.future_temporal_encoder)
         consistency_traj = candidate_traj[:, : self.consistency_traj_steps, :]
         z_traj_cons = self.consistency_traj_encoder(consistency_traj.flatten(1))
         z_traj_val = self.validity_traj_encoder(candidate_traj.flatten(1))
@@ -402,6 +522,8 @@ class DINOv2ConsistencyCritic(nn.Module):
 
         mode = self.baseline_mode
         if mode in {"no_image", "ego_only", "traj_only"}:
+            hist_seq = torch.zeros_like(hist_seq)
+            fut_seq = torch.zeros_like(fut_seq)
             z_hist = torch.zeros_like(z_hist)
             z_fut = torch.zeros_like(z_fut)
         if mode in {"no_traj", "ego_only"}:
@@ -410,12 +532,80 @@ class DINOv2ConsistencyCritic(nn.Module):
         if mode == "traj_only":
             z_ego = torch.zeros_like(z_ego)
 
+        if mode == "traj_only":
+            z_ego = torch.zeros_like(z_ego)
+
+        traj_geometry = None
+        future_traj_geometry_pred = None
         parts: List[torch.Tensor] = [z_hist, z_fut]
         if self.use_explicit_distance:
             diff = z_hist - z_fut
             l2_norm = torch.norm(diff, p=2, dim=-1, keepdim=True)
             cos_sim = F.cosine_similarity(z_hist, z_fut, dim=-1).unsqueeze(-1)
             parts.extend([diff, l2_norm, cos_sim])
+        if self.use_action_visual_interaction:
+            visual_delta = z_fut - z_hist
+            visual_abs_delta = visual_delta.abs()
+            assert self.action_to_visual_delta is not None
+            action_delta = self.action_to_visual_delta(
+                torch.cat([z_traj_cons, z_ego], dim=-1)
+            )
+            action_visual_product = action_delta * visual_delta
+            action_visual_gap = (action_delta - visual_delta).abs()
+            parts.extend(
+                [
+                    visual_delta,
+                    visual_abs_delta,
+                    action_delta,
+                    action_visual_product,
+                    action_visual_gap,
+                ]
+            )
+        if self.use_motion_features:
+            hist_last = hist_seq[:, -1, :]
+            fut_first = fut_seq[:, 0, :]
+            fut_last = fut_seq[:, -1, :]
+            bridge_delta = fut_last - hist_last
+            future_delta = fut_last - fut_first
+            image_motion_scalars = torch.cat(
+                [
+                    torch.norm(bridge_delta, p=2, dim=-1, keepdim=True),
+                    F.cosine_similarity(hist_last, fut_last, dim=-1).unsqueeze(-1),
+                    torch.norm(future_delta, p=2, dim=-1, keepdim=True),
+                    F.cosine_similarity(fut_first, fut_last, dim=-1).unsqueeze(-1),
+                ],
+                dim=-1,
+            )
+            traj_motion = self._traj_motion_features(consistency_traj)
+            if mode in {"no_traj", "ego_only"}:
+                traj_motion = torch.zeros_like(traj_motion)
+            parts.extend(
+                [bridge_delta, future_delta, image_motion_scalars, traj_motion],
+            )
+        if self.use_traj_geometry_features or self.use_future_traj_geometry_prediction:
+            traj_geometry = self._traj_geometry_features(consistency_traj)
+        if self.use_traj_geometry_features:
+            assert traj_geometry is not None
+            if mode in {"no_traj", "ego_only"}:
+                parts.append(torch.zeros_like(traj_geometry))
+            else:
+                parts.append(traj_geometry)
+        if self.use_future_traj_geometry_prediction:
+            assert traj_geometry is not None
+            assert self.future_traj_geometry_head is not None
+            visual_context = torch.cat([z_hist, z_fut, z_fut - z_hist], dim=-1)
+            future_traj_geometry_pred = self.future_traj_geometry_head(visual_context)
+            traj_geometry_for_cmp = traj_geometry
+            if mode in {"no_traj", "ego_only"}:
+                traj_geometry_for_cmp = torch.zeros_like(traj_geometry_for_cmp)
+            geom_delta = traj_geometry_for_cmp - future_traj_geometry_pred
+            parts.extend(
+                [
+                    future_traj_geometry_pred,
+                    geom_delta,
+                    geom_delta.abs(),
+                ]
+            )
         parts.extend([z_traj_cons, z_ego])
         z_all = torch.cat(parts, dim=-1)
         z_shared = self.shared_fusion(z_all)
@@ -423,7 +613,7 @@ class DINOv2ConsistencyCritic(nn.Module):
             torch.cat([z_traj_val, z_ego], dim=-1)
         )
 
-        return {
+        outputs = {
             "consistency_logit": self.consistency_head(z_shared).squeeze(-1),
             "speed_consistency_logit": self.speed_consistency_head(z_shared).squeeze(-1),
             "steering_consistency_logit": self.steering_consistency_head(z_shared).squeeze(-1),
@@ -431,6 +621,11 @@ class DINOv2ConsistencyCritic(nn.Module):
             "temporal_coherence_logit": self.temporal_coherence_head(z_shared).squeeze(-1),
             "validity_logit": self.validity_head(z_validity).squeeze(-1),
         }
+        if future_traj_geometry_pred is not None:
+            assert traj_geometry is not None
+            outputs["future_traj_geometry_pred"] = future_traj_geometry_pred
+            outputs["future_traj_geometry_target"] = traj_geometry
+        return outputs
 
 
 # Public alias so eval_critic.py / benchmark_wam.py can use either trainer
@@ -542,12 +737,25 @@ def main() -> None:
             weights_only=False,
         )
         target_model = model.module if isinstance(model, DDP) else model
+        model_state = target_model.state_dict()
+        checkpoint_model = checkpoint["model"]
+        skipped_shape = [
+            key for key, value in checkpoint_model.items()
+            if key in model_state and tuple(value.shape) != tuple(model_state[key].shape)
+        ]
+        if skipped_shape:
+            checkpoint_model = {
+                key: value for key, value in checkpoint_model.items()
+                if key not in skipped_shape
+            }
         missing, unexpected = target_model.load_state_dict(
-            checkpoint["model"],
+            checkpoint_model,
             strict=False,
         )
-        if checkpoint.get("optimizer"):
+        if checkpoint.get("optimizer") and not skipped_shape:
             optimizer.load_state_dict(checkpoint["optimizer"])
+        elif checkpoint.get("optimizer") and is_main_process():
+            print("[Resume][WARNING] optimizer state skipped because checkpoint/model shapes differ")
         best_val_loss = float(checkpoint.get("best_val_loss", math.inf))
         interrupted = bool(checkpoint.get("interrupted", False))
         if interrupted:
@@ -567,14 +775,26 @@ def main() -> None:
                 print(f"[Resume][WARNING] missing keys: {missing[:8]}")
             if unexpected:
                 print(f"[Resume][WARNING] unexpected keys: {unexpected[:8]}")
+            if skipped_shape:
+                print(f"[Resume][WARNING] skipped shape-mismatched keys: {skipped_shape[:8]}")
     start_time = time.time()
 
     if is_main_process():
         print("=" * 60)
         print("DINOv2 Consistency Critic v5 (minimal, ablation-aware)")
-        print(f"  Backbone        : {'DINOv2 ' + dcfg.get('model_name','dinov2_vits14') + ' layer[' + str(dcfg.get('layer_index',11)) + ']' if dcfg.get('enabled', True) else '4-layer CNN (from train.py)'}")
+        layer_desc = (
+            f"layers={dcfg.get('layer_indices')}"
+            if dcfg.get('layer_indices')
+            else f"layer[{dcfg.get('layer_index', 11)}]"
+        )
+        print(f"  Backbone        : {'DINOv2 ' + dcfg.get('model_name','dinov2_vits14') + ' ' + layer_desc if dcfg.get('enabled', True) else '4-layer CNN (from train.py)'}")
         print(f"  DINOv2 freeze   : {dcfg.get('freeze', True) if dcfg.get('enabled', True) else 'N/A'}")
         print(f"  Explicit dist   : {dcfg.get('use_explicit_distance', True)}")
+        print(f"  Temporal enc.   : {cfg.get('model', {}).get('temporal_encoder', 'mean')}")
+        print(f"  Act-vis int.    : {cfg.get('model', {}).get('use_action_visual_interaction', False)}")
+        print(f"  Motion features : {dcfg.get('use_motion_features', False)}")
+        print(f"  Traj geometry   : {dcfg.get('use_traj_geometry_features', False)}")
+        print(f"  Future geom pred: {dcfg.get('use_future_traj_geometry_prediction', False)}")
         group_batches = bool(
             cfg.get("ranking", {}).get(
                 "group_batches",
