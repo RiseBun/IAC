@@ -10,6 +10,7 @@ generated_data/
 evaluation_results/
 work_dirs/
 labeled_data/
+tmp_listwise_mock/
 
 # nuPlan archives / extracted camera data
 nuplan-v1.1_*/

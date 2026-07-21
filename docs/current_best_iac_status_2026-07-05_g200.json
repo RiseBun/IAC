@@ -1,0 +1,121 @@
+{
+  "date": "2026-07-05",
+  "main_model": "iac_navsim_future_dinov2_trajspecific_fullgroup_strong_3gpu_400",
+  "checkpoint": "work_dirs/iac_navsim_future_dinov2_trajspecific_fullgroup_strong_3gpu_400/checkpoints/latest.pth",
+  "config": "configs/train_navsim_future_dinov2_pathgrounded_strong.py",
+  "eval_dir": "work_dirs/iac_navsim_future_dinov2_trajspecific_fullgroup_strong_3gpu_400/traj_specific_causal_g200_fixedpos_maxwrong_exclusive_cfgroot_skipmissing",
+  "protocol": {
+    "groups": 200,
+    "samples": 1400,
+    "candidate_group_size": 7,
+    "path_trajectory_mode": "positions",
+    "path_projection_mode": "fixed",
+    "skip_missing_images": true,
+    "missing_image_filter": {
+      "input": "indices_navsim_future/consistency_val.jsonl",
+      "image_root": "/mnt/slurmfs-3090node1_msp/public_data/download/navtrain/trainval_sensor_blobs",
+      "original_count": 85708,
+      "kept_count": 85708,
+      "dropped_count": 0
+    }
+  },
+  "decision_performance": {
+    "same_set_best_balanced": {
+      "threshold": 0.1052825078368187,
+      "accuracy": 0.6564285714285715,
+      "precision": 0.2654424040066778,
+      "recall": 0.795,
+      "tnr": 0.6333333333333333,
+      "f1": 0.3979974968710889,
+      "balanced_accuracy": 0.7141666666666666,
+      "tp": 159,
+      "fp": 440,
+      "fn": 41,
+      "tn": 760
+    },
+    "group_disjoint_selected_threshold": 0.10575295984745026,
+    "group_disjoint_eval_selected": {
+      "threshold": 0.10575295984745026,
+      "num_samples": 777,
+      "num_positive": 111,
+      "num_negative": 666,
+      "accuracy": 0.6640926640926641,
+      "precision": 0.2641509433962264,
+      "recall": 0.7567567567567568,
+      "tnr": 0.6486486486486487,
+      "fpr": 0.3513513513513513,
+      "f1": 0.3916083916083916,
+      "balanced_accuracy": 0.7027027027027027,
+      "tp": 84,
+      "fp": 234,
+      "fn": 27,
+      "tn": 432,
+      "positive_score_mean": 0.14717723095269353,
+      "negative_score_mean": 0.08394037191606918
+    },
+    "group_disjoint_eval_default": {
+      "threshold": 0.5,
+      "num_samples": 777,
+      "num_positive": 111,
+      "num_negative": 666,
+      "accuracy": 0.8571428571428571,
+      "precision": 0.0,
+      "recall": 0.0,
+      "tnr": 1.0,
+      "fpr": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "tp": 0,
+      "fp": 0,
+      "fn": 111,
+      "tn": 666,
+      "positive_score_mean": 0.14717723095269353,
+      "negative_score_mean": 0.08394037191606918
+    },
+    "ranking": {
+      "num_groups": 200,
+      "num_ranked_groups": 200,
+      "top1_hit_rate": 0.405,
+      "mrr": 0.6651666666666668,
+      "ndcg@3": 0.7317172526607258,
+      "ndcg@5": 0.7508785790198342
+    }
+  },
+  "causal_evidence": {
+    "path_vs_sky": {
+      "mean_path_delta": 0.031193177040770802,
+      "mean_sky_delta": 0.014358060222335942,
+      "mean_path_minus_sky_delta": 0.016835116818434862,
+      "path_delta_gt_sky_fraction": 0.7885714285714286,
+      "mean_path_mask_fraction": 0.07756320448060121,
+      "mean_sky_mask_fraction": 0.07764030426740647,
+      "is_path_grounded": true
+    },
+    "trajectory_specific_overall": {
+      "mean_candidate_path_delta": 0.031193177040770802,
+      "mean_wrong_path_delta": 0.03111640067053096,
+      "mean_candidate_minus_wrong_delta": 7.677637023984322e-05,
+      "candidate_delta_gt_wrong_fraction": 0.3314285714285714,
+      "mean_candidate_exclusive_path_delta": 0.0028845177823677657,
+      "mean_wrong_exclusive_path_delta": 0.0028807202078002902,
+      "mean_candidate_minus_wrong_exclusive_delta": 3.797574567475489e-06,
+      "candidate_exclusive_delta_gt_wrong_fraction": 0.31642857142857145,
+      "mean_path_mask_iou": 0.791938409897823,
+      "mean_exclusive_mask_fraction": 0.005135494382620891,
+      "is_trajectory_specific_path_grounded": false,
+      "is_exclusive_trajectory_specific_path_grounded": false
+    },
+    "trajectory_specific_positive_rows": {
+      "mean_candidate_path_delta": 0.04938211904838681,
+      "mean_wrong_path_delta": 0.046871301303617656,
+      "mean_candidate_minus_wrong_delta": 0.002510817744769156,
+      "candidate_delta_gt_wrong_fraction": 0.515,
+      "mean_candidate_exclusive_path_delta": 0.0088577523175627,
+      "mean_wrong_exclusive_path_delta": 0.006139758061617612,
+      "mean_candidate_minus_wrong_exclusive_delta": 0.0027179942559450864,
+      "candidate_exclusive_delta_gt_wrong_fraction": 0.57,
+      "mean_path_mask_iou": 0.4566759687366186,
+      "mean_exclusive_mask_fraction": 0.01325284969151653
+    }
+  }
+}

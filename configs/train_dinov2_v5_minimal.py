@@ -81,14 +81,14 @@ cfg = dict(
         time_shift_future=3.5,
         perturb_lateral=1.2,
         perturb_heading=2.0,
-        perturb_speed=4.0,
+        perturb_speed=5.0,
         reverse_traj=3.0,
     ),
     consistency_source_margins=dict(
         traj_swap=0.30,
-        time_shift_future=0.35,
-        perturb_speed=0.40,
-        reverse_traj=0.30,
+        time_shift_future=0.40,
+        perturb_speed=0.55,
+        reverse_traj=0.35,
     ),
     label_quality_weights=dict(
         positive=1.0,
@@ -111,6 +111,8 @@ cfg = dict(
         hidden_dim=256,
         fusion_dim=256,
         dropout=0.1,
+        temporal_encoder="mean",
+        use_action_visual_interaction=False,
         use_complex_fusion=False,     # minimal 版本不用 complex fusion
     ),
 
@@ -127,6 +129,7 @@ cfg = dict(
         layer_index=11,                  # 只取最后一层
         freeze=True,                     # 冻住
         use_explicit_distance=True,      # 把 (diff, l2, cos) 拼进 fusion
+        use_motion_features=True,        # expose future motion/progress for speed negatives
     ),
 
     # ── 数据集 ──
@@ -149,7 +152,7 @@ cfg = dict(
         # Train on more groups per batch by keeping the positive and the
         # most failure-prone negatives from each candidate set. Validation
         # still evaluates full groups.
-        max_negatives_per_group=3,
+        max_negatives_per_group=4,
         hard_negative_sources=[
             "perturb_speed",
             "time_shift_future",
