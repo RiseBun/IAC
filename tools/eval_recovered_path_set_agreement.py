@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -85,6 +86,90 @@ def _traj_tensor(row: Dict[str, Any], steps: int, traj_dim: int) -> torch.Tensor
     if tensor.shape[0] < steps:
         tensor = torch.nn.functional.pad(tensor, (0, 0, 0, steps - tensor.shape[0]))
     return tensor
+
+
+def _sigmoid(value: float) -> float:
+    if value >= 0.0:
+        z = math.exp(-value)
+        return 1.0 / (1.0 + z)
+    z = math.exp(value)
+    return z / (1.0 + z)
+
+
+def _angle_wrap(value: torch.Tensor) -> torch.Tensor:
+    return torch.atan2(torch.sin(value), torch.cos(value))
+
+
+def _path_lengths(paths: torch.Tensor) -> torch.Tensor:
+    if paths.shape[-2] < 2:
+        return torch.zeros(paths.shape[:-2], dtype=paths.dtype, device=paths.device)
+    deltas = paths[..., 1:, :2] - paths[..., :-1, :2]
+    return torch.norm(deltas, p=2, dim=-1).sum(dim=-1)
+
+
+def _path_headings(paths: torch.Tensor) -> torch.Tensor:
+    if paths.shape[-2] < 2:
+        return torch.zeros(paths.shape[:-2], dtype=paths.dtype, device=paths.device)
+    delta = paths[..., -1, :2] - paths[..., 0, :2]
+    return torch.atan2(delta[..., 1], delta[..., 0])
+
+
+def _mode_path_iou(paths: torch.Tensor, traj: torch.Tensor, radius: float) -> torch.Tensor:
+    if paths.numel() == 0:
+        return torch.zeros((0,), dtype=traj.dtype)
+    dist = torch.cdist(paths[..., :2], traj[None, :, :2], p=2)
+    pred_hits = (dist.min(dim=2).values <= float(radius)).float().sum(dim=1)
+    traj_hits = (dist.min(dim=1).values <= float(radius)).float().sum(dim=1)
+    union = float(paths.shape[1] + traj.shape[0]) - 0.5 * (pred_hits + traj_hits)
+    overlap = 0.5 * (pred_hits + traj_hits)
+    return overlap / torch.clamp(union, min=1.0)
+
+
+def _agreement_metrics(
+    paths: torch.Tensor,
+    logits: torch.Tensor,
+    traj: torch.Tensor,
+    *,
+    ade_scale: float,
+    fde_scale: float,
+    heading_scale: float,
+    progress_scale: float,
+    path_iou_radius: float,
+    ade_weight: float,
+    fde_weight: float,
+    heading_weight: float,
+    progress_weight: float,
+    path_iou_weight: float,
+    logit_bias: float,
+) -> Dict[str, float]:
+    diff = paths[..., :2] - traj[None, :, :2]
+    mode_ade = torch.norm(diff, p=2, dim=-1).mean(dim=-1)
+    mode_fde = torch.norm(paths[:, -1, :2] - traj[None, -1, :2], p=2, dim=-1)
+    heading_err = _angle_wrap(_path_headings(paths) - _path_headings(traj[None])).abs()
+    progress_err = (_path_lengths(paths) - _path_lengths(traj[None])).abs()
+    path_iou = _mode_path_iou(paths, traj, path_iou_radius)
+    agreement_logit = (
+        float(logit_bias)
+        - float(ade_weight) * mode_ade / max(float(ade_scale), 1e-6)
+        - float(fde_weight) * mode_fde / max(float(fde_scale), 1e-6)
+        - float(heading_weight) * heading_err / max(float(heading_scale), 1e-6)
+        - float(progress_weight) * progress_err / max(float(progress_scale), 1e-6)
+        + float(path_iou_weight) * path_iou
+    )
+    best = int(torch.argmax(agreement_logit).item())
+    top = int(torch.argmax(logits).item())
+    return {
+        "minade": float(torch.min(mode_ade).item()),
+        "topmode_ade": float(mode_ade[top].item()),
+        "best_mode": float(best),
+        "best_mode_ade": float(mode_ade[best].item()),
+        "best_mode_fde": float(mode_fde[best].item()),
+        "best_mode_heading_error": float(heading_err[best].item()),
+        "best_mode_progress_error": float(progress_err[best].item()),
+        "best_mode_path_iou": float(path_iou[best].item()),
+        "agreement_logit": float(agreement_logit[best].item()),
+        "agreement_prob": _sigmoid(float(agreement_logit[best].item())),
+    }
 
 
 def _minade(paths: torch.Tensor, traj: torch.Tensor) -> float:
@@ -189,6 +274,8 @@ def _summarize(
     wam_key: str,
     score_key: str,
     conformal_quantile: float,
+    recover_mode: str,
+    agreement_args: Dict[str, float],
 ) -> tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     near_sources = {"perturb_speed", "perturb_lateral", "perturb_heading"}
     grouped = _groups(rows, group_key)
@@ -202,19 +289,35 @@ def _summarize(
         if not positives or len(group) < 2:
             continue
         positive = positives[0]
+        positive_path_set = path_sets.get(int(positive["_row_index"]))
+        if recover_mode == "group_gt_future" and positive_path_set is None:
+            continue
         candidates = []
         for row in group:
             idx = int(row["_row_index"])
-            if idx not in path_sets:
+            if recover_mode == "group_gt_future":
+                path_set = positive_path_set
+            else:
+                path_set = path_sets.get(idx)
+            if path_set is None:
                 continue
-            paths, logits = path_sets[idx]
+            paths, logits = path_set
             traj = _traj_tensor(row, steps, traj_dim)
-            minade = _minade(paths, traj)
-            topade = _topmode_ade(paths, logits, traj)
+            metrics = _agreement_metrics(paths, logits, traj, **agreement_args)
+            minade = metrics["minade"]
+            topade = metrics["topmode_ade"]
             out = dict(row)
+            out["base_iac_consistency"] = row.get("iac_consistency")
             out["recovered_set_minade"] = minade
             out["recovered_set_topmode_ade"] = topade
-            out["recovered_set_agreement"] = -minade
+            out["recovered_set_best_mode"] = int(metrics["best_mode"])
+            out["recovered_set_best_mode_ade"] = metrics["best_mode_ade"]
+            out["recovered_set_best_mode_fde"] = metrics["best_mode_fde"]
+            out["recovered_set_heading_error"] = metrics["best_mode_heading_error"]
+            out["recovered_set_progress_error"] = metrics["best_mode_progress_error"]
+            out["recovered_set_path_iou"] = metrics["best_mode_path_iou"]
+            out["recovered_set_agreement_logit"] = metrics["agreement_logit"]
+            out["recovered_set_agreement"] = metrics["agreement_prob"]
             scored_rows.append(out)
             candidates.append(
                 {
@@ -223,6 +326,8 @@ def _summarize(
                     "score": float(row.get(score_key, row.get("iac_consistency", 0.0))),
                     "minade": minade,
                     "topade": topade,
+                    "agreement": metrics["agreement_prob"],
+                    "agreement_logit": metrics["agreement_logit"],
                     "is_positive": row is positive,
                 }
             )
@@ -247,14 +352,24 @@ def _summarize(
     set_sizes: List[float] = []
     miss_sources: Counter[str] = Counter()
     categories: Counter[str] = Counter()
+    high_pdm_above_gt: List[float] = []
     for gid, positive, candidates, gt in group_items:
         current = sorted(candidates, key=lambda item: item["score"], reverse=True)[0]
-        recovered = sorted(candidates, key=lambda item: item["minade"])[0]
+        recovered = sorted(candidates, key=lambda item: item["agreement"], reverse=True)[0]
         current_hit = current["is_positive"]
         recovered_hit = recovered["is_positive"]
         supported = [item for item in candidates if item["minade"] <= radius]
         current_supported = current["minade"] <= radius
         gt_is_supported = gt["minade"] <= radius
+        high_pdm_rows = [
+            item
+            for item in candidates
+            if item["source"] == "high_pdm_image_mismatch"
+        ]
+        if high_pdm_rows:
+            high_pdm_above_gt.append(
+                float(max(item["agreement"] for item in high_pdm_rows) > gt["agreement"])
+            )
         current_hits.append(float(current_hit))
         recovered_hits.append(float(recovered_hit))
         gt_better.append(float(gt["minade"] < current["minade"]))
@@ -283,6 +398,9 @@ def _summarize(
                 "gt_minade": gt["minade"],
                 "current_winner_minade": current["minade"],
                 "recovered_winner_minade": recovered["minade"],
+                "gt_recovered_set_agreement": gt["agreement"],
+                "current_winner_recovered_set_agreement": current["agreement"],
+                "recovered_winner_agreement": recovered["agreement"],
                 "gt_better_than_current_winner": bool(gt["minade"] < current["minade"]),
                 "ambiguity_radius": radius,
                 "ambiguity_set_size": len(supported),
@@ -303,6 +421,7 @@ def _summarize(
         "gt_minade_lt_current_winner_frac": _mean(gt_better),
         "current_winner_supported_frac": _mean(winner_supported),
         "gt_supported_frac": _mean(gt_supported),
+        "high_pdm_mismatch_above_gt_rate": _mean(high_pdm_above_gt),
         "mean_ambiguity_set_size": _mean(set_sizes),
         "support_categories": dict(categories),
         "miss_source_distribution": dict(miss_sources),
@@ -325,9 +444,34 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--group-key", default="group_id")
     parser.add_argument("--wam-key", default="wam_name")
     parser.add_argument("--conformal-quantile", type=float, default=0.90)
+    parser.add_argument(
+        "--recover-mode",
+        default="group_gt_future",
+        choices=["row_future", "group_gt_future"],
+        help=(
+            "group_gt_future recovers one K-set from the GT/future row and "
+            "compares every candidate in the group against it. This is the "
+            "pure recover-then-compare setting for image-to-supported-set."
+        ),
+    )
+    parser.add_argument("--agreement-ade-scale", type=float, default=2.0)
+    parser.add_argument("--agreement-fde-scale", type=float, default=4.0)
+    parser.add_argument("--agreement-heading-scale", type=float, default=0.75)
+    parser.add_argument("--agreement-progress-scale", type=float, default=4.0)
+    parser.add_argument("--agreement-path-iou-radius", type=float, default=1.5)
+    parser.add_argument("--agreement-ade-weight", type=float, default=1.0)
+    parser.add_argument("--agreement-fde-weight", type=float, default=0.35)
+    parser.add_argument("--agreement-heading-weight", type=float, default=0.25)
+    parser.add_argument("--agreement-progress-weight", type=float, default=0.20)
+    parser.add_argument("--agreement-path-iou-weight", type=float, default=1.0)
+    parser.add_argument("--agreement-logit-bias", type=float, default=2.0)
     parser.add_argument("--output-summary", required=True)
     parser.add_argument("--output-per-group")
     parser.add_argument("--output-scored-rows")
+    parser.add_argument(
+        "--output-agreement-scores",
+        help="Optional WAM score JSONL whose iac_consistency is recovered-set agreement.",
+    )
     return parser.parse_args()
 
 
@@ -353,15 +497,54 @@ def main() -> None:
         wam_key=args.wam_key,
         score_key=args.score_key,
         conformal_quantile=args.conformal_quantile,
+        recover_mode=args.recover_mode,
+        agreement_args={
+            "ade_scale": args.agreement_ade_scale,
+            "fde_scale": args.agreement_fde_scale,
+            "heading_scale": args.agreement_heading_scale,
+            "progress_scale": args.agreement_progress_scale,
+            "path_iou_radius": args.agreement_path_iou_radius,
+            "ade_weight": args.agreement_ade_weight,
+            "fde_weight": args.agreement_fde_weight,
+            "heading_weight": args.agreement_heading_weight,
+            "progress_weight": args.agreement_progress_weight,
+            "path_iou_weight": args.agreement_path_iou_weight,
+            "logit_bias": args.agreement_logit_bias,
+        },
     )
     summary["probe_info"] = info
+    summary["recover_mode"] = args.recover_mode
+    summary["agreement_config"] = {
+        "ade_scale": args.agreement_ade_scale,
+        "fde_scale": args.agreement_fde_scale,
+        "heading_scale": args.agreement_heading_scale,
+        "progress_scale": args.agreement_progress_scale,
+        "path_iou_radius": args.agreement_path_iou_radius,
+        "ade_weight": args.agreement_ade_weight,
+        "fde_weight": args.agreement_fde_weight,
+        "heading_weight": args.agreement_heading_weight,
+        "progress_weight": args.agreement_progress_weight,
+        "path_iou_weight": args.agreement_path_iou_weight,
+        "logit_bias": args.agreement_logit_bias,
+    }
     out = Path(args.output_summary)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     if args.output_per_group:
         _write_jsonl(Path(args.output_per_group), per_group)
     if args.output_scored_rows:
-        _write_jsonl(Path(args.output_scored_rows), scored_rows)
+        _write_jsonl(
+            Path(args.output_scored_rows),
+            sorted(scored_rows, key=lambda row: int(row.get("_row_index", 0))),
+        )
+    if args.output_agreement_scores:
+        agreement_rows = []
+        for row in sorted(scored_rows, key=lambda row: int(row.get("_row_index", 0))):
+            out_row = dict(row)
+            out_row["iac_consistency"] = float(out_row["recovered_set_agreement"])
+            out_row["score_fusion_label"] = "recovered_set_agreement"
+            agreement_rows.append(out_row)
+        _write_jsonl(Path(args.output_agreement_scores), agreement_rows)
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 

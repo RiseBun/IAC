@@ -1,135 +1,204 @@
-# IAC
+# IAC: Image-Action / Image-Trajectory Consistency
 
-IAC（Image-Action Consistency）是一个面向自动驾驶 WAM 输出的一致性评测器。
-它回答的不是“这条轨迹是不是 GT”，而是：
+IAC is a benchmark and modeling pipeline for judging whether a candidate ego trajectory is supported by a generated future image.
 
-> 给定历史图像、未来图像和候选轨迹，这条轨迹是否被这段未来图像支持？
+The core question is not:
 
-它不是 planner，也不是 world model。IAC 不生成图像或轨迹，只对已有 WAM 输出打分。
+> Is this candidate exactly the GT trajectory?
 
-## 当前问题定义
+It is:
 
-我们现在把任务从 single-GT 监督改成 supported-set 监督：
+> Given history images, a future image, and a candidate trajectory, is this trajectory inside the trajectory set supported by that future image?
 
-- GT 仍然是正例，但不再是唯一正例
-- 同场景高 PDMS / EPDMS 的 `perturb_speed`、`perturb_lateral`、`perturb_heading` 视为软正例
-- 中等质量、语义不确定的同场景 perturb 视为 `unknown`
-- `image_swap`、`time_shift_future`、`traj_swap`、`reverse_traj`、`high_pdm_image_mismatch` 视为明确负例
+This distinction matters because driving futures are multi-solution. A non-GT trajectory can still be visually supported if it is a small same-scene speed, lateral, or heading perturbation. Conversely, a trajectory can be physically reasonable and high-PDMS but still not match this particular future image.
 
-这一步的本质是把监督目标从“找 GT”改成“识别被未来图像支持的候选集合”。
+## Current Main Result
 
-## 当前模型
+The current trusted result is the grouped recovered-set pipeline, evaluated on g200 with ambiguity-adjusted top1:
 
-当前主线是 separated-head + learned fusion：
+| split | CP baseline | grouped recovered-set best | gain |
+|---|---:|---:|---:|
+| regular | 0.750 | 0.830 | +0.080 |
+| low_iou | 0.705 | 0.800 | +0.095 |
+| holdout | 0.730 | 0.780 | +0.050 |
 
-- `image_trajectory_consistency_head` 学图像-轨迹对应
-- `trajectory_reasonableness_head` 学轨迹本身是否合理
-- 最终 `consistency_logit` 通过内部 learned gate 融合两者
-
-关键约束：
-
-- 不把原始 PDMS 直接喂给最终一致性分数
-- PDMS 只作为轨迹合理性辅助监督
-- unknown 样本不参与 BCE 和 listwise ranking
-
-## 当前监督
-
-训练里现在同时看到三类信号：
+This is the current main line:
 
 ```text
-soft positive:
-GT + 高 PDMS/EPDMS 的同场景 perturb
-
-unknown:
-中等质量、语义不确定的同场景 perturb
-
-hard negative:
-image_swap / time_shift_future / traj_swap / reverse_traj / high_pdm_image_mismatch
+future image -> recover K supported paths -> compare candidate with recovered set
 ```
 
-ranking 也从硬 GT 排序改成 soft/listwise。
+The most important finding is that recovering a supported set is more faithful to the problem than forcing a single GT ranking target.
 
-## 最新验证信号
+## Current Pipeline
 
-最近一次完整的 separated-head + official PDMS + hard mismatch 训练，已跑到 epoch 26，验证集信号如下：
+1. Train an image-trajectory consistency model with supported-set/listwise supervision.
+2. Fuse consistency and path evidence as the CP baseline.
+3. Train a grouped recovered-set probe from frozen visual features.
+4. Recover K candidate supported paths from the future image.
+5. Score each candidate by agreement with the recovered K-set.
+6. Evaluate with ambiguity-adjusted top1, not hard GT top1.
 
-- `val_loss = 1.4347`
-- `val_c_bal = 0.6778`
-- `val_c_recall = 0.5167`
-- `val_c_gap = 0.2618`
-- `val_reason_mae = 0.1827`
-- `best val_iac_precision = 0.6326`
+Important files:
 
-这说明：
-
-- hard negative 没把模型压死，recall 已恢复
-- `c_gap` 持续上升，区分度在变强
-- reasonableness head 已经学到有效 PDMS 信号
-- 低 IoU / 强不一致样本仍是主要难点
-
-当前更近的短训分支是 `supported_set_listwise_vnext`，目标是验证“soft positive + unknown mask + hard mismatch”的监督几何是否比 GT-only 更稳。
-
-## 如何评估
-
-现在不再把“GT 必须排第一”当作唯一正确性标准。
-
-更合理的评估是：
-
-- support-aware / ambiguity-adjusted top1
-- clear-negative rejection rate
-- low_iou / holdout_low_iou 子集表现
-- `val_c_gap`
-- `val_reason_mae`
-
-如果一个轨迹不是 GT，但被未来图像支持，也不该被当成错。
-
-## 训练入口
-
-- `configs/train_navsim_future_dinov2_separated_heads_official_pdms_hardneg_vnext.py`
 - `configs/train_navsim_future_dinov2_supported_set_listwise_vnext.py`
-- `scripts/run_separated_heads_official_pdms_hardneg_vnext.sh`
-- `scripts/run_official_pdms_g200_eval.sh`
-- `benchmark_wam.py`
-- `train.py`
-- `eval_critic.py`
+- `scripts/run_grouped_recovered_probe_k12_vnext.sh`
+- `tools/train_recovered_path_set_probe_grouped_from_features.py`
+- `tools/eval_recovered_path_set_agreement.py`
+- `tools/extract_recovered_path_features.py`
 
-## 数据构建
+## Supervision Design
 
-当前训练索引包含高 PDMS mismatch 样本，相关工具在：
+The model no longer treats GT as the only positive.
 
-- `tools/add_high_pdm_mismatch_negatives.py`
-- `scripts/build_high_pdm_mismatch_indices.sh`
+```text
+positive:
+  gt_pos
 
-目标是显式制造“轨迹本身合理，但和这张未来图像不对应”的 hard negative。
+soft positive:
+  high-PDMS / high-EPDMS same-scene perturb_speed
+  high-PDMS / high-EPDMS same-scene perturb_lateral
+  high-PDMS / high-EPDMS same-scene perturb_heading
 
-## 评估输出
+unknown:
+  medium-quality same-scene perturbations
 
-`benchmark_wam.py` 会输出：
+hard negative:
+  image_swap
+  time_shift_future
+  traj_swap
+  reverse_traj
+  high_pdm_image_mismatch
+```
 
-- `wam_iac_scores.jsonl`
-- `wam_iac_summary.json`
+Unknown rows are masked out of BCE/listwise objectives when their label is ambiguous.
 
-其中 summary 关注：
+## Why Hard GT Top1 Is Not Enough
 
-- overall mean
-- 按 group / action 的分组结果
-- ambiguity-aware ranking 指标
-- graded perturbation 曲线
+Hard top1 asks whether GT is ranked first. That is too strict for this task because multiple candidates may be visually valid.
 
-## 仓库边界
+The main metric is:
 
-仓库只保留 IAC 主链路相关内容：
+```text
+ambiguity-adjusted top1
+```
 
-- 训练与评估脚本
-- 索引构建与数据处理工具
-- benchmark 主逻辑
-- 主要配置文件
+It accepts GT or visually reasonable same-scene perturbations when the future image plausibly supports them.
 
-不包含：
+We also track:
 
-- 原始 nuPlan 数据
-- checkpoint
+- hard mismatch above GT group rate
+- low_iou and holdout performance
+- source-wise calibration
+- hard top1 as a secondary diagnostic only
+
+## Visual-Time Specificity Findings
+
+The recovered-set model improved ranking but still had a failure mode:
+
+| split | hard mismatch above GT |
+|---|---:|
+| regular | 40.0% |
+| low_iou | 29.0% |
+| holdout | 39.5% |
+
+This means the model learned:
+
+```text
+this future image roughly implies this motion shape
+```
+
+but not always:
+
+```text
+this specific future image at this specific time supports this exact candidate set
+```
+
+That is why visual-conditioned agreement/gate experiments were added.
+
+## Visual Mismatch Gate Status
+
+A visual-conditioned scorer can detect visual-time mismatch, but it is not yet a stable global ranker.
+
+Recent calibrated-gate experiments:
+
+1. BCE gate learned specificity but became over-saturated.
+2. Three-class labels helped, but BCE still produced unreliable probabilities.
+3. Margin loss without clipping exposed train/eval feature distribution drift.
+4. Margin loss plus standardized feature clipping fixed the numerical explosion.
+
+Best calibrated margin+clip results:
+
+| split | best calibrated result | hard mismatch above GT |
+|---|---:|---:|
+| regular | 0.830 | 0.02 |
+| low_iou | 0.790 | 0.04 |
+| holdout | 0.785 | 0.03 |
+
+Conclusion:
+
+```text
+The gate is useful as a diagnostic and conservative penalty candidate,
+but it does not yet promote over grouped recovered-set because low_iou
+still drops below 0.800.
+```
+
+Relevant files:
+
+- `tools/train_visual_mismatch_gate_scorer.py`
+- `tools/apply_visual_mismatch_penalty.py`
+- `scripts/run_visual_mismatch_gate_trainlevel_g200.sh`
+
+## Current Decision
+
+Do not promote the visual gate as the main scorer yet.
+
+Trusted main result remains:
+
+| split | trusted result |
+|---|---:|
+| regular | 0.830 |
+| low_iou | 0.800 |
+| holdout | 0.780 |
+
+Promotion criteria for the next method:
+
+- regular >= 0.830
+- low_iou >= 0.800
+- holdout >= 0.800
+- hard mismatch above GT < 25%
+- source calibration must not show many GT=0 or time_shift_future=1 cases
+
+## Next Step
+
+The shortest next experiment is:
+
+```text
+train the margin+clip visual gate on more train groups
+```
+
+Use the same calibrated objective:
+
+```text
+supported:
+  gt_pos + high-quality same-scene perturbations
+
+unknown:
+  near perturbations inside a neutral logit band
+
+hard negative:
+  image_swap / time_shift_future / high_pdm_image_mismatch
+```
+
+If a larger train set still cannot improve low_iou/holdout, the visual-time contrast should move into the main representation training instead of staying as a post-hoc gate.
+
+## Repository Boundary
+
+This repo contains code, configs, and evaluation tools. It does not include:
+
+- raw nuPlan data
+- checkpoints
 - `work_dirs`
-- 日志
-- 缓存文件
+- logs
+- cache files
 

@@ -399,6 +399,22 @@ class DINOv2ConsistencyCritic(nn.Module):
         self.use_learned_motion_rules = bool(
             dcfg.get("use_learned_motion_rules", False)
         )
+        self.use_motion_latent_alignment = bool(
+            dcfg.get("use_motion_latent_alignment", False)
+        )
+        self.motion_latent_dim = int(dcfg.get("motion_latent_dim", 64))
+        self.use_video_action_cross_attention = bool(
+            dcfg.get("use_video_action_cross_attention", False)
+        )
+        self.video_action_add_to_shared = bool(
+            dcfg.get("video_action_add_to_shared", True)
+        )
+        self.video_action_num_heads = int(dcfg.get("video_action_num_heads", 4))
+        self.video_action_mix = float(dcfg.get("video_action_mix", 0.0))
+        self.use_future_latent_prediction = bool(
+            dcfg.get("use_future_latent_prediction", False)
+        )
+        self.future_latent_mix = float(dcfg.get("future_latent_mix", 0.0))
         self.use_trajectory_reasonableness_head = bool(
             dcfg.get("use_trajectory_reasonableness_head", False)
         )
@@ -594,6 +610,10 @@ class DINOv2ConsistencyCritic(nn.Module):
             consistency_dim += img_dim * 2
         if self.use_path_conditioned_evidence and not self.use_path_residual_score:
             consistency_dim += img_dim * 5
+        if self.use_video_action_cross_attention and self.video_action_add_to_shared:
+            consistency_dim += img_dim + 1
+        if self.use_future_latent_prediction:
+            consistency_dim += img_dim * 3 + 1
         if self.use_path_conditioned_evidence:
             self.path_conditioned_traj_proj = nn.Sequential(
                 nn.Linear(act_dim, img_dim),
@@ -648,6 +668,62 @@ class DINOv2ConsistencyCritic(nn.Module):
             self.path_evidence_head = None
             self.path_evidence_gate_head = None
 
+        if self.use_video_action_cross_attention:
+            if img_dim % self.video_action_num_heads != 0:
+                raise ValueError(
+                    "dinov2.video_action_num_heads must divide image_feature_dim"
+                )
+            self.traj_token_encoder = nn.Sequential(
+                nn.Linear(traj_d, img_dim),
+                nn.ReLU(inplace=True),
+                nn.Linear(img_dim, img_dim),
+            )
+            self.video_to_traj_attn = nn.MultiheadAttention(
+                embed_dim=img_dim,
+                num_heads=self.video_action_num_heads,
+                batch_first=True,
+            )
+            self.traj_to_video_attn = nn.MultiheadAttention(
+                embed_dim=img_dim,
+                num_heads=self.video_action_num_heads,
+                batch_first=True,
+            )
+            self.video_action_fusion = nn.Sequential(
+                nn.Linear(img_dim * 6, hidden),
+                nn.ReLU(inplace=True),
+                nn.LayerNorm(hidden),
+                nn.Linear(hidden, img_dim),
+                nn.ReLU(inplace=True),
+                nn.LayerNorm(img_dim),
+            )
+            self.video_action_match_head = nn.Sequential(
+                nn.Linear(img_dim, hidden // 2),
+                nn.ReLU(inplace=True),
+                nn.Linear(hidden // 2, 1),
+            )
+        else:
+            self.traj_token_encoder = None
+            self.video_to_traj_attn = None
+            self.traj_to_video_attn = None
+            self.video_action_fusion = None
+            self.video_action_match_head = None
+
+        if self.use_future_latent_prediction:
+            self.future_latent_predictor = nn.Sequential(
+                nn.Linear(img_dim + act_dim * 2, hidden),
+                nn.ReLU(inplace=True),
+                nn.LayerNorm(hidden),
+                nn.Linear(hidden, img_dim),
+            )
+            self.future_latent_match_head = nn.Sequential(
+                nn.Linear(img_dim * 4, hidden // 2),
+                nn.ReLU(inplace=True),
+                nn.Linear(hidden // 2, 1),
+            )
+        else:
+            self.future_latent_predictor = None
+            self.future_latent_match_head = None
+
         self.shared_fusion = nn.Sequential(
             nn.Linear(consistency_dim, fusion_dim),
             nn.ReLU(inplace=True),
@@ -690,6 +766,31 @@ class DINOv2ConsistencyCritic(nn.Module):
         else:
             self.motion_rule_visual_head = None
             self.motion_rule_match_head = None
+        if self.use_motion_latent_alignment:
+            self.visual_motion_latent_head = nn.Sequential(
+                nn.Linear(
+                    img_dim * (3 + self.motion_rule_segment_count),
+                    hidden,
+                ),
+                nn.ReLU(inplace=True),
+                nn.LayerNorm(hidden),
+                nn.Linear(hidden, self.motion_latent_dim),
+            )
+            self.traj_motion_latent_head = nn.Sequential(
+                nn.Linear(self.motion_rule_attr_dim + act_dim, hidden),
+                nn.ReLU(inplace=True),
+                nn.LayerNorm(hidden),
+                nn.Linear(hidden, self.motion_latent_dim),
+            )
+            self.motion_latent_match_head = nn.Sequential(
+                nn.Linear(self.motion_latent_dim * 4, hidden // 2),
+                nn.ReLU(inplace=True),
+                nn.Linear(hidden // 2, 1),
+            )
+        else:
+            self.visual_motion_latent_head = None
+            self.traj_motion_latent_head = None
+            self.motion_latent_match_head = None
 
         # Same 6 heads as train.py. In separated-head configs,
         # consistency_head is the image-trajectory correspondence head.
@@ -1096,6 +1197,16 @@ class DINOv2ConsistencyCritic(nn.Module):
                 consistency_logit
                 + self.motion_rule_mix * torch.tanh(feats["motion_rule_match_logit"])
             )
+        if "video_action_match_logit" in feats:
+            consistency_logit = (
+                consistency_logit
+                + self.video_action_mix * torch.tanh(feats["video_action_match_logit"])
+            )
+        if "future_latent_match_logit" in feats:
+            consistency_logit = (
+                consistency_logit
+                + self.future_latent_mix * torch.tanh(feats["future_latent_match_logit"])
+            )
         if self.use_hierarchical_consistency and "consistency_fuse_logit" in feats:
             consistency_logit = feats["consistency_fuse_logit"]
         trajectory_reasonableness_logit = None
@@ -1146,6 +1257,9 @@ class DINOv2ConsistencyCritic(nn.Module):
             "path_evidence_logit",
             "path_evidence_gate",
             "motion_rule_match_logit",
+            "motion_latent_match_logit",
+            "video_action_match_logit",
+            "future_latent_match_logit",
             "consistency_fusion_gate",
         ):
             if key in feats:
@@ -1153,6 +1267,12 @@ class DINOv2ConsistencyCritic(nn.Module):
         if "visual_motion_rule_pred" in feats:
             outputs["visual_motion_rule_pred"] = feats["visual_motion_rule_pred"]
             outputs["traj_motion_rule_target"] = feats["traj_motion_rule_target"]
+        if "visual_motion_latent" in feats:
+            outputs["visual_motion_latent"] = feats["visual_motion_latent"]
+            outputs["traj_motion_latent"] = feats["traj_motion_latent"]
+        if "pred_future_latent" in feats:
+            outputs["pred_future_latent"] = feats["pred_future_latent"]
+            outputs["future_latent_target"] = feats["future_latent_target"]
         if feats.get("future_traj_geometry_pred") is not None:
             outputs["future_traj_geometry_pred"] = feats["future_traj_geometry_pred"]
             outputs["future_traj_geometry_target"] = feats["future_traj_geometry_target"]
@@ -1292,6 +1412,86 @@ class DINOv2ConsistencyCritic(nn.Module):
         else:
             path_evidence = None
             traj_path_for_parts = None
+        video_action_feature = None
+        video_action_match_logit = None
+        if self.use_video_action_cross_attention:
+            assert self.traj_token_encoder is not None
+            assert self.video_to_traj_attn is not None
+            assert self.traj_to_video_attn is not None
+            assert self.video_action_fusion is not None
+            assert self.video_action_match_head is not None
+            video_tokens = torch.cat([hist_seq, fut_seq], dim=1)
+            traj_tokens = self.traj_token_encoder(consistency_traj)
+            if mode in {"no_image", "ego_only", "traj_only"}:
+                video_tokens = torch.zeros_like(video_tokens)
+            if mode in {"no_traj", "ego_only"}:
+                traj_tokens = torch.zeros_like(traj_tokens)
+            video_ctx, _ = self.video_to_traj_attn(
+                video_tokens,
+                traj_tokens,
+                traj_tokens,
+                need_weights=False,
+            )
+            traj_ctx, _ = self.traj_to_video_attn(
+                traj_tokens,
+                video_tokens,
+                video_tokens,
+                need_weights=False,
+            )
+            video_ctx_pool = video_ctx.mean(dim=1)
+            traj_ctx_pool = traj_ctx.mean(dim=1)
+            video_pool = video_tokens.mean(dim=1)
+            traj_pool = traj_tokens.mean(dim=1)
+            cross_delta = video_ctx_pool - traj_ctx_pool
+            video_action_feature = self.video_action_fusion(
+                torch.cat(
+                    [
+                        video_ctx_pool,
+                        traj_ctx_pool,
+                        video_pool,
+                        traj_pool,
+                        cross_delta.abs(),
+                        video_ctx_pool * traj_ctx_pool,
+                    ],
+                    dim=-1,
+                )
+            )
+            video_action_match_logit = self.video_action_match_head(
+                video_action_feature
+            ).squeeze(-1)
+            if self.video_action_add_to_shared:
+                parts.extend(
+                    [video_action_feature, video_action_match_logit.unsqueeze(-1)]
+                )
+        pred_future_latent = None
+        future_latent_match_logit = None
+        if self.use_future_latent_prediction:
+            assert self.future_latent_predictor is not None
+            assert self.future_latent_match_head is not None
+            pred_future_latent = self.future_latent_predictor(
+                torch.cat([z_hist, z_traj_cons, z_ego], dim=-1)
+            )
+            future_latent_delta = pred_future_latent - z_fut
+            future_latent_match_in = torch.cat(
+                [
+                    pred_future_latent,
+                    z_fut,
+                    future_latent_delta.abs(),
+                    pred_future_latent * z_fut,
+                ],
+                dim=-1,
+            )
+            future_latent_match_logit = self.future_latent_match_head(
+                future_latent_match_in
+            ).squeeze(-1)
+            parts.extend(
+                [
+                    pred_future_latent,
+                    future_latent_delta,
+                    future_latent_delta.abs(),
+                    future_latent_match_logit.unsqueeze(-1),
+                ]
+            )
         parts.extend([z_traj_cons, z_ego])
         z_all = torch.cat(parts, dim=-1)
         z_shared = self.shared_fusion(z_all)
@@ -1299,33 +1499,64 @@ class DINOv2ConsistencyCritic(nn.Module):
         visual_motion_rule_pred = None
         traj_motion_rule_target = None
         motion_rule_match_logit = None
-        if self.use_learned_motion_rules:
-            assert self.motion_rule_visual_head is not None
-            assert self.motion_rule_match_head is not None
+        visual_motion_latent = None
+        traj_motion_latent = None
+        motion_latent_match_logit = None
+        if self.use_learned_motion_rules or self.use_motion_latent_alignment:
             visual_context = self._motion_rule_visual_context(
                 z_hist,
                 z_fut,
                 fut_seq,
             )
-            visual_motion_rule_pred = torch.tanh(
-                self.motion_rule_visual_head(visual_context)
-            )
             traj_motion_rule_target = self._traj_rule_attributes(consistency_traj)
             if mode in {"no_traj", "ego_only"}:
                 traj_motion_rule_target = torch.zeros_like(traj_motion_rule_target)
-            rule_delta = visual_motion_rule_pred - traj_motion_rule_target
-            rule_match_in = torch.cat(
-                [
-                    visual_motion_rule_pred,
-                    traj_motion_rule_target,
-                    rule_delta.abs(),
-                    visual_motion_rule_pred * traj_motion_rule_target,
-                ],
-                dim=-1,
-            )
-            motion_rule_match_logit = self.motion_rule_match_head(
-                rule_match_in
-            ).squeeze(-1)
+            if self.use_learned_motion_rules:
+                assert self.motion_rule_visual_head is not None
+                assert self.motion_rule_match_head is not None
+                visual_motion_rule_pred = torch.tanh(
+                    self.motion_rule_visual_head(visual_context)
+                )
+                rule_delta = visual_motion_rule_pred - traj_motion_rule_target
+                rule_match_in = torch.cat(
+                    [
+                        visual_motion_rule_pred,
+                        traj_motion_rule_target,
+                        rule_delta.abs(),
+                        visual_motion_rule_pred * traj_motion_rule_target,
+                    ],
+                    dim=-1,
+                )
+                motion_rule_match_logit = self.motion_rule_match_head(
+                    rule_match_in
+                ).squeeze(-1)
+            if self.use_motion_latent_alignment:
+                assert self.visual_motion_latent_head is not None
+                assert self.traj_motion_latent_head is not None
+                assert self.motion_latent_match_head is not None
+                visual_motion_latent = F.normalize(
+                    self.visual_motion_latent_head(visual_context),
+                    dim=-1,
+                )
+                traj_motion_latent = F.normalize(
+                    self.traj_motion_latent_head(
+                        torch.cat([traj_motion_rule_target, z_traj_cons], dim=-1)
+                    ),
+                    dim=-1,
+                )
+                latent_delta = visual_motion_latent - traj_motion_latent
+                latent_match_in = torch.cat(
+                    [
+                        visual_motion_latent,
+                        traj_motion_latent,
+                        latent_delta.abs(),
+                        visual_motion_latent * traj_motion_latent,
+                    ],
+                    dim=-1,
+                )
+                motion_latent_match_logit = self.motion_latent_match_head(
+                    latent_match_in
+                ).squeeze(-1)
         feats: Dict[str, torch.Tensor] = {
             "hist_seq": hist_seq,
             "fut_seq": fut_seq,
@@ -1348,6 +1579,21 @@ class DINOv2ConsistencyCritic(nn.Module):
             feats["visual_motion_rule_pred"] = visual_motion_rule_pred
             feats["traj_motion_rule_target"] = traj_motion_rule_target
             feats["motion_rule_match_logit"] = motion_rule_match_logit
+        if visual_motion_latent is not None:
+            assert traj_motion_latent is not None
+            assert motion_latent_match_logit is not None
+            feats["visual_motion_latent"] = visual_motion_latent
+            feats["traj_motion_latent"] = traj_motion_latent
+            feats["motion_latent_match_logit"] = motion_latent_match_logit
+        if video_action_feature is not None:
+            assert video_action_match_logit is not None
+            feats["video_action_feature"] = video_action_feature
+            feats["video_action_match_logit"] = video_action_match_logit
+        if pred_future_latent is not None:
+            assert future_latent_match_logit is not None
+            feats["pred_future_latent"] = pred_future_latent
+            feats["future_latent_target"] = z_fut
+            feats["future_latent_match_logit"] = future_latent_match_logit
         if future_traj_geometry_pred is not None:
             assert traj_geometry is not None
             feats["future_traj_geometry_pred"] = future_traj_geometry_pred
@@ -1720,6 +1966,10 @@ def main() -> None:
                     f"motion_attr={train_metrics.get('motion_rule_attribute_loss', 0.0):.4f} "
                     f"motion_match={train_metrics.get('motion_rule_match_loss', 0.0):.4f} "
                     f"motion_rank={train_metrics.get('motion_rule_rank_loss', 0.0):.4f} "
+                    f"video_action={train_metrics.get('video_action_match_loss', 0.0):.4f} "
+                    f"video_rank={train_metrics.get('video_action_rank_loss', 0.0):.4f} "
+                    f"future_latent={train_metrics.get('future_latent_prediction_loss', 0.0):.4f} "
+                    f"future_match={train_metrics.get('future_latent_match_loss', 0.0):.4f} "
                     f"reason={train_metrics.get('trajectory_reasonableness_loss', 0.0):.4f} "
                     f"reason_mae={train_metrics.get('trajectory_reasonableness_mae', 0.0):.4f} "
                     f"val_loss={val_metrics['loss']:.4f} "
@@ -1733,6 +1983,10 @@ def main() -> None:
                     f"val_motion_attr={val_metrics.get('motion_rule_attribute_loss', 0.0):.4f} "
                     f"val_motion_match={val_metrics.get('motion_rule_match_loss', 0.0):.4f} "
                     f"val_motion_rank={val_metrics.get('motion_rule_rank_loss', 0.0):.4f} "
+                    f"val_video_action={val_metrics.get('video_action_match_loss', 0.0):.4f} "
+                    f"val_video_rank={val_metrics.get('video_action_rank_loss', 0.0):.4f} "
+                    f"val_future_latent={val_metrics.get('future_latent_prediction_loss', 0.0):.4f} "
+                    f"val_future_match={val_metrics.get('future_latent_match_loss', 0.0):.4f} "
                     f"val_reason={val_metrics.get('trajectory_reasonableness_loss', 0.0):.4f} "
                     f"val_reason_mae={val_metrics.get('trajectory_reasonableness_mae', 0.0):.4f} "
                     f"ckpt_metric={best_metric_name}:{current_metric_value:.4f}"

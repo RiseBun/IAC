@@ -1886,6 +1886,40 @@ def run_consistency_epoch(
     )
     lambda_motion_rule_match = float(cfg.get("lambda_motion_rule_match", 0.0))
     lambda_motion_rule_rank = float(cfg.get("lambda_motion_rule_rank", 0.0))
+    lambda_motion_latent_match = float(
+        cfg.get("lambda_motion_latent_match", 0.0)
+    )
+    lambda_motion_latent_align = float(
+        cfg.get("lambda_motion_latent_align", 0.0)
+    )
+    lambda_video_action_match = float(
+        cfg.get("lambda_video_action_match", 0.0)
+    )
+    lambda_video_action_rank = float(
+        cfg.get("lambda_video_action_rank", 0.0)
+    )
+    video_action_rank_margin = float(cfg.get("video_action_rank_margin", 0.12))
+    video_action_rank_min_target_gap = float(
+        cfg.get("video_action_rank_min_target_gap", 0.10)
+    )
+    lambda_future_latent_prediction = float(
+        cfg.get("lambda_future_latent_prediction", 0.0)
+    )
+    lambda_future_latent_match = float(
+        cfg.get("lambda_future_latent_match", 0.0)
+    )
+    future_latent_positive_threshold = float(
+        cfg.get("future_latent_positive_threshold", 0.70)
+    )
+    motion_latent_positive_threshold = float(
+        cfg.get("motion_latent_positive_threshold", 0.70)
+    )
+    motion_latent_negative_threshold = float(
+        cfg.get("motion_latent_negative_threshold", 0.25)
+    )
+    motion_latent_negative_margin = float(
+        cfg.get("motion_latent_negative_margin", 0.20)
+    )
     motion_rule_attribute_min_target = float(
         cfg.get("motion_rule_attribute_min_target", 0.8)
     )
@@ -2131,6 +2165,12 @@ def run_consistency_epoch(
     total_motion_rule_attribute_pairs = 0.0
     total_motion_rule_rank_loss = 0.0
     total_motion_rule_rank_pairs = 0.0
+    total_video_action_match_loss = 0.0
+    total_video_action_rank_loss = 0.0
+    total_video_action_rank_pairs = 0.0
+    total_future_latent_prediction_loss = 0.0
+    total_future_latent_match_loss = 0.0
+    total_future_latent_positive_pairs = 0.0
     total_trajectory_reasonableness_loss = 0.0
     total_trajectory_reasonableness_pairs = 0.0
     total_trajectory_reasonableness_abs_error = 0.0
@@ -2336,6 +2376,9 @@ def run_consistency_epoch(
                         lateral_m=path_grounding_lateral_m,
                     )
                     consistency_supervision_mask = supported_supervision_mask
+                    auxiliary_supervision_mask = (
+                        auxiliary_supervision_mask & supported_supervision_mask
+                    )
                 if auxiliary_consistency_target_mode == "soft":
                     aux_consistency_targets = c_targets.detach()
                 elif auxiliary_consistency_target_mode == "hard":
@@ -2734,6 +2777,153 @@ def run_consistency_epoch(
                         out["consistency_logit"].sum() * 0.0
                     )
                 if (
+                    lambda_motion_latent_match > 0.0
+                    and "motion_latent_match_logit" in out
+                ):
+                    loss_motion_latent_match = _masked_bce_with_logits(
+                        out["motion_latent_match_logit"],
+                        c_targets.detach(),
+                        auxiliary_supervision_mask,
+                    )
+                else:
+                    loss_motion_latent_match = out["consistency_logit"].sum() * 0.0
+                if (
+                    lambda_motion_latent_align > 0.0
+                    and "visual_motion_latent" in out
+                    and "traj_motion_latent" in out
+                ):
+                    motion_cos = (
+                        out["visual_motion_latent"]
+                        * out["traj_motion_latent"]
+                    ).sum(dim=-1)
+                    pos_latent_mask = (
+                        auxiliary_supervision_mask
+                        & (c_targets.detach() >= motion_latent_positive_threshold)
+                    )
+                    neg_latent_mask = (
+                        auxiliary_supervision_mask
+                        & (c_targets.detach() <= motion_latent_negative_threshold)
+                    )
+                    latent_weights = _weights_from_strings(
+                        source_types,
+                        source_weight_cfg,
+                        device,
+                    )
+                    latent_losses: List[torch.Tensor] = []
+                    if bool(pos_latent_mask.any()):
+                        pos_loss = (
+                            (1.0 - motion_cos[pos_latent_mask])
+                            * latent_weights[pos_latent_mask]
+                        ).sum() / latent_weights[pos_latent_mask].sum().clamp_min(1e-4)
+                        latent_losses.append(pos_loss)
+                    if bool(neg_latent_mask.any()):
+                        neg_loss = (
+                            F.relu(
+                                motion_cos[neg_latent_mask]
+                                - motion_latent_negative_margin
+                            )
+                            * latent_weights[neg_latent_mask]
+                        ).sum() / latent_weights[neg_latent_mask].sum().clamp_min(1e-4)
+                        latent_losses.append(neg_loss)
+                    if latent_losses:
+                        loss_motion_latent_align = torch.stack(latent_losses).mean()
+                    else:
+                        loss_motion_latent_align = out["consistency_logit"].sum() * 0.0
+                else:
+                    loss_motion_latent_align = out["consistency_logit"].sum() * 0.0
+                if (
+                    lambda_video_action_match > 0.0
+                    and "video_action_match_logit" in out
+                ):
+                    loss_video_action_match = _masked_bce_with_logits(
+                        out["video_action_match_logit"],
+                        c_targets.detach(),
+                        auxiliary_supervision_mask,
+                    )
+                else:
+                    loss_video_action_match = out["consistency_logit"].sum() * 0.0
+                if (
+                    lambda_video_action_rank > 0.0
+                    and "video_action_match_logit" in out
+                ):
+                    (
+                        loss_video_action_rank,
+                        video_action_rank_pair_count_int,
+                    ) = _group_soft_target_ranking_loss(
+                        out["video_action_match_logit"],
+                        c_targets.detach(),
+                        group_ids,
+                        source_types,
+                        source_weight_cfg,
+                        margin=video_action_rank_margin,
+                        min_target_gap=video_action_rank_min_target_gap,
+                        eligible_mask=auxiliary_supervision_mask.detach(),
+                    )
+                    video_action_rank_pair_count = torch.tensor(
+                        float(video_action_rank_pair_count_int),
+                        device=device,
+                    )
+                else:
+                    loss_video_action_rank = out["consistency_logit"].sum() * 0.0
+                    video_action_rank_pair_count = (
+                        out["consistency_logit"].sum() * 0.0
+                    )
+                if (
+                    lambda_future_latent_prediction > 0.0
+                    and "pred_future_latent" in out
+                    and "future_latent_target" in out
+                ):
+                    future_latent_mask = (
+                        auxiliary_supervision_mask
+                        & (c_targets.detach() >= future_latent_positive_threshold)
+                    )
+                    if bool(future_latent_mask.any()):
+                        future_latent_loss_each = F.smooth_l1_loss(
+                            out["pred_future_latent"],
+                            out["future_latent_target"].detach(),
+                            reduction="none",
+                        ).mean(dim=-1)
+                        future_latent_weights = (
+                            _weights_from_strings(
+                                source_types,
+                                source_weight_cfg,
+                                device,
+                            )
+                            * c_targets.detach().clamp(0.0, 1.0)
+                            * future_latent_mask.float()
+                        )
+                        loss_future_latent_prediction = (
+                            future_latent_loss_each * future_latent_weights
+                        ).sum() / future_latent_weights.sum().clamp_min(1e-4)
+                        future_latent_positive_pair_count = (
+                            future_latent_mask.float().sum()
+                        )
+                    else:
+                        loss_future_latent_prediction = (
+                            out["consistency_logit"].sum() * 0.0
+                        )
+                        future_latent_positive_pair_count = (
+                            out["consistency_logit"].sum() * 0.0
+                        )
+                else:
+                    loss_future_latent_prediction = (
+                        out["consistency_logit"].sum() * 0.0
+                    )
+                    future_latent_positive_pair_count = (
+                        out["consistency_logit"].sum() * 0.0
+                    )
+                if (
+                    lambda_future_latent_match > 0.0
+                    and "future_latent_match_logit" in out
+                ):
+                    loss_future_latent_match = _masked_bce_with_logits(
+                        out["future_latent_match_logit"],
+                        c_targets.detach(),
+                        auxiliary_supervision_mask,
+                    )
+                else:
+                    loss_future_latent_match = out["consistency_logit"].sum() * 0.0
+                if (
                     training
                     and lambda_history_counterfactual > 0.0
                     and bs > 1
@@ -3048,6 +3238,12 @@ def run_consistency_epoch(
                        lambda_motion_rule_attribute * loss_motion_rule_attribute +
                        lambda_motion_rule_match * loss_motion_rule_match +
                        lambda_motion_rule_rank * loss_motion_rule_rank +
+                       lambda_motion_latent_match * loss_motion_latent_match +
+                       lambda_motion_latent_align * loss_motion_latent_align +
+                       lambda_video_action_match * loss_video_action_match +
+                       lambda_video_action_rank * loss_video_action_rank +
+                       lambda_future_latent_prediction * loss_future_latent_prediction +
+                       lambda_future_latent_match * loss_future_latent_match +
                        lambda_trajectory_reasonableness * loss_trajectory_reasonableness +
                        lambda_image_trajectory_consistency_head * loss_image_trajectory_consistency_head +
                        float(cfg.get("lambda_hierarchical_consistency", 0.0)) * (
@@ -3125,6 +3321,18 @@ def run_consistency_epoch(
         total_motion_rule_rank_pairs += float(
             motion_rule_rank_pair_count.detach().item()
         )
+        total_video_action_match_loss += loss_video_action_match.detach().item() * bs
+        total_video_action_rank_loss += loss_video_action_rank.detach().item() * bs
+        total_video_action_rank_pairs += float(
+            video_action_rank_pair_count.detach().item()
+        )
+        total_future_latent_prediction_loss += (
+            loss_future_latent_prediction.detach().item() * bs
+        )
+        total_future_latent_match_loss += loss_future_latent_match.detach().item() * bs
+        total_future_latent_positive_pairs += float(
+            future_latent_positive_pair_count.detach().item()
+        )
         total_trajectory_reasonableness_loss += (
             loss_trajectory_reasonableness.detach().item() * bs
         )
@@ -3173,6 +3381,12 @@ def run_consistency_epoch(
                 f"motion_attr={loss_motion_rule_attribute.detach().item():.4f} "
                 f"motion_match={loss_motion_rule_match.detach().item():.4f} "
                 f"motion_rank={loss_motion_rule_rank.detach().item():.4f} "
+                f"motion_latent={loss_motion_latent_match.detach().item():.4f} "
+                f"latent_align={loss_motion_latent_align.detach().item():.4f} "
+                f"video_action={loss_video_action_match.detach().item():.4f} "
+                f"video_rank={loss_video_action_rank.detach().item():.4f} "
+                f"future_latent={loss_future_latent_prediction.detach().item():.4f} "
+                f"future_match={loss_future_latent_match.detach().item():.4f} "
                 f"reason={loss_trajectory_reasonableness.detach().item():.4f} "
                 f"img_c={loss_image_trajectory_consistency_head.detach().item():.4f}",
                 flush=True,
@@ -3215,6 +3429,12 @@ def run_consistency_epoch(
             total_trajectory_reasonableness_loss,
             total_trajectory_reasonableness_pairs,
             total_trajectory_reasonableness_abs_error,
+            total_video_action_match_loss,
+            total_video_action_rank_loss,
+            total_video_action_rank_pairs,
+            total_future_latent_prediction_loss,
+            total_future_latent_match_loss,
+            total_future_latent_positive_pairs,
         ],
         dtype=torch.float64,
         device=device,
@@ -3231,6 +3451,8 @@ def run_consistency_epoch(
     motion_rule_rank_pair_count = max(float(metrics[40].item()), 0.0)
     trajectory_reasonableness_pair_count = max(float(metrics[42].item()), 0.0)
     trajectory_reasonableness_abs_error = float(metrics[43].item())
+    video_action_rank_pair_count = max(float(metrics[46].item()), 0.0)
+    future_latent_positive_pair_count = max(float(metrics[49].item()), 0.0)
     c_tp = float(metrics[20].item())
     c_fp = float(metrics[21].item())
     c_fn = float(metrics[22].item())
@@ -3285,6 +3507,12 @@ def run_consistency_epoch(
             trajectory_reasonableness_abs_error
             / max(trajectory_reasonableness_pair_count, 1.0)
         ),
+        "video_action_match_loss": float(metrics[44].item() / n),
+        "video_action_rank_loss": float(metrics[45].item() / n),
+        "video_action_rank_pairs": video_action_rank_pair_count,
+        "future_latent_prediction_loss": float(metrics[47].item() / n),
+        "future_latent_match_loss": float(metrics[48].item() / n),
+        "future_latent_positive_pairs": future_latent_positive_pair_count,
         "c_acc": float(metrics[14].item() / n),
         "v_acc": float(metrics[15].item() / n),
         "speed_acc": float(metrics[16].item() / n),
@@ -3693,6 +3921,10 @@ def main() -> None:
                     f"progress_acc={train_metrics['progress_acc']:.4f} "
                     f"temporal_acc={train_metrics['temporal_acc']:.4f} "
                     f"rank_loss={train_metrics.get('group_rank_loss', 0.0):.4f} "
+                    f"video_action={train_metrics.get('video_action_match_loss', 0.0):.4f} "
+                    f"video_rank={train_metrics.get('video_action_rank_loss', 0.0):.4f} "
+                    f"future_latent={train_metrics.get('future_latent_prediction_loss', 0.0):.4f} "
+                    f"future_match={train_metrics.get('future_latent_match_loss', 0.0):.4f} "
                     f"traj_spec_loss={train_metrics.get('trajectory_specific_grounding_loss', 0.0):.4f} "
                     f"traj_spec_pos={train_metrics.get('trajectory_specific_positive_controls', 0.0):.0f} "
                     f"traj_spec_dist={train_metrics.get('trajectory_specific_wrong_distance_mean', 0.0):.2f} "
