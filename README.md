@@ -116,6 +116,48 @@ this specific future image at this specific time supports this exact candidate s
 
 That is why visual-conditioned agreement/gate experiments were added.
 
+## Candidate-Blind DINO Motion Evidence
+
+The newest code path migrates the `agent/dino-motion-flow-heads` branch into
+main as an opt-in research extension. Its purpose is to test the image
+perception side directly.
+
+The key architectural boundary is:
+
+```text
+history/future DINO features -> visual motion attributes + uncertainty
+candidate trajectory -> separate comparator
+```
+
+This is different from the current main scorer, where candidate trajectory
+features can enter the visual fusion path early. The candidate-blind head forces
+DINO features to first predict motion evidence from images alone, then compares a
+candidate against that evidence.
+
+Relevant files:
+
+- `iac_extensions/dino_motion_head.py`
+- `iac_extensions/flow_evidence.py`
+- `train_scope_motion_head.py`
+- `eval_scope_motion_head.py`
+- `configs/train_navsim_future_dinov2_scope_motion_head.py`
+- `scripts/run_scope_motion_head.sh`
+- `tools/flow_speed_head.py`
+- `SCOPE_IAC_EXTENSION.md`
+
+The minimum proof this extension must provide is not a higher regular score. It
+must show that full ordered future images outperform the controls:
+
+```text
+normal video > no_future / shuffled_future / time_shift_future
+```
+
+The target failure modes are `perturb_speed`, `time_shift_future`, and
+high-PDMS image mismatch. If the candidate-blind motion head cannot improve
+low_iou/holdout or reduce hard mismatch above GT, the visual-time contrast needs
+to move into the main representation training rather than stay as an auxiliary
+head.
+
 ## Visual Mismatch Gate Status
 
 A visual-conditioned scorer can detect visual-time mismatch, but it is not yet a stable global ranker.
@@ -201,4 +243,3 @@ This repo contains code, configs, and evaluation tools. It does not include:
 - `work_dirs`
 - logs
 - cache files
-
