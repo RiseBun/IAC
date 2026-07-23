@@ -160,7 +160,12 @@ head.
 
 ## Visual Mismatch Gate Status
 
-A visual-conditioned scorer can detect visual-time mismatch, but it is not yet a stable global ranker.
+A visual-conditioned scorer can detect visual-time mismatch, but it is not yet a stable global ranker. The key issue is now narrower:
+
+```text
+Use strong visual evidence to reject real image/time mismatch
+without suppressing visually plausible near-trajectory ambiguity.
+```
 
 Recent calibrated-gate experiments:
 
@@ -191,6 +196,34 @@ Relevant files:
 - `tools/apply_visual_mismatch_penalty.py`
 - `scripts/run_visual_mismatch_gate_trainlevel_g200.sh`
 
+## Strong Video Feature Path
+
+The DINO/RGB-diff/RAFT probes showed useful dynamic evidence, but they are still limited cues. The next visual-side probe uses frozen V-JEPA2 video features as the visual encoder and trains the existing three-class mismatch gate on train-level recovered rows.
+
+Training target:
+
+```text
+supported:
+  gt_pos + high-quality same-scene perturbations
+
+unknown:
+  near perturbations kept in a neutral band
+
+hard negative:
+  image_swap / time_shift_future / high_pdm_image_mismatch
+```
+
+Decision rule:
+
+```text
+grouped recovered-set remains the main scorer;
+V-JEPA2 gate is only a one-sided penalty when it predicts mismatch.
+```
+
+New experiment entry:
+
+- `scripts/run_vjepa_mismatch_gate_trainlevel_g200.sh`
+
 ## Current Decision
 
 Do not promote the visual gate as the main scorer yet.
@@ -213,10 +246,10 @@ Promotion criteria for the next method:
 
 ## Next Step
 
-The shortest next experiment is:
+The shortest next experiment is now:
 
 ```text
-train the margin+clip visual gate on more train groups
+run V-JEPA2 train-level ambiguity-preserving mismatch gate
 ```
 
 Use the same calibrated objective:
@@ -232,7 +265,7 @@ hard negative:
   image_swap / time_shift_future / high_pdm_image_mismatch
 ```
 
-If a larger train set still cannot improve low_iou/holdout, the visual-time contrast should move into the main representation training instead of staying as a post-hoc gate.
+If the V-JEPA2 gate improves hard mismatch but still hurts holdout ambiguity, the visual-time contrast should move into main representation training instead of staying as a post-hoc gate.
 
 ## Repository Boundary
 
