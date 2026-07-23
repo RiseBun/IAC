@@ -34,9 +34,10 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from iac_extensions.flow_evidence import (
-    ClassicFlowExtractor,
+    FLOW_METHODS,
     RidgeSpeedHead,
     SPEED_NAMES,
+    make_flow_extractor,
     spearman_correlation,
     speed_energy,
     trajectory_speed_targets,
@@ -118,9 +119,7 @@ def extract_one(
         return sequence, value.astype(np.float32, copy=False)
     settings = (method, width, height)
     if getattr(_THREAD_LOCAL, "settings", None) != settings:
-        _THREAD_LOCAL.extractor = ClassicFlowExtractor(
-            method, width=width, height=height
-        )
+        _THREAD_LOCAL.extractor = make_flow_extractor(method, width=width, height=height)
         _THREAD_LOCAL.settings = settings
     value = _THREAD_LOCAL.extractor.sequence_features(sequence)
     if cache_path is not None:
@@ -141,6 +140,9 @@ def extract_features(
     cache_dir: Path | None,
 ) -> np.ndarray:
     unique = list(dict.fromkeys(sequences))
+    if method.startswith("raft_") and workers > 1:
+        print("RAFT extraction is model-backed; forcing workers=1", flush=True)
+        workers = 1
     tasks = []
     for sequence in unique:
         cache_path = ""
@@ -315,7 +317,7 @@ def build_parser() -> argparse.ArgumentParser:
     fit.add_argument("--val-index", required=True)
     fit.add_argument("--image-root", required=True)
     fit.add_argument("--output", required=True)
-    fit.add_argument("--method", choices=("dis", "farneback"), default="dis")
+    fit.add_argument("--method", choices=FLOW_METHODS, default="dis")
     fit.add_argument("--width", type=int, default=256)
     fit.add_argument("--height", type=int, default=144)
     fit.add_argument("--workers", type=int, default=4)
@@ -331,7 +333,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--image-root", required=True)
     apply.add_argument("--model", required=True)
     apply.add_argument("--output", required=True)
-    apply.add_argument("--method", choices=("dis", "farneback"), default=None)
+    apply.add_argument("--method", choices=FLOW_METHODS, default=None)
     apply.add_argument("--width", type=int, default=None)
     apply.add_argument("--height", type=int, default=None)
     apply.add_argument("--workers", type=int, default=4)

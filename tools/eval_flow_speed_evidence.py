@@ -24,6 +24,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from iac_extensions.flow_evidence import (  # noqa: E402
+    FLOW_METHODS,
     RidgeSpeedHead,
     speed_energy,
     trajectory_speed_targets,
@@ -274,7 +275,7 @@ def parse_args() -> argparse.Namespace:
         choices=["normal", "reverse_future", "roll_future", "shuffle_future"],
         default="normal",
     )
-    parser.add_argument("--method", choices=("dis", "farneback"), default=None)
+    parser.add_argument("--method", choices=FLOW_METHODS, default=None)
     parser.add_argument("--width", type=int, default=None)
     parser.add_argument("--height", type=int, default=None)
     parser.add_argument("--workers", type=int, default=4)

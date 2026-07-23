@@ -18,6 +18,7 @@ from iac_extensions.flow_evidence import (
     ClassicFlowExtractor,
     RidgeSpeedHead,
     flow_statistics,
+    make_flow_extractor,
     speed_energy,
     trajectory_speed_targets,
 )
@@ -121,6 +122,11 @@ class FlowEvidenceTest(unittest.TestCase):
             features = extractor.sequence_features(paths)
             self.assertEqual(features.shape, (PAIR_FEATURE_DIM * 10,))
             self.assertTrue(np.isfinite(features).all())
+
+            factory_extractor = make_flow_extractor("dis", width=64, height=48)
+            factory_features = factory_extractor.sequence_features(paths)
+            self.assertEqual(factory_features.shape, (PAIR_FEATURE_DIM * 10,))
+            self.assertTrue(np.isfinite(factory_features).all())
 
     def test_speed_targets_and_ridge_roundtrip(self) -> None:
         trajectory = np.stack(

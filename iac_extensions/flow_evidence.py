@@ -23,6 +23,7 @@ import numpy as np
 
 
 PathLike = Union[str, Path]
+FLOW_METHODS: Tuple[str, ...] = ("dis", "farneback", "raft_small", "raft_large")
 SPEED_NAMES: Tuple[str, ...] = (
     "speed_h25_mps",
     "speed_h50_mps",
@@ -63,6 +64,17 @@ def _pair_feature_names() -> Tuple[str, ...]:
 
 PAIR_FEATURE_NAMES = _pair_feature_names()
 PAIR_FEATURE_DIM = len(PAIR_FEATURE_NAMES)
+
+
+def _sequence_summary(pair_values: np.ndarray) -> np.ndarray:
+    return np.concatenate(
+        [
+            pair_values.reshape(-1),
+            np.nanmean(pair_values, axis=0),
+            np.nanstd(pair_values, axis=0),
+            pair_values[-1] - pair_values[0],
+        ]
+    ).astype(np.float32)
 
 
 def flow_statistics(flow: np.ndarray) -> np.ndarray:
@@ -218,14 +230,113 @@ class ClassicFlowExtractor:
                 for first, second in zip(frames[:-1], frames[1:])
             ]
         )
-        return np.concatenate(
+        return _sequence_summary(pair_values)
+
+
+class TorchvisionRaftFlowExtractor:
+    """Extract RAFT optical-flow evidence from adjacent RGB frames.
+
+    Torchvision RAFT is model-backed and typically GPU-bound, so callers should
+    keep worker count at one.  The output contract intentionally matches
+    :class:`ClassicFlowExtractor` so the downstream ridge speed head and
+    evaluator can compare DIS/Farneback/RAFT under the same protocol.
+    """
+
+    def __init__(
+        self,
+        method: str = "raft_small",
+        *,
+        width: int = 256,
+        height: int = 144,
+        device: str | None = None,
+    ) -> None:
+        if method not in {"raft_small", "raft_large"}:
+            raise ValueError("method must be 'raft_small' or 'raft_large'")
+        if width < 16 or height < 16 or width % 8 != 0 or height % 8 != 0:
+            raise ValueError("RAFT resolution must be at least 16px and divisible by 8")
+        try:
+            import torch
+            from torchvision.models.optical_flow import (
+                Raft_Large_Weights,
+                Raft_Small_Weights,
+                raft_large,
+                raft_small,
+            )
+        except ImportError as exc:  # pragma: no cover - depends on optional runtime
+            raise ImportError(
+                "torchvision RAFT requires torch and torchvision with optical_flow models"
+            ) from exc
+
+        self.method = method
+        self.width = int(width)
+        self.height = int(height)
+        self._torch = torch
+        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        if method == "raft_small":
+            weights = Raft_Small_Weights.DEFAULT
+            self._model = raft_small(weights=weights, progress=False)
+        else:
+            weights = Raft_Large_Weights.DEFAULT
+            self._model = raft_large(weights=weights, progress=False)
+        self._transforms = weights.transforms()
+        self._model.eval().to(self.device)
+
+    def _read_rgb_tensor(self, path: PathLike):
+        image = cv2.imread(str(path), cv2.IMREAD_COLOR)
+        if image is None:
+            raise FileNotFoundError(str(path))
+        image = cv2.resize(
+            image,
+            (self.width, self.height),
+            interpolation=cv2.INTER_AREA,
+        )
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        return self._torch.from_numpy(image).permute(2, 0, 1)
+
+    def pair_features(self, first: PathLike, second: PathLike) -> np.ndarray:
+        first_tensor = self._read_rgb_tensor(first)
+        second_tensor = self._read_rgb_tensor(second)
+        first_tensor, second_tensor = self._transforms(first_tensor, second_tensor)
+        with self._torch.inference_mode():
+            flow_predictions = self._model(
+                first_tensor[None].to(self.device),
+                second_tensor[None].to(self.device),
+            )
+        flow = (
+            flow_predictions[-1][0]
+            .permute(1, 2, 0)
+            .detach()
+            .cpu()
+            .numpy()
+            .astype(np.float32, copy=False)
+        )
+        return flow_statistics(flow)
+
+    def sequence_features(self, frames: Sequence[PathLike]) -> np.ndarray:
+        if len(frames) < 2:
+            raise ValueError("at least two frames are required")
+        pair_values = np.stack(
             [
-                pair_values.reshape(-1),
-                np.nanmean(pair_values, axis=0),
-                np.nanstd(pair_values, axis=0),
-                pair_values[-1] - pair_values[0],
+                self.pair_features(first, second)
+                for first, second in zip(frames[:-1], frames[1:])
             ]
-        ).astype(np.float32)
+        )
+        return _sequence_summary(pair_values)
+
+
+def make_flow_extractor(
+    method: str = "dis",
+    *,
+    width: int = 256,
+    height: int = 144,
+):
+    """Create an optical-flow extractor by method name."""
+
+    if method in {"dis", "farneback"}:
+        return ClassicFlowExtractor(method, width=width, height=height)
+    if method in {"raft_small", "raft_large"}:
+        return TorchvisionRaftFlowExtractor(method, width=width, height=height)
+    raise ValueError(f"unknown flow method {method!r}; expected one of {FLOW_METHODS}")
 
 
 def visual_sequence(

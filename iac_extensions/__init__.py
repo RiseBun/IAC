@@ -11,8 +11,11 @@ from .dino_motion_head import (
 )
 from .flow_evidence import (
     ClassicFlowExtractor,
+    FLOW_METHODS,
     RidgeSpeedHead,
+    TorchvisionRaftFlowExtractor,
     flow_statistics,
+    make_flow_extractor,
     speed_energy,
     trajectory_speed_targets,
 )
@@ -24,8 +27,11 @@ __all__ = [
     "UncertaintyAwareTrajectoryComparator",
     "uncertainty_weighted_motion_loss",
     "ClassicFlowExtractor",
+    "FLOW_METHODS",
     "RidgeSpeedHead",
+    "TorchvisionRaftFlowExtractor",
     "flow_statistics",
+    "make_flow_extractor",
     "speed_energy",
     "trajectory_speed_targets",
 ]
