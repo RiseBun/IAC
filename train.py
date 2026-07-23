@@ -2728,6 +2728,19 @@ def run_consistency_epoch(
                     elif motion_rule_attribute_weight_mode == "threshold":
                         motion_rule_mask = c_targets >= motion_rule_attribute_min_target
                         attr_weights = motion_rule_mask.float()
+                    elif motion_rule_attribute_weight_mode == "gt_positive":
+                        motion_rule_mask = torch.tensor(
+                            [
+                                (label > 0.5) and (str(source) == "gt_pos")
+                                for label, source in zip(
+                                    c_labels.detach().float().tolist(),
+                                    source_types,
+                                )
+                            ],
+                            device=device,
+                            dtype=torch.bool,
+                        )
+                        attr_weights = motion_rule_mask.float()
                     else:
                         raise ValueError(
                             "unknown motion_rule_attribute_weight_mode: "
