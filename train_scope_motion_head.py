@@ -54,7 +54,62 @@ class ScopeDinoMotionCritic(_BaseDinoCritic):
         self.scope_motion_comparator = UncertaintyAwareTrajectoryComparator(
             self.motion_rule_attr_dim
         )
+        controls = dcfg.get("scope_motion_temporal_controls", [])
+        if isinstance(controls, str):
+            controls = [controls]
+        self.scope_motion_temporal_controls = [str(control) for control in controls]
+        self.scope_motion_temporal_controls_train_only = bool(
+            dcfg.get("scope_motion_temporal_controls_train_only", True)
+        )
         self._scope_forward_aux: Dict[str, torch.Tensor] = {}
+
+    @staticmethod
+    def _control_key(control: str) -> str:
+        return "scope_motion_" + control.replace("-", "_") + "_logit"
+
+    @staticmethod
+    def _apply_future_control(future_images: torch.Tensor, control: str) -> torch.Tensor:
+        if control == "reverse_future":
+            return torch.flip(future_images, dims=[1])
+        if control == "roll_future":
+            return torch.roll(future_images, shifts=1, dims=1)
+        if control == "zero_future":
+            return torch.zeros_like(future_images)
+        if control == "shuffle_future":
+            steps = int(future_images.shape[1])
+            if steps <= 1:
+                return future_images
+            perm = torch.arange(steps, device=future_images.device)
+            # Deterministic non-identity shuffle for short clips.
+            perm = torch.cat([perm[1::2], perm[::2]], dim=0)
+            if bool(torch.equal(perm.cpu(), torch.arange(steps))):
+                perm = torch.flip(perm, dims=[0])
+            return future_images.index_select(1, perm)
+        raise ValueError(f"unknown scope motion temporal control: {control}")
+
+    def _scope_motion_comparison_from_images(
+        self,
+        history_images: torch.Tensor,
+        future_images: torch.Tensor,
+        ego_state: torch.Tensor,
+        candidate_traj: torch.Tensor,
+    ) -> Dict[str, torch.Tensor]:
+        feats = _BaseDinoCritic.extract_probe_features(
+            self,
+            history_images=history_images,
+            future_images=future_images,
+            ego_state=ego_state,
+            candidate_traj=candidate_traj,
+        )
+        visual = self.scope_motion_head(feats["hist_seq"], feats["fut_seq"])
+        candidate_attributes = self._traj_rule_attributes(candidate_traj)
+        if self.baseline_mode in {"no_traj", "ego_only"}:
+            candidate_attributes = torch.zeros_like(candidate_attributes)
+        return self.scope_motion_comparator(
+            visual["mean"],
+            visual["log_variance"],
+            candidate_attributes,
+        )
 
     def extract_probe_features(
         self,
@@ -110,6 +165,18 @@ class ScopeDinoMotionCritic(_BaseDinoCritic):
             candidate_traj,
         )
         outputs.update(self._scope_forward_aux)
+        if self.scope_motion_temporal_controls and (
+            self.training or not self.scope_motion_temporal_controls_train_only
+        ):
+            for control in self.scope_motion_temporal_controls:
+                controlled_future = self._apply_future_control(future_images, control)
+                comparison = self._scope_motion_comparison_from_images(
+                    history_images,
+                    controlled_future,
+                    ego_state,
+                    candidate_traj,
+                )
+                outputs[self._control_key(control)] = comparison["logit"]
         return outputs
 
 

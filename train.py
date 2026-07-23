@@ -1886,6 +1886,24 @@ def run_consistency_epoch(
     )
     lambda_motion_rule_match = float(cfg.get("lambda_motion_rule_match", 0.0))
     lambda_motion_rule_rank = float(cfg.get("lambda_motion_rule_rank", 0.0))
+    lambda_scope_motion_temporal_contrast = float(
+        cfg.get("lambda_scope_motion_temporal_contrast", 0.0)
+    )
+    scope_motion_temporal_contrast_margin = float(
+        cfg.get("scope_motion_temporal_contrast_margin", 0.20)
+    )
+    scope_motion_temporal_contrast_min_target = float(
+        cfg.get("scope_motion_temporal_contrast_min_target", 0.999)
+    )
+    scope_motion_temporal_controls_raw = cfg.get(
+        "scope_motion_temporal_controls",
+        cfg.get("dinov2", {}).get("scope_motion_temporal_controls", []),
+    )
+    if isinstance(scope_motion_temporal_controls_raw, str):
+        scope_motion_temporal_controls_raw = [scope_motion_temporal_controls_raw]
+    scope_motion_temporal_controls = [
+        str(control) for control in scope_motion_temporal_controls_raw
+    ]
     lambda_motion_latent_match = float(
         cfg.get("lambda_motion_latent_match", 0.0)
     )
@@ -2165,6 +2183,8 @@ def run_consistency_epoch(
     total_motion_rule_attribute_pairs = 0.0
     total_motion_rule_rank_loss = 0.0
     total_motion_rule_rank_pairs = 0.0
+    total_scope_motion_temporal_contrast_loss = 0.0
+    total_scope_motion_temporal_contrast_pairs = 0.0
     total_video_action_match_loss = 0.0
     total_video_action_rank_loss = 0.0
     total_video_action_rank_pairs = 0.0
@@ -2777,6 +2797,56 @@ def run_consistency_epoch(
                         out["consistency_logit"].sum() * 0.0
                     )
                 if (
+                    lambda_scope_motion_temporal_contrast > 0.0
+                    and "motion_rule_match_logit" in out
+                    and scope_motion_temporal_controls
+                ):
+                    temporal_mask = (
+                        auxiliary_supervision_mask.detach()
+                        & (
+                            c_targets.detach()
+                            >= scope_motion_temporal_contrast_min_target
+                        )
+                    )
+                    temporal_losses: List[torch.Tensor] = []
+                    temporal_pair_count = out["consistency_logit"].sum() * 0.0
+                    for control in scope_motion_temporal_controls:
+                        key = "scope_motion_" + control.replace("-", "_") + "_logit"
+                        if key not in out:
+                            continue
+                        if bool(temporal_mask.any()):
+                            control_loss = F.relu(
+                                scope_motion_temporal_contrast_margin
+                                - out["motion_rule_match_logit"][temporal_mask]
+                                + out[key][temporal_mask]
+                            ).mean()
+                            temporal_losses.append(control_loss)
+                            temporal_pair_count = (
+                                temporal_pair_count
+                                + temporal_mask.float().sum()
+                            )
+                    if temporal_losses:
+                        loss_scope_motion_temporal_contrast = torch.stack(
+                            temporal_losses
+                        ).mean()
+                        scope_motion_temporal_contrast_pair_count = (
+                            temporal_pair_count
+                        )
+                    else:
+                        loss_scope_motion_temporal_contrast = (
+                            out["consistency_logit"].sum() * 0.0
+                        )
+                        scope_motion_temporal_contrast_pair_count = (
+                            out["consistency_logit"].sum() * 0.0
+                        )
+                else:
+                    loss_scope_motion_temporal_contrast = (
+                        out["consistency_logit"].sum() * 0.0
+                    )
+                    scope_motion_temporal_contrast_pair_count = (
+                        out["consistency_logit"].sum() * 0.0
+                    )
+                if (
                     lambda_motion_latent_match > 0.0
                     and "motion_latent_match_logit" in out
                 ):
@@ -3238,6 +3308,7 @@ def run_consistency_epoch(
                        lambda_motion_rule_attribute * loss_motion_rule_attribute +
                        lambda_motion_rule_match * loss_motion_rule_match +
                        lambda_motion_rule_rank * loss_motion_rule_rank +
+                       lambda_scope_motion_temporal_contrast * loss_scope_motion_temporal_contrast +
                        lambda_motion_latent_match * loss_motion_latent_match +
                        lambda_motion_latent_align * loss_motion_latent_align +
                        lambda_video_action_match * loss_video_action_match +
@@ -3320,6 +3391,12 @@ def run_consistency_epoch(
         total_motion_rule_rank_loss += loss_motion_rule_rank.detach().item() * bs
         total_motion_rule_rank_pairs += float(
             motion_rule_rank_pair_count.detach().item()
+        )
+        total_scope_motion_temporal_contrast_loss += (
+            loss_scope_motion_temporal_contrast.detach().item() * bs
+        )
+        total_scope_motion_temporal_contrast_pairs += float(
+            scope_motion_temporal_contrast_pair_count.detach().item()
         )
         total_video_action_match_loss += loss_video_action_match.detach().item() * bs
         total_video_action_rank_loss += loss_video_action_rank.detach().item() * bs
@@ -3435,6 +3512,8 @@ def run_consistency_epoch(
             total_future_latent_prediction_loss,
             total_future_latent_match_loss,
             total_future_latent_positive_pairs,
+            total_scope_motion_temporal_contrast_loss,
+            total_scope_motion_temporal_contrast_pairs,
         ],
         dtype=torch.float64,
         device=device,
@@ -3453,6 +3532,9 @@ def run_consistency_epoch(
     trajectory_reasonableness_abs_error = float(metrics[43].item())
     video_action_rank_pair_count = max(float(metrics[46].item()), 0.0)
     future_latent_positive_pair_count = max(float(metrics[49].item()), 0.0)
+    scope_motion_temporal_contrast_pair_count = max(
+        float(metrics[51].item()), 0.0
+    )
     c_tp = float(metrics[20].item())
     c_fp = float(metrics[21].item())
     c_fn = float(metrics[22].item())
@@ -3513,6 +3595,8 @@ def run_consistency_epoch(
         "future_latent_prediction_loss": float(metrics[47].item() / n),
         "future_latent_match_loss": float(metrics[48].item() / n),
         "future_latent_positive_pairs": future_latent_positive_pair_count,
+        "scope_motion_temporal_contrast_loss": float(metrics[50].item() / n),
+        "scope_motion_temporal_contrast_pairs": scope_motion_temporal_contrast_pair_count,
         "c_acc": float(metrics[14].item() / n),
         "v_acc": float(metrics[15].item() / n),
         "speed_acc": float(metrics[16].item() / n),

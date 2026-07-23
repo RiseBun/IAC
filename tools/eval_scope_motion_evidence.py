@@ -115,10 +115,16 @@ def _apply_control(future: torch.Tensor, control: str, seed: int) -> torch.Tenso
     if control == "reverse_future":
         return torch.flip(future, dims=[1])
     if control == "shuffle_future":
-        generator = torch.Generator(device="cpu")
-        generator.manual_seed(int(seed))
-        perm = torch.randperm(future.shape[1], generator=generator).to(future.device)
+        steps = int(future.shape[1])
+        if steps <= 1:
+            return future
+        perm = torch.arange(steps, device=future.device)
+        perm = torch.cat([perm[1::2], perm[::2]], dim=0)
+        if bool(torch.equal(perm.cpu(), torch.arange(steps))):
+            perm = torch.flip(perm, dims=[0])
         return future.index_select(1, perm)
+    if control == "roll_future":
+        return torch.roll(future, shifts=1, dims=1)
     if control == "zero_future":
         return torch.zeros_like(future)
     raise ValueError(f"unknown control: {control}")
@@ -267,7 +273,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--split", choices=["train", "val"], default="val")
     parser.add_argument(
         "--control",
-        choices=["normal", "reverse_future", "shuffle_future", "zero_future"],
+        choices=[
+            "normal",
+            "reverse_future",
+            "shuffle_future",
+            "roll_future",
+            "zero_future",
+        ],
         default="normal",
     )
     parser.add_argument("--max-groups", type=int, default=200)
