@@ -204,7 +204,8 @@ def _summarize_rows(rows: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
 def evaluate(args: argparse.Namespace) -> Dict[str, Any]:
     cfg = load_config(args.config)
     cfg["baseline_mode"] = "full"
-    dataset = ConsistencyDataset(cfg["val_index" if args.split == "val" else "train_index"], cfg, training=False)
+    index_path = args.index or cfg["val_index" if args.split == "val" else "train_index"]
+    dataset = ConsistencyDataset(index_path, cfg, training=False)
     indices = _select_indices(dataset, args.max_groups, args.max_samples, args.seed)
     loader = DataLoader(
         Subset(dataset, indices),
@@ -251,6 +252,7 @@ def evaluate(args: argparse.Namespace) -> Dict[str, Any]:
     summary["config"] = {
         "checkpoint": args.checkpoint,
         "config": args.config,
+        "index": index_path,
         "split": args.split,
         "control": args.control,
         "max_groups": args.max_groups,
@@ -270,6 +272,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--config", required=True)
+    parser.add_argument(
+        "--index",
+        default="",
+        help="Optional JSONL index override. Useful for scoring frozen g200 splits.",
+    )
     parser.add_argument("--split", choices=["train", "val"], default="val")
     parser.add_argument(
         "--control",
