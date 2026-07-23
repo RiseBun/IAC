@@ -23,6 +23,7 @@ from iac_extensions.dino_motion_head import (
     CandidateBlindDinoMotionHead,
     UncertaintyAwareTrajectoryComparator,
 )
+from iac_extensions.rgb_motion_head import CandidateBlindRgbDiffMotionHead
 
 
 _BaseDinoCritic = iac_dino.DINOv2ConsistencyCritic
@@ -39,8 +40,10 @@ class ScopeDinoMotionCritic(_BaseDinoCritic):
                 "ScopeDinoMotionCritic requires dinov2.use_scope_motion_head=True"
             )
         hidden = int(dcfg.get("scope_motion_hidden_dim", cfg["model"]["hidden_dim"]))
-        self.scope_motion_head = CandidateBlindDinoMotionHead(
-            feature_dim=self.image_feature_dim,
+        self.use_scope_rgb_diff_motion_head = bool(
+            dcfg.get("use_scope_rgb_diff_motion_head", False)
+        )
+        common_motion_kwargs = dict(
             attribute_dim=self.motion_rule_attr_dim,
             hidden_dim=hidden,
             num_layers=int(dcfg.get("scope_motion_num_layers", 2)),
@@ -51,6 +54,18 @@ class ScopeDinoMotionCritic(_BaseDinoCritic):
             segment_count=self.motion_rule_segment_count,
             max_frames=int(dcfg.get("scope_motion_max_frames", 32)),
         )
+        if self.use_scope_rgb_diff_motion_head:
+            self.scope_motion_head = None
+            self.scope_rgb_diff_motion_head = CandidateBlindRgbDiffMotionHead(
+                spatial_size=int(dcfg.get("scope_rgb_diff_spatial_size", 96)),
+                **common_motion_kwargs,
+            )
+        else:
+            self.scope_motion_head = CandidateBlindDinoMotionHead(
+                feature_dim=self.image_feature_dim,
+                **common_motion_kwargs,
+            )
+            self.scope_rgb_diff_motion_head = None
         self.scope_motion_comparator = UncertaintyAwareTrajectoryComparator(
             self.motion_rule_attr_dim
         )
@@ -62,6 +77,18 @@ class ScopeDinoMotionCritic(_BaseDinoCritic):
             dcfg.get("scope_motion_temporal_controls_train_only", True)
         )
         self._scope_forward_aux: Dict[str, torch.Tensor] = {}
+
+    def _visual_motion_prediction(
+        self,
+        feats: Dict[str, torch.Tensor],
+        history_images: torch.Tensor,
+        future_images: torch.Tensor,
+    ) -> Dict[str, torch.Tensor]:
+        if self.use_scope_rgb_diff_motion_head:
+            assert self.scope_rgb_diff_motion_head is not None
+            return self.scope_rgb_diff_motion_head(history_images, future_images)
+        assert self.scope_motion_head is not None
+        return self.scope_motion_head(feats["hist_seq"], feats["fut_seq"])
 
     @staticmethod
     def _control_key(control: str) -> str:
@@ -94,14 +121,22 @@ class ScopeDinoMotionCritic(_BaseDinoCritic):
         ego_state: torch.Tensor,
         candidate_traj: torch.Tensor,
     ) -> Dict[str, torch.Tensor]:
-        feats = _BaseDinoCritic.extract_probe_features(
-            self,
-            history_images=history_images,
-            future_images=future_images,
-            ego_state=ego_state,
-            candidate_traj=candidate_traj,
-        )
-        visual = self.scope_motion_head(feats["hist_seq"], feats["fut_seq"])
+        if self.use_scope_rgb_diff_motion_head:
+            assert self.scope_rgb_diff_motion_head is not None
+            visual = self.scope_rgb_diff_motion_head(history_images, future_images)
+        else:
+            feats = _BaseDinoCritic.extract_probe_features(
+                self,
+                history_images=history_images,
+                future_images=future_images,
+                ego_state=ego_state,
+                candidate_traj=candidate_traj,
+            )
+            visual = self._visual_motion_prediction(
+                feats,
+                history_images,
+                future_images,
+            )
         candidate_attributes = self._traj_rule_attributes(candidate_traj)
         if self.baseline_mode in {"no_traj", "ego_only"}:
             candidate_attributes = torch.zeros_like(candidate_attributes)
@@ -126,7 +161,7 @@ class ScopeDinoMotionCritic(_BaseDinoCritic):
         )
         # Deliberately compute the visual estimate before candidate attributes
         # are introduced.  This is the anti-shortcut boundary of the module.
-        visual = self.scope_motion_head(feats["hist_seq"], feats["fut_seq"])
+        visual = self._visual_motion_prediction(feats, history_images, future_images)
         candidate_attributes = self._traj_rule_attributes(candidate_traj)
         if self.baseline_mode in {"no_traj", "ego_only"}:
             candidate_attributes = torch.zeros_like(candidate_attributes)

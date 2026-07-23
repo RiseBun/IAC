@@ -21,6 +21,7 @@ from iac_extensions.flow_evidence import (
     speed_energy,
     trajectory_speed_targets,
 )
+from iac_extensions.rgb_motion_head import CandidateBlindRgbDiffMotionHead
 
 
 class DinoMotionHeadTest(unittest.TestCase):
@@ -67,6 +68,31 @@ class DinoMotionHeadTest(unittest.TestCase):
         )
         self.assertTrue(torch.isfinite(value))
         self.assertGreaterEqual(float(value), 0.0)
+
+
+class RgbDiffMotionHeadTest(unittest.TestCase):
+    def test_rgb_diff_head_shapes_and_order_sensitivity(self) -> None:
+        torch.manual_seed(11)
+        head = CandidateBlindRgbDiffMotionHead(
+            36,
+            hidden_dim=32,
+            num_layers=1,
+            num_heads=4,
+            dropout=0.0,
+            segment_count=3,
+            spatial_size=32,
+        ).eval()
+        history = torch.randn(2, 4, 3, 40, 48)
+        future = torch.randn(2, 4, 3, 40, 48)
+        with torch.inference_mode():
+            output = head(history, future)
+            reversed_output = head(history, torch.flip(future, dims=[1]))
+        self.assertEqual(output["mean"].shape, (2, 36))
+        self.assertEqual(output["log_variance"].shape, (2, 36))
+        self.assertGreater(
+            float((output["mean"] - reversed_output["mean"]).abs().sum()),
+            1e-5,
+        )
 
 
 class FlowEvidenceTest(unittest.TestCase):

@@ -16,9 +16,11 @@ from .flow_evidence import (
     speed_energy,
     trajectory_speed_targets,
 )
+from .rgb_motion_head import CandidateBlindRgbDiffMotionHead
 
 __all__ = [
     "CandidateBlindDinoMotionHead",
+    "CandidateBlindRgbDiffMotionHead",
     "UncertaintyAwareTrajectoryComparator",
     "uncertainty_weighted_motion_loss",
     "ClassicFlowExtractor",
