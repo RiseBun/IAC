@@ -29,6 +29,7 @@ VIDEO_MODE="${VIDEO_MODE:-history_future}"
 NUM_FRAMES="${NUM_FRAMES:-8}"
 VJEPA_POOLING="${VJEPA_POOLING:-mean_std_diff}"
 VJEPA_BATCH_SIZE="${VJEPA_BATCH_SIZE:-1}"
+TRAIN_FEATURE_SHARDS="${TRAIN_FEATURE_SHARDS:-1}"
 TRUST_REMOTE_CODE="${TRUST_REMOTE_CODE:-0}"
 HF_DEPS_DIR="${HF_DEPS_DIR:-work_dirs/vjepa2_hf_deps}"
 export HF_ENDPOINT="${HF_ENDPOINT:-https://hf-mirror.com}"
@@ -69,6 +70,7 @@ export GATE_DIR
   benchmark_wam.py \
   tools/eval_recovered_path_set_agreement.py \
   tools/extract_vjepa_video_features.py \
+  tools/merge_feature_caches.py \
   tools/train_visual_mismatch_gate_scorer.py \
   tools/apply_visual_mismatch_penalty.py \
   tools/audit_iac_ambiguity.py \
@@ -139,17 +141,61 @@ fi
 
 train_visual_cache="$FEATURE_DIR/train_vjepa.pt"
 if [[ ! -s "$train_visual_cache" ]]; then
-  "$PYTHON_BIN" tools/extract_vjepa_video_features.py \
-    --index "$train_recovered_rows" \
-    --image-root "$IMAGE_ROOT" \
-    --output "$train_visual_cache" \
-    --model-name "$VJEPA_MODEL" \
-    --video-mode "$VIDEO_MODE" \
-    --num-frames "$NUM_FRAMES" \
-    --pooling "$VJEPA_POOLING" \
-    --batch-size "$VJEPA_BATCH_SIZE" \
-    --log-every 50 \
-    "${trust_args[@]}"
+  if [[ "$TRAIN_FEATURE_SHARDS" -gt 1 ]]; then
+    shard_dir="$FEATURE_DIR/train_vjepa_shards"
+    mkdir -p "$shard_dir"
+    "$PYTHON_BIN" - "$train_recovered_rows" "$shard_dir" "$TRAIN_FEATURE_SHARDS" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+rows_path = Path(sys.argv[1])
+out_dir = Path(sys.argv[2])
+num_shards = int(sys.argv[3])
+rows = [line for line in rows_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+for shard in range(num_shards):
+    path = out_dir / f"train_recovered_set_rows_shard{shard:02d}.jsonl"
+    with path.open("w", encoding="utf-8") as handle:
+        for idx in range(shard, len(rows), num_shards):
+            handle.write(rows[idx] + "\n")
+    print(json.dumps({"shard": shard, "rows": sum(1 for idx in range(shard, len(rows), num_shards)), "path": str(path)}), flush=True)
+PY
+    shard_caches=()
+    for ((shard=0; shard<TRAIN_FEATURE_SHARDS; shard++)); do
+      shard_name="$(printf 'shard%02d' "$shard")"
+      shard_rows="$shard_dir/train_recovered_set_rows_${shard_name}.jsonl"
+      shard_cache="$shard_dir/train_vjepa_${shard_name}.pt"
+      shard_caches+=("$shard_cache")
+      if [[ ! -s "$shard_cache" ]]; then
+        "$PYTHON_BIN" tools/extract_vjepa_video_features.py \
+          --index "$shard_rows" \
+          --image-root "$IMAGE_ROOT" \
+          --output "$shard_cache" \
+          --model-name "$VJEPA_MODEL" \
+          --video-mode "$VIDEO_MODE" \
+          --num-frames "$NUM_FRAMES" \
+          --pooling "$VJEPA_POOLING" \
+          --batch-size "$VJEPA_BATCH_SIZE" \
+          --log-every 50 \
+          "${trust_args[@]}"
+      fi
+    done
+    "$PYTHON_BIN" tools/merge_feature_caches.py \
+      --inputs "${shard_caches[@]}" \
+      --output "$train_visual_cache"
+  else
+    "$PYTHON_BIN" tools/extract_vjepa_video_features.py \
+      --index "$train_recovered_rows" \
+      --image-root "$IMAGE_ROOT" \
+      --output "$train_visual_cache" \
+      --model-name "$VJEPA_MODEL" \
+      --video-mode "$VIDEO_MODE" \
+      --num-frames "$NUM_FRAMES" \
+      --pooling "$VJEPA_POOLING" \
+      --batch-size "$VJEPA_BATCH_SIZE" \
+      --log-every 50 \
+      "${trust_args[@]}"
+  fi
 fi
 
 eval_args=()
