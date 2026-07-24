@@ -219,16 +219,38 @@ def _target_kind(
 
 
 class MismatchGate(nn.Module):
-    def __init__(self, visual_dim: int, scalar_dim: int, visual_hidden: int, hidden_dim: int, dropout: float) -> None:
+    def __init__(
+        self,
+        visual_dim: int,
+        scalar_dim: int,
+        visual_hidden: int,
+        hidden_dim: int,
+        dropout: float,
+        interaction_kind: str,
+    ) -> None:
         super().__init__()
+        self.interaction_kind = interaction_kind
         self.visual_proj = nn.Sequential(
             nn.Linear(visual_dim, visual_hidden),
             nn.LayerNorm(visual_hidden),
             nn.ReLU(inplace=True),
             nn.Dropout(dropout),
         )
+        if interaction_kind == "concat":
+            head_dim = visual_hidden + scalar_dim
+            self.scalar_proj = None
+        elif interaction_kind == "bilinear":
+            self.scalar_proj = nn.Sequential(
+                nn.Linear(scalar_dim, visual_hidden),
+                nn.LayerNorm(visual_hidden),
+                nn.ReLU(inplace=True),
+                nn.Dropout(dropout),
+            )
+            head_dim = visual_hidden * 4 + scalar_dim
+        else:
+            raise ValueError(f"unknown interaction kind: {interaction_kind}")
         self.head = nn.Sequential(
-            nn.Linear(visual_hidden + scalar_dim, hidden_dim),
+            nn.Linear(head_dim, hidden_dim),
             nn.ReLU(inplace=True),
             nn.Dropout(dropout),
             nn.Linear(hidden_dim, 1),
@@ -236,7 +258,13 @@ class MismatchGate(nn.Module):
 
     def forward(self, visual: torch.Tensor, scalar: torch.Tensor) -> torch.Tensor:
         z = self.visual_proj(visual)
-        return self.head(torch.cat([z, scalar], dim=-1)).squeeze(-1)
+        if self.interaction_kind == "concat":
+            fused = torch.cat([z, scalar], dim=-1)
+        else:
+            assert self.scalar_proj is not None
+            s = self.scalar_proj(scalar)
+            fused = torch.cat([z, s, z * s, torch.abs(z - s), scalar], dim=-1)
+        return self.head(fused).squeeze(-1)
 
 
 def _standardize(x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
@@ -291,6 +319,7 @@ def _train(rows: Sequence[Dict[str, Any]], visual: torch.Tensor, scalar: torch.T
         int(args.visual_hidden_dim),
         int(args.hidden_dim),
         float(args.dropout),
+        str(args.interaction_kind),
     )
     opt = torch.optim.AdamW(model.parameters(), lr=float(args.lr), weight_decay=float(args.weight_decay))
     best_state = None
@@ -392,6 +421,7 @@ def _train(rows: Sequence[Dict[str, Any]], visual: torch.Tensor, scalar: torch.T
                 "unknown": sum(1 for kind in kinds if kind == "unknown"),
             },
             "args": vars(args),
+            "interaction_kind": str(args.interaction_kind),
             "visual_dim": int(visual.shape[1]),
             "scalar_dim": int(scalar.shape[1]),
         },
@@ -440,6 +470,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--standardize-clip", type=float, default=5.0)
     parser.add_argument("--pairwise-weight", type=float, default=0.50)
     parser.add_argument("--pairwise-margin", type=float, default=1.0)
+    parser.add_argument("--interaction-kind", choices=["concat", "bilinear"], default="concat")
     parser.add_argument("--visual-hidden-dim", type=int, default=32)
     parser.add_argument("--hidden-dim", type=int, default=64)
     parser.add_argument("--dropout", type=float, default=0.20)

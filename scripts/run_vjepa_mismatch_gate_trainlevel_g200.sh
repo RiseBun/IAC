@@ -59,6 +59,7 @@ PAIRWISE_WEIGHT="${PAIRWISE_WEIGHT:-0.75}"
 PAIRWISE_MARGIN="${PAIRWISE_MARGIN:-1.0}"
 LOGIT_L2_WEIGHT="${LOGIT_L2_WEIGHT:-0.01}"
 STANDARDIZE_CLIP="${STANDARDIZE_CLIP:-5.0}"
+INTERACTION_KIND="${INTERACTION_KIND:-bilinear}"
 
 SCORE_ROOT="$WORK_DIR/train_sample_scores_g${TRAIN_MAX_GROUPS}"
 FEATURE_DIR="$WORK_DIR/vjepa_features"
@@ -238,6 +239,7 @@ done
   --hard-margin "$HARD_MARGIN" \
   --pairwise-weight "$PAIRWISE_WEIGHT" \
   --pairwise-margin "$PAIRWISE_MARGIN" \
+  --interaction-kind "$INTERACTION_KIND" \
   --logit-l2-weight "$LOGIT_L2_WEIGHT" \
   --standardize-clip "$STANDARDIZE_CLIP" \
   "${eval_args[@]}"
