@@ -29,6 +29,7 @@ VIDEO_MODE="${VIDEO_MODE:-history_future}"
 NUM_FRAMES="${NUM_FRAMES:-8}"
 VJEPA_POOLING="${VJEPA_POOLING:-mean_std_diff}"
 VJEPA_BATCH_SIZE="${VJEPA_BATCH_SIZE:-1}"
+VJEPA_TOKEN_SUMMARY_SIZE="${VJEPA_TOKEN_SUMMARY_SIZE:-16}"
 TRAIN_FEATURE_SHARDS="${TRAIN_FEATURE_SHARDS:-1}"
 TRUST_REMOTE_CODE="${TRUST_REMOTE_CODE:-0}"
 HF_DEPS_DIR="${HF_DEPS_DIR:-work_dirs/vjepa2_hf_deps}"
@@ -60,6 +61,13 @@ PAIRWISE_MARGIN="${PAIRWISE_MARGIN:-1.0}"
 LOGIT_L2_WEIGHT="${LOGIT_L2_WEIGHT:-0.01}"
 STANDARDIZE_CLIP="${STANDARDIZE_CLIP:-5.0}"
 INTERACTION_KIND="${INTERACTION_KIND:-bilinear}"
+if [[ -n "${VISUAL_CACHE_KEY:-}" ]]; then
+  VISUAL_FEATURE_KEY="$VISUAL_CACHE_KEY"
+elif [[ "$INTERACTION_KIND" == "cross_attention" ]]; then
+  VISUAL_FEATURE_KEY="x_tokens"
+else
+  VISUAL_FEATURE_KEY="x"
+fi
 
 SCORE_ROOT="$WORK_DIR/train_sample_scores_g${TRAIN_MAX_GROUPS}"
 FEATURE_DIR="$WORK_DIR/vjepa_features"
@@ -86,6 +94,10 @@ fi
 trust_args=()
 if [[ "$TRUST_REMOTE_CODE" == "1" ]]; then
   trust_args+=(--trust-remote-code)
+fi
+token_args=()
+if [[ "$VJEPA_TOKEN_SUMMARY_SIZE" -gt 0 ]]; then
+  token_args+=(--token-summary-size "$VJEPA_TOKEN_SUMMARY_SIZE")
 fi
 
 run_score() {
@@ -178,6 +190,7 @@ PY
           --pooling "$VJEPA_POOLING" \
           --batch-size "$VJEPA_BATCH_SIZE" \
           --log-every 50 \
+          "${token_args[@]}" \
           "${trust_args[@]}"
       fi
     done
@@ -195,6 +208,7 @@ PY
       --pooling "$VJEPA_POOLING" \
       --batch-size "$VJEPA_BATCH_SIZE" \
       --log-every 50 \
+      "${token_args[@]}" \
       "${trust_args[@]}"
   fi
 fi
@@ -218,6 +232,7 @@ for split in regular low_iou holdout; do
       --pooling "$VJEPA_POOLING" \
       --batch-size "$VJEPA_BATCH_SIZE" \
       --log-every 20 \
+      "${token_args[@]}" \
       "${trust_args[@]}"
   fi
   eval_args+=(--eval "$split=$rows,$cache,$GATE_DIR/${split}_vjepa_mismatch_gate_scores.jsonl")
@@ -226,6 +241,7 @@ done
 "$PYTHON_BIN" tools/train_visual_mismatch_gate_scorer.py \
   --train-rows "$train_recovered_rows" \
   --train-visual-cache "$train_visual_cache" \
+  --visual-cache-key "$VISUAL_FEATURE_KEY" \
   --output-dir "$GATE_DIR" \
   --steps "$SCORER_STEPS" \
   --supported-sources "$SUPPORTED_SOURCES" \

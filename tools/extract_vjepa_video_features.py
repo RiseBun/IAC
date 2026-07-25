@@ -144,6 +144,13 @@ def _pool_hidden(hidden: torch.Tensor, mode: str) -> torch.Tensor:
     raise ValueError(f"unknown pooling mode: {mode}")
 
 
+def _token_summary(hidden: torch.Tensor, count: int) -> torch.Tensor:
+    if count <= 0:
+        raise ValueError("token summary count must be positive")
+    chunks = torch.chunk(hidden, chunks=count, dim=1)
+    return torch.stack([chunk.mean(dim=1) for chunk in chunks], dim=1)
+
+
 def _batched(values: Sequence[Any], batch_size: int) -> Iterable[Sequence[Any]]:
     for start in range(0, len(values), batch_size):
         yield values[start : start + batch_size]
@@ -169,6 +176,12 @@ def parse_args() -> argparse.Namespace:
         default="mean_std_diff",
     )
     parser.add_argument("--batch-size", type=int, default=1)
+    parser.add_argument(
+        "--token-summary-size",
+        type=int,
+        default=0,
+        help="If >0, also save compressed V-JEPA video tokens as x_tokens with this many chunks.",
+    )
     parser.add_argument("--max-groups", type=int, default=0)
     parser.add_argument("--max-samples", type=int, default=0)
     parser.add_argument("--seed", type=int, default=20260723)
@@ -218,6 +231,7 @@ def main() -> None:
     )
     image_root = Path(args.image_root)
     features: List[torch.Tensor] = []
+    token_features: List[torch.Tensor] = []
     sample_ids: List[str] = []
     group_ids: List[str] = []
     source_types: List[str] = []
@@ -244,6 +258,8 @@ def main() -> None:
                 outputs = model(**inputs)
             pooled = _pool_hidden(outputs.last_hidden_state.float(), str(args.pooling))
             features.append(pooled.cpu())
+            if int(args.token_summary_size) > 0:
+                token_features.append(_token_summary(outputs.last_hidden_state.float(), int(args.token_summary_size)).cpu())
             for row in batch_rows:
                 sample_ids.append(str(row.get("sample_id", len(sample_ids))))
                 group_ids.append(_group_id(row, str(len(group_ids))))
@@ -295,6 +311,10 @@ def main() -> None:
             "rows": len(rows),
         },
     }
+    if token_features:
+        out["x_tokens"] = torch.cat(token_features, dim=0)
+        out["metadata"]["token_summary_size"] = int(args.token_summary_size)
+        out["metadata"]["token_feature_dim"] = int(out["x_tokens"].shape[-1])
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     torch.save(out, output)

@@ -29,6 +29,7 @@ def main() -> None:
     if not caches:
         raise ValueError("no input caches")
     x = torch.cat([cache["x"].float() for cache in caches], dim=0)
+    token_tensors = [cache.get("x_tokens") for cache in caches if cache.get("x_tokens") is not None]
     y_tensors = [cache.get("y") for cache in caches if cache.get("y") is not None]
     y = None
     if y_tensors:
@@ -47,6 +48,8 @@ def main() -> None:
         "source_type": sum((_items(cache, "source_type") for cache in caches), []),
         "metadata": dict(caches[0].get("metadata", {})),
     }
+    if token_tensors:
+        out["x_tokens"] = torch.cat([tensor.float() for tensor in token_tensors], dim=0)
     if y is not None:
         out["y"] = y
     out["metadata"].update(

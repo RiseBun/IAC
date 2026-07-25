@@ -171,16 +171,23 @@ def _scalar_features(row: Dict[str, Any]) -> List[float]:
     ]
 
 
-def _feature_cache(path: Path) -> Dict[str, torch.Tensor]:
+def _feature_cache(path: Path, feature_key: str) -> Dict[str, torch.Tensor]:
     cache = torch.load(path, map_location="cpu", weights_only=False)
     sample_ids = [str(x) for x in cache.get("sample_id", [])]
-    x = cache["x"].float()
+    if feature_key not in cache:
+        raise KeyError(f"feature cache {path} does not contain key {feature_key!r}")
+    x = cache[feature_key].float()
     return {sid: x[idx] for idx, sid in enumerate(sample_ids)}
 
 
-def _load_dataset(rows_path: Path, visual_cache_path: Path) -> tuple[List[Dict[str, Any]], torch.Tensor, torch.Tensor]:
+def _load_dataset(
+    rows_path: Path,
+    visual_cache_path: Path,
+    *,
+    feature_key: str,
+) -> tuple[List[Dict[str, Any]], torch.Tensor, torch.Tensor]:
     rows = _load_rows(rows_path)
-    visual_by_sample = _feature_cache(visual_cache_path)
+    visual_by_sample = _feature_cache(visual_cache_path, feature_key)
     kept: List[Dict[str, Any]] = []
     visual: List[torch.Tensor] = []
     scalar: List[List[float]] = []
@@ -239,12 +246,28 @@ class MismatchGate(nn.Module):
         if interaction_kind == "concat":
             head_dim = visual_hidden + scalar_dim
             self.scalar_proj = None
+            self.cross_attn = None
         elif interaction_kind == "bilinear":
             self.scalar_proj = nn.Sequential(
                 nn.Linear(scalar_dim, visual_hidden),
                 nn.LayerNorm(visual_hidden),
                 nn.ReLU(inplace=True),
                 nn.Dropout(dropout),
+            )
+            head_dim = visual_hidden * 4 + scalar_dim
+            self.cross_attn = None
+        elif interaction_kind == "cross_attention":
+            self.scalar_proj = nn.Sequential(
+                nn.Linear(scalar_dim, visual_hidden),
+                nn.LayerNorm(visual_hidden),
+                nn.ReLU(inplace=True),
+                nn.Dropout(dropout),
+            )
+            self.cross_attn = nn.MultiheadAttention(
+                embed_dim=visual_hidden,
+                num_heads=4,
+                dropout=dropout,
+                batch_first=True,
             )
             head_dim = visual_hidden * 4 + scalar_dim
         else:
@@ -259,17 +282,35 @@ class MismatchGate(nn.Module):
     def forward(self, visual: torch.Tensor, scalar: torch.Tensor) -> torch.Tensor:
         z = self.visual_proj(visual)
         if self.interaction_kind == "concat":
+            if z.ndim == 3:
+                z = z.mean(dim=1)
             fused = torch.cat([z, scalar], dim=-1)
-        else:
+        elif self.interaction_kind == "bilinear":
+            if z.ndim == 3:
+                z = z.mean(dim=1)
             assert self.scalar_proj is not None
             s = self.scalar_proj(scalar)
             fused = torch.cat([z, s, z * s, torch.abs(z - s), scalar], dim=-1)
+        else:
+            if z.ndim != 3:
+                raise ValueError("cross_attention interaction requires visual tokens with shape (B,T,D)")
+            assert self.scalar_proj is not None
+            assert self.cross_attn is not None
+            query = self.scalar_proj(scalar).unsqueeze(1)
+            attended, _ = self.cross_attn(query, z, z, need_weights=False)
+            attended = attended.squeeze(1)
+            q = query.squeeze(1)
+            fused = torch.cat([attended, q, attended * q, torch.abs(attended - q), scalar], dim=-1)
         return self.head(fused).squeeze(-1)
 
 
 def _standardize(x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
-    mean = x.mean(dim=0)
-    std = x.std(dim=0).clamp_min(1e-4)
+    if x.ndim == 3:
+        mean = x.mean(dim=(0, 1), keepdim=True)
+        std = x.std(dim=(0, 1), keepdim=True).clamp_min(1e-4)
+    else:
+        mean = x.mean(dim=0)
+        std = x.std(dim=0).clamp_min(1e-4)
     return mean, std
 
 
@@ -314,7 +355,7 @@ def _train(rows: Sequence[Dict[str, Any]], visual: torch.Tensor, scalar: torch.T
     scalar_n = _normalize(scalar, scalar_mean, scalar_std, float(args.standardize_clip))
     groups = _groups(rows, args.group_key)
     model = MismatchGate(
-        visual.shape[1],
+        visual.shape[-1],
         scalar.shape[1],
         int(args.visual_hidden_dim),
         int(args.hidden_dim),
@@ -422,7 +463,8 @@ def _train(rows: Sequence[Dict[str, Any]], visual: torch.Tensor, scalar: torch.T
             },
             "args": vars(args),
             "interaction_kind": str(args.interaction_kind),
-            "visual_dim": int(visual.shape[1]),
+            "visual_dim": int(visual.shape[-1]),
+            "visual_shape": [int(v) for v in visual.shape[1:]],
             "scalar_dim": int(scalar.shape[1]),
         },
     }
@@ -452,6 +494,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--train-rows", required=True)
     parser.add_argument("--train-visual-cache", required=True)
+    parser.add_argument("--visual-cache-key", default="x")
     parser.add_argument("--eval", action="append", default=[], metavar="NAME=ROWS,CACHE,OUT")
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--group-key", default="group_id")
@@ -470,7 +513,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--standardize-clip", type=float, default=5.0)
     parser.add_argument("--pairwise-weight", type=float, default=0.50)
     parser.add_argument("--pairwise-margin", type=float, default=1.0)
-    parser.add_argument("--interaction-kind", choices=["concat", "bilinear"], default="concat")
+    parser.add_argument("--interaction-kind", choices=["concat", "bilinear", "cross_attention"], default="concat")
     parser.add_argument("--visual-hidden-dim", type=int, default=32)
     parser.add_argument("--hidden-dim", type=int, default=64)
     parser.add_argument("--dropout", type=float, default=0.20)
@@ -488,6 +531,7 @@ def main() -> None:
     train_rows, train_visual, train_scalar = _load_dataset(
         Path(args.train_rows),
         Path(args.train_visual_cache),
+        feature_key=str(args.visual_cache_key),
     )
     bundle = _train(train_rows, train_visual, train_scalar, args)
     torch.save(
@@ -511,7 +555,11 @@ def main() -> None:
         if not sep:
             raise ValueError(f"--eval must be NAME=ROWS,CACHE,OUT, got {spec!r}")
         rows_raw, cache_raw, out_raw = rest.split(",", 2)
-        rows, visual, scalar = _load_dataset(Path(rows_raw), Path(cache_raw))
+        rows, visual, scalar = _load_dataset(
+            Path(rows_raw),
+            Path(cache_raw),
+            feature_key=str(args.visual_cache_key),
+        )
         scored = _score_rows(bundle, rows, visual, scalar)
         _write_jsonl(Path(out_raw), scored)
         print(json.dumps({"eval": name, "rows": len(scored), "output": out_raw}), flush=True)
