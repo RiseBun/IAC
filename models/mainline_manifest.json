@@ -1,0 +1,51 @@
+{
+  "mainline": "v3_acceptability_plus_clean_vjepa_traj_gate",
+  "date": "2026-07-27",
+  "models": {
+    "iac_acceptability_calibrator": {
+      "path": "models/iac_acceptability_calibrator.pt",
+      "sha256": "d27dbd4a029bd255d198a951322453c75a4783b059ddac29924770cb2d8f511b",
+      "kind": "iac_acceptability_calibrator",
+      "feature_dim": 31,
+      "hidden_dim": 16
+    },
+    "clean_vjepa_traj_gate": {
+      "path": "models/clean_vjepa_traj_gate.pt",
+      "sha256": "942c0bfe23803bc1337baab6c472da09b87a5c57c275ab2421f23cde901ad75f",
+      "kind": "visual_mismatch_gate_scorer",
+      "visual_shape": [16, 1024],
+      "scalar_dim": 1,
+      "traj_shape": [8, 5],
+      "interaction_kind": "traj_cross_attention",
+      "scalar_feature_mode": "zero"
+    }
+  },
+  "fusion": {
+    "beta": 0.15,
+    "threshold": 0,
+    "score_key": "v3_clean_gate_fused_rank_score"
+  },
+  "confidence": {
+    "margin_space": "raw",
+    "match_margin": 0.2,
+    "mismatch_margin": -0.5,
+    "temperature": 0.2
+  },
+  "metrics": {
+    "regular": {
+      "acceptable_top1": 0.99,
+      "hard_mismatch_top1": 0.01,
+      "verdict_counts": {"match": 189, "ambiguous": 11, "mismatch": 0}
+    },
+    "low_iou": {
+      "acceptable_top1": 1.0,
+      "hard_mismatch_top1": 0.0,
+      "verdict_counts": {"match": 200, "ambiguous": 0, "mismatch": 0}
+    },
+    "holdout": {
+      "acceptable_top1": 1.0,
+      "hard_mismatch_top1": 0.0,
+      "verdict_counts": {"match": 198, "ambiguous": 2, "mismatch": 0}
+    }
+  }
+}

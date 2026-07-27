@@ -1,278 +1,96 @@
-# IAC: Image-Action / Image-Trajectory Consistency
+# IAC Mainline
 
-IAC is a benchmark and modeling pipeline for judging whether a candidate ego trajectory is supported by a generated future image.
+IAC scores whether a WAM-generated future image sequence is consistent with a
+given candidate action trajectory. The current trusted mainline is deliberately
+small:
 
-The core question is not:
+1. `v3` acceptability calibrator: learns the task metric, where GT and visually
+   plausible mild action perturbations are acceptable, while image/time/traj
+   swaps are hard mismatches.
+2. Clean V-JEPA2 trajectory gate: uses frozen V-JEPA2 future-video tokens plus
+   the candidate trajectory, with scalar side features zeroed, to detect
+   visual-action mismatch evidence.
+3. Conservative fusion and confidence: v3 remains the main ranker; the clean
+   gate only penalizes candidates that are visually less compatible inside the
+   same group. Low-margin cases are reported as `ambiguous`, not forced into a
+   false binary decision.
 
-> Is this candidate exactly the GT trajectory?
+## Current Result
 
-It is:
+Using 200 grouped cases per split:
 
-> Given history images, a future image, and a candidate trajectory, is this trajectory inside the trajectory set supported by that future image?
+| Split | v3 acceptable / hard | v3 + clean gate acceptable / hard | Confidence verdict |
+| --- | ---: | ---: | --- |
+| regular | 0.970 / 0.030 | 0.990 / 0.010 | 189 match, 11 ambiguous, 0 mismatch |
+| low_iou | 0.985 / 0.015 | 1.000 / 0.000 | 200 match |
+| holdout | 0.985 / 0.015 | 1.000 / 0.000 | 198 match, 2 ambiguous |
 
-This distinction matters because driving futures are multi-solution. A non-GT trajectory can still be visually supported if it is a small same-scene speed, lateral, or heading perturbation. Conversely, a trajectory can be physically reasonable and high-PDMS but still not match this particular future image.
+Fusion used `beta=0.15`, `threshold=0`, then confidence used raw margins with
+`match_margin=0.2`, `mismatch_margin=-0.5`, `temperature=0.2`.
 
-## Current Main Result
+## Files
 
-The current trusted result is the grouped recovered-set pipeline, evaluated on g200 with ambiguity-adjusted top1:
+- `models/iac_acceptability_calibrator.pt`: trained v3 calibrator.
+- `models/clean_vjepa_traj_gate.pt`: clean V-JEPA2 trajectory gate.
+- `tools/extract_vjepa_video_features.py`: frozen V-JEPA2 feature extraction.
+- `tools/score_acceptability_calibrator.py`: apply v3 calibrator.
+- `tools/score_visual_mismatch_gate.py`: apply clean trajectory gate.
+- `tools/fuse_v3_clean_gate.py`: conservative v3 + gate fusion.
+- `tools/score_iac_confidence.py`: group-level match / ambiguous / mismatch verdicts.
+- `tools/train_iac_acceptability_calibrator.py`: retrain v3 calibrator.
+- `tools/train_visual_mismatch_gate_scorer.py`: retrain the clean gate.
 
-| split | CP baseline | grouped recovered-set best | gain |
-|---|---:|---:|---:|
-| regular | 0.750 | 0.830 | +0.080 |
-| low_iou | 0.705 | 0.800 | +0.095 |
-| holdout | 0.730 | 0.780 | +0.050 |
+## Minimal Run
 
-This is the current main line:
+```bash
+python tools/extract_vjepa_video_features.py \
+  --index work/eval_rows.jsonl \
+  --image-root /path/to/images \
+  --output work/eval_vjepa.pt \
+  --token-summary-size 16
 
-```text
-future image -> recover K supported paths -> compare candidate with recovered set
+python tools/score_acceptability_calibrator.py \
+  --model models/iac_acceptability_calibrator.pt \
+  --primary-scores work/base_scores.jsonl \
+  --aux work/aux_scores.jsonl \
+  --output-scores work/v3_scores.jsonl \
+  --output-summary work/v3_summary.json
+
+python tools/score_visual_mismatch_gate.py \
+  --model models/clean_vjepa_traj_gate.pt \
+  --rows work/v3_scores.jsonl \
+  --visual-cache work/eval_vjepa.pt \
+  --visual-cache-key x_tokens \
+  --output-scores work/clean_gate_scores.jsonl
+
+python tools/fuse_v3_clean_gate.py \
+  --v3-scores work/v3_scores.jsonl \
+  --gate-scores work/clean_gate_scores.jsonl \
+  --output-scores work/fused_scores.jsonl \
+  --output-summary work/fused_summary.json \
+  --beta 0.15 \
+  --threshold 0
+
+python tools/score_iac_confidence.py \
+  --primary-scores work/fused_scores.jsonl \
+  --score-key v3_clean_gate_fused_rank_score \
+  --margin-space raw \
+  --match-margin 0.2 \
+  --mismatch-margin -0.5 \
+  --confidence-temperature 0.2 \
+  --output-groups work/confidence_groups.jsonl \
+  --output-summary work/confidence_summary.json
 ```
 
-The most important finding is that recovering a supported set is more faithful to the problem than forcing a single GT ranking target.
-
-## Current Pipeline
-
-1. Train an image-trajectory consistency model with supported-set/listwise supervision.
-2. Fuse consistency and path evidence as the CP baseline.
-3. Train a grouped recovered-set probe from frozen visual features.
-4. Recover K candidate supported paths from the future image.
-5. Score each candidate by agreement with the recovered K-set.
-6. Evaluate with ambiguity-adjusted top1, not hard GT top1.
-
-Important files:
-
-- `configs/train_navsim_future_dinov2_supported_set_listwise_vnext.py`
-- `scripts/run_grouped_recovered_probe_k12_vnext.sh`
-- `tools/train_recovered_path_set_probe_grouped_from_features.py`
-- `tools/eval_recovered_path_set_agreement.py`
-- `tools/extract_recovered_path_features.py`
-
-## Supervision Design
-
-The model no longer treats GT as the only positive.
-
-```text
-positive:
-  gt_pos
-
-soft positive:
-  high-PDMS / high-EPDMS same-scene perturb_speed
-  high-PDMS / high-EPDMS same-scene perturb_lateral
-  high-PDMS / high-EPDMS same-scene perturb_heading
-
-unknown:
-  medium-quality same-scene perturbations
-
-hard negative:
-  image_swap
-  time_shift_future
-  traj_swap
-  reverse_traj
-  high_pdm_image_mismatch
-```
-
-Unknown rows are masked out of BCE/listwise objectives when their label is ambiguous.
-
-## Why Hard GT Top1 Is Not Enough
-
-Hard top1 asks whether GT is ranked first. That is too strict for this task because multiple candidates may be visually valid.
-
-The main metric is:
-
-```text
-ambiguity-adjusted top1
-```
-
-It accepts GT or visually reasonable same-scene perturbations when the future image plausibly supports them.
-
-We also track:
-
-- hard mismatch above GT group rate
-- low_iou and holdout performance
-- source-wise calibration
-- hard top1 as a secondary diagnostic only
-
-## Visual-Time Specificity Findings
-
-The recovered-set model improved ranking but still had a failure mode:
-
-| split | hard mismatch above GT |
-|---|---:|
-| regular | 40.0% |
-| low_iou | 29.0% |
-| holdout | 39.5% |
-
-This means the model learned:
-
-```text
-this future image roughly implies this motion shape
-```
-
-but not always:
-
-```text
-this specific future image at this specific time supports this exact candidate set
-```
-
-That is why visual-conditioned agreement/gate experiments were added.
-
-## Candidate-Blind DINO Motion Evidence
-
-The newest code path migrates the `agent/dino-motion-flow-heads` branch into
-main as an opt-in research extension. Its purpose is to test the image
-perception side directly.
-
-The key architectural boundary is:
-
-```text
-history/future DINO features -> visual motion attributes + uncertainty
-candidate trajectory -> separate comparator
-```
-
-This is different from the current main scorer, where candidate trajectory
-features can enter the visual fusion path early. The candidate-blind head forces
-DINO features to first predict motion evidence from images alone, then compares a
-candidate against that evidence.
-
-Relevant files:
-
-- `iac_extensions/dino_motion_head.py`
-- `iac_extensions/flow_evidence.py`
-- `train_scope_motion_head.py`
-- `eval_scope_motion_head.py`
-- `configs/train_navsim_future_dinov2_scope_motion_head.py`
-- `scripts/run_scope_motion_head.sh`
-- `tools/flow_speed_head.py`
-- `SCOPE_IAC_EXTENSION.md`
-
-The minimum proof this extension must provide is not a higher regular score. It
-must show that full ordered future images outperform the controls:
-
-```text
-normal video > no_future / shuffled_future / time_shift_future
-```
-
-The target failure modes are `perturb_speed`, `time_shift_future`, and
-high-PDMS image mismatch. If the candidate-blind motion head cannot improve
-low_iou/holdout or reduce hard mismatch above GT, the visual-time contrast needs
-to move into the main representation training rather than stay as an auxiliary
-head.
-
-## Visual Mismatch Gate Status
-
-A visual-conditioned scorer can detect visual-time mismatch, but it is not yet a stable global ranker. The key issue is now narrower:
-
-```text
-Use strong visual evidence to reject real image/time mismatch
-without suppressing visually plausible near-trajectory ambiguity.
-```
-
-Recent calibrated-gate experiments:
-
-1. BCE gate learned specificity but became over-saturated.
-2. Three-class labels helped, but BCE still produced unreliable probabilities.
-3. Margin loss without clipping exposed train/eval feature distribution drift.
-4. Margin loss plus standardized feature clipping fixed the numerical explosion.
-
-Best calibrated margin+clip results:
-
-| split | best calibrated result | hard mismatch above GT |
-|---|---:|---:|
-| regular | 0.830 | 0.02 |
-| low_iou | 0.790 | 0.04 |
-| holdout | 0.785 | 0.03 |
-
-Conclusion:
-
-```text
-The gate is useful as a diagnostic and conservative penalty candidate,
-but it does not yet promote over grouped recovered-set because low_iou
-still drops below 0.800.
-```
-
-Relevant files:
-
-- `tools/train_visual_mismatch_gate_scorer.py`
-- `tools/apply_visual_mismatch_penalty.py`
-- `scripts/run_visual_mismatch_gate_trainlevel_g200.sh`
-
-## Strong Video Feature Path
-
-The DINO/RGB-diff/RAFT probes showed useful dynamic evidence, but they are still limited cues. The next visual-side probe uses frozen V-JEPA2 video features as the visual encoder and trains the existing three-class mismatch gate on train-level recovered rows.
-
-Training target:
-
-```text
-supported:
-  gt_pos + high-quality same-scene perturbations
-
-unknown:
-  near perturbations kept in a neutral band
-
-hard negative:
-  image_swap / time_shift_future / high_pdm_image_mismatch
-```
-
-Decision rule:
-
-```text
-grouped recovered-set remains the main scorer;
-V-JEPA2 gate is only a one-sided penalty when it predicts mismatch.
-```
-
-New experiment entry:
-
-- `scripts/run_vjepa_mismatch_gate_trainlevel_g200.sh`
-
-## Current Decision
-
-Do not promote the visual gate as the main scorer yet.
-
-Trusted main result remains:
-
-| split | trusted result |
-|---|---:|
-| regular | 0.830 |
-| low_iou | 0.800 |
-| holdout | 0.780 |
-
-Promotion criteria for the next method:
-
-- regular >= 0.830
-- low_iou >= 0.800
-- holdout >= 0.800
-- hard mismatch above GT < 25%
-- source calibration must not show many GT=0 or time_shift_future=1 cases
-
-## Next Step
-
-The shortest next experiment is now:
-
-```text
-run V-JEPA2 train-level ambiguity-preserving mismatch gate
-```
-
-Use the same calibrated objective:
-
-```text
-supported:
-  gt_pos + high-quality same-scene perturbations
-
-unknown:
-  near perturbations inside a neutral logit band
-
-hard negative:
-  image_swap / time_shift_future / high_pdm_image_mismatch
-```
-
-If the V-JEPA2 gate improves hard mismatch but still hurts holdout ambiguity, the visual-time contrast should move into main representation training instead of staying as a post-hoc gate.
-
-## Repository Boundary
-
-This repo contains code, configs, and evaluation tools. It does not include:
-
-- raw nuPlan data
-- checkpoints
-- `work_dirs`
-- logs
-- cache files
+Input JSONL rows must contain stable `group_id`, `sample_id`, `source_type`,
+`candidate_traj`, and the score fields used by the v3 calibrator. V-JEPA
+extraction also needs `history_images` and `future_images`.
+
+## Why This Mainline
+
+The original need is not BEV reconstruction or trajectory prediction by itself.
+The need is to judge: "If this action really happened, would the generated
+future images look like this?" Mild speed, heading, or lateral differences can
+be visually indistinguishable in front-view video, so the evaluator reports
+confidence and ambiguity instead of pretending every group has only one correct
+answer.
