@@ -1,0 +1,60 @@
+{
+  "status": "locally_verified_independent_navsim_protocols",
+  "warning": "These metrics do not use the current official IAC checkpoint or IAC-PathBench split and must not be compared numerically with IAC-reported g200/g1000 results.",
+  "decomposed_visual_evidence": {
+    "protocol": "drive-disjoint decomposed visual evidence v1",
+    "groups": {
+      "train": 18676,
+      "validation": 4738,
+      "test": 3728
+    },
+    "attribute_plcc": {
+      "longitudinal_m": 0.9113686068843893,
+      "lateral_m": 0.9307433045377602,
+      "heading_rad": 0.9182901869366599
+    },
+    "temporal_continuity_auc": 0.9564617969052203,
+    "full_decomposed_top1": 0.44662017167381973,
+    "full_decomposed_mrr": 0.6867023043122829,
+    "source_sha256": "53493CAD2975FEED7BE990A5E78D911D98EE00DA125E1943A897EB9B6350F898"
+  },
+  "corrected_raft_global": {
+    "protocol": "12-candidate unbiased speed-v2, same-video trajectory subset, three seeds",
+    "base_top1": 0.4978838665989504,
+    "fused_top1": 0.526324699509057,
+    "base_mrr": 0.711985779583545,
+    "fused_mrr": 0.7327394052254389,
+    "base_speed_pairwise": 0.7491958693076012,
+    "fused_speed_pairwise": 0.7533434907736584,
+    "base_heading_pairwise": 0.9020653461994245,
+    "fused_heading_pairwise": 0.962248180125275,
+    "source_sha256": "B0632367A8EAE7C6178D29B2F52A7117ADB94C109A2CB71C18FE18A0B797C616"
+  },
+  "multiscale_global_replacement": {
+    "top1_delta": -0.019637717961740186,
+    "speed_pairwise_delta": 0.004824784154393025,
+    "normal_minus_candidate_derangement_top1": 0.009057050956492396,
+    "primary_claim_gate_passed": false,
+    "source_sha256": "F8282F5DA11E69BE5B34D250ADB8ACBBB8C49EFACED88440F173611E42CFEBD0"
+  },
+  "failure_conditioned_longitudinal_gate": {
+    "protocol": "3938 test groups, 12 candidates, three seeds, one shared validation-fit configuration",
+    "base_top1": 0.526324699509057,
+    "gated_top1": 0.5296258676146944,
+    "base_speed_pairwise": 0.7533434907736584,
+    "gated_speed_pairwise": 0.7586761469443033,
+    "normal_minus_candidate_derangement_top1": 0.017944811240900638,
+    "per_seed_speed_pairwise_delta": [
+      0.006856272219400661,
+      0.004316912138141116,
+      0.004824784154393136
+    ],
+    "claim_gates": {
+      "speed_gain_at_least_1pp": false,
+      "top1_not_worse_than_0_2pp": true,
+      "identity_top1_gap_at_least_0_5pp": true,
+      "speed_gain_positive_all_seeds": true
+    },
+    "source_sha256": "F3D8FCE5E39C94C7C0B1AFD01CFFE518D2BF7B972DC0C7B47AB43878990B52E4"
+  }
+}
