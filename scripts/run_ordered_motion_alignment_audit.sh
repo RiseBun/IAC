@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# Required local assets. No dataset, backbone or feature cache is uploaded.
+# Required local rows. No dataset, backbone or feature cache is uploaded.
 TRAIN_ROWS=${TRAIN_ROWS:?set TRAIN_ROWS}
-TRAIN_CACHE=${TRAIN_CACHE:?set TRAIN_CACHE}
 VAL_ROWS=${VAL_ROWS:?set VAL_ROWS}
-VAL_CACHE=${VAL_CACHE:?set VAL_CACHE}
 EVAL_ROWS=${EVAL_ROWS:?set EVAL_ROWS}
-EVAL_CACHE=${EVAL_CACHE:?set EVAL_CACHE}
 
 PYTHON=${PYTHON:-python}
 OUT_DIR=${OUT_DIR:-work/ordered_motion_alignment}
+TRAIN_CACHE=${TRAIN_CACHE:-$OUT_DIR/train_vjepa.pt}
+VAL_CACHE=${VAL_CACHE:-$OUT_DIR/val_vjepa.pt}
+EVAL_CACHE=${EVAL_CACHE:-$OUT_DIR/eval_vjepa.pt}
 FEATURE_KEY=${FEATURE_KEY:-x_tokens}
+VJEPA_MODEL=${VJEPA_MODEL:-facebook/vjepa2-vitl-fpc64-256}
+VJEPA_BATCH_SIZE=${VJEPA_BATCH_SIZE:-1}
 DEVICE=${DEVICE:-cuda}
 SEED=${SEED:-20260728}
 BATCH_SIZE=${BATCH_SIZE:-128}
@@ -37,8 +39,7 @@ finish() {
     "$run_state" "$exit_code" "$((end_epoch-start_epoch))" > "$STATUS"
   if [[ -d "$OUT_DIR" ]]; then
     tar -czf "$RESULT_ARCHIVE" \
-      --exclude='eval_raw_reverse_vjepa.pt' \
-      --exclude='eval_raw_shuffle_vjepa.pt' \
+      --exclude='*_vjepa.pt' \
       -C "$OUT_DIR" .
   fi
 }
@@ -53,6 +54,28 @@ print({
     "cuda_device_count": torch.cuda.device_count(),
 })
 PY
+
+ensure_cache() {
+  rows=$1
+  cache=$2
+  if [[ -f "$cache" ]]; then
+    return
+  fi
+  IMAGE_ROOT=${IMAGE_ROOT:?set IMAGE_ROOT when a V-JEPA cache is missing}
+  mkdir -p "$(dirname "$cache")"
+  "$PYTHON" tools/extract_vjepa_video_features.py \
+    --index "$rows" \
+    --image-root "$IMAGE_ROOT" \
+    --model-name "$VJEPA_MODEL" \
+    --output "$cache" \
+    --token-summary-size 16 \
+    --batch-size "$VJEPA_BATCH_SIZE" \
+    --device "$DEVICE"
+}
+
+ensure_cache "$TRAIN_ROWS" "$TRAIN_CACHE"
+ensure_cache "$VAL_ROWS" "$VAL_CACHE"
+ensure_cache "$EVAL_ROWS" "$EVAL_CACHE"
 
 "$PYTHON" tools/train_ordered_motion_alignment.py \
   --train-rows "$TRAIN_ROWS" \
@@ -115,8 +138,6 @@ fi
 
 if [[ "$RUN_RAW_FRAME_CONTROLS" == "1" ]]; then
   IMAGE_ROOT=${IMAGE_ROOT:?set IMAGE_ROOT when RUN_RAW_FRAME_CONTROLS=1}
-  VJEPA_MODEL=${VJEPA_MODEL:-facebook/vjepa2-vitl-fpc64-256}
-  VJEPA_BATCH_SIZE=${VJEPA_BATCH_SIZE:-1}
 
   "$PYTHON" tools/make_temporal_control_rows.py \
     --input-rows "$EVAL_ROWS" \

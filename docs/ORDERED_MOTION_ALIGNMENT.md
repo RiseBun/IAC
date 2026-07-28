@@ -65,8 +65,9 @@ without first auditing its metadata and extractor.
 No asset needs to be uploaded to another server. The run needs local paths to:
 
 - train, validation and evaluation JSONL rows;
-- their existing V-JEPA `x_tokens` caches;
-- Python with PyTorch.
+- either existing V-JEPA `x_tokens` caches, or the local image root and a local
+  V-JEPA2 backbone path from which to build them;
+- Python with PyTorch and Transformers when extraction is needed.
 
 The rows need stable `sample_id`, `group_id`, `source_type` and
 `candidate_traj`. GT rows should use `source_type=gt_pos` unless
@@ -94,6 +95,17 @@ nohup env \
 
 This command continues after SSH disconnects. It does not install packages,
 upload data, shut down the server, or change the default IAC scorer.
+
+If an existing cache variable is omitted, the script creates that cache under
+`OUT_DIR`. In that case set:
+
+```bash
+IMAGE_ROOT=/local/image/root \
+VJEPA_MODEL=/local/facebook_vjepa2_vitl_fpc64_256
+```
+
+A local `VJEPA_MODEL` path avoids a network download. Auto-generated V-JEPA
+caches are excluded from the returned result archive.
 
 For validation-only tuned fusion with an existing IAC score:
 
