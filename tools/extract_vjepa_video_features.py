@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import sys
 import time
 from collections import defaultdict
 from pathlib import Path
@@ -19,6 +20,14 @@ from typing import Any, Dict, Iterable, List, Sequence
 import numpy as np
 import torch
 from PIL import Image
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from iac_extensions.vjepa_time_tokens import (
+    pool_flattened_vjepa_time_tokens,
+)
 
 
 def _read_jsonl(path: Path) -> List[Dict[str, Any]]:
@@ -145,6 +154,8 @@ def _pool_hidden(hidden: torch.Tensor, mode: str) -> torch.Tensor:
 
 
 def _token_summary(hidden: torch.Tensor, count: int) -> torch.Tensor:
+    """Return legacy flat spatiotemporal chunks for old-gate compatibility."""
+
     if count <= 0:
         raise ValueError("token summary count must be positive")
     chunks = torch.chunk(hidden, chunks=count, dim=1)
@@ -180,7 +191,11 @@ def parse_args() -> argparse.Namespace:
         "--token-summary-size",
         type=int,
         default=0,
-        help="If >0, also save compressed V-JEPA video tokens as x_tokens with this many chunks.",
+        help=(
+            "If >0, also save legacy flattened spatiotemporal chunks as "
+            "x_tokens for old-gate compatibility. True time tokens are always "
+            "saved separately as x_time_tokens."
+        ),
     )
     parser.add_argument("--max-groups", type=int, default=0)
     parser.add_argument("--max-samples", type=int, default=0)
@@ -232,6 +247,8 @@ def main() -> None:
     image_root = Path(args.image_root)
     features: List[torch.Tensor] = []
     token_features: List[torch.Tensor] = []
+    time_token_features: List[torch.Tensor] = []
+    time_token_layout: Dict[str, int] | None = None
     sample_ids: List[str] = []
     group_ids: List[str] = []
     source_types: List[str] = []
@@ -258,6 +275,30 @@ def main() -> None:
                 outputs = model(**inputs)
             pooled = _pool_hidden(outputs.last_hidden_state.float(), str(args.pooling))
             features.append(pooled.cpu())
+            processed = inputs.get("pixel_values_videos")
+            if processed is None or processed.ndim != 5:
+                raise ValueError(
+                    "V-JEPA processor output must contain pixel_values_videos "
+                    "with shape (batch,time,channel,height,width)"
+                )
+            temporal, current_layout = pool_flattened_vjepa_time_tokens(
+                outputs.last_hidden_state.float(),
+                num_frames=int(processed.shape[1]),
+                image_height=int(processed.shape[-2]),
+                image_width=int(processed.shape[-1]),
+                tubelet_size=int(model.config.tubelet_size),
+                patch_size=model.config.patch_size,
+            )
+            if (
+                time_token_layout is not None
+                and current_layout != time_token_layout
+            ):
+                raise ValueError(
+                    "processed V-JEPA token layout changed between batches: "
+                    f"{time_token_layout} vs {current_layout}"
+                )
+            time_token_layout = current_layout
+            time_token_features.append(temporal.cpu())
             if int(args.token_summary_size) > 0:
                 token_features.append(_token_summary(outputs.last_hidden_state.float(), int(args.token_summary_size)).cpu())
             for row in batch_rows:
@@ -295,6 +336,7 @@ def main() -> None:
 
     out = {
         "x": torch.cat(features, dim=0),
+        "x_time_tokens": torch.cat(time_token_features, dim=0),
         "y": y,
         "sample_id": sample_ids,
         "group_id": group_ids,
@@ -309,12 +351,26 @@ def main() -> None:
             "pooling": args.pooling,
             "feature_dim": int(torch.cat(features, dim=0).shape[1]) if features else 0,
             "rows": len(rows),
+            "time_token_key": "x_time_tokens",
+            "time_token_layout": {
+                "kind": "shape_aware_vjepa_time_tokens",
+                "source_grid": "T_H_W",
+                "spatial_pooling": "mean",
+                **(time_token_layout or {}),
+            },
         },
     }
     if token_features:
         out["x_tokens"] = torch.cat(token_features, dim=0)
         out["metadata"]["token_summary_size"] = int(args.token_summary_size)
         out["metadata"]["token_feature_dim"] = int(out["x_tokens"].shape[-1])
+        out["metadata"]["x_tokens_semantics"] = (
+            "legacy_equal_chunks_of_flattened_T_H_W_not_pure_time"
+        )
+    out["metadata"]["time_token_count"] = int(out["x_time_tokens"].shape[1])
+    out["metadata"]["time_token_feature_dim"] = int(
+        out["x_time_tokens"].shape[-1]
+    )
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     torch.save(out, output)
