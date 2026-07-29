@@ -218,13 +218,14 @@ def audit(args: argparse.Namespace) -> Dict[str, Any]:
         "protocol": {
             "seed": int(args.seed),
             "rows": len(rows),
+            "feature_key": args.feature_key,
             "controls": list(CONTROL_NAMES),
             "source_labels_used_as_model_input": False,
             "source_labels_used_for_report_metrics_only": True,
             "warning": (
-                "Compressed-token reverse/permutation tests only the downstream "
-                "alignment module. Raw-frame controls require backbone "
-                "re-extraction."
+                "Time-token reverse/permutation tests the downstream alignment "
+                "module after feature extraction. Raw-frame controls still "
+                "require backbone re-extraction."
             ),
         },
         "model": str(args.model),
@@ -270,7 +271,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--visual-cache", required=True)
     parser.add_argument("--output-summary", required=True)
     parser.add_argument("--output-ledger", default="")
-    parser.add_argument("--feature-key", default="x_tokens")
+    parser.add_argument("--feature-key", default="x_time_tokens")
     parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--seed", type=int, default=20260728)

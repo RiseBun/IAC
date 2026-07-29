@@ -352,7 +352,7 @@ def gaussian_motion_loss(
 def load_feature_cache(
     path: Path,
     *,
-    key: str = "x_tokens",
+    key: str = "x_time_tokens",
 ) -> Tuple[Dict[str, torch.Tensor], Dict[str, Any]]:
     cache = torch.load(path, map_location="cpu", weights_only=False)
     if key not in cache:

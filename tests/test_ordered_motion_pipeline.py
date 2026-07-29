@@ -35,7 +35,7 @@ class PortablePipelineTest(unittest.TestCase):
                 [1.5 * scale * (step + 1), 0.05 * step, 0.01 * step]
                 for step in range(4)
             ]
-            time = torch.linspace(0.0, 1.0, 16).unsqueeze(-1)
+            time = torch.linspace(0.0, 1.0, 4).unsqueeze(-1)
             visual = torch.cat(
                 [
                     scale * time,
@@ -63,10 +63,13 @@ class PortablePipelineTest(unittest.TestCase):
                 features.append(visual)
         return rows, {
             "sample_id": sample_ids,
-            "x_tokens": torch.stack(features),
+            "x_time_tokens": torch.stack(features),
             "metadata": {
                 "kind": "synthetic_ordered_vjepa_cache",
-                "token_summary_size": 16,
+                "time_token_count": 4,
+                "time_token_layout": {
+                    "kind": "shape_aware_vjepa_time_tokens",
+                },
             },
         }
 
@@ -90,7 +93,7 @@ class PortablePipelineTest(unittest.TestCase):
                     val_cache=str(root / "val.pt"),
                     output_model=str(model_path),
                     output_summary=str(root / "train_summary.json"),
-                    feature_key="x_tokens",
+                    feature_key="x_time_tokens",
                     positive_selector="gt_only",
                     segment_count=4,
                     hidden_dim=16,
@@ -117,7 +120,7 @@ class PortablePipelineTest(unittest.TestCase):
                     visual_cache=str(root / "eval.pt"),
                     output_summary=str(root / "audit.json"),
                     output_ledger=str(root / "ledger.jsonl"),
-                    feature_key="x_tokens",
+                    feature_key="x_time_tokens",
                     batch_size=8,
                     device="cpu",
                     seed=19,

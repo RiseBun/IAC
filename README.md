@@ -89,10 +89,12 @@ extraction also needs `history_images` and `future_images`.
 ## Optional ordered-motion audit
 
 `iac_extensions/ordered_motion_alignment.py` adds an opt-in, candidate-blind
-segment-to-time diagnostic. It converts ordered V-JEPA tokens into
+segment-to-time diagnostic. It converts shape-aware V-JEPA time tokens into
 longitudinal, lateral, heading and path-shape residual evidence, with explicit
 token/trajectory order and identity controls. It does not change the default
-mainline.
+mainline. Legacy `x_tokens` are flattened spatiotemporal chunks rather than
+pure time tokens; the ordered-motion path now migrates them to
+`x_time_tokens` before training.
 
 See [`docs/ORDERED_MOTION_ALIGNMENT.md`](docs/ORDERED_MOTION_ALIGNMENT.md) for
 the portable one-command server run and the exact claim boundary.

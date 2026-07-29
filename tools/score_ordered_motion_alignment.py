@@ -192,7 +192,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--visual-cache", required=True)
     parser.add_argument("--output-scores", required=True)
     parser.add_argument("--output-summary", default="")
-    parser.add_argument("--feature-key", default="x_tokens")
+    parser.add_argument("--feature-key", default="x_time_tokens")
     parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--include-segment-ledger", action="store_true")

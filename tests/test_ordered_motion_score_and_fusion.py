@@ -51,7 +51,7 @@ class ScoreAndFusionSmokeTest(unittest.TestCase):
             features = []
             base_rows = []
             for group_index in range(2):
-                visual = torch.randn(16, 6)
+                visual = torch.randn(4, 6)
                 for source_index, source in enumerate(("gt_pos", "image_swap")):
                     sample_id = f"g{group_index}_{source}"
                     row = {
@@ -85,8 +85,13 @@ class ScoreAndFusionSmokeTest(unittest.TestCase):
             torch.save(
                 {
                     "sample_id": sample_ids,
-                    "x_tokens": torch.stack(features),
-                    "metadata": {"token_summary_size": 16},
+                    "x_time_tokens": torch.stack(features),
+                    "metadata": {
+                        "time_token_count": 4,
+                        "time_token_layout": {
+                            "kind": "shape_aware_vjepa_time_tokens",
+                        },
+                    },
                 },
                 cache_path,
             )
@@ -98,7 +103,7 @@ class ScoreAndFusionSmokeTest(unittest.TestCase):
                     visual_cache=str(cache_path),
                     output_scores=str(scores_path),
                     output_summary=str(root / "score_summary.json"),
-                    feature_key="x_tokens",
+                    feature_key="x_time_tokens",
                     batch_size=4,
                     device="cpu",
                     include_segment_ledger=True,

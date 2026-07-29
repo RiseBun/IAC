@@ -331,7 +331,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--val-cache", required=True)
     parser.add_argument("--output-model", required=True)
     parser.add_argument("--output-summary", default="")
-    parser.add_argument("--feature-key", default="x_tokens")
+    parser.add_argument("--feature-key", default="x_time_tokens")
     parser.add_argument(
         "--positive-selector",
         choices=("gt_only", "label_or_gt"),
