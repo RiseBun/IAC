@@ -10,6 +10,8 @@ from typing import Any, Dict
 
 import torch
 
+import _pathfix  # noqa: F401
+
 from train_visual_mismatch_gate_scorer import (
     MismatchGate,
     _load_dataset,

@@ -10,6 +10,8 @@ from typing import Any, Dict, List
 
 import torch
 
+import _pathfix  # noqa: F401
+
 from train_iac_acceptability_calibrator import (
     Calibrator,
     _apply,
