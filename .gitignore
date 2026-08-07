@@ -9,6 +9,7 @@ indices_*/
 generated_data/
 evaluation_results/
 work_dirs/
+work/
 labeled_data/
 tmp_listwise_mock/
 
