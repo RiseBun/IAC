@@ -1,0 +1,176 @@
+"""Capability-stratified IAC scorecard.
+
+Optional capabilities (CCFC, FAU and FCS) are reported as ``unavailable`` when a
+model does not expose the required interface.  ``missing`` is reserved for a
+claimed capability whose evidence is incomplete; ``ineligible`` is reserved for
+hard protocol violations.
+"""
+
+from __future__ import annotations
+
+from typing import Any
+
+import numpy as np
+
+CAPABILITIES = (
+    "native_action_conditioned",
+    "externally_controlled_video",
+    "video_only",
+    "action_only",
+)
+
+CELLS = ("l1", "a2f", "f2a", "cfac", "ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage")
+
+CLAIMED = {
+    "native_action_conditioned": ("l1", "a2f", "f2a", "cfac"),
+    "externally_controlled_video": ("a2f",),
+    "video_only": (),
+    "action_only": (),
+}
+
+STATUSES = ("pass", "fail", "pilot", "unavailable", "ineligible", "missing")
+OPTIONAL_CELLS = frozenset({"ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage"})
+
+
+def claimed_cells(capability: str) -> tuple[str, ...]:
+    if capability not in CLAIMED:
+        raise ValueError(f"unknown capability: {capability}")
+    return CLAIMED[capability]
+
+
+def empty_cell(status: str, *, reason: str | None = None, **extra: Any) -> dict[str, Any]:
+    if status not in STATUSES:
+        raise ValueError(f"unknown status: {status}")
+    row = {"status": status}
+    if reason:
+        row["reason"] = reason
+    row.update(extra)
+    return row
+
+
+def validate_submission_row(
+    row: dict[str, Any],
+    *,
+    public_ids: set[str],
+    expected_future_count: int | None = None,
+) -> list[str]:
+    issues: list[str] = []
+    sample_id = str(row.get("sample_id") or row.get("source_key") or "")
+    if not sample_id:
+        issues.append("missing_sample_id")
+    elif sample_id not in public_ids:
+        issues.append("sample_id_not_in_public_split")
+    capability = str(row.get("capability") or "")
+    if capability not in CLAIMED:
+        issues.append("missing_or_unknown_capability")
+        return issues
+    if not str(row.get("wam_model_id") or ""):
+        issues.append("missing_wam_model_id")
+    claimed = claimed_cells(capability)
+    images = row.get("future_images") or row.get("generated_future_images") or []
+    times = np.asarray(row.get("future_times_s"), dtype=np.float64) if row.get("future_times_s") is not None else np.asarray([])
+    needs_video = any(cell in claimed for cell in ("l1", "a2f", "f2a", "ccfc"))
+    if needs_video:
+        count = len(images) if isinstance(images, list) else 0
+        if expected_future_count is not None:
+            valid_count = count == expected_future_count
+        else:
+            valid_count = count >= 4
+        if row.get("future_images_source") != "wam_generated":
+            issues.append("future_images_source_is_not_wam_generated")
+        if not valid_count:
+            expected = str(expected_future_count) if expected_future_count is not None else "at_least_4"
+            issues.append(f"future_images_must_have_{expected}_paths")
+        if times.shape != (count,) or not np.all(np.isfinite(times)) or np.any(np.diff(times) <= 0.0):
+            issues.append("future_times_s_invalid")
+        elif float(times[0]) <= 0.0 or not (3.95 <= float(times[-1]) <= 4.05):
+            issues.append("future_times_s_does_not_cover_0p5_to_4p0_seconds")
+    action = row.get("action_trajectory")
+    if action is None:
+        action = (row.get("action_condition") or {}).get("trajectory")
+    action_array = np.asarray(action, dtype=np.float64) if action is not None else np.zeros((0, 3))
+    if "l1" in claimed or "ccfc" in claimed or "f2a" in claimed:
+        action_count = len(images) if isinstance(images, list) else expected_future_count or 0
+        if action_array.shape != (action_count, 3) or not np.all(np.isfinite(action_array)):
+            issues.append("native_action_trajectory_invalid")
+        source = str(row.get("action_source") or "")
+        if capability == "native_action_conditioned" and (
+            not source or source in {"logged", "oracle", "proxy", "candidate"}
+        ):
+            issues.append("action_source_is_not_native")
+        if capability == "externally_controlled_video" and source not in {"external_control", "injected_pose"}:
+            issues.append("external_control_source_required")
+    if row.get("realized_future_ego_state") is not None:
+        issues.append("realized_future_state_leakage")
+    return issues
+
+
+def validate_submission(
+    rows: list[dict[str, Any]],
+    public_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    public_ids = {
+        str(row.get("sample_id") or row.get("source_key") or "")
+        for row in public_rows
+    }
+    public_ids.discard("")
+    issues = []
+    for index, row in enumerate(rows):
+        row_issues = validate_submission_row(row, public_ids=public_ids)
+        if row_issues:
+            issues.append({
+                "row": index,
+                "sample_id": row.get("sample_id") or row.get("source_key"),
+                "issues": row_issues,
+            })
+    pair_ids = {}
+    for row in rows:
+        group = str(row.get("counterfactual_group_id") or "")
+        if group:
+            pair_ids.setdefault(group, set()).add(str(row.get("branch_mode") or row.get("branch_id") or ""))
+    return {
+        "protocol": "iac-wam-submission-audit",
+        "rows": len(rows),
+        "invalid_rows": len(issues),
+        "ready": bool(rows) and not issues,
+        "issues": issues,
+        "counterfactual_groups": {
+            group: sorted(modes) for group, modes in sorted(pair_ids.items())
+        },
+    }
+
+
+def _cell_from_measurement(
+    measurement: dict[str, Any] | None,
+    claimed: bool,
+    cell_name: str,
+) -> dict[str, Any]:
+    if measurement:
+        status = str(measurement.get("status") or "missing")
+        if status not in STATUSES:
+            raise ValueError(f"unknown status: {status}")
+        return {"status": status, **{k: v for k, v in measurement.items() if k != "status"}}
+    if not claimed:
+        status = "unavailable" if cell_name in OPTIONAL_CELLS else "ineligible"
+        return empty_cell(status, reason="capability_not_declared")
+    return empty_cell("missing", reason="no_measurement")
+
+
+def build_model_scorecard(
+    *,
+    model_id: str,
+    capability: str,
+    measurements: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    claimed = claimed_cells(capability)
+    measurements = measurements or {}
+    cells = {
+        cell: _cell_from_measurement(measurements.get(cell), cell in claimed, cell)
+        for cell in CELLS
+    }
+    return {
+        "model_id": model_id,
+        "capability": capability,
+        "claimed_cells": list(claimed),
+        "cells": cells,
+    }

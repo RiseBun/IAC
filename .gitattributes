@@ -1,0 +1,4 @@
+* text=auto
+*.sh text eol=lf
+weights/SHA256SUMS.txt text eol=lf
+*.pth binary
