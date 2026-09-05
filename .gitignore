@@ -20,3 +20,5 @@ checkpoints/
 *.ckpt
 *.pt
 *.pkl
+plane_native4*
+*_ablation*

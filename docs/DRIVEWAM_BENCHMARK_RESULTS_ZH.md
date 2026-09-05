@@ -23,7 +23,7 @@
 
 停车样本不进入运动均值；4 条样本因私有 GT 没有与公共 `[1,2,3,4] s` 完全一致的时间轴而标记 `unavailable`，没有插值或近邻替代。
 
-逐样本结果：`drivewam_cfac_fau.json`。
+逐样本结果由私有评测端保存为 `drivewam_cfac_fau.json`，不随公开仓库发布。
 
 ## Step 2 / CCFC
 
@@ -40,7 +40,8 @@
 
 这不是 semantic clear/risk 干预，因此不宣称语义危险因果；它是统一协议允许的 command-conditioned CCFC。
 
-逐样本记录与评分：`ccfc_full_records.jsonl`、`ccfc_full_report.json`。
+逐样本记录与评分由私有评测端保存为 `ccfc_full_records.jsonl`、
+`ccfc_full_report.json`，不随公开仓库发布。
 
 ## Step 3 / FCS
 

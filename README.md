@@ -17,6 +17,12 @@ NAVSIM/Waymo frames, private ground truth, WAM checkpoints, or generated video.
 Those inputs are attached by the evaluation server through the manifest
 interface. Waymo is an external-domain protocol, not part of the leaderboard.
 
+> **Protocol & code are reproducible; the published leaderboard numbers are
+> reproduced on a private evaluation server with licensed data.** Per-sample
+> DriveWAM outputs, private images, ground truth, and PDM caches are not
+> redistributed, so the reference table cannot be independently recomputed
+> from this repository alone.
+
 ## Contributions
 
 1. **Candidate-blind continuous ruler.** A frozen RAFT-Large plus calibrated
@@ -123,6 +129,7 @@ The frozen main split is [`datasets/benchmark_public.jsonl`](datasets/benchmark_
 
 Selection and leakage audits are in
 [`docs/BENCHMARK_PROTOCOL_AUDIT_ZH.md`](docs/BENCHMARK_PROTOCOL_AUDIT_ZH.md).
+
 ## Reference DriveWAM run
 
 The first complete pilot used DriveWAM with the native LingBot-VA base. These
@@ -138,8 +145,9 @@ must expose every column:
 | FAU | 0.5169 | 823/1,000 |
 | FCS | 0.5143 | 503 successes / 978 executable rows |
 
-Full provenance and per-sample artifacts are documented in
+Aggregate provenance and the private artifact contract are documented in
 [`docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md).
+The per-sample result files are not part of the public release.
 
 ## Repository layout
 

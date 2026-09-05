@@ -12,7 +12,11 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 
 本仓库是可复现发布包，不包含 NAVSIM/Waymo 原始图像、私有真值、WAM 权重或生成
 视频。评测服务器通过 manifest 接口挂载这些输入。Waymo 只作为外部域泛化协议，
-不进入 主榜分母。
+不进入主榜分母。
+
+> **协议与代码可复现；公开榜单中的参考分数由私有评测服务器使用许可数据复现。**
+> 逐样本 DriveWAM 输出、私有图像、GT 和 PDM cache 不公开，因此只依靠本仓库不能
+> 独立重算下方参考主表。
 
 ## 方法贡献
 
@@ -109,6 +113,7 @@ rollout 不读取 WAM 生成图像，WAM waypoint 也不能冒充实际状态。
 
 选集和泄漏审计见
 [`docs/BENCHMARK_PROTOCOL_AUDIT_ZH.md`](docs/BENCHMARK_PROTOCOL_AUDIT_ZH.md)。
+
 ## DriveWAM 参考运行
 
 首个完整 pilot 使用 DriveWAM 及其原生 LingBot-VA base。以下是协议示例，不是
@@ -123,8 +128,9 @@ oracle，也不要求每个 WAM 都支持所有列：
 | FAU | 0.5169 | 823/1,000 |
 | FCS | 0.5143 | 503 successes / 978 可执行行 |
 
-完整来源和逐样本产物见
-[`docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md)。
+聚合结果来源和私有产物合同见
+[`docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md)；
+逐样本结果文件不属于公开发布包。
 
 ## 仓库结构
 
