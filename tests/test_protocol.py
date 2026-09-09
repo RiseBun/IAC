@@ -37,6 +37,77 @@ class ProtocolTest(unittest.TestCase):
             normalized = validate_record(row, manifest_root=Path(directory))
         np.testing.assert_allclose(normalized["distortion"], row["distortion"])
 
+    def test_protocol_preserves_intrinsics_source_size(self) -> None:
+        row = _record()
+        row["intrinsics_source_size"] = [1920, 1080]
+        with tempfile.TemporaryDirectory() as directory:
+            normalized = validate_record(row, manifest_root=Path(directory))
+        self.assertEqual(normalized["intrinsics_source_size"], (1920, 1080))
+
+    def test_protocol_rejects_action_head_mislabeled_as_gt(self) -> None:
+        row = _record()
+        row["gt_candidate_id"] = "wam_action_head"
+        row["candidates"][0]["candidate_id"] = "wam_action_head"
+        row["candidates"][0]["trajectory_source"] = "wam_action_head"
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, "cannot be gt_candidate_id"):
+                validate_record(row, manifest_root=Path(directory))
+
+    def test_trusted_gt_contract_requires_source_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, "trusted trajectory_source"):
+                validate_record(
+                    _record(),
+                    manifest_root=Path(directory),
+                    require_trusted_gt_candidate=True,
+                )
+
+        row = _record()
+        row["candidates"][0]["trajectory_source"] = "navsim_logged_realized"
+        with tempfile.TemporaryDirectory() as directory:
+            normalized = validate_record(
+                row,
+                manifest_root=Path(directory),
+                require_trusted_gt_candidate=True,
+            )
+        self.assertEqual(
+            normalized["candidates"][0]["trajectory_source"],
+            "navsim_logged_realized",
+        )
+
+    def test_calibration_contract_requires_explicit_source_size(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, "required by the calibration contract"):
+                validate_record(
+                    _record(),
+                    manifest_root=Path(directory),
+                    require_intrinsics_source_size=True,
+                )
+
+    def test_calibration_contract_rejects_wrong_source_size(self) -> None:
+        row = _record()
+        row["intrinsics_source_size"] = [448, 256]
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, "does not match frozen calibration size"):
+                validate_record(
+                    row,
+                    manifest_root=Path(directory),
+                    require_intrinsics_source_size=True,
+                    expected_intrinsics_source_size=(1920, 1080),
+                )
+
+    def test_image_only_protocol_does_not_require_candidates(self) -> None:
+        row = _record()
+        row.pop("candidates")
+        row.pop("gt_candidate_id")
+        with tempfile.TemporaryDirectory() as directory:
+            normalized = validate_record(
+                row,
+                manifest_root=Path(directory),
+                require_candidates=False,
+            )
+        self.assertEqual(normalized["candidates"], [])
+
     def test_protocol_resolves_relative_metric_depth(self) -> None:
         row = _record()
         row["metric_depth_path"] = "depth/video_001.npz"

@@ -39,6 +39,102 @@ def _json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def validate_manifest_records(
+    raw_rows: list[dict[str, Any]], config: dict[str, Any], manifest_root: Path
+) -> list[dict[str, Any]]:
+    """Apply row-level contracts before any config fallback reaches extraction."""
+    calibration_contract = config.get("calibration_contract") or {}
+    reference_contract = config.get("reference_contract") or {}
+    expected_source_size = calibration_contract.get("expected_intrinsics_source_size")
+    return [
+        validate_record(
+            row,
+            manifest_root=manifest_root,
+            require_intrinsics_source_size=bool(
+                calibration_contract.get("require_explicit_intrinsics_source_size", False)
+            ),
+            expected_intrinsics_source_size=(
+                tuple(int(value) for value in expected_source_size)
+                if expected_source_size is not None else None
+            ),
+            require_trusted_gt_candidate=bool(
+                reference_contract.get("require_trusted_gt_candidate", False)
+            ),
+        )
+        for row in raw_rows
+    ]
+
+
+def apply_projection_support_contract(
+    decoded: dict[str, Any], interval_quality: list[dict[str, Any]]
+) -> np.ndarray:
+    """Intersect input observability with fitted-trajectory projection support."""
+    support_rows = list(decoded.get("projection_support_by_interval") or [])
+    if len(support_rows) != len(interval_quality):
+        support_rows = [{} for _ in interval_quality]
+    composite = []
+    speed_support = list(decoded.get("speed_support") or [])
+    for index, (quality, support) in enumerate(zip(interval_quality, support_rows)):
+        input_observability = float(
+            np.clip(quality.get("effective_static_pixel_fraction", 0.0), 0.0, 1.0)
+        )
+        projected_fraction = float(
+            np.clip(support.get("projected_weight_fraction", 0.0), 0.0, 1.0)
+        )
+        projection_supported = support.get("projection_supported") is True
+        composite_observability = (
+            min(input_observability, projected_fraction) if projection_supported else 0.0
+        )
+        quality.update({
+            "input_observability": input_observability,
+            "input_status": quality.get("status"),
+            "projection_support": projected_fraction,
+            "composite_observability": composite_observability,
+            "projection_supported": projection_supported,
+            "source_points": int(support.get("source_points", 0)),
+            "projected_points": int(support.get("projected_points", 0)),
+            "projected_weight_fraction": projected_fraction,
+            "projection_support_reasons": list(
+                support.get("reasons") or ["missing_projection_support"]
+            ),
+            "projection_abstained": not projection_supported,
+        })
+        if not projection_supported:
+            quality["input_direction_observable"] = bool(quality.get("direction_observable"))
+            quality["input_curvature_status"] = quality.get("curvature_status")
+            quality["status"] = "abstain"
+            quality["direction_observable"] = False
+            quality["curvature_observable"] = False
+            quality["curvature_status"] = "abstain"
+        if index < len(speed_support):
+            speed = speed_support[index]
+            speed["input_observability"] = float(speed.get("observability", 0.0))
+            speed["projection_support"] = projected_fraction
+            speed["composite_observability"] = composite_observability
+            speed["projection_supported"] = projection_supported
+            speed["observability"] = composite_observability
+            if not projection_supported:
+                speed["input_status"] = speed.get("status")
+                speed["status"] = "abstain"
+        composite.append(composite_observability)
+    decoded["input_observability"] = float(
+        np.mean([row["input_observability"] for row in interval_quality])
+    ) if interval_quality else 0.0
+    decoded["projection_support"] = float(
+        decoded.get("projected_weight_fraction", 0.0)
+    )
+    decoded["composite_observability"] = float(np.mean(composite)) if composite else 0.0
+    decoded["observability"] = decoded["composite_observability"]
+    decoded["speed_status_by_interval"] = [
+        str(row.get("status", "abstain")) for row in speed_support
+    ]
+    decoded["valid"] = bool(interval_quality) and all(
+        row["projection_supported"] for row in interval_quality
+    )
+    decoded["projection_supported"] = decoded["valid"]
+    return np.asarray(composite, dtype=np.float64)
+
+
 def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config: dict[str, Any], perception: Any | None, dino: Any | None = None) -> dict[str, Any]:
     image_cfg = config["image"]
     width, height = int(image_cfg["width"]), int(image_cfg["height"])
@@ -53,6 +149,13 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
             else None
         ),
         allow_mixed_source_sizes=bool(config.get("allow_mixed_source_sizes", False)),
+        intrinsics_source_size=(
+            record.get("intrinsics_source_size")
+            or (
+                tuple(config["intrinsics_source_size"])
+                if config.get("intrinsics_source_size") is not None else None
+            )
+        ),
         return_uncertainty=bool(config.get("flow", {}).get("refinement_uncertainty", False)),
         uncertainty_tail=int(config.get("flow", {}).get("uncertainty_tail", 8)),
         long_range_consistency=bool(config.get("flow", {}).get("long_range_consistency", {}).get("enabled", False)),
@@ -402,6 +505,11 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
         max_points=int(decoder_cfg.get("max_points", 900)),
         max_iterations=int(decoder_cfg.get("max_iterations", 12)),
         initial_speeds_mps=initial_speeds,
+        sampling_mode=str(decoder_cfg.get("sampling_mode", "spatial_stratified")),
+        sampling_v_min=float(decoder_cfg.get("sampling_v_min", 0.55)),
+        sampling_v_max=float(decoder_cfg.get("sampling_v_max", 0.85)),
+        sampling_grid_rows=int(decoder_cfg.get("sampling_grid_rows", 3)),
+        sampling_grid_cols=int(decoder_cfg.get("sampling_grid_cols", 6)),
         history_speeds_mps=history_speed_curve,
         history_initial_speed_mps=(history_speed_prior if history_speed_curve is not None else None),
         maximum_speed_residual_mps=float(decoder_cfg.get("maximum_speed_residual_mps", 3.0)),
@@ -428,6 +536,11 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
         curvature_smoothness_weight=float(decoder_cfg.get("curvature_smoothness_weight", 0.0)),
         lateral_acceleration_weight=float(decoder_cfg.get("lateral_acceleration_weight", 0.0)),
         adaptive_plane_params=adaptive_params,
+        minimum_projection_points=int(decoder_cfg.get("minimum_projection_points", 30)),
+        minimum_projection_weight_fraction=float(
+            decoder_cfg.get("minimum_projection_weight_fraction", 0.5)
+        ),
+        minimum_fit_improvement=float(decoder_cfg.get("minimum_fit_improvement", 0.05)),
     )
     geometric_decoded = None
     if perception is not None and bool(perception_cfg.get("shape_only", False)):
@@ -445,6 +558,7 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
             initial_curvatures_1pm=initial_curvatures,
         )
     decoded = decode_continuous_trajectory(**decoder_kwargs)
+    quality_vector = apply_projection_support_contract(decoded, interval_quality)
     future_scale_state = None
     future_scale_cfg = persistent_scale_cfg.get("future_state", {})
     if (
@@ -667,14 +781,25 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
         road_posterior["speed_interval_mps"] = [row.get("speed_interval_mps") for row in temporal_scale.get("rows", [])]
         road_posterior["progress_interval_m"] = [row.get("progress_interval_m") for row in temporal_scale.get("rows", [])]
     gt_id = record.get("gt_candidate_id")
-    reference = next((candidate["trajectory"] for candidate in record["candidates"] if str(candidate["candidate_id"]) == str(gt_id)), None)
+    reference_candidate = next(
+        (
+            candidate
+            for candidate in record["candidates"]
+            if gt_id is not None and str(candidate["candidate_id"]) == str(gt_id)
+        ),
+        None,
+    )
+    reference_source = (
+        str(reference_candidate.get("trajectory_source") or "unspecified")
+        if reference_candidate is not None
+        else None
+    )
+    reference = None if reference_candidate is None else reference_candidate["trajectory"]
     comparison = None if reference is None else compare_continuous_trajectory(
         np.asarray(decoded["trajectory"], dtype=np.float64),
         np.asarray(reference, dtype=np.float64),
         np.asarray(record["future_times_s"], dtype=np.float64),
-        observability=np.asarray([
-            float(np.mean(support_weights[index] > 0.0)) for index in range(len(observed))
-        ]),
+        observability=quality_vector,
         lateral_tolerance_m=float(decoder_cfg.get("lateral_tolerance_m", 0.50)),
         yaw_tolerance_rad=float(decoder_cfg.get("yaw_tolerance_rad", 0.10)),
         speed_relative_tolerance=float(decoder_cfg.get("speed_relative_tolerance", 0.20)),
@@ -685,8 +810,25 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
         "sample_id": record["sample_id"],
         "scene_id": record["scene_id"],
         "decoder": decoded,
+        "input_observability": decoded["input_observability"],
+        "projection_support": decoded["projection_support"],
+        "composite_observability": decoded["composite_observability"],
+        "measurement_available": decoded["measurement_available"],
+        "motion_explanation_status": decoded["motion_explanation_status"],
+        "geometry_fit_status": decoded["geometry_fit_status"],
+        "fit_improvement": decoded["fit_improvement"],
+        "zero_flow_energy": decoded["zero_flow_energy"],
+        "projection_supported": decoded["projection_supported"],
+        "projected_points": decoded["projected_points"],
+        "projected_weight_fraction": decoded["projected_weight_fraction"],
         "geometric_decoder": geometric_decoded,
-        "comparison_to_logged_trajectory": comparison,
+        "reference_trajectory_source": reference_source,
+        "comparison_to_reference_trajectory": comparison,
+        "comparison_to_logged_trajectory": (
+            comparison
+            if reference_source in {"navsim_logged_realized", "private_realized_gt"}
+            else None
+        ),
         "observability_by_future_interval": interval_quality,
         "road_structure": road_structure,
         "temporal_road_state": temporal_road_state,
@@ -722,7 +864,7 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
             "low_weight_fraction": float(np.mean(dino_weights < 0.5)),
         },
         "candidate_bank_used_by_decoder": False,
-        "valid": True,
+        "valid": bool(decoded["valid"]),
     }
 
 
@@ -738,7 +880,7 @@ def main() -> None:
     raw_rows = read_jsonl(args.manifest)
     if args.max_samples is not None:
         raw_rows = raw_rows[: args.max_samples]
-    records = [validate_record(row, manifest_root=args.manifest.parent) for row in raw_rows]
+    records = validate_manifest_records(raw_rows, config, args.manifest.parent)
     flow_cfg = config["flow"]
     if str(flow_cfg.get("backend", "torchvision_raft")) != "torchvision_raft":
         raise ValueError("benchmark_release freezes the torchvision RAFT-Large backend")
@@ -776,7 +918,16 @@ def main() -> None:
             errors.append({"sample_id": record["sample_id"], "error": str(error)})
         print(json.dumps({"completed": index, "total": len(records)}), flush=True)
     write_jsonl(args.output, rows)
-    comparisons = [row["comparison_to_logged_trajectory"] for row in rows if row.get("comparison_to_logged_trajectory")]
+    comparisons = [
+        row["comparison_to_reference_trajectory"]
+        for row in rows
+        if row.get("comparison_to_reference_trajectory")
+    ]
+    reference_sources = sorted({
+        str(row["reference_trajectory_source"])
+        for row in rows
+        if row.get("reference_trajectory_source") is not None
+    })
     summary = {
         "protocol": "candidate-blind-continuous-trajectory",
         "manifest": str(args.manifest.resolve()),
@@ -784,6 +935,7 @@ def main() -> None:
         "num_input": len(records),
         "num_scored": len(rows),
         "num_error": len(errors),
+        "reference_trajectory_sources": reference_sources,
         "mean_weighted_joint_error": float(np.mean([row["weighted_mean_joint_error"] for row in comparisons])) if comparisons else None,
         "median_joint_error": float(np.median([row["median_joint_error"] for row in comparisons])) if comparisons else None,
         "mean_soft_compatibility": float(np.mean([row["soft_compatibility"] for row in comparisons])) if comparisons else None,

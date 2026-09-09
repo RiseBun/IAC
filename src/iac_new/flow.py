@@ -112,6 +112,7 @@ class RaftFlowExtractor:
         distortion: np.ndarray,
         target_size: tuple[int, int],
         allow_mixed_source_sizes: bool = False,
+        intrinsics_source_size: tuple[int, int] | None = None,
     ) -> tuple[list[np.ndarray], np.ndarray, tuple[int, int]]:
         images: list[np.ndarray] = []
         source_size: tuple[int, int] | None = None
@@ -124,13 +125,26 @@ class RaftFlowExtractor:
                 source_size = (width, height)
             elif source_size != (width, height) and not allow_mixed_source_sizes:
                 raise ValueError("all frames in a video must have the same dimensions")
+            calibration_size = (
+                (width, height)
+                if intrinsics_source_size is None
+                else tuple(int(value) for value in intrinsics_source_size)
+            )
+            image_intrinsics = scale_intrinsics(intrinsics, calibration_size, (width, height))
             if distortion.size:
-                image = cv2.undistort(image, intrinsics, distortion, None, intrinsics)
+                image = cv2.undistort(
+                    image,
+                    image_intrinsics,
+                    distortion,
+                    None,
+                    image_intrinsics,
+                )
             image = cv2.resize(image, target_size, interpolation=cv2.INTER_AREA)
             images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         if source_size is None:
             raise ValueError("video has no frames")
-        return images, scale_intrinsics(intrinsics, source_size, target_size), source_size
+        calibration_size = source_size if intrinsics_source_size is None else intrinsics_source_size
+        return images, scale_intrinsics(intrinsics, calibration_size, target_size), source_size
 
     def _infer_pairs(
         self, first: list[np.ndarray], second: list[np.ndarray],
@@ -172,6 +186,7 @@ class RaftFlowExtractor:
         target_size: tuple[int, int],
         inference_size: tuple[int, int] | None = None,
         allow_mixed_source_sizes: bool = False,
+        intrinsics_source_size: tuple[int, int] | None = None,
         return_uncertainty: bool = False,
         uncertainty_tail: int = 8,
         long_range_consistency: bool = False,
@@ -188,6 +203,7 @@ class RaftFlowExtractor:
             np.asarray(distortion, dtype=np.float64),
             inference_size,
             allow_mixed_source_sizes=allow_mixed_source_sizes,
+            intrinsics_source_size=intrinsics_source_size,
         )
         forward, forward_uncertainty = self._infer_pairs(
             images[:-1], images[1:], return_uncertainty=return_uncertainty,
@@ -227,8 +243,9 @@ class RaftFlowExtractor:
                 [forward_backward_mask(fwd, bwd, absolute_threshold_px=self.fb_abs_threshold_px,
                                         relative_threshold=self.fb_relative_threshold)
                  for fwd, bwd in zip(forward, backward)], axis=0)
+        calibration_size = source_size if intrinsics_source_size is None else intrinsics_source_size
         scaled_intrinsics = scale_intrinsics(
-            np.asarray(intrinsics, dtype=np.float64), source_size, target_size
+            np.asarray(intrinsics, dtype=np.float64), calibration_size, target_size
         )
         if inference_size != target_size and long_range_residual is not None:
             long_range_residual = np.stack([

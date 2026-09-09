@@ -1,9 +1,13 @@
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 
 from iac_new.trajectory_decode import (
     _longitudinal_residual_penalty,
+    _objective,
+    _projection_support,
+    _sample_pixels,
     _road_prior_penalty,
     _kinematic_smoothness_penalty,
     compare_continuous_trajectory,
@@ -14,6 +18,119 @@ from iac_new.trajectory_decode import (
 
 
 class TrajectoryDecodeTest(unittest.TestCase):
+    def test_spatial_sampler_balances_vertical_and_horizontal_strata(self) -> None:
+        observed = np.ones((2, 60, 80, 2), dtype=np.float32)
+        weights = np.ones((2, 60, 80), dtype=np.float32)
+        coords, sampled, sampled_weights = _sample_pixels(
+            observed, weights, max_points=60,
+        )
+        self.assertEqual(coords.shape, (60, 2))
+        self.assertEqual(sampled.shape, (2, 60, 2))
+        self.assertEqual(sampled_weights.shape, (2, 60))
+        v = coords[:, 1] / 59.0
+        u = coords[:, 0] / 79.0
+        self.assertGreaterEqual(float(v.min()), 0.55)
+        self.assertLess(float(v.max()), 0.85)
+        for lower, upper in ((0.55, 0.65), (0.65, 0.75), (0.75, 0.85)):
+            self.assertGreaterEqual(int(np.sum((v >= lower) & (v < upper))), 15)
+        for lower, upper in zip(np.linspace(0.0, 1.0, 7)[:-1], np.linspace(0.0, 1.0, 7)[1:]):
+            self.assertGreaterEqual(int(np.sum((u >= lower) & (u < upper))), 1)
+
+    def test_objective_charges_invalid_projection_against_fixed_source_denominator(self) -> None:
+        observed = np.ones((1, 4, 2), dtype=np.float64)
+        predicted = observed.copy()
+        valid = np.asarray([[True, True, False, False]])
+        with patch(
+            "iac_new.trajectory_decode._sparse_predicted_flows",
+            return_value=(predicted, valid),
+        ):
+            energy, _, _, support = _objective(
+                np.asarray([[1.0, 0.0, 0.0]]),
+                observed,
+                np.ones((1, 4)),
+                np.asarray([[1.0, 1.0], [2.0, 1.0], [3.0, 1.0], [4.0, 1.0]]),
+                np.eye(4),
+                np.eye(3),
+                (8, 8),
+                None,
+                1.0,
+                minimum_projection_points=1,
+            )
+        self.assertAlmostEqual(energy, 2.0)
+        self.assertAlmostEqual(support["projected_weight_fraction"], 0.5)
+
+    def test_projection_support_fails_closed_when_projection_is_empty(self) -> None:
+        observed = np.ones((2, 5, 2), dtype=np.float64)
+        predicted = np.full_like(observed, np.nan)
+        valid = np.zeros((2, 5), dtype=bool)
+        support = _projection_support(
+            observed, predicted, valid, np.ones((2, 5)),
+            minimum_points=1, minimum_weight_fraction=0.5,
+        )
+        self.assertFalse(support["projection_supported"])
+        self.assertEqual(support["projected_points"], 0)
+        self.assertEqual(support["projected_weight_fraction"], 0.0)
+        self.assertTrue(all(not row["projection_supported"] for row in support["by_interval"]))
+
+    def test_objective_exposes_projection_support_without_changing_energy(self) -> None:
+        observed = np.ones((1, 3, 2), dtype=np.float64)
+        predicted = observed.copy()
+        valid = np.ones((1, 3), dtype=bool)
+        with patch(
+            "iac_new.trajectory_decode._sparse_predicted_flows",
+            return_value=(predicted, valid),
+        ):
+            energy, _, _, support = _objective(
+                np.asarray([[1.0, 0.0, 0.0]]),
+                observed,
+                np.ones((1, 3)),
+                np.asarray([[1.0, 1.0], [2.0, 1.0], [3.0, 1.0]]),
+                np.eye(4),
+                np.eye(3),
+                (8, 8),
+                None,
+                1.0,
+                minimum_projection_points=1,
+            )
+        self.assertEqual(energy, 0.0)
+        self.assertTrue(support["projection_supported"])
+        self.assertEqual(support["projected_points"], 3)
+
+    def test_decoder_marks_empty_projection_invalid(self) -> None:
+        observed = np.ones((1, 8, 8, 2), dtype=np.float32)
+
+        def empty_projection(trajectory, *args, **kwargs):
+            count = len(trajectory)
+            points = len(args[2])
+            return (
+                np.full((count, points, 2), np.nan, dtype=np.float64),
+                np.zeros((count, points), dtype=bool),
+            )
+
+        with patch(
+            "iac_new.trajectory_decode._sparse_predicted_flows",
+            side_effect=empty_projection,
+        ):
+            result = decode_continuous_trajectory(
+                observed_flows=observed,
+                camera_to_ego=np.eye(4),
+                intrinsics=np.eye(3),
+                future_times_s=np.asarray([1.0]),
+                roi_mask=np.ones((8, 8), dtype=bool),
+                max_points=16,
+                max_iterations=1,
+                minimum_projection_points=1,
+            )
+        self.assertFalse(result["valid"])
+        self.assertFalse(result["projection_supported"])
+        self.assertFalse(result["measurement_available"])
+        self.assertEqual(result["motion_explanation_status"], "abstain")
+        self.assertEqual(result["geometry_fit_status"], "abstain")
+        self.assertEqual(result["projected_points"], 0)
+        self.assertEqual(result["projected_weight_fraction"], 0.0)
+        self.assertEqual(result["energy"], 4.0)
+        self.assertEqual(result["protocol"], "candidate-blind-continuous-trajectory-v1")
+
     def test_longitudinal_residual_penalty_is_zero_at_history_null(self) -> None:
         history = np.asarray([4.0, 4.2, 4.4, 4.6])
         self.assertAlmostEqual(

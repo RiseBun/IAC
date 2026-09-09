@@ -19,6 +19,16 @@ def _action4(value: Any) -> list[list[float]]:
     return [[float(action[axis][idx]) for axis in range(3)] for idx in (1, 3, 5, 7)]
 
 
+def _intrinsics_source_size(row: dict[str, Any]) -> list[int]:
+    value = row.get("intrinsics_source_size") or row.get("intrinsics_coordinate_size")
+    if not isinstance(value, (list, tuple)) or len(value) != 2:
+        raise ValueError(f"{row.get('source_key')}: missing intrinsics source coordinate size")
+    size = [int(value[0]), int(value[1])]
+    if min(size) <= 0:
+        raise ValueError(f"{row.get('source_key')}: invalid intrinsics source coordinate size")
+    return size
+
+
 def _branch_rows(root: Path, index_map: dict[Any, dict[str, Any]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for manifest in sorted(root.glob("shard_*/manifest.json")):
@@ -93,6 +103,7 @@ def main() -> None:
                 "history_times_s": list(base.get("history_times_s", [-1.5, -1.0, -0.5, 0.0])),
                 "future_times_s": [1.0, 2.0, 3.0, 4.0],
                 "intrinsics": base["intrinsics"],
+                "intrinsics_source_size": _intrinsics_source_size(base),
                 "distortion": base.get("distortion", []),
                 "camera_to_ego": base["camera_to_ego"],
                 "history_ego_state": base.get("history_ego_state", []),
@@ -108,9 +119,14 @@ def main() -> None:
                 "future_images_source": "wam_generated",
                 "wam_model_id": "drivewam_navsim_diffusion",
                 "candidate_bank_used_by_decoder": False,
-                "gt_candidate_id": "wam_action_head",
+                "gt_candidate_id": None,
                 "candidates": [
-                    {"candidate_id": "wam_action_head", "prior": 1.0, "trajectory": action},
+                    {
+                        "candidate_id": "wam_action_head",
+                        "prior": 1.0,
+                        "trajectory": action,
+                        "trajectory_source": "wam_action_head",
+                    },
                     {"candidate_id": "zero_null", "prior": 0.1, "trajectory": [[0.0, 0.0, 0.0] for _ in action]},
                 ],
                 "command_override": branch,

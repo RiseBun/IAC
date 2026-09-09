@@ -28,6 +28,16 @@ def _generated_images(row: dict[str, Any]) -> list[str]:
     return [str(item) for item in value]
 
 
+def _intrinsics_source_size(*rows: dict[str, Any]) -> list[int]:
+    for row in rows:
+        value = row.get("intrinsics_source_size") or row.get("intrinsics_coordinate_size")
+        if isinstance(value, (list, tuple)) and len(value) == 2:
+            size = [int(value[0]), int(value[1])]
+            if min(size) > 0:
+                return size
+    raise ValueError("intrinsics_source_size is required to preserve the calibration contract")
+
+
 ALLOWED_FUTURE_COUNTS = frozenset({4, 8})
 
 
@@ -109,6 +119,7 @@ def build_manifest(
             "prior": 1.0,
             "trajectory": action_array.tolist(),
             "support_label": "independent_action_head_reference",
+            "trajectory_source": "wam_action_head",
         })
         metadata = dict(base.get("metadata") or {})
         # Future realized state is deliberately removed: it is not an input to
@@ -132,8 +143,9 @@ def build_manifest(
             "history_frame_paths": history,
             "future_frame_paths": future,
             "future_times_s": times.tolist(),
+            "intrinsics_source_size": _intrinsics_source_size(generated, base),
             "candidates": candidates,
-            "gt_candidate_id": "wam_action_head",
+            "gt_candidate_id": None,
             "future_images_source": "wam_generated",
             "wam_model_id": model_id,
             "branch_id": branch_id,

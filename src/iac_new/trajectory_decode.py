@@ -61,6 +61,11 @@ def _sample_pixels(
     support_weights: np.ndarray,
     *,
     max_points: int,
+    sampling_mode: str = "spatial_stratified",
+    sampling_v_min: float = 0.55,
+    sampling_v_max: float = 0.85,
+    sampling_grid_rows: int = 3,
+    sampling_grid_cols: int = 6,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     observed = np.asarray(observed_flows, dtype=np.float32)
     weights = np.asarray(support_weights, dtype=np.float32)
@@ -70,14 +75,80 @@ def _sample_pixels(
         raise ValueError("support_weights must have shape [T,H,W]")
     valid = np.isfinite(observed).all(axis=-1) & np.isfinite(weights) & (weights > 0.0)
     valid &= np.linalg.norm(observed, axis=-1) > 0.05
-    indices = np.flatnonzero(valid.any(axis=0))
+    eligible = valid.any(axis=0)
+    indices = np.flatnonzero(eligible)
     if indices.size == 0:
         raise ValueError("no finite motion pixels are available for trajectory decoding")
     # Keep the same pixel set across intervals so the objective does not move
     # its evidence source as the optimizer changes the trajectory.
     score = np.mean(np.where(valid, weights, 0.0), axis=0).reshape(-1)
-    order = np.argsort(score[indices])[::-1]
-    chosen = indices[order[: int(max_points)]]
+    if sampling_mode not in {"spatial_stratified", "weighted"}:
+        raise ValueError("sampling_mode must be 'spatial_stratified' or 'weighted'")
+    if int(max_points) < 1:
+        raise ValueError("max_points must be positive")
+    if sampling_mode == "weighted":
+        order = np.lexsort((indices.astype(np.int64), -score[indices]))
+        chosen = indices[order[: int(max_points)]]
+    else:
+        if not (0.0 <= sampling_v_min < sampling_v_max <= 1.0):
+            raise ValueError("sampling_v_min/max must satisfy 0 <= min < max <= 1")
+        if int(sampling_grid_rows) < 1 or int(sampling_grid_cols) < 1:
+            raise ValueError("sampling grid dimensions must be positive")
+        height, width = eligible.shape
+        all_y, all_x = np.unravel_index(indices, eligible.shape)
+        v = all_y / max(height - 1, 1)
+        in_band = (v >= float(sampling_v_min)) & (v < float(sampling_v_max))
+        # If the selected band is empty, retain the full ROI and let the
+        # projection contract decide whether the sample is measurable.
+        if np.any(in_band):
+            candidates = indices[in_band]
+            candidate_y = all_y[in_band]
+            candidate_x = all_x[in_band]
+            candidate_v = v[in_band]
+        else:
+            candidates = indices
+            candidate_y = all_y
+            candidate_x = all_x
+            candidate_v = v
+        candidate_u = candidate_x / max(width - 1, 1)
+        rows = int(sampling_grid_rows)
+        cols = int(sampling_grid_cols)
+        row_bins = np.minimum(
+            ((candidate_v - float(sampling_v_min)) / max(float(sampling_v_max - sampling_v_min), 1e-6) * rows)
+            .astype(np.int64),
+            rows - 1,
+        )
+        col_bins = np.minimum((candidate_u * cols).astype(np.int64), cols - 1)
+        cell = row_bins * cols + col_bins
+        candidate_scores = score[candidates]
+        # A multiplicative hash makes equal-weight ties independent of the
+        # flattened raster index, which was the source of the near-field bias.
+        xx = candidate_x.astype(np.uint64)
+        yy = candidate_y.astype(np.uint64)
+        tie_key = (xx * np.uint64(0x9E3779B1)) ^ (yy * np.uint64(0x85EBCA77))
+        tie_key ^= tie_key >> np.uint64(16)
+        cell_count = max(rows * cols, 1)
+        base_quota, remainder = divmod(int(max_points), cell_count)
+        parts: list[np.ndarray] = []
+        for cell_index in range(rows * cols):
+            cell_candidates = np.flatnonzero(cell == cell_index)
+            if len(cell_candidates) == 0:
+                continue
+            order = np.lexsort(
+                (tie_key[cell_candidates], -candidate_scores[cell_candidates])
+            )
+            quota = base_quota + (1 if cell_index < remainder else 0)
+            if quota > 0:
+                parts.append(cell_candidates[order[:quota]])
+        selected_local = np.concatenate(parts) if parts else np.empty(0, dtype=np.int64)
+        if len(selected_local) < min(int(max_points), len(candidates)):
+            chosen_mask = np.zeros(len(candidates), dtype=bool)
+            chosen_mask[selected_local] = True
+            remaining = np.flatnonzero(~chosen_mask)
+            order = np.lexsort((tie_key[remaining], -candidate_scores[remaining]))
+            need = min(int(max_points) - len(selected_local), len(remaining))
+            selected_local = np.concatenate([selected_local, remaining[order[:need]]])
+        chosen = candidates[selected_local]
     yy, xx = np.unravel_index(chosen, valid.shape[1:])
     coords = np.stack([xx, yy], axis=1).astype(np.float64)
     return coords, observed[:, yy, xx, :].astype(np.float64), weights[:, yy, xx].astype(np.float64)
@@ -144,6 +215,70 @@ def _sparse_predicted_flows(
         outputs.append(flow)
         validities.append(valid)
     return np.stack(outputs), np.stack(validities)
+
+
+def _projection_support(
+    observed: np.ndarray,
+    predicted: np.ndarray,
+    valid: np.ndarray,
+    weights: np.ndarray,
+    *,
+    minimum_points: int = 30,
+    minimum_weight_fraction: float = 0.5,
+) -> dict[str, Any]:
+    """Measure whether the fitted trajectory projects onto its source evidence."""
+    if minimum_points < 1:
+        raise ValueError("minimum_points must be positive")
+    if not 0.0 <= minimum_weight_fraction <= 1.0:
+        raise ValueError("minimum_weight_fraction must be between zero and one")
+    source = (
+        np.isfinite(observed).all(axis=-1)
+        & np.isfinite(weights)
+        & (weights > 0.0)
+    )
+    projected = source & np.asarray(valid, dtype=bool) & np.isfinite(predicted).all(axis=-1)
+    rows = []
+    for index in range(len(observed)):
+        source_weight = float(np.where(source[index], weights[index], 0.0).sum())
+        projected_weight = float(np.where(projected[index], weights[index], 0.0).sum())
+        fraction = projected_weight / source_weight if source_weight > 1e-6 else 0.0
+        source_points = int(source[index].sum())
+        projected_points = int(projected[index].sum())
+        reasons = []
+        if source_points < minimum_points:
+            reasons.append("insufficient_source_points")
+        if projected_points < minimum_points:
+            reasons.append("insufficient_projected_points")
+        if fraction < minimum_weight_fraction:
+            reasons.append("insufficient_projected_weight_fraction")
+        rows.append({
+            "interval_index": index,
+            "source_points": source_points,
+            "projected_points": projected_points,
+            "source_weight": source_weight,
+            "projected_weight": projected_weight,
+            "projected_weight_fraction": float(fraction),
+            "projection_supported": not reasons,
+            "reasons": reasons,
+        })
+    source_weight = float(sum(row["source_weight"] for row in rows))
+    projected_weight = float(sum(row["projected_weight"] for row in rows))
+    return {
+        "projection_supported": bool(rows) and all(row["projection_supported"] for row in rows),
+        "source_points": int(sum(row["source_points"] for row in rows)),
+        "projected_points": int(sum(row["projected_points"] for row in rows)),
+        "source_weight": source_weight,
+        "projected_weight": projected_weight,
+        "projected_weight_fraction": (
+            projected_weight / source_weight if source_weight > 1e-6 else 0.0
+        ),
+        "by_interval": rows,
+        "policy": {
+            "minimum_source_points": int(minimum_points),
+            "minimum_projected_points": int(minimum_points),
+            "minimum_projected_weight_fraction": float(minimum_weight_fraction),
+        },
+    }
 
 
 def estimate_temporal_flow_scale_state(
@@ -301,7 +436,9 @@ def _objective(
     lateral_acceleration_weight: float = 0.0,
     future_times_s: np.ndarray | None = None,
     adaptive_plane_params: np.ndarray | None = None,
-) -> tuple[float, np.ndarray, np.ndarray]:
+    minimum_projection_points: int = 30,
+    minimum_projection_weight_fraction: float = 0.5,
+) -> tuple[float, np.ndarray, np.ndarray, dict[str, Any]]:
     predicted, valid = _sparse_predicted_flows(
         trajectory,
         camera_to_ego,
@@ -311,20 +448,30 @@ def _objective(
         depths_m=depths_m,
         adaptive_plane_params=adaptive_plane_params,
     )
-    finite = valid & np.isfinite(observed).all(axis=-1) & np.isfinite(predicted).all(axis=-1)
-    residual = np.linalg.norm(predicted - observed, axis=-1)
+    source = np.isfinite(observed).all(axis=-1) & np.isfinite(weights) & (weights > 0.0)
+    finite = source & valid & np.isfinite(predicted).all(axis=-1)
+    residual = np.zeros(source.shape, dtype=np.float64)
+    residual[finite] = np.linalg.norm(predicted[finite] - observed[finite], axis=-1)
     scale = np.maximum(np.linalg.norm(observed, axis=-1), float(minimum_flow_scale_px))
     normalized = residual / scale
     finite &= np.isfinite(normalized)
-    robust = np.minimum(normalized, 4.0)
-    weighted = np.where(finite, robust * weights, 0.0)
-    denominator = float(np.where(finite, weights, 0.0).sum())
+    # Invalid projections are evidence against the candidate, not missing
+    # observations. Keep the source denominator fixed and charge the robust
+    # ceiling for points that leave the image or produce a non-finite flow.
+    robust = np.full(source.shape, 4.0, dtype=np.float64)
+    robust[finite] = np.minimum(normalized[finite], 4.0)
+    weighted = np.where(source, robust * weights, 0.0)
+    denominator = float(np.where(source, weights, 0.0).sum())
+    support = _projection_support(
+        observed,
+        predicted,
+        valid,
+        weights,
+        minimum_points=minimum_projection_points,
+        minimum_weight_fraction=minimum_projection_weight_fraction,
+    )
     if denominator <= 1e-6:
-        # Keep the optimizer numerically total even when this candidate has no
-        # valid projected pixels. The finite worst-case cost lets callers
-        # return an explicit low-coverage result instead of raising; coverage
-        # remains exposed through ``valid`` and downstream observability.
-        return 4.0, predicted, valid
+        return 4.0, predicted, valid, support
     flow_energy = float(weighted.sum() / denominator)
     road_penalty = _road_prior_penalty(
         trajectory,
@@ -359,6 +506,7 @@ def _objective(
         + smoothness_penalty,
         predicted,
         valid,
+        support,
     )
 
 
@@ -671,6 +819,11 @@ def decode_continuous_trajectory(
     max_points: int = 900,
     max_iterations: int = 12,
     initial_speeds_mps: tuple[float, ...] = (3.0, 6.0, 10.0),
+    sampling_mode: str = "spatial_stratified",
+    sampling_v_min: float = 0.55,
+    sampling_v_max: float = 0.85,
+    sampling_grid_rows: int = 3,
+    sampling_grid_cols: int = 6,
     profile_radius: float = 0.12,
     interval_observability: np.ndarray | None = None,
     speed_uncertainty_thresholds: tuple[float, float] = (0.25, 0.55),
@@ -692,6 +845,9 @@ def decode_continuous_trajectory(
     curvature_smoothness_weight: float = 0.0,
     lateral_acceleration_weight: float = 0.0,
     adaptive_plane_params: np.ndarray | None = None,
+    minimum_projection_points: int = 30,
+    minimum_projection_weight_fraction: float = 0.5,
+    minimum_fit_improvement: float = 0.05,
 ) -> dict[str, Any]:
     """Recover a continuous trajectory and local support tube from flow."""
     observed = np.asarray(observed_flows, dtype=np.float32)
@@ -727,6 +883,8 @@ def decode_continuous_trajectory(
         raise ValueError("smoothness weights must be non-negative")
     if maximum_speed_residual_mps <= 0.0 or not np.isfinite(maximum_speed_residual_mps):
         raise ValueError("maximum_speed_residual_mps must be finite and positive")
+    if minimum_fit_improvement < 0.0 or not np.isfinite(minimum_fit_improvement):
+        raise ValueError("minimum_fit_improvement must be finite and non-negative")
     if min(speed_residual_weight, speed_residual_smoothness_weight, speed_residual_curvature_weight) < 0.0:
         raise ValueError("speed residual weights must be non-negative")
     if interval_observability is None:
@@ -738,7 +896,14 @@ def decode_continuous_trajectory(
         interval_quality = np.clip(interval_quality, 0.0, 1.0)
     weights = np.where(roi[None, ...] & consistency, np.maximum(weights, 0.0), 0.0)
     pixel_xy, sampled_observed, sampled_weights = _sample_pixels(
-        observed, weights, max_points=max_points
+        observed,
+        weights,
+        max_points=max_points,
+        sampling_mode=sampling_mode,
+        sampling_v_min=sampling_v_min,
+        sampling_v_max=sampling_v_max,
+        sampling_grid_rows=sampling_grid_rows,
+        sampling_grid_cols=sampling_grid_cols,
     )
     best_trajectory = None
     best_energy = float("inf")
@@ -809,6 +974,61 @@ def decode_continuous_trajectory(
                 best_trajectory, best_energy = trajectory, energy
     if best_trajectory is None or not np.isfinite(best_energy):
         raise ValueError("continuous trajectory optimizer found no valid solution")
+    _, _, _, projection_support = _objective(
+        best_trajectory,
+        sampled_observed,
+        sampled_weights,
+        pixel_xy,
+        camera_to_ego,
+        intrinsics,
+        image_size,
+        depths_m,
+        minimum_flow_scale_px,
+        road_masks,
+        road_prior_weight,
+        road_half_width_m,
+        road_lateral_samples,
+        road_longitudinal_step_m,
+        speed_smoothness_weight,
+        curvature_smoothness_weight,
+        lateral_acceleration_weight,
+        np.asarray(future_times_s, dtype=np.float64),
+        adaptive_plane_params,
+        minimum_projection_points,
+        minimum_projection_weight_fraction,
+    )
+    zero_trajectory = np.zeros_like(best_trajectory)
+    zero_flow_energy, _, _, _ = _objective(
+        zero_trajectory,
+        sampled_observed,
+        sampled_weights,
+        pixel_xy,
+        camera_to_ego,
+        intrinsics,
+        image_size,
+        depths_m,
+        minimum_flow_scale_px,
+        road_masks,
+        road_prior_weight,
+        road_half_width_m,
+        road_lateral_samples,
+        road_longitudinal_step_m,
+        speed_smoothness_weight,
+        curvature_smoothness_weight,
+        lateral_acceleration_weight,
+        np.asarray(future_times_s, dtype=np.float64),
+        adaptive_plane_params,
+        minimum_projection_points,
+        minimum_projection_weight_fraction,
+    )
+    fit_improvement = float(zero_flow_energy - best_energy)
+    geometry_fit_status = (
+        "abstain"
+        if not projection_support["projection_supported"]
+        else "explained"
+        if fit_improvement >= float(minimum_fit_improvement)
+        else "weak"
+    )
 
     # Profile a local continuous neighborhood. This is an uncertainty tube,
     # not a second finite candidate bank: all perturbations are in control
@@ -843,7 +1063,7 @@ def decode_continuous_trajectory(
                 speeds_mps=candidate_speeds,
                 curvatures_1pm=np.clip(curvatures + curvature_delta * 0.1, -0.35, 0.35),
             )
-            energy, _, _ = _objective(
+            energy, _, _, _ = _objective(
                 candidate, sampled_observed, sampled_weights, pixel_xy,
                 camera_to_ego, intrinsics, image_size, depths_m, minimum_flow_scale_px,
                 road_masks, road_prior_weight, road_half_width_m, road_lateral_samples,
@@ -920,9 +1140,21 @@ def decode_continuous_trajectory(
             "curvature_1pm": {"q05": float(np.quantile(curvature_cloud[:, index], 0.05)), "q50": float(np.quantile(curvature_cloud[:, index], 0.50)), "q95": float(np.quantile(curvature_cloud[:, index], 0.95))},
         })
     return {
-        "protocol": "candidate-blind-continuous-trajectory",
+        "protocol": "candidate-blind-continuous-trajectory-v1",
         "trajectory": best_trajectory.tolist(),
         "energy": float(best_energy),
+        "zero_flow_energy": float(zero_flow_energy),
+        "fit_improvement": fit_improvement,
+        # This is deliberately about explaining observed flow, not agreement
+        # with a logged trajectory (which is unavailable for generated frames).
+        "motion_explanation_status": geometry_fit_status,
+        "geometry_fit_status": geometry_fit_status,
+        "measurement_available": bool(projection_support["projection_supported"]),
+        "valid": bool(projection_support["projection_supported"]),
+        "projection_supported": bool(projection_support["projection_supported"]),
+        "projected_points": int(projection_support["projected_points"]),
+        "projected_weight_fraction": float(projection_support["projected_weight_fraction"]),
+        "projection_support_by_interval": projection_support["by_interval"],
         "profile_support": support,
         "profile_count": len(selected),
         "speed_support": speed_support,
@@ -940,6 +1172,11 @@ def decode_continuous_trajectory(
         "decoder_parameters": {
             "max_points": int(max_points),
             "max_iterations": int(max_iterations),
+            "sampling_mode": str(sampling_mode),
+            "sampling_v_min": float(sampling_v_min),
+            "sampling_v_max": float(sampling_v_max),
+            "sampling_grid_rows": int(sampling_grid_rows),
+            "sampling_grid_cols": int(sampling_grid_cols),
             "profile_radius": float(profile_radius),
             "speed_uncertainty_thresholds": [float(low_speed_quality), float(uncertain_speed_quality)],
             "curvature_multistart": bool(curvature_multistart),
@@ -957,6 +1194,9 @@ def decode_continuous_trajectory(
             "speed_smoothness_weight": float(speed_smoothness_weight),
             "curvature_smoothness_weight": float(curvature_smoothness_weight),
             "lateral_acceleration_weight": float(lateral_acceleration_weight),
+            "minimum_projection_points": int(minimum_projection_points),
+            "minimum_projection_weight_fraction": float(minimum_projection_weight_fraction),
+            "minimum_fit_improvement": float(minimum_fit_improvement),
         },
     }
 

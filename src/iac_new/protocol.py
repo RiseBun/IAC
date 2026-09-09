@@ -46,7 +46,15 @@ def _matrix(value: Any, shape: tuple[int, int], field: str) -> np.ndarray:
     return matrix
 
 
-def validate_record(row: dict[str, Any], *, manifest_root: Path) -> dict[str, Any]:
+def validate_record(
+    row: dict[str, Any],
+    *,
+    manifest_root: Path,
+    require_candidates: bool = True,
+    require_intrinsics_source_size: bool = False,
+    expected_intrinsics_source_size: tuple[int, int] | None = None,
+    require_trusted_gt_candidate: bool = False,
+) -> dict[str, Any]:
     sample_id = str(row.get("sample_id") or "")
     if not sample_id:
         raise ValueError("sample_id is required")
@@ -101,7 +109,7 @@ def validate_record(row: dict[str, Any], *, manifest_root: Path) -> dict[str, An
     intrinsics = _matrix(row.get("intrinsics"), (3, 3), "intrinsics")
     camera_to_ego = _matrix(row.get("camera_to_ego"), (4, 4), "camera_to_ego")
     candidates = list(row.get("candidates") or [])
-    if len(candidates) < 2:
+    if require_candidates and len(candidates) < 2:
         raise ValueError(f"{sample_id}: at least two candidates are required")
     candidate_ids: set[str] = set()
     normalized_candidates = []
@@ -129,7 +137,10 @@ def validate_record(row: dict[str, Any], *, manifest_root: Path) -> dict[str, An
             normalized_candidate["counterfactual"] = dict(candidate["counterfactual"])
         if candidate.get("parent_candidate_id") is not None:
             normalized_candidate["parent_candidate_id"] = str(candidate["parent_candidate_id"])
-        for field in ("feasibility_label", "support_label", "feasibility_reason"):
+        for field in (
+            "feasibility_label", "support_label", "feasibility_reason",
+            "trajectory_source",
+        ):
             if candidate.get(field) is not None:
                 normalized_candidate[field] = str(candidate[field])
         for field in ("offroad", "collision"):
@@ -139,6 +150,24 @@ def validate_record(row: dict[str, Any], *, manifest_root: Path) -> dict[str, An
     gt_candidate_id = row.get("gt_candidate_id")
     if gt_candidate_id is not None and str(gt_candidate_id) not in candidate_ids:
         raise ValueError(f"{sample_id}: gt_candidate_id is absent from candidates")
+    if gt_candidate_id is not None:
+        gt_candidate = next(
+            candidate
+            for candidate in normalized_candidates
+            if candidate["candidate_id"] == str(gt_candidate_id)
+        )
+        source = str(gt_candidate.get("trajectory_source") or "")
+        if str(gt_candidate_id) == "wam_action_head" or source == "wam_action_head":
+            raise ValueError(
+                f"{sample_id}: wam_action_head is a model output and cannot be gt_candidate_id"
+            )
+        if require_trusted_gt_candidate and source not in {
+            "navsim_logged_realized",
+            "private_realized_gt",
+        }:
+            raise ValueError(
+                f"{sample_id}: gt_candidate_id requires an explicit trusted trajectory_source"
+            )
     metric_depth_path = row.get("metric_depth_path")
     if metric_depth_path is not None:
         depth_path = Path(str(metric_depth_path)).expanduser()
@@ -146,6 +175,27 @@ def validate_record(row: dict[str, Any], *, manifest_root: Path) -> dict[str, An
             depth_path if depth_path.is_absolute() else manifest_root / depth_path
         )
     metadata = dict(row.get("metadata") or {})
+    intrinsics_source_size = row.get("intrinsics_source_size")
+    if require_intrinsics_source_size and intrinsics_source_size is None:
+        raise ValueError(
+            f"{sample_id}: intrinsics_source_size is required by the calibration contract"
+        )
+    if intrinsics_source_size is not None:
+        if (
+            not isinstance(intrinsics_source_size, (list, tuple))
+            or len(intrinsics_source_size) != 2
+            or any(int(value) <= 0 for value in intrinsics_source_size)
+        ):
+            raise ValueError(f"{sample_id}: intrinsics_source_size must be [width,height]")
+        intrinsics_source_size = tuple(int(value) for value in intrinsics_source_size)
+        if (
+            expected_intrinsics_source_size is not None
+            and intrinsics_source_size != tuple(expected_intrinsics_source_size)
+        ):
+            raise ValueError(
+                f"{sample_id}: intrinsics_source_size {intrinsics_source_size} does not "
+                f"match frozen calibration size {tuple(expected_intrinsics_source_size)}"
+            )
     # Preserve native WAM fields without forcing every producer to duplicate
     # them under metadata.  They are optional for image-only experiments but
     # become available to realized-state evaluation when present.
@@ -171,6 +221,7 @@ def validate_record(row: dict[str, Any], *, manifest_root: Path) -> dict[str, An
         "history_count": history_count,
         "protocol_variant": protocol_variant,
         "intrinsics": intrinsics,
+        "intrinsics_source_size": intrinsics_source_size,
         "distortion": np.asarray(row.get("distortion") or [], dtype=np.float64),
         "camera_to_ego": camera_to_ego,
         "metric_depth_path": metric_depth_path,
