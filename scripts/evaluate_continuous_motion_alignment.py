@@ -58,6 +58,15 @@ def _reference(row: dict[str, Any], source: str) -> list[list[float]]:
     gt_id = str(row.get("gt_candidate_id"))
     for candidate in row.get("candidates") or []:
         if str(candidate.get("candidate_id")) == gt_id:
+            trajectory_source = str(candidate.get("trajectory_source") or "")
+            if gt_id == "wam_action_head" or trajectory_source == "wam_action_head":
+                raise ValueError(
+                    f"{row.get('sample_id')}: WAM action head is not logged GT"
+                )
+            if trajectory_source not in {"navsim_logged_realized", "private_realized_gt"}:
+                raise ValueError(
+                    f"{row.get('sample_id')}: logged GT requires a trusted trajectory_source"
+                )
             return candidate["trajectory"]
     raise ValueError(f"{row.get('sample_id')}: logged GT candidate is missing")
 
@@ -109,45 +118,37 @@ def _shape_eligibility(
     interval_observability: list[dict[str, Any]],
     road_relative_support: list[dict[str, Any]],
     *,
+    motion_explanation_status: str = "abstain",
     enable_fallback: bool = True,
     fallback_min_observability: float = 0.05,
 ) -> tuple[list[str], list[float], list[str]]:
-    """Build shape-only eligibility with a conservative geometric fallback.
-
-    The fallback is deliberately uncertain: it can rescue a direction/shape
-    measurement when pixelwise FB is dominated by glare or dynamic foreground,
-    but it must never make the interval speed-usable.
-    """
+    """Build primary-yaw eligibility from output support and flow direction."""
+    del road_relative_support, enable_fallback, fallback_min_observability
     shape_status: list[str] = []
     shape_observability: list[float] = []
     reasons: list[str] = []
-    for index, item in enumerate(interval_observability):
-        direction_ok = bool(item.get("direction_observable"))
-        curvature_status = str(item.get("curvature_status", "abstain"))
-        support = road_relative_support[index] if index < len(road_relative_support) else {}
-        support_obs = float(np.clip(support.get("observability", 0.0), 0.0, 1.0))
-        fallback = (
-            enable_fallback
-            and
-            not direction_ok
-            and "forward_backward_inconsistent" in str(item.get("status", ""))
-            and curvature_status == "usable"
-            and support_obs >= float(fallback_min_observability)
+    if str(motion_explanation_status) != "explained":
+        count = len(interval_observability)
+        return (
+            ["abstain"] * count,
+            [0.0] * count,
+            [f"motion_not_explained:{motion_explanation_status}"] * count,
         )
-        if direction_ok and curvature_status == "usable":
+    for index, item in enumerate(interval_observability):
+        if item.get("projection_supported") is not True:
+            shape_status.append("abstain")
+            shape_observability.append(0.0)
+            reasons.append("projection_support_failed")
+            continue
+        direction_ok = bool(item.get("direction_observable"))
+        if direction_ok:
             shape_status.append("usable")
             reasons.append("direct_flow_geometry")
-        elif direction_ok and curvature_status == "uncertain":
-            shape_status.append("uncertain")
-            reasons.append("direct_flow_geometry_uncertain")
-        elif fallback:
-            shape_status.append("uncertain")
-            reasons.append("robust_geometry_fallback_after_fb_gate")
         else:
             shape_status.append("abstain")
             reasons.append("no_shape_support")
         shape_observability.append(float(np.clip(
-            max(item.get("effective_static_pixel_fraction", 0.0), support_obs if fallback else 0.0),
+            item.get("composite_observability", 0.0),
             0.0,
             1.0,
         )))
@@ -822,6 +823,8 @@ def aggregate(
     reference_source: str,
     *,
     shape_fallback_enabled: bool = True,
+    primary_distance_alignment: str = "diagnostic_only",
+    primary_pose_alignment: str = "yaw_only",
 ) -> dict[str, Any]:
     # Parked windows are useful for observability/stop detection, but do not
     # contribute to motion alignment averages.  Keeping this exclusion here
@@ -1074,7 +1077,19 @@ def aggregate(
             else "single_branch_image_action_alignment"
         ),
         "future_action_alignment_eligible": reference_source == "action",
-        "shape_fallback_enabled": bool(shape_fallback_enabled),
+        "shape_fallback_enabled": False,
+        "shape_fallback_requested": bool(shape_fallback_enabled),
+        "yaw_gate_policy": "explained_fit_and_post_projection_flow_direction",
+        "primary_motion_fields": sorted(
+            next(
+                (
+                    record.get("comparison", {}).get("primary_motion_fields")
+                    for record in records
+                    if record.get("comparison", {}).get("primary_motion_fields")
+                ),
+                [],
+            )
+        ),
         "formal_level1_evidence_eligible": reference_source == "action" and target_protocol_ready and input_audit_ready,
         "level1_input_audit": {
             "ready": input_audit_ready,
@@ -1091,8 +1106,8 @@ def aggregate(
         "raw_absolute_image_metrics": raw_metrics,
         "forward_distance_alignment": distance_summary,
         "se2_pose_alignment": pose_summary,
-        "primary_distance_alignment": "relative_observable",
-        "primary_pose_alignment": "arc_relative",
+        "primary_distance_alignment": primary_distance_alignment,
+        "primary_pose_alignment": primary_pose_alignment,
         "se2_pose_posterior": {
             "samples": len(pose_posterior_records),
             "nominal_coverage": 0.90,
@@ -1147,7 +1162,7 @@ def main() -> None:
     parser.add_argument(
         "--disable-shape-fallback",
         action="store_true",
-        help="disable the experimental shape-only FB fallback and use strict gate A",
+        help="deprecated compatibility flag; Step 1.2 always uses the strict yaw gate",
     )
     parser.add_argument("--require-eight-frame-four-second", action="store_true")
     parser.add_argument("--longitudinal-calibration", type=Path)
@@ -1263,6 +1278,11 @@ def main() -> None:
             shape_status, shape_observability, shape_fallback_reasons = _shape_eligibility(
                 interval_observability,
                 list((score.get("road_relative_posterior") or {}).get("support") or []),
+                motion_explanation_status=str(
+                    score.get("motion_explanation_status")
+                    or score.get("geometry_fit_status")
+                    or "abstain"
+                ),
                 enable_fallback=not args.disable_shape_fallback,
             )
             flow_status = [str(item.get("status", "abstain")) for item in interval_observability]
@@ -1409,6 +1429,12 @@ def main() -> None:
             records,
             args.reference_source,
             shape_fallback_enabled=not args.disable_shape_fallback,
+            primary_distance_alignment=str(
+                score_policy.get("primary_distance_mode", "diagnostic_only")
+            ),
+            primary_pose_alignment=str(
+                score_policy.get("primary_pose_mode", "yaw_only")
+            ),
         ),
         "calibration_application_split": args.calibration_application_split,
         "longitudinal_calibration": calibration,

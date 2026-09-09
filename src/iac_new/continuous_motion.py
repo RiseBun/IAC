@@ -25,6 +25,15 @@ MOTION_FIELDS = (
 # absolute-speed quality gate (especially the 0.55 posterior threshold).
 SHAPE_FIELDS = frozenset({"lateral_speed_mps", "yaw_rate_radps", "curvature_1pm"})
 
+# Frozen Step 1.2 policy.  Lateral and longitudinal quantities remain visible
+# for diagnosis, but only yaw passed the held-out real-frame calibration audit.
+PRIMARY_MOTION_FIELDS = frozenset({"yaw_rate_radps"})
+DIAGNOSTIC_MOTION_FIELDS = frozenset(set(MOTION_FIELDS) - set(PRIMARY_MOTION_FIELDS))
+CONTINUOUS_DECODER_PROTOCOLS = frozenset({
+    "candidate-blind-continuous-trajectory",
+    "candidate-blind-continuous-trajectory-v1",
+})
+
 
 def classify_stationary_state(
     rows: list[dict[str, Any]],
@@ -296,7 +305,7 @@ def image_motion_profile(
     flow_status_by_interval: list[str] | None = None,
 ) -> dict[str, Any]:
     """Build an image-only motion posterior from a completed decoder output."""
-    if decoder.get("protocol") != "candidate-blind-continuous-trajectory":
+    if decoder.get("protocol") not in CONTINUOUS_DECODER_PROTOCOLS:
         raise ValueError("decoder must use the candidate-blind continuous protocol")
     profile = trajectory_to_motion_profile(
         decoder.get("trajectory"), future_times_s, initial_speed_mps=initial_speed_mps
@@ -435,7 +444,7 @@ def longitudinal_residual_features(
     midpoints. The absolute image scale is discarded; only the fitted change
     from t=0 is retained.
     """
-    if decoder.get("protocol") != "candidate-blind-continuous-trajectory":
+    if decoder.get("protocol") not in CONTINUOUS_DECODER_PROTOCOLS:
         raise ValueError("decoder must use the candidate-blind continuous protocol")
     times = np.asarray(future_times_s, dtype=np.float64)
     rows = list(history_profile.get("rows") or [])
@@ -848,7 +857,7 @@ def compare_motion_profiles(
         include_shape_uncertain=include_shape_uncertain,
         limits=_comparison_limits(tolerances),
         score_speed_posterior=True,
-        primary_fields=frozenset(primary_fields or SHAPE_FIELDS),
+        primary_fields=frozenset(primary_fields or PRIMARY_MOTION_FIELDS),
     )
     return result | {
         "protocol": "continuous-foresight-action-alignment",
@@ -1255,7 +1264,7 @@ def compare_history_baseline(
         include_shape_uncertain=include_shape_uncertain,
         limits=_comparison_limits(tolerances),
         score_speed_posterior=False,
-        primary_fields=frozenset(primary_fields or SHAPE_FIELDS),
+        primary_fields=frozenset(primary_fields or PRIMARY_MOTION_FIELDS),
     )
     return result | {
         "protocol": "history-only-action-null",
@@ -1286,7 +1295,7 @@ def compare_future_control(
         include_shape_uncertain=include_shape_uncertain,
         limits=_comparison_limits(tolerances),
         score_speed_posterior=False,
-        primary_fields=frozenset(primary_fields or SHAPE_FIELDS),
+        primary_fields=frozenset(primary_fields or PRIMARY_MOTION_FIELDS),
     )
     return result | {
         "protocol": "future-specificity-control",

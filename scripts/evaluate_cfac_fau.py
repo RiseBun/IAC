@@ -17,7 +17,7 @@ from typing import Any
 import numpy as np
 
 from iac_new.continuous_motion import (
-    SHAPE_FIELDS,
+    PRIMARY_MOTION_FIELDS,
     compare_motion_profiles,
     history_only_motion_profile,
     image_motion_profile,
@@ -37,18 +37,32 @@ def history_speed(row: dict[str, Any]) -> float | None:
 
 def shape_gate(score: dict[str, Any], count: int) -> tuple[list[str], list[float], list[str]]:
     statuses, observability, reasons = [], [], []
+    fit_status = str(
+        score.get("motion_explanation_status")
+        or score.get("geometry_fit_status")
+        or "abstain"
+    )
+    if fit_status != "explained":
+        return (
+            ["abstain"] * count,
+            [0.0] * count,
+            [f"motion_not_explained:{fit_status}"] * count,
+        )
     intervals = list(score.get("observability_by_future_interval") or [])
     for index in range(count):
         item = intervals[index] if index < len(intervals) else {}
+        projection_supported = item.get("projection_supported") is True
+        if not projection_supported:
+            statuses.append("abstain")
+            observability.append(0.0)
+            reasons.append("projection_support_failed")
+            continue
         direction = bool(item.get("direction_observable"))
-        curvature = str(item.get("curvature_status", "abstain"))
-        if direction and curvature == "usable":
+        if direction:
             statuses.append("usable"); reasons.append("direct_flow_geometry")
-        elif direction and curvature == "uncertain":
-            statuses.append("uncertain"); reasons.append("direct_flow_geometry_uncertain")
         else:
             statuses.append("abstain"); reasons.append("no_shape_support")
-        observability.append(float(np.clip(item.get("effective_static_pixel_fraction", 0.0), 0.0, 1.0)))
+        observability.append(float(np.clip(item.get("composite_observability", 0.0), 0.0, 1.0)))
     return statuses, observability, reasons
 
 
@@ -129,12 +143,22 @@ def main() -> None:
             (row.get("metadata") or {}).get("history_ego_state") or [], target_times,
             history_times_s=row.get("history_times_s"), model="constant_acceleration_yaw_rate",
         )
-        cfac = compare_motion_profiles(image, action, include_uncertain=True, include_shape_uncertain=True, primary_fields=set(SHAPE_FIELDS))
+        cfac = compare_motion_profiles(
+            image,
+            action,
+            include_uncertain=True,
+            include_shape_uncertain=True,
+            primary_fields=set(PRIMARY_MOTION_FIELDS),
+        )
         fau = evaluate_fau(image, action, truth, history_profile=history)
         stop = base["stratum"] == "stop"
         base.update({
             "status": "ok",
+            "motion_explanation_status": score.get("motion_explanation_status"),
             "excluded_from_motion_average": stop,
+            "projection_supported_intervals": int(sum(
+                status in {"usable", "uncertain"} for status in statuses
+            )),
             "private_gt_timestamps_s": list(private_row.get("future_times_s") or []),
             "image_motion_profile": image,
             "native_action_motion_profile": action,
@@ -156,15 +180,17 @@ def main() -> None:
         "model": args.model_id or next((r.get("wam_model_id") for r in inputs.values() if r.get("wam_model_id")), "unknown"),
         "rows": len(records),
         "summary": {
-            "cfac": {"status": "ok" if cfac_values else "unavailable", "mean_primary_shape_composite": None if not cfac_values else float(np.mean(cfac_values)), "n": len(cfac_values), "ci95": bootstrap(cfac_values)},
-            "fau_f": {"status": "ok" if fau_f_values else "unavailable", "mean": None if not fau_f_values else float(np.mean(fau_f_values)), "n": len(fau_f_values), "ci95": bootstrap(fau_f_values)},
-            "fau_a": {"status": "ok" if fau_a_values else "unavailable", "mean": None if not fau_a_values else float(np.mean(fau_a_values)), "n": len(fau_a_values), "ci95": bootstrap(fau_a_values)},
-            "fau": {"status": "ok" if fau is not None else "unavailable", "geometric_mean_of_aggregate_components": fau},
+            "cfac": {"status": "ok" if cfac_values else "unavailable", "mean_primary_shape_composite": None if not cfac_values else float(np.mean(cfac_values)), "n": len(cfac_values), "total": len(inputs), "coverage": len(cfac_values) / len(inputs) if inputs else 0.0, "coverage_basis": "explained_and_post_projection", "ci95": bootstrap(cfac_values)},
+            "fau_f": {"status": "ok" if fau_f_values else "unavailable", "mean": None if not fau_f_values else float(np.mean(fau_f_values)), "n": len(fau_f_values), "total": len(inputs), "coverage": len(fau_f_values) / len(inputs) if inputs else 0.0, "coverage_basis": "post_projection_abstention", "ci95": bootstrap(fau_f_values)},
+            "fau_a": {"status": "ok" if fau_a_values else "unavailable", "mean": None if not fau_a_values else float(np.mean(fau_a_values)), "n": len(fau_a_values), "total": len(inputs), "coverage": len(fau_a_values) / len(inputs) if inputs else 0.0, "coverage_basis": "post_projection_abstention", "ci95": bootstrap(fau_a_values)},
+            "fau": {"status": "ok" if fau is not None else "unavailable", "geometric_mean_of_aggregate_components": fau, "n": min(len(fau_f_values), len(fau_a_values)), "total": len(inputs), "coverage": min(len(fau_f_values), len(fau_a_values)) / len(inputs) if inputs else 0.0, "coverage_basis": "post_projection_abstention"},
             "stop_samples_excluded_from_motion_average": excluded_stop,
             "unavailable_rows": sum(r.get("status") == "unavailable" for r in records),
-            "primary_fields": list(SHAPE_FIELDS),
-            "longitudinal_metric_fields": ["speed_mps", "acceleration_mps2"],
-            "longitudinal_policy": "diagnostic_only",
+            "primary_fields": sorted(PRIMARY_MOTION_FIELDS),
+            "diagnostic_fields": [
+                "speed_mps", "acceleration_mps2", "lateral_speed_mps", "curvature_1pm"
+            ],
+            "diagnostic_policy": "reported_but_excluded_from_primary_score",
         },
         "records": records,
     }

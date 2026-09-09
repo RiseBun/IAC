@@ -22,6 +22,7 @@ import numpy as np
 
 from .continuous_motion import (
     IMAGE_PROFILE_SOURCES,
+    PRIMARY_MOTION_FIELDS,
     history_only_motion_profile,
     image_motion_profile,
     trajectory_to_motion_profile,
@@ -29,6 +30,7 @@ from .continuous_motion import (
 
 
 SHAPE_FIELDS = ("lateral_speed_mps", "yaw_rate_radps", "curvature_1pm")
+PRIMARY_FIELDS = tuple(sorted(PRIMARY_MOTION_FIELDS))
 DEFAULT_DEADBANDS = {
     "lateral_speed_mps": 0.05,
     "yaw_rate_radps": 0.02,
@@ -239,11 +241,12 @@ def evaluate_cfac(
             deadbands=deadbands,
             scales=scales,
         )
-    shape_matrix = np.column_stack([_values(imagined_profile, field) for field in SHAPE_FIELDS])
+    shape_matrix = np.column_stack([_values(imagined_profile, field) for field in PRIMARY_FIELDS])
     valid_intervals = np.any(np.isfinite(shape_matrix), axis=1) & (weights > 0)
     coverage = float(np.mean(valid_intervals))
     scores = []
-    for component in components.values():
+    for field in PRIMARY_FIELDS:
+        component = components[field]
         if component.get("status") == "ok":
             parts = [component.get("direction_score"), component.get("magnitude_score"), component.get("temporal_alignment")]
             parts = [float(value) for value in parts if value is not None]
@@ -259,6 +262,8 @@ def evaluate_cfac(
         "evaluable_intervals": int(np.sum(valid_intervals)),
         "total_intervals": int(n),
         "components": components,
+        "primary_fields": list(PRIMARY_FIELDS),
+        "diagnostic_fields": sorted(set(SHAPE_FIELDS) - set(PRIMARY_FIELDS)),
         "claim": "consistency_only_no_causal_claim",
         "leakage_audit": {
             "action_visible_to_image_branch": False,
@@ -309,11 +314,11 @@ def evaluate_fau(
         f_score = None if f_mae is None else float(np.exp(-f_mae))
         a_score = None if a_mae is None else float(np.exp(-a_mae))
         b_score = None if b_mae is None else float(np.exp(-b_mae))
-        if f_score is not None:
+        if field in PRIMARY_FIELDS and f_score is not None:
             f_scores.append(f_score)
-        if a_score is not None:
+        if field in PRIMARY_FIELDS and a_score is not None:
             a_scores.append(a_score)
-        if b_score is not None:
+        if field in PRIMARY_FIELDS and b_score is not None:
             baseline_scores.append(b_score)
         components[field] = {
             "scale": scale,
@@ -342,6 +347,8 @@ def evaluate_fau(
         "evaluable_intervals": int(np.sum(weights > 0)),
         "total_intervals": int(n),
         "components": components,
+        "primary_fields": list(PRIMARY_FIELDS),
+        "diagnostic_fields": sorted(set(SHAPE_FIELDS) - set(PRIMARY_FIELDS)),
         "claim": "foresight_utility_not_causal_claim",
         "requires": ["future_visual_output", "native_action", "ground_truth_future"],
     }

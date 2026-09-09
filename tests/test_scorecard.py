@@ -63,5 +63,33 @@ class ScorecardTest(unittest.TestCase):
         )
         self.assertIn("realized_future_state_leakage", report["issues"][0]["issues"])
 
+    def test_projection_gated_coverage_is_recomputed_from_counts(self) -> None:
+        card = build_model_scorecard(
+            model_id="x",
+            capability="native_action_conditioned",
+            measurements={
+                "cfac": {
+                    "status": "pilot", "score": 0.7, "n": 3, "total": 10,
+                    "coverage": 0.9,
+                }
+            },
+        )
+        self.assertEqual(card["cells"]["cfac"]["coverage"], 0.3)
+        self.assertEqual(
+            card["cells"]["cfac"]["coverage_basis"], "post_projection_abstention"
+        )
+
+    def test_projection_gated_score_requires_coverage_counts(self) -> None:
+        card = build_model_scorecard(
+            model_id="x",
+            capability="native_action_conditioned",
+            measurements={"cfac": {"status": "pilot", "score": 0.7}},
+        )
+        self.assertEqual(card["cells"]["cfac"]["status"], "missing")
+        self.assertEqual(
+            card["cells"]["cfac"]["reason"],
+            "post_projection_coverage_counts_required",
+        )
+
 if __name__ == "__main__":
     unittest.main()

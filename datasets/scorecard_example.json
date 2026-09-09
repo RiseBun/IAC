@@ -1,17 +1,32 @@
 {
   "protocol": "iac-scorecard",
   "benchmark": "benchmark",
-  "claim": "capability-stratified WAM measurement; primary scores use shape/relative motion only",
+  "claim": "capability-stratified WAM measurement; Step 1.2 primary uses explained-pair yaw direction and rank only",
   "primary_score_policy": {
-    "included_motion_fields": ["lateral_speed_mps", "yaw_rate_radps", "curvature_1pm"],
-    "excluded_motion_fields": ["speed_mps", "acceleration_mps2"],
+    "step1_version": "iac-step1-se2-yaw-v1.2",
+    "included_motion_fields": ["yaw_rate_radps"],
+    "primary_statistics": ["direction_accuracy", "spearman"],
+    "excluded_motion_fields": ["speed_mps", "acceleration_mps2", "lateral_speed_mps", "curvature_1pm"],
     "excluded_fields_are_diagnostic_only": true
+  },
+  "current_step1_2_reference": {
+    "scope": "DriveWAM 255-pair corrected subset",
+    "status": "frozen_pilot",
+    "pair_measurement_n": 175,
+    "pair_total": 255,
+    "pair_measurement_coverage": 0.6862745098039216,
+    "material_yaw_pairs": 103,
+    "yaw_direction_hits": 90,
+    "yaw_direction_accuracy": 0.8737864077669902,
+    "yaw_direction_accuracy_ci95": [0.7959587945728204, 0.9247352211203261],
+    "yaw_spearman": 0.7864736634011333,
+    "yaw_spearman_ci95": [0.6560165375498485, 0.8859371680938657]
   },
   "models": [
     {
       "model_id": "drivewam_navsim_checkpoint_20260824",
       "capability": "native_action_conditioned",
-      "status": "reference_pilot",
+      "status": "historical_pre_fix_do_not_compare",
       "cells": {
         "cfac": {"status": "pilot", "score": 0.7638, "n": 823, "total": 1000, "coverage": 0.823, "score_definition": "primary_shape_composite"},
         "ccfc": {"status": "pilot", "score": 0.2178, "n": 453, "total": 1000, "coverage": 0.453, "intervention_type": "paired_command", "score_definition": "arc_relative", "metric_diagnostic_score": 0.1190},
@@ -22,5 +37,6 @@
       }
     }
   ],
-  "note": "Reference pilot schema for additional models: fill measured cells, leave unsupported cells as unavailable (never 0). Details in docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md."
+  "note": "Reference pilot schema for additional models: fill measured cells, leave unsupported cells as unavailable (never 0). Details in docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md.",
+  "historical_reference_note": "The DriveWAM values above are retrospective pre-projection-gate artifacts. They are not valid post-fix benchmark scores until recomputed with post_projection_abstention coverage."
 }

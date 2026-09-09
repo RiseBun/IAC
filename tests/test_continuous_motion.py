@@ -40,6 +40,21 @@ def decoder(speeds: list[float], curvature: float = 0.0) -> dict:
 
 
 class ContinuousMotionTest(unittest.TestCase):
+    def test_versioned_decoder_protocol_is_accepted(self) -> None:
+        decoder = {
+            "protocol": "candidate-blind-continuous-trajectory-v1",
+            "trajectory": [[1.0, 0.0, 0.1]],
+            "speed_support": [{
+                "q05": 0.5,
+                "q50": 1.0,
+                "q95": 1.5,
+                "status": "usable",
+                "observability": 1.0,
+            }],
+        }
+        profile = image_motion_profile(decoder, [1.0], initial_speed_mps=1.0)
+        self.assertEqual(len(profile["rows"]), 1)
+
     def test_waypoints_become_motion_profile(self) -> None:
         times = [0.5, 1.0, 1.5, 2.0]
         value = decoder([4.0] * 4, curvature=0.02)
@@ -50,6 +65,7 @@ class ContinuousMotionTest(unittest.TestCase):
         self.assertAlmostEqual(result["metrics"]["yaw_rate_radps"]["mae"], 0.0, places=6)
         self.assertEqual(result["coverage"], 1.0)
         self.assertIn("primary_shape_composite", result)
+        self.assertEqual(result["primary_motion_fields"], ["yaw_rate_radps"])
 
     def test_history_profile_is_past_only(self) -> None:
         profile = history_only_motion_profile(

@@ -30,6 +30,7 @@ CLAIMED = {
 
 STATUSES = ("pass", "fail", "pilot", "unavailable", "ineligible", "missing")
 OPTIONAL_CELLS = frozenset({"ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage"})
+PROJECTION_GATED_CELLS = frozenset({"cfac", "ccfc", "fau_f", "fau_a", "fau"})
 
 
 def claimed_cells(capability: str) -> tuple[str, ...]:
@@ -149,7 +150,30 @@ def _cell_from_measurement(
         status = str(measurement.get("status") or "missing")
         if status not in STATUSES:
             raise ValueError(f"unknown status: {status}")
-        return {"status": status, **{k: v for k, v in measurement.items() if k != "status"}}
+        result = {"status": status, **{k: v for k, v in measurement.items() if k != "status"}}
+        if cell_name in PROJECTION_GATED_CELLS or cell_name == "coverage":
+            if status not in {"pass", "fail", "pilot"}:
+                return result
+            if "n" not in result or "total" not in result:
+                return empty_cell(
+                    "missing",
+                    reason=(
+                        "post_projection_coverage_counts_required"
+                        if cell_name in PROJECTION_GATED_CELLS
+                        else "coverage_counts_required"
+                    ),
+                )
+            evaluated = int(result["n"])
+            total = int(result["total"])
+            if total <= 0 or evaluated < 0 or evaluated > total:
+                raise ValueError(f"invalid post-projection coverage counts for {cell_name}")
+            result["coverage"] = evaluated / total
+            result["coverage_basis"] = (
+                "post_projection_abstention"
+                if cell_name in PROJECTION_GATED_CELLS
+                else "reported_n_over_total"
+            )
+        return result
     if not claimed:
         status = "unavailable" if cell_name in OPTIONAL_CELLS else "ineligible"
         return empty_cell(status, reason="capability_not_declared")
