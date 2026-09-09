@@ -20,9 +20,9 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 
 ## 方法贡献
 
-1. **候选盲连续测量尺：** 冻结 RAFT-Large 与标定地面平面几何，从未来图像中恢复
-   横向运动、航向变化、曲率和归一化相对路径形状；前后向一致性、动态抑制、可观测
-   性和 abstention 均属于协议的一部分，图像解码阶段不读取候选轨迹。
+1. **候选盲运动测量尺：** 冻结 RAFT-Large，从未来图像拟合连续地平面 SE(2)
+   运动；显式校准尺寸、输出投影支持和 `explained/weak/abstain` 均属于协议，
+   图像测量阶段不读取候选轨迹。当前只有 yaw 的方向/排序通过审计并进入 primary。
 2. **能力分层指标：** CFAC、CCFC、FAU、FCS 作为独立证据列并报告各自 coverage；
    模型不支持某项时记为 `unavailable`，不填 0。
 3. **失败关闭与可复现：** 强制精确时间戳、标定、随机种子、模型版本和 lineage；
@@ -37,9 +37,9 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 flowchart LR
   I["历史图像 + WAM 未来视觉状态 + 标定"] --> S1
   subgraph S1["Step 1 · 图像侧运动测量"]
-    S1a["RAFT-Large 前后向光流"] --> S1b["地面几何 + 动态抑制"]
-    S1b --> S1c["候选盲解码 + 可观测性"]
-    S1c --> S1d["横向 · yaw · 曲率 · 相对形状"]
+    S1a["RAFT-Large 前后向光流"] --> S1b["道路区域空间均衡取证"]
+    S1b --> S1c["连续地平面 SE(2) 拟合"]
+    S1c --> S1d["投影支持 · explained 门 · yaw 响应"]
   end
   S1d --> S2
   subgraph S2["Step 2 · CCFC"]
@@ -53,21 +53,45 @@ flowchart LR
 
 ### Step 1：图像侧运动测量
 
-冻结坐标约定为：解码图像 `448×256`，RAFT 推理 `512×288`，光流再映射回
-解码坐标。默认配置为 [`configs/plane.json`](configs/plane.json)：
+恢复后的 Step 1.2 坐标约定为：评测图像 `448×256`，内参显式声明来自
+`1920×1080`，RAFT 推理 `512×288` 后把光流和内参统一映射回评测坐标。冻结配置为
+[`configs/plane.json`](configs/plane.json)：
 
 ```text
 未来 RGB（或固定且有 checksum 的 latent decoder）
   → RAFT-Large 前后向光流
-  → 一致性与动态掩码
-  → 标定地面平面自车几何
-  → 候选盲连续解码器
-  → 可观测性 / abstention
-  → 横向运动、yaw rate、曲率和相对弧长形状
+  → 前后向一致性 + 道路中远场空间分层取点
+  → candidate-blind 连续 SE(2) 拟合
+  → 输出投影支持 + 相对零流改善
+  → explained / weak / abstain
+  → primary yaw 方向与成对序响应
 ```
 
-由于单目米制尺度误差尚未达到冻结误差预算，米制前向距离、绝对速度和加速度在
-本版本只作诊断。停车样本由独立停车层报告，不进入运动样本平均值。
+`measurement_available` 要求四个未来 interval 均有足够的输出投影支持；
+`explained` 还要求拟合能量比零流基线至少改善 `0.05`。单分支只有 `explained`
+才能计分，CCFC 还要求左右两支都 `explained`。lateral、curvature、纵向距离和速度
+继续输出，但只作 diagnostic。沿每条样本的 `lineage.source_sample` 读取 NAVSIM
+pickle，并核对 `future_trajectory` 与 `realized_future_ego_state` 后，真实 RGB 的
+logged-GT 审计得到 yaw 末点读出比例中位数 `0.916`；lateral/longitudinal 为
+`0.480/0.565` 且离散度过大。117 条 material-yaw 样本中方向命中
+`116/117 = 99.1%`、Spearman `0.918`；其中包含 91 条 lateral-turn。该结果验证
+真实图像域的 yaw 尺子，不代表生成反事实与现实 GT 相同。
+
+旧 DriveWAM manifest 曾把 `gt_candidate_id` 错指向 `wam_action_head`。Step 1.2
+现在拒绝这种记录；生成分支不设置 GT 指针，只有带显式可信来源的私有 realized
+轨迹才能声明为 GT。配置中的顶层内参尺寸也不能替代逐样本
+`intrinsics_source_size`。
+
+DriveWAM 的 255 对修正运行中，单分支四时刻投影覆盖为 `452/510 = 88.6%`，
+单分支 explained 为 `386/510 = 75.7%`；成对口径为四时刻都可投影
+`207/255 = 81.2%`、两支都 explained `175/255 = 68.6%`。动作 yaw 差至少
+`0.01 rad` 的 103 对中，方向命中 `90/103 = 87.4% [79.6%, 92.5%]`，
+Spearman 为 `0.786 [0.656, 0.886]`。
+
+升级判据保持预注册值：pair coverage 至少 90%、方向准确率 CI 下界至少 0.75，
+并在同一协议上分离至少两个 WAM。当前准确率通过，但覆盖率和跨模型条件未通过，
+所以 Step 1.2 是冻结 pilot，不是已验证 primary benchmark。Step 1-S 流场结构法保留为
+独立诊断交叉检查；SEA-RAFT A/B 已否决。
 
 ### Step 2：CFAC 与 CCFC
 
@@ -76,9 +100,9 @@ flowchart LR
 变化：
 
 ```text
-ΔP_F = P_F(分支 1) − P_F(分支 0)
+ΔS_F = S_F(分支 1) − S_F(分支 0)
 ΔP_A = P_A(分支 1) − P_A(分支 0)
-CCFC = consistency(ΔP_F, ΔP_A)
+CCFC-S = ordinal_consistency(ΔS_F, ΔP_A)
 ```
 
 任何可审计干预均可使用，如 left/right、slow/fast、command 变化或 latent swap；
@@ -116,8 +140,9 @@ rollout 不读取 WAM 生成图像，WAM waypoint 也不能冒充实际状态。
 
 ## DriveWAM 参考运行
 
-首个完整 pilot 使用 DriveWAM 及其原生 LingBot-VA base。以下是协议示例，不是
-oracle，也不要求每个 WAM 都支持所有列：
+首个完整 pilot 使用 DriveWAM 及其原生 LingBot-VA base。以下仅保留作历史来源，
+不是有效榜单分数：该批生成图像已经预缩放，但旧运行没有显式记录内参标定尺寸，
+因此不能与修正后的 Step 1-S 比较。
 
 | 指标 | 分数 | 有效性 |
 |---|---:|---|
@@ -130,6 +155,8 @@ oracle，也不要求每个 WAM 都支持所有列：
 
 聚合结果来源和私有产物合同见
 [`docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md)；
+Step 1.2 与 GitHub 旧版的逐项差异见
+[`docs/STEP1_SE2_YAW_V1_2_ZH.md`](docs/STEP1_SE2_YAW_V1_2_ZH.md)。
 逐样本结果文件不属于公开发布包。
 
 ## 仓库结构
@@ -176,8 +203,10 @@ python scripts/score_iac_submission.py \
   --output <scorecard.json>
 ```
 
-Step 1 的服务器命令使用私有 join manifest 和 `configs/plane.json`；公开 manifest
-本身无法访问图像或 GT。能力状态为 `pass`、`pilot`、`unavailable`、`missing` 或
+Step 1 的服务器主命令使用私有 join manifest、`scripts/evaluate_continuous_decoder.py`
+和 `configs/plane.json`，成对汇总使用 `scripts/evaluate_counterfactual_alignment.py`；
+Step 1-S 只保留作诊断。公开 manifest 本身无法
+访问图像或 GT。能力状态为 `pass`、`pilot`、`unavailable`、`missing` 或
 `ineligible`，不把缺失能力填为 0。
 
 ## 许可证、引用与数据

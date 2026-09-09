@@ -25,11 +25,11 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
 
 ## Contributions
 
-1. **Candidate-blind continuous ruler.** A frozen RAFT-Large plus calibrated
-   ground-plane geometry recovers lateral motion, heading rate, curvature and
-   normalized relative path shape from future images without reading the WAM's
-   candidate trajectories. Forward/backward consistency, dynamic suppression,
-   observability and abstention are part of the measurement contract.
+1. **Candidate-blind motion measurement.** Frozen RAFT-Large flow is fitted by
+   a continuous ground-plane SE(2) decoder without reading candidate
+   trajectories. Explicit calibration size, output projection support, and
+   honest fit states are part of the contract. Only yaw direction/rank currently
+   enters the primary score.
 2. **Capability-stratified metrics.** CFAC, CCFC, FAU and FCS are reported as
    separate evidence columns with per-column coverage. Unsupported capabilities
    are `unavailable`, not zero-filled.
@@ -47,9 +47,9 @@ audited flow component.
 flowchart LR
   I["History + WAM future visual state + calibration"] --> S1
   subgraph S1["Step 1 · Visual motion measurement"]
-    S1a["RAFT-Large F/B flow"] --> S1b["Ground-plane geometry + dynamic suppression"]
-    S1b --> S1c["Candidate-blind decoder + observability"]
-    S1c --> S1d["lateral · yaw · curvature · relative shape"]
+    S1a["RAFT-Large F/B flow"] --> S1b["Spatially balanced road evidence"]
+    S1b --> S1c["continuous ground-plane SE(2) fit"]
+    S1c --> S1d["projection support · explained gate · yaw response"]
   end
   S1d --> S2
   subgraph S2["Step 2 · CCFC"]
@@ -63,25 +63,48 @@ flowchart LR
 
 ### Step 1: visual motion measurement
 
-The frozen coordinate contract is decoder images at `448×256`, with RAFT
-inference at `512×288` and flow mapped back to decoder coordinates. The default
-configuration is [`configs/plane.json`](configs/plane.json). The formal motion
-fields are:
+The restored Step 1.2 contract uses evaluator images at `448×256`, explicitly
+declares that calibration comes from `1920×1080`, runs RAFT at `512×288`, and
+maps flow and intrinsics into evaluator coordinates. Its frozen configuration is
+[`configs/plane.json`](configs/plane.json):
 
 ```text
 future RGB (or a fixed, checksummed latent decoder)
   → RAFT-Large forward/backward flow
-  → consistency and dynamic masks
-  → calibrated ground-plane ego geometry
-  → candidate-blind continuous decoder
-  → observability / abstention
-  → lateral motion, yaw rate, curvature and relative arc shape
+  → consistency mask + spatially stratified road sampling
+  → candidate-blind continuous SE(2) fit
+  → output projection support + improvement over zero flow
+  → explained / weak / abstain
+  → primary yaw direction and paired ordinal response
 ```
 
-Metric forward distance, absolute speed and acceleration are diagnostic only in
-this release because their monocular scale error exceeds the frozen error
-budget. Stop samples are reported by the stop layer and excluded from moving
-motion averages.
+`measurement_available` requires output projection support at all four future
+intervals. `explained` additionally requires at least `0.05` energy improvement
+over the zero-flow baseline. A branch is scored only when it is `explained`; a
+CCFC pair requires both branches to be `explained`. Lateral, curvature, distance,
+and speed remain diagnostics because their held-out amplitude audits failed.
+
+The real-frame calibration audit resolves logged GT from each sample's source
+pickle and verifies that `future_trajectory` matches the recorded realized ego
+state. On material endpoints, median readout ratios are `0.916` for yaw, `0.480`
+for lateral displacement, and `0.565` for longitudinal displacement. Yaw has
+`116/117 = 99.1%` direction accuracy and `0.918` Spearman, including 91
+lateral-turn samples. Generated branches never label the WAM action head as GT;
+the protocol rejects that identity and accepts a GT pointer only with an
+explicit trusted realized-trajectory source.
+
+On 255 corrected DriveWAM pairs, single-branch all-interval projection coverage
+is `452/510 = 88.6%` and explained coverage is `386/510 = 75.7%`. Pair coverage
+is `207/255 = 81.2%` for projection and `175/255 = 68.6%` for both branches
+explained. Among 103 pairs with at least `0.01 rad` native-action yaw separation,
+direction accuracy is `90/103 = 87.4% [79.6%, 92.5%]`; Spearman is
+`0.786 [0.656, 0.886]`.
+
+Promotion still requires 90% pair coverage, a direction-accuracy CI lower bound
+of 0.75, and separation of at least two WAMs. Accuracy passes, but coverage and
+cross-model validation do not, so Step 1.2 is a frozen pilot rather than a
+validated primary benchmark. Step 1-S remains an independent diagnostic
+cross-check; the SEA-RAFT A/B is rejected.
 
 ### Step 2: CFAC and CCFC
 
@@ -90,9 +113,9 @@ profile `P_A`. **CCFC** compares the changes produced by two reproducible
 forwards with the same history, seed and nuisance variables:
 
 ```text
-ΔP_F = P_F(branch 1) − P_F(branch 0)
+ΔS_F = S_F(branch 1) − S_F(branch 0)
 ΔP_A = P_A(branch 1) − P_A(branch 0)
-CCFC = consistency(ΔP_F, ΔP_A)
+CCFC-S = ordinal_consistency(ΔS_F, ΔP_A)
 ```
 
 Any auditable intervention is allowed (for example left/right, slow/fast,
@@ -130,11 +153,15 @@ The frozen main split is [`datasets/benchmark_public.jsonl`](datasets/benchmark_
 Selection and leakage audits are in
 [`docs/BENCHMARK_PROTOCOL_AUDIT_ZH.md`](docs/BENCHMARK_PROTOCOL_AUDIT_ZH.md).
 
-## Reference DriveWAM run
+## Reference DriveWAM run (historical pre-fix artifact)
 
 The first complete pilot used DriveWAM with the native LingBot-VA base. These
-values are an example of the protocol, not an oracle or a claim that every WAM
-must expose every column:
+values are the original pre-projection-gate artifact. They are retained for
+provenance only, not as valid benchmark scores or an oracle. The generated
+clips in this historical run were pre-resized while carrying calibration for
+the original image size; runs made before the explicit
+`intrinsics_source_size` contract must not be compared with corrected Step 1-S
+results:
 
 | Column | Score | Validity |
 |---|---:|---|
@@ -195,9 +222,11 @@ python scripts/score_iac_submission.py \
   --output <scorecard.json>
 ```
 
-The server-only Step 1 command consumes a private joined manifest and runs
-`scripts/evaluate_continuous_decoder.py` with `configs/plane.json`; the public
-manifest alone cannot access images or GT. Capability status is one of
+The server-only primary Step 1 command consumes a private joined manifest and
+runs `scripts/evaluate_continuous_decoder.py` with `configs/plane.json`; paired
+aggregation uses `scripts/evaluate_counterfactual_alignment.py`. Step 1-S remains
+diagnostic-only. The public manifest alone cannot
+access images or GT. Capability status is one of
 `pass`, `pilot`, `unavailable`, `missing` or `ineligible`.
 
 ## License, citation and data
