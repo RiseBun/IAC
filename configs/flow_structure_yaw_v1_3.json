@@ -3,7 +3,7 @@
   "image": {"width": 448, "height": 256},
   "intrinsics_source_size": [1920, 1080],
   "protocol_role": "selected_step1",
-  "selection_status": "frozen_pending_cross_model_separation",
+  "selection_status": "frozen_cross_model_tested_not_separated",
   "calibration_contract": {
     "require_explicit_intrinsics_source_size": true,
     "expected_intrinsics_source_size": [1920, 1080]
@@ -53,7 +53,7 @@
     "diagnostic_descriptors": ["foe_x", "curl", "divergence"]
   },
   "promotion_criteria": {
-    "status": "pending_same_distribution_two_model_separation",
+    "status": "cross_model_tested_not_separated",
     "coverage_min": 0.9,
     "direction_accuracy_ci95_lower_min": 0.75,
     "minimum_distinguishable_models": 2,

@@ -39,11 +39,11 @@ class SelectedFlowStructureConfigTest(unittest.TestCase):
         self.assertEqual(selected["protocol_role"], "selected_step1")
         self.assertEqual(
             selected["selection_status"],
-            "frozen_pending_cross_model_separation",
+            "frozen_cross_model_tested_not_separated",
         )
         self.assertEqual(
             selected["promotion_criteria"]["status"],
-            "pending_same_distribution_two_model_separation",
+            "cross_model_tested_not_separated",
         )
         self.assertEqual(
             selected["promotion_criteria"]["minimum_distinguishable_models"], 2

@@ -113,12 +113,15 @@ pair coverage, `126/149 = 84.6% [77.9%, 89.5%]` direction accuracy and `0.779`
 Spearman. S1.3 is therefore the sole selected Step 1 execution path; Step 1.2
 and 1.3-G are retained only as metric diagnostics and are not cascaded or fused
 into its score. The frozen entry point is
-`configs/flow_structure_yaw_v1_3.json`. It still lacks the same-source,
-same-intervention two-model separation required for universal-primary promotion.
+`configs/flow_structure_yaw_v1_3.json`.
 
 Promotion still requires 90% pair coverage, a direction-accuracy CI lower bound
 of 0.75, and separation of at least two WAMs. S1.3 passes the first two gates
-but not the cross-model separation gate. It is operationally selected and
+but not the cross-model separation gate. A strict 174-source DriveWAM/Epona
+comparison reused the exact DriveWAM action trajectories in Epona. Direction
+accuracy was `85.7%` versus `92.4%` (paired difference CI `[0.0, 13.3]` points)
+and Spearman was `0.805` versus `0.739` (difference CI `[-0.183, 0.040]`), so
+neither quality difference excludes zero. S1.3 is operationally selected and
 frozen, but is not yet a universally validated primary benchmark. The
 off-the-shelf SEA-RAFT A/B is rejected.
 

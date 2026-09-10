@@ -244,10 +244,25 @@ Epona common-random probe 扩为同一日志中的 40 个不重叠窗口后，�
 不能计算排序。scorer 已改为把这种 nominally constant reference 的 Spearman
 标为 unavailable，而不是报告伪相关。
 
-这轮通过了“覆盖 >=90%”和“方向 CI 下界 >=0.75”，并证明同一候选无关测量可在
-第二个 WAM 上工作；仍未通过“两模型可分离”，因为 Epona 只有单日志、固定干预
-幅度，与 DriveWAM 不是同一 source / intervention distribution。S1.3 已被选为
-当前唯一 Step 1，但其通用评测资格仍是待验证状态。冻结执行配置为
+随后完成了严格匹配对照。255 个 DriveWAM source 中，174 个在同一 scene 内保留
+Epona 原生所需的 10 帧历史；该子集包含 75 个 lateral-turn、39 个 braking、
+37 个 acceleration、19 个 straight-cruise 和 4 个 stop。Epona 不再使用自造的
+固定左右扰动，而是逐 source 接收 DriveWAM 左右分支实际使用的同一组 8 点 SE(2)
+动作轨迹，并在每对内共享随机数。
+
+| 冻结 S1.3，同一 174 source | DriveWAM | Epona |
+|---|---:|---:|
+| pair coverage | 174/174 = 100% | 170/174 = 97.7% |
+| 共同 material pair 方向准确率 | 90/105 = 85.7% | 97/105 = 92.4% |
+| 共同 scored pair Spearman | 0.805 | 0.739 |
+
+Epona 减 DriveWAM 的配对方向准确率差为 `+0.067 [0.000, 0.133]`，Spearman 差为
+`-0.066 [-0.183, 0.040]`，均未排除零。结论因此分成两层：S1.3 已通过跨模型
+可迁移性检查，但没有证明能区分这两个 WAM 的几何质量。`100%` 与 `97.7%` 的
+coverage 差只表示 Epona 多弃权 4 对，不能替代质量分离。由于质量差异检验是在
+看过单模型结果后补充，本轮报告为 post-hoc 证据，不用于 promotion。
+
+S1.3 已被选为当前唯一 Step 1，但通用 primary 升级门仍未通过。冻结执行配置为
 `configs/flow_structure_yaw_v1_3.json`；原 pilot 配置仅作来源留档，真实域阈值记录为
 `configs/raft_refinement_uncertainty_real_navsim_v1.json`。
 
