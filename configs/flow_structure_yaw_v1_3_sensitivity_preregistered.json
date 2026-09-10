@@ -1,0 +1,35 @@
+{
+  "protocol": "iac-flow-structure-yaw-v1.3-controlled-sensitivity-v1",
+  "status": "preregistered_before_controlled_degradation_run",
+  "base_protocol": "configs/flow_structure_yaw_v1_3.json",
+  "base_protocol_sha256": "62740ccafd3fae497efbffd37cd7d19d6f5ffaa0442bc83a7bba7f1324bf7f94",
+  "models": ["drivewam_navsim", "epona_nuplan"],
+  "source_contract": {
+    "selection": "intersection of the matched DriveWAM/Epona source_key set",
+    "expected_source_count": 174,
+    "action_contract": "identical eight-point DriveWAM action trajectories injected into both WAMs",
+    "randomness_contract": "unchanged from the archived matched runs"
+  },
+  "degradation": {
+    "name": "counterfactual_pixel_contrast_attenuation",
+    "strengths": [0.0, 0.5, 1.0],
+    "left_formula": "(1-strength/2)*left + (strength/2)*right",
+    "right_formula": "(strength/2)*left + (1-strength/2)*right",
+    "scope": "future RGB frames only; history, actions, timestamps and calibration remain fixed"
+  },
+  "frozen_measurement": {
+    "descriptor": "horizontal_flow_center",
+    "minimum_common_intervals": 2,
+    "minimum_action_delta_rad": 0.01,
+    "all_other_parameters": "inherited unchanged from base_protocol"
+  },
+  "acceptance_criteria": {
+    "coverage_at_every_strength_min": 0.9,
+    "median_absolute_response_strictly_decreases": true,
+    "full_attenuation_response_ratio_max": 0.1,
+    "full_attenuation_spearman": "unavailable_or_absolute_value_le_0.1",
+    "full_attenuation_pixel_identity": "left and right future frames must be byte-identical",
+    "pass_scope": "all criteria must pass independently for both models"
+  },
+  "interpretation_boundary": "This validates sensitivity to a known loss of counterfactual visual contrast; it does not establish logged-GT fidelity or rank two naturally generated WAMs."
+}
