@@ -82,6 +82,38 @@ class FlowStructureScoringTest(unittest.TestCase):
         self.assertIsNone(report["action_response_spearman"])
         self.assertIsNone(report["action_response_spearman_ci95"])
 
+    def test_path_length_reference_uses_travel_not_endpoint_axis(self) -> None:
+        measurements = []
+        manifests = []
+        for index, distance in enumerate((2.0, 3.0, 4.0)):
+            source = f"progress-{index}"
+            measurements.extend([
+                _measurement(source, "left", [distance, distance]),
+                _measurement(source, "right", [0.0, 0.0]),
+            ])
+            manifests.extend([
+                {
+                    "source_key": source,
+                    "branch_role": "left",
+                    "action_trajectory": [[distance, 0.0, 0.0]],
+                },
+                {
+                    "source_key": source,
+                    "branch_role": "right",
+                    "action_trajectory": [[1.0, 0.0, 0.0]],
+                },
+            ])
+        report = score_flow_structure_pairs(
+            measurements,
+            manifests,
+            action_reference="trajectory_path_length",
+            minimum_action_delta=0.5,
+            minimum_common_intervals=2,
+        )
+        self.assertEqual(report["action_reference"], "trajectory_path_length")
+        self.assertEqual(report["action_direction_accuracy"], 1.0)
+        self.assertEqual(report["action_response_spearman"], 1.0)
+
 
 if __name__ == "__main__":
     unittest.main()

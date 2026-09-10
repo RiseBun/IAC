@@ -37,6 +37,7 @@ def main() -> None:
         descriptor=str(score["primary_descriptor"]),
         orientation=int(score["orientation"]),
         action_column=int(score["action_column"]),
+        action_reference=str(score.get("action_reference", "endpoint_column")),
         minimum_common_intervals=int(score["minimum_common_intervals"]),
         minimum_action_delta=float(score["minimum_action_delta"]),
         bootstrap_draws=int(score.get("bootstrap_draws", 2000)),

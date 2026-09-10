@@ -82,6 +82,16 @@ def _descriptor_values(record: dict[str, Any], descriptor: str) -> dict[int, flo
     return result
 
 
+def _trajectory_path_length(trajectory: np.ndarray) -> float:
+    value = np.asarray(trajectory, dtype=np.float64)
+    if value.ndim != 2 or value.shape[1] < 2 or not len(value):
+        raise ValueError("action trajectory must have shape [T,>=2]")
+    if not np.all(np.isfinite(value[:, :2])):
+        raise ValueError("action trajectory positions must be finite")
+    positions = np.vstack([np.zeros((1, 2), dtype=np.float64), value[:, :2]])
+    return float(np.linalg.norm(np.diff(positions, axis=0), axis=1).sum())
+
+
 def score_flow_structure_pairs(
     measurements: list[dict[str, Any]],
     manifests: list[dict[str, Any]],
@@ -89,6 +99,7 @@ def score_flow_structure_pairs(
     descriptor: str = "horizontal_flow_center",
     orientation: int = 1,
     action_column: int = 1,
+    action_reference: str = "endpoint_column",
     minimum_common_intervals: int = 2,
     minimum_action_delta: float = 0.05,
     bootstrap_draws: int = 2000,
@@ -99,6 +110,8 @@ def score_flow_structure_pairs(
         raise ValueError("orientation must be -1 or 1")
     if action_column not in (0, 1, 2):
         raise ValueError("action_column must be 0, 1 or 2")
+    if action_reference not in {"endpoint_column", "trajectory_path_length"}:
+        raise ValueError("action_reference must be endpoint_column or trajectory_path_length")
     measured = {
         (str(row.get("source_key") or ""), str(row.get("branch_role") or "")): row
         for row in measurements
@@ -137,7 +150,10 @@ def score_flow_structure_pairs(
         flow_delta = float(np.median([
             left_values[index] - right_values[index] for index in common
         ]))
-        action_delta = float(left_action[-1, action_column] - right_action[-1, action_column])
+        if action_reference == "trajectory_path_length":
+            action_delta = _trajectory_path_length(left_action) - _trajectory_path_length(right_action)
+        else:
+            action_delta = float(left_action[-1, action_column] - right_action[-1, action_column])
         row.update({
             "status": "scored",
             "flow_structure_delta": float(orientation * flow_delta),
@@ -164,6 +180,7 @@ def score_flow_structure_pairs(
         "descriptor": descriptor,
         "orientation": orientation,
         "action_column": action_column,
+        "action_reference": action_reference,
         "minimum_common_intervals": int(minimum_common_intervals),
         "minimum_action_delta": float(minimum_action_delta),
         "bootstrap_draws": int(bootstrap_draws),

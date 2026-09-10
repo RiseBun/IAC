@@ -1,0 +1,88 @@
+{
+  "protocol": "iac-flow-structure-progress-v1.4-exploratory-audit-v1",
+  "status": "rejected_as_primary",
+  "decision": {
+    "selected_step1": "configs/flow_structure_yaw_v1_3.json",
+    "progress_channel": "diagnostic_only",
+    "reason": "No tested RAFT reliability rule jointly met the preregistered coverage and direction-accuracy gates on logged real motion."
+  },
+  "acceptance_criteria": {
+    "coverage_min": 0.9,
+    "direction_accuracy_ci95_lower_min": 0.75,
+    "minimum_validated_models": 2
+  },
+  "logged_real_calibration": {
+    "sample_count": 255,
+    "comparison": "within-source ordering of one-second logged path-length increments",
+    "minimum_increment_difference_m": 0.5,
+    "high_coverage_no_fb": {
+      "fully_available_samples": 246,
+      "available_intervals": 993,
+      "total_intervals": 1020,
+      "divergence_direction_accuracy": 0.655,
+      "result": "accuracy_failed"
+    },
+    "hard_forward_backward": {
+      "samples_with_at_least_two_available_intervals": 206,
+      "coverage": 0.807843137254902,
+      "divergence_direction_accuracy": 0.776595744680851,
+      "source_bootstrap_ci95": [0.7087905007363771, 0.8367924498569141],
+      "result": "coverage_and_ci_lower_bound_failed"
+    },
+    "soft_forward_backward": {
+      "fully_available_samples": 240,
+      "available_intervals": 987,
+      "total_intervals": 1020,
+      "divergence_direction_accuracy": 0.605,
+      "result": "accuracy_failed"
+    }
+  },
+  "sea_raft_logged_real_calibration": {
+    "samples_with_at_least_two_available_intervals": 172,
+    "coverage": 0.6745098039215687,
+    "divergence_direction_accuracy": 0.856,
+    "result": "coverage_failed",
+    "interpretation": "A stronger flow backbone improves ordering accuracy but does not solve the accuracy-coverage tradeoff."
+  },
+  "cross_model_geometric_positive_control": {
+    "intervention": "candidate-independent progressive radial image expansion on low-yaw clips",
+    "drivewam_navsim": {
+      "pair_count": 82,
+      "coverage": 1.0,
+      "vertical_flow_direction_accuracy": 0.9512195121951219,
+      "vertical_flow_direction_ci95": [0.8811853807742406, 0.9808689344322542]
+    },
+    "epona_nuplan": {
+      "pair_count": 82,
+      "scored_pair_count": 78,
+      "coverage": 0.9512195121951219,
+      "vertical_flow_direction_accuracy": 0.9102564102564102,
+      "vertical_flow_direction_ci95": [0.8261527543939476, 0.9558469914832263]
+    },
+    "interpretation": "The flow descriptors detect an idealized expansion, but this does not establish accuracy on real or WAM-generated progress."
+  },
+  "orthogonal_epona_action_probe": {
+    "pair_count": 40,
+    "scored_pair_count": 38,
+    "intervention": "1.25x versus 0.75x XY path length with identical yaw and common random numbers",
+    "best_exploratory_descriptor": "median_flow_magnitude_px",
+    "direction_hits": 30,
+    "direction_accuracy": 0.7894736842105263,
+    "direction_ci95": [0.636797889072803, 0.8893328261919154],
+    "result": "ci_lower_bound_failed"
+  },
+  "interpretation_boundary": {
+    "established": "Ideal radial expansion is measurable, and Epona has a weak ordinal response to orthogonal progress interventions.",
+    "not_established": "A high-coverage, model-agnostic progress primary metric.",
+    "next_required_information": [
+      "depth-aware or multi-camera motion separation",
+      "or a generated-domain flow estimator calibrated on known motion interventions"
+    ]
+  },
+  "private_artifacts": [
+    "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_4_progress_epona_exploratory_20260911",
+    "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_4_radial_progress_control_20260911",
+    "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_4_progress_real_calibration_20260911",
+    "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/flow_structure_v1_20260910"
+  ]
+}
