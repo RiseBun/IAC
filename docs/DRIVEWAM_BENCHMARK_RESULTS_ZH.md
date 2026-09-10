@@ -9,17 +9,38 @@
 
 ## 当前冻结结论（2026-09-10）
 
+> **时间契约勘误（2026-09-10）：旧 DriveWAM 生成端结果撤回。**
+> 输入构建器曾把 `4 history + 8 future` 共 12 帧直接交给官方
+> `NavSimEpisodeDataset`；官方读取器却把下标 0 当作当前帧，并选择
+> `[0,2,4,6,8]`。因此旧运行实际条件帧约为
+> `[-1.5,-0.5,+0.5,+1.5,+2.5]s`，而动作和输出标签以 `t=0` 为锚点。
+> 依赖旧生成帧的 coverage、方向准确率、Spearman、能量和几何保真度数字均无效。
+> 只有下文明确标为 `temporal-fixed` 的重跑结果可以继续使用。真实帧的 logged-GT
+> 审计和 Epona common-random 结果不经过该输入链，仍然有效。
+
 Step 1 已恢复为修正后的连续 SE(2) 后端，primary 只保留 yaw 的方向与排序；
 Step 1-S 降为独立诊断。它不是 GitHub 旧版的原样回滚：内参尺寸、固定证据分母、
 输出投影支持、诚实拟合状态和 pair 双方 `explained` 门都已加入。完整差异、最新
 覆盖率、准确率及 reference lineage 边界见
 [`STEP1_SE2_YAW_V1_2_ZH.md`](STEP1_SE2_YAW_V1_2_ZH.md)。
 
-冻结运行的正式 pair coverage 为 `175/255 = 68.6%`；103 个 material yaw pair
-上的方向准确率为 `90/103 = 87.4% [79.6%, 92.5%]`，Spearman 为
-`0.786 [0.656, 0.886]`。准确率门已通过，但 90% coverage 门和两模型分离门未
-通过，所以当前状态仍为 `frozen_pilot`。以下各节保留实验演进和被撤回结论，不能
-覆盖本节的冻结决策。
+`temporal-fixed` 重跑中，SE(2) Step 1.2 的正式 pair coverage 为
+`171/255 = 67.1%`；106 个 material yaw pair 上方向准确率为
+`87/106 = 82.1% [73.7%, 88.2%]`，Spearman 为
+`0.832 [0.731, 0.902]`。排序仍强，但 coverage 未达 90%，方向 CI 下界也略低于
+预注册的 0.75。S1.3 流场结构 pilot 为 `254/255 = 99.6%` coverage、
+`126/149 = 84.6% [77.9%, 89.5%]` 方向准确率、Spearman
+`0.779 [0.706, 0.841]`；它通过了单模型的 coverage 与方向门，但尚未通过同分布
+两模型分离门，因此仍不能升级 primary。旧的 `175/255`、`90/103`、`0.786`
+以及 S1.3 的 `255/255`、`116/135`、`0.713` 只保留为已撤回历史值。
+
+固定粗网格初始化 G 是当前 SE(2) 的 Step 1.3 候选。它不改输入证据或质量门，
+把生成端 pair coverage 提到 `205/255 = 80.4%`，yaw 方向准确率保持为
+`95/116 = 81.9% [73.9%, 87.8%]`，Spearman 提到
+`0.925 [0.861, 0.960]`。真实帧 `explained` 同时由 217/255 提到
+231/255，yaw 读出比例中位数由 0.916 提到 0.939、Spearman 由 0.918 提到
+0.992。它证明坏起点是 SE(2) 覆盖损失的一部分，但仍未使严格成对覆盖达到 90%，
+所以保持 `experimental_ablation`，不静默改写 Step 1.2。
 
 Step 1 的输出现在明确分成三层：`measurement_available` 表示四个未来区间
 都有足够的视内投影支持；`motion_explanation_status` 表示自由刚体地面轨迹是否
@@ -142,6 +163,112 @@ action-response Spearman 从 `0.586` 变为 `0.594`，方向准确率从 `69.4%`
 `50.2%` 降至 `35.3%`。因此现成 SEA-RAFT 不改善本任务，冻结后端仍为
 RAFT-Large；后续若训练生成域光流，必须直接优化覆盖和方向/排序，而不是只替换
 预训练权重。
+
+### 跨 WAM Adapter 与 Epona common-random smoke
+
+不同 WAM 的尺寸、裁剪、时间步和动作坐标由显式 Adapter 归一化，冻结的 Step 1
+与评分门不随模型变化。Adapter 只能执行有 lineage 的候选无关变换；逐帧实际尺寸、
+标定源尺寸或 canonical 射线不一致时直接失败，不能用模型专属阈值换取覆盖。
+
+Epona 旧 5 组 probe 有两项生产问题，不能作为跨模型证据：原始 NAVSIM 时间戳间隔
+约 `0.500 s`，旧 manifest 却写成 `0.2 s`；此外 `generate_gt_pose_gt_yaw`
+内部逐帧采样 `torch.randn`，旧脚本没有在 left/right 间重置随机种子。因此旧 pair
+同时改变了动作和扩散噪声。
+
+修正后重新生成 5 组 common-random pair：每组使用完整 8 步源控制，left/right
+共享全部自回归扩散随机数；Epona 的 `1920x1080 -> 1024x512` 直接 resize 与
+右正 lateral 坐标均由 Adapter 显式转换。冻结 RAFT-Large + FB 门的结果为：
+
+| 时间口径 | 可用 interval | 可评分 pair |
+|---|---:|---:|
+| 统一 1/2/3/4 s | 6/40 = 15.0% | 0/5 = 0% |
+| 原生 0.5 s、前 4 s | 25/80 = 31.25% | 1/5 = 20% |
+
+关闭 FB 仅作诊断时，统一 1 Hz 口径覆盖 `5/5`，且横向方向为 `5/5`，Wilson 95% CI
+`[0.566, 1.000]`；action-response Spearman 为 `0.800 [0.111, 1.000]`。该对照说明
+Epona 视频中存在命令方向信号，但现有生成域光流可靠性判据无法把它认证为稳定测量。
+所以“至少两个 WAM”升级门仍未通过：当前结果定位的是评测器跨生成域覆盖缺陷，
+不是 Epona 几何保真度的正式分数。
+
+产物位于 `benchmark_v3_runs/epona_common_random_20260910/`。生成入口为
+`scripts/run_epona_common_random_probe.py`，清单 Adapter 为
+`tools/build_epona_flow_structure_manifest.py`。
+
+### Step 1-S1.3：生成域覆盖与 yaw 语义对齐
+
+旧 Step 1-S 的主要覆盖损失来自把真实视频上常用的 hard FB 一致性门直接搬到
+生成视频。新 pilot 关闭 hard FB，但不把所有流无条件视为可靠：RAFT 最后 8 次
+迭代的向量 RMS 以 `1 + flow magnitude` 归一化，只在真实 NAVSIM 视频上冻结
+interval 阈值。按 source hash 切分后，真实帧留出集在 493 个可用 interval 上
+yaw 方向准确率为 `274/296 = 92.6% [89.0%, 95.0%]`，Spearman 为 `0.973`。
+
+第二个协议错配也同时修正：`horizontal_flow_center` 是 yaw-response 描述子，
+旧配置却用它对齐 action trajectory 的 lateral-y 列，且沿用了米制
+`minimum_action_delta=0.05`。S1.3 改为 action yaw 列，并沿用 Step 1.2 已冻结
+的 material yaw 门 `0.01 rad`。这不是提高分数的字段切换，而是把测量量、参考量
+和阈值单位恢复为同一物理语义。
+
+同一 255 个 DriveWAM pair 的 `temporal-fixed` 重跑结果：
+
+| 量 | 时间错位旧运行（撤回） | S1.3 temporal-fixed |
+|---|---:|---:|
+| 可评分 pair | 255/255 = 100% | 254/255 = 99.6% |
+| 可用 interval | 2022/2040 = 99.1% | 2025/2040 = 99.3% |
+| action-response Spearman | 0.713 [0.626, 0.791] | 0.779 [0.706, 0.841] |
+| material 方向准确率 | 116/135 = 85.9% | 126/149 = 84.6% [77.9%, 89.5%] |
+
+相对同一次 temporal-fixed 视频上的 SE(2) Step 1.2，S1.3 把 pair coverage 从
+`171/255 = 67.1%` 提到 `254/255 = 99.6%`，material yaw pair 从 106 提到
+149；方向准确率相近（`82.1%` -> `84.6%`），Spearman 从 `0.832` 降到
+`0.779`。因此它解决的是覆盖，不是让每个已覆盖样本更准；在跨模型分离门完成
+以前不能替换冻结 Step 1.2。
+
+覆盖率不再是当前绑定约束，但小 yaw 干预仍有清晰分辨率下限：
+
+| `|Delta yaw_action|` 门 | material pair | 方向准确率 |
+|---:|---:|---:|
+| >= 0.005 rad | 223 | 170/223 = 76.2% [70.2%, 81.3%] |
+| >= 0.010 rad | 149 | 126/149 = 84.6% [77.9%, 89.5%] |
+| >= 0.020 rad | 105 | 101/105 = 96.2% [90.6%, 98.5%] |
+| >= 0.050 rad | 86 | 86/86 = 100% [95.7%, 100%] |
+
+因此必须并列报告两种 coverage：计算 coverage 为 99.6%；在冻结 0.01 rad
+分辨率之上的有效干预 coverage 为 `149/255 = 58.4%`。前者不能替代后者。
+
+Epona common-random probe 扩为同一日志中的 40 个不重叠窗口后，冻结门保留
+`318/320 = 99.4%` interval，`40/40` pair 可评分，yaw 方向为
+`38/40 = 95.0% [83.5%, 98.6%]`。但 Epona 当前每个 pair 使用同样大小的
+干预，action delta 的数值跨度只有约 `1.5e-8 rad`；这只是 float32 积分噪声，
+不能计算排序。scorer 已改为把这种 nominally constant reference 的 Spearman
+标为 unavailable，而不是报告伪相关。
+
+这轮通过了“覆盖 >=90%”和“方向 CI 下界 >=0.75”，并证明同一候选无关测量可在
+第二个 WAM 上工作；仍未通过“两模型可分离”，因为 Epona 只有单日志、固定干预
+幅度，与 DriveWAM 不是同一 source / intervention distribution。状态继续保持
+`diagnostic_pilot`。冻结配置为
+`configs/flow_structure_yaw_v1_3_pilot.json`，真实域阈值记录为
+`configs/raft_refinement_uncertainty_real_navsim_v1.json`。
+
+### 内参修复后的能量复核
+
+在同一 `1920x1080 -> 448x256` 标定下，真实帧的 logged-GT flow energy 均值为
+`0.940`，生成帧为 `2.064`；按 source 聚类 bootstrap，生成减真实的均值差为
+`+1.115 [1.032, 1.213]`，`85.3%` 的配对区间生成帧更差。相反，生成帧的
+action-head energy 均值为 `1.570`，与真实帧 `1.496` 的差异置信区间为
+`[-0.048, 0.174]`，跨越零。
+
+因此当前可支持的表述是：**生成视频包含可由自身 action 条件解释的刚体变化，
+但其运动几何显著偏离 logged GT**。这不是“生成视频没有刚体运动”，也不能推出
+它已经正确实现了动作；action-response 的方向/排序与 logged-GT 准确性必须分开报告。
+在 lateral-turn 区间，生成相对真实的 logged-GT 能量差均值为 `+1.297`，说明
+该偏离在协议重点场景尤其明显。
+
+逐 interval 审计还显示，整条 `explained` 不能代表四个时刻都各自可识别。时间
+契约修正后的 G 结果中，两支共同 explained 的覆盖为 `4/4: 63.1%`、
+`>=3/4: 81.2%`、`>=2/4: 89.0%`、`>=1/4: 94.1%`。在 `>=2/4` 上仅汇总共同
+interval 的 yaw 增量，方向准确率为 `108/127 = 85.0% [77.8%, 90.2%]`，
+Spearman 为 `0.949`。缺失时刻不插补 terminal yaw；`>=1/4` 虽越过 90% 覆盖，
+单个时刻不足以支撑四秒轨迹声明，因此部分时域仍只作独立诊断。
 
 私有实验产物：`benchmark_v3_runs/flow_structure_v1_20260910/`，完整统计为
 `validation_report.json`。该 action 对齐只检验 WAM 是否响应其条件动作，不等价于

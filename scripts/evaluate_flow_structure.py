@@ -23,6 +23,50 @@ def _json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _apply_refinement_uncertainty_gate(
+    profile: dict[str, Any], reliability_cfg: dict[str, Any]
+) -> None:
+    gate = reliability_cfg.get("interval_gate")
+    if not gate:
+        return
+    statistic = str(gate.get("statistic", "median"))
+    if statistic not in {"median", "q75", "q90"}:
+        raise ValueError("flow_reliability.interval_gate.statistic must be median, q75 or q90")
+    threshold = float(gate["max_value"])
+    if not np.isfinite(threshold) or threshold < 0.0:
+        raise ValueError("flow_reliability.interval_gate.max_value must be finite and non-negative")
+    for row in profile["rows"]:
+        uncertainty = (row.get("refinement_uncertainty") or {}).get(statistic)
+        passed = bool(
+            row.get("input_available")
+            and uncertainty is not None
+            and np.isfinite(float(uncertainty))
+            and float(uncertainty) <= threshold
+        )
+        row["input_available"] = passed
+        row["uncertainty_gate"] = {
+            "passed": passed,
+            "statistic": statistic,
+            "max_value": threshold,
+            "calibration_domain": gate.get("calibration_domain"),
+            "calibration_record": gate.get("calibration_record"),
+        }
+    available_count = sum(bool(row["input_available"]) for row in profile["rows"])
+    row_count = len(profile["rows"])
+    profile["available_interval_fraction"] = float(available_count / max(row_count, 1))
+    profile["measurement_available"] = bool(row_count) and available_count == row_count
+    profile["status"] = (
+        "usable" if row_count and available_count == row_count
+        else "partial" if available_count else "abstain"
+    )
+    profile.setdefault("parameters", {})["refinement_uncertainty_gate"] = {
+        "statistic": statistic,
+        "max_value": threshold,
+        "calibration_domain": gate.get("calibration_domain"),
+        "calibration_record": gate.get("calibration_record"),
+    }
+
+
 def evaluate_record(
     record: dict[str, Any],
     extractor: RaftFlowExtractor | SeaRaftFlowExtractor,
@@ -31,6 +75,7 @@ def evaluate_record(
     width = int(config["image"]["width"])
     height = int(config["image"]["height"])
     flow_cfg = config["flow"]
+    reliability_cfg = config.get("flow_reliability") or {}
     observation = extractor.observe(
         record["frame_paths"],
         record["intrinsics"],
@@ -48,6 +93,9 @@ def evaluate_record(
                 if config.get("intrinsics_source_size") is not None else None
             )
         ),
+        image_geometry_adapter=record.get("image_geometry_adapter"),
+        return_uncertainty=bool(reliability_cfg.get("refinement_uncertainty", False)),
+        uncertainty_tail=int(reliability_cfg.get("uncertainty_tail", 8)),
     )
     future_start = int(record["history_count"]) - 1
     flows = np.asarray(observation.forward[future_start:], dtype=np.float32)
@@ -77,6 +125,21 @@ def evaluate_record(
         row["forward_backward_fraction"] = float(
             (finite & consistency[index]).sum() / max(finite.sum(), 1)
         )
+        if observation.refinement_uncertainty is not None:
+            uncertainty = np.asarray(
+                observation.refinement_uncertainty[future_start + index], dtype=np.float32
+            )
+            magnitude = np.linalg.norm(flows[index], axis=-1)
+            eligible = finite & np.isfinite(uncertainty)
+            normalized = uncertainty[eligible] / (1.0 + magnitude[eligible])
+            row["refinement_uncertainty"] = {
+                "definition": "late_iteration_vector_rms_over_1_plus_flow_magnitude",
+                "pixel_count": int(len(normalized)),
+                "median": float(np.median(normalized)) if len(normalized) else None,
+                "q75": float(np.quantile(normalized, 0.75)) if len(normalized) else None,
+                "q90": float(np.quantile(normalized, 0.90)) if len(normalized) else None,
+            }
+    _apply_refinement_uncertainty_gate(profile, reliability_cfg)
     return {
         "sample_id": record["sample_id"],
         "scene_id": record["scene_id"],
@@ -86,6 +149,10 @@ def evaluate_record(
         "future_times_s": np.asarray(record["future_times_s"], dtype=np.float64).tolist(),
         "source_frame_size": list(observation.source_size),
         "effective_intrinsics": np.asarray(observation.intrinsics, dtype=np.float64).tolist(),
+        "image_geometry_adapter_id": (
+            str(record["image_geometry_adapter"]["adapter_id"])
+            if record.get("image_geometry_adapter") is not None else None
+        ),
         "flow_structure": profile,
         "candidate_bank_used_by_measurement": False,
         "metric_reconstruction_used": False,

@@ -61,6 +61,27 @@ class FlowStructureScoringTest(unittest.TestCase):
         self.assertEqual(report["command_label_direction_accuracy"], 1.0)
         self.assertEqual(report["action_response_spearman"], 1.0)
 
+    def test_nominally_constant_actions_do_not_create_float_noise_ranking(self) -> None:
+        measurements = []
+        manifests = []
+        for index, flow_delta in enumerate((0.2, 0.4, 0.8)):
+            source = f"constant-{index}"
+            measurements.extend([
+                _measurement(source, "left", [flow_delta, flow_delta]),
+                _measurement(source, "right", [0.0, 0.0]),
+            ])
+            manifests.extend([
+                _manifest(source, "left", 0.4 + index * 1e-8),
+                _manifest(source, "right", 0.0),
+            ])
+        report = score_flow_structure_pairs(
+            measurements,
+            manifests,
+            minimum_common_intervals=2,
+        )
+        self.assertIsNone(report["action_response_spearman"])
+        self.assertIsNone(report["action_response_spearman_ci95"])
+
 
 if __name__ == "__main__":
     unittest.main()

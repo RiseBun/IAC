@@ -470,6 +470,13 @@ def _objective(
         minimum_points=minimum_projection_points,
         minimum_weight_fraction=minimum_projection_weight_fraction,
     )
+    for index, row in enumerate(support["by_interval"]):
+        interval_denominator = float(np.where(source[index], weights[index], 0.0).sum())
+        row["flow_energy"] = (
+            float(weighted[index].sum() / interval_denominator)
+            if interval_denominator > 1e-6
+            else 4.0
+        )
     if denominator <= 1e-6:
         return 4.0, predicted, valid, support
     flow_energy = float(weighted.sum() / denominator)
@@ -828,6 +835,14 @@ def decode_continuous_trajectory(
     interval_observability: np.ndarray | None = None,
     speed_uncertainty_thresholds: tuple[float, float] = (0.25, 0.55),
     curvature_multistart: bool = False,
+    coarse_initializer_enabled: bool = False,
+    coarse_speed_grid_mps: tuple[float, ...] = (
+        0.2, 2.0, 5.0, 8.0, 11.0, 14.0, 17.0, 20.0, 23.0, 26.0, 29.0,
+    ),
+    coarse_curvature_grid_1pm: tuple[float, ...] = (
+        -0.30, -0.20, -0.12, -0.08, -0.04, 0.0, 0.04, 0.08, 0.12, 0.20, 0.30,
+    ),
+    coarse_initializer_top_k: int = 12,
     fixed_speeds_mps: np.ndarray | None = None,
     history_speeds_mps: np.ndarray | None = None,
     history_initial_speed_mps: float | None = None,
@@ -919,6 +934,8 @@ def decode_continuous_trajectory(
         raise ValueError("history_speeds_mps must be a finite vector matching future_times_s")
     if fixed_speeds is not None and history_speeds is not None:
         raise ValueError("fixed speeds and history-anchored residual mode are mutually exclusive")
+    if coarse_initializer_enabled and (fixed_speeds is not None or history_speeds is not None):
+        raise ValueError("coarse initializer is only supported for unconstrained speed fitting")
     starts = (
         (float(np.mean(fixed_speeds)),)
         if fixed_speeds is not None
@@ -931,6 +948,8 @@ def decode_continuous_trajectory(
         supplied_curvatures.shape != np.asarray(future_times_s).shape or not np.all(np.isfinite(supplied_curvatures))
     ):
         raise ValueError("initial_curvatures_1pm must be a finite vector matching future_times_s")
+    if coarse_initializer_enabled and supplied_curvatures is not None:
+        raise ValueError("coarse initializer cannot be combined with supplied curvatures")
     curvature_starts = (supplied_curvatures,) if supplied_curvatures is not None else (
         np.zeros(len(future_times_s), dtype=np.float64),
         np.full(len(future_times_s), -0.04, dtype=np.float64),
@@ -938,40 +957,100 @@ def decode_continuous_trajectory(
         np.linspace(-0.03, 0.03, len(future_times_s), dtype=np.float64),
         np.linspace(0.03, -0.03, len(future_times_s), dtype=np.float64),
     ) if curvature_multistart else (np.zeros(len(future_times_s), dtype=np.float64),)
-    for initial_speed in starts:
-        for initial_curvatures in curvature_starts:
-            trajectory, energy = _fit_once(
-                future_times_s=np.asarray(future_times_s, dtype=np.float64),
-                observed=sampled_observed,
-                weights=sampled_weights,
-                pixel_xy=pixel_xy,
-                camera_to_ego=camera_to_ego,
-                intrinsics=intrinsics,
-                image_size=image_size,
-                depths_m=depths_m,
-                minimum_flow_scale_px=minimum_flow_scale_px,
-                initial_speed_mps=initial_speed,
-                initial_curvatures_1pm=initial_curvatures,
-                fixed_speeds_mps=fixed_speeds,
-                history_speeds_mps=history_speeds,
-                history_initial_speed_mps=history_initial_speed_mps,
-                maximum_speed_residual_mps=maximum_speed_residual_mps,
-                speed_residual_weight=speed_residual_weight,
-                speed_residual_smoothness_weight=speed_residual_smoothness_weight,
-                speed_residual_curvature_weight=speed_residual_curvature_weight,
-                max_iterations=max_iterations,
-                road_masks=road_masks,
-                road_prior_weight=road_prior_weight,
-                road_half_width_m=road_half_width_m,
-                road_lateral_samples=road_lateral_samples,
-                road_longitudinal_step_m=road_longitudinal_step_m,
-                speed_smoothness_weight=speed_smoothness_weight,
-                curvature_smoothness_weight=curvature_smoothness_weight,
-                lateral_acceleration_weight=lateral_acceleration_weight,
-                adaptive_plane_params=adaptive_plane_params,
-            )
-            if energy < best_energy:
-                best_trajectory, best_energy = trajectory, energy
+    local_starts: list[tuple[float, np.ndarray]] = [
+        (initial_speed, initial_curvatures)
+        for initial_speed in starts
+        for initial_curvatures in curvature_starts
+    ]
+    coarse_best: dict[str, float] | None = None
+    if coarse_initializer_enabled:
+        speed_grid = np.asarray(coarse_speed_grid_mps, dtype=np.float64)
+        curvature_grid = np.asarray(coarse_curvature_grid_1pm, dtype=np.float64)
+        if (
+            speed_grid.ndim != 1
+            or curvature_grid.ndim != 1
+            or len(speed_grid) == 0
+            or len(curvature_grid) == 0
+            or not np.all(np.isfinite(speed_grid))
+            or not np.all(np.isfinite(curvature_grid))
+            or np.any(speed_grid < 0.0)
+            or np.any(np.abs(curvature_grid) > 0.35)
+        ):
+            raise ValueError("coarse initializer grids must be finite and within decoder bounds")
+        if int(coarse_initializer_top_k) < 1:
+            raise ValueError("coarse_initializer_top_k must be positive")
+        coarse_candidates: list[tuple[float, float, float]] = []
+        times = np.asarray(future_times_s, dtype=np.float64)
+        for speed in speed_grid:
+            for curvature in curvature_grid:
+                candidate = integrate_piecewise_controls(
+                    times,
+                    speeds_mps=np.full(len(times), speed, dtype=np.float64),
+                    curvatures_1pm=np.full(len(times), curvature, dtype=np.float64),
+                )
+                energy = _objective(
+                    candidate, sampled_observed, sampled_weights, pixel_xy,
+                    camera_to_ego, intrinsics, image_size, depths_m,
+                    minimum_flow_scale_px, road_masks, road_prior_weight,
+                    road_half_width_m, road_lateral_samples,
+                    road_longitudinal_step_m, speed_smoothness_weight,
+                    curvature_smoothness_weight, lateral_acceleration_weight,
+                    times, adaptive_plane_params,
+                )[0]
+                coarse_candidates.append((float(energy), float(speed), float(curvature)))
+        coarse_candidates.sort(key=lambda item: (item[0], item[1], item[2]))
+        local_starts = [
+            (speed, np.full(len(times), curvature, dtype=np.float64))
+            for _, speed, curvature in coarse_candidates[: int(coarse_initializer_top_k)]
+        ]
+        coarse_best = {
+            "energy": coarse_candidates[0][0],
+            "speed_mps": coarse_candidates[0][1],
+            "curvature_1pm": coarse_candidates[0][2],
+        }
+        zero_trajectory = np.zeros((len(times), 3), dtype=np.float64)
+        best_energy = _objective(
+            zero_trajectory, sampled_observed, sampled_weights, pixel_xy,
+            camera_to_ego, intrinsics, image_size, depths_m,
+            minimum_flow_scale_px, road_masks, road_prior_weight,
+            road_half_width_m, road_lateral_samples, road_longitudinal_step_m,
+            speed_smoothness_weight, curvature_smoothness_weight,
+            lateral_acceleration_weight, times, adaptive_plane_params,
+        )[0]
+        best_trajectory = zero_trajectory
+    for initial_speed, initial_curvatures in local_starts:
+        trajectory, energy = _fit_once(
+            future_times_s=np.asarray(future_times_s, dtype=np.float64),
+            observed=sampled_observed,
+            weights=sampled_weights,
+            pixel_xy=pixel_xy,
+            camera_to_ego=camera_to_ego,
+            intrinsics=intrinsics,
+            image_size=image_size,
+            depths_m=depths_m,
+            minimum_flow_scale_px=minimum_flow_scale_px,
+            initial_speed_mps=initial_speed,
+            initial_curvatures_1pm=initial_curvatures,
+            fixed_speeds_mps=fixed_speeds,
+            history_speeds_mps=history_speeds,
+            history_initial_speed_mps=history_initial_speed_mps,
+            maximum_speed_residual_mps=maximum_speed_residual_mps,
+            speed_residual_weight=speed_residual_weight,
+            speed_residual_smoothness_weight=speed_residual_smoothness_weight,
+            speed_residual_curvature_weight=speed_residual_curvature_weight,
+            max_iterations=max_iterations,
+            road_masks=road_masks,
+            road_prior_weight=road_prior_weight,
+            road_half_width_m=road_half_width_m,
+            road_lateral_samples=road_lateral_samples,
+            road_longitudinal_step_m=road_longitudinal_step_m,
+            speed_smoothness_weight=speed_smoothness_weight,
+            curvature_smoothness_weight=curvature_smoothness_weight,
+            lateral_acceleration_weight=lateral_acceleration_weight,
+            adaptive_plane_params=adaptive_plane_params,
+        )
+        if energy < best_energy:
+            best_trajectory, best_energy = trajectory, energy
     if best_trajectory is None or not np.isfinite(best_energy):
         raise ValueError("continuous trajectory optimizer found no valid solution")
     _, _, _, projection_support = _objective(
@@ -998,7 +1077,7 @@ def decode_continuous_trajectory(
         minimum_projection_weight_fraction,
     )
     zero_trajectory = np.zeros_like(best_trajectory)
-    zero_flow_energy, _, _, _ = _objective(
+    zero_flow_energy, _, _, zero_projection_support = _objective(
         zero_trajectory,
         sampled_observed,
         sampled_weights,
@@ -1029,6 +1108,29 @@ def decode_continuous_trajectory(
         if fit_improvement >= float(minimum_fit_improvement)
         else "weak"
     )
+    interval_explanations = []
+    for fitted_row, zero_row in zip(
+        projection_support["by_interval"],
+        zero_projection_support["by_interval"],
+    ):
+        fitted_energy = float(fitted_row.get("flow_energy", best_energy))
+        zero_energy = float(zero_row.get("flow_energy", zero_flow_energy))
+        interval_improvement = zero_energy - fitted_energy
+        interval_status = (
+            "abstain"
+            if not fitted_row["projection_supported"]
+            else "explained"
+            if interval_improvement >= float(minimum_fit_improvement)
+            else "weak"
+        )
+        interval_explanations.append({
+            "interval_index": int(fitted_row["interval_index"]),
+            "motion_explanation_status": interval_status,
+            "fit_improvement": float(interval_improvement),
+            "energy": fitted_energy,
+            "zero_flow_energy": zero_energy,
+            "projection_supported": bool(fitted_row["projection_supported"]),
+        })
 
     # Profile a local continuous neighborhood. This is an uncertainty tube,
     # not a second finite candidate bank: all perturbations are in control
@@ -1155,6 +1257,7 @@ def decode_continuous_trajectory(
         "projected_points": int(projection_support["projected_points"]),
         "projected_weight_fraction": float(projection_support["projected_weight_fraction"]),
         "projection_support_by_interval": projection_support["by_interval"],
+        "motion_explanation_by_interval": interval_explanations,
         "profile_support": support,
         "profile_count": len(selected),
         "speed_support": speed_support,
@@ -1168,6 +1271,10 @@ def decode_continuous_trajectory(
         "sampled_points": int(len(pixel_xy)),
         "effective_weight": float(sampled_weights.sum()),
         "observability": float(np.mean(sampled_weights > 0.0)),
+        "sampled_points_by_interval": [
+            int(np.sum(sampled_weights[index] > 0.0))
+            for index in range(len(sampled_weights))
+        ],
         "initial_speeds_mps": list(starts),
         "decoder_parameters": {
             "max_points": int(max_points),
@@ -1180,6 +1287,13 @@ def decode_continuous_trajectory(
             "profile_radius": float(profile_radius),
             "speed_uncertainty_thresholds": [float(low_speed_quality), float(uncertain_speed_quality)],
             "curvature_multistart": bool(curvature_multistart),
+            "coarse_initializer_enabled": bool(coarse_initializer_enabled),
+            "coarse_speed_grid_mps": [float(value) for value in coarse_speed_grid_mps],
+            "coarse_curvature_grid_1pm": [
+                float(value) for value in coarse_curvature_grid_1pm
+            ],
+            "coarse_initializer_top_k": int(coarse_initializer_top_k),
+            "coarse_initializer_best": coarse_best,
             "fixed_speed_shape_refinement": bool(fixed_speeds is not None),
             "history_anchored_speed_residual": bool(history_speeds is not None),
             "maximum_speed_residual_mps": float(maximum_speed_residual_mps),

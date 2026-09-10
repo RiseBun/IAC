@@ -78,6 +78,7 @@ class SeaRaftFlowExtractor:
         target_size: tuple[int, int],
         allow_mixed_source_sizes: bool = False,
         intrinsics_source_size: tuple[int, int] | None = None,
+        image_geometry_adapter: dict | None = None,
     ) -> tuple[list[np.ndarray], np.ndarray, tuple[int, int]]:
         return RaftFlowExtractor._read_images(
             paths,
@@ -86,6 +87,7 @@ class SeaRaftFlowExtractor:
             target_size,
             allow_mixed_source_sizes=allow_mixed_source_sizes,
             intrinsics_source_size=intrinsics_source_size,
+            image_geometry_adapter=image_geometry_adapter,
         )
 
     def _infer_pairs(
@@ -111,8 +113,10 @@ class SeaRaftFlowExtractor:
             if return_uncertainty:
                 tail = predictions[-max(2, min(int(uncertainty_tail), len(predictions))):]
                 stack = torch.stack(tail, dim=0)
-                spread = torch.sqrt(torch.mean((stack - stack[-1:]) ** 2, dim=0))
-                uncertainties.append(spread[0, 0].float().cpu().numpy())
+                spread = torch.sqrt(
+                    torch.mean(torch.sum((stack - stack[-1:]) ** 2, dim=2), dim=0)
+                )
+                uncertainties.append(spread[0].float().cpu().numpy())
         flow = np.stack(outputs, axis=0).astype(np.float32)
         uncertainty = (
             np.stack(uncertainties, axis=0).astype(np.float32)
@@ -129,6 +133,7 @@ class SeaRaftFlowExtractor:
         inference_size: tuple[int, int] | None = None,
         allow_mixed_source_sizes: bool = False,
         intrinsics_source_size: tuple[int, int] | None = None,
+        image_geometry_adapter: dict | None = None,
         return_uncertainty: bool = False,
         uncertainty_tail: int = 8,
         long_range_consistency: bool = False,
@@ -136,13 +141,14 @@ class SeaRaftFlowExtractor:
         if len(frame_paths) < 2:
             raise ValueError("at least two video frames are required")
         inference_size = target_size if inference_size is None else tuple(inference_size)
-        images, _, source_size = self._read_images(
+        images, inference_intrinsics, source_size = self._read_images(
             frame_paths,
             np.asarray(intrinsics, dtype=np.float64),
             np.asarray(distortion, dtype=np.float64),
             inference_size,
             allow_mixed_source_sizes=allow_mixed_source_sizes,
             intrinsics_source_size=intrinsics_source_size,
+            image_geometry_adapter=image_geometry_adapter,
         )
         forward, uncertainty = self._infer_pairs(
             images[:-1], images[1:], return_uncertainty=return_uncertainty,
@@ -172,8 +178,14 @@ class SeaRaftFlowExtractor:
             if backward is not None:
                 backward = np.stack([resize_flow(value) for value in backward], axis=0)
             if uncertainty is not None:
+                scale_x = target_size[0] / float(inference_size[0])
+                scale_y = target_size[1] / float(inference_size[1])
+                uncertainty_scale = float(np.sqrt(
+                    0.5 * (scale_x * scale_x + scale_y * scale_y)
+                ))
                 uncertainty = np.stack([
                     cv2.resize(value, target_size, interpolation=cv2.INTER_LINEAR)
+                    * uncertainty_scale
                     for value in uncertainty
                 ], axis=0).astype(np.float32)
             if long_range_residual is not None:
@@ -192,11 +204,19 @@ class SeaRaftFlowExtractor:
                 )
                 for fwd, bwd in zip(forward, backward)
             ], axis=0)
-        calibration_size = source_size if intrinsics_source_size is None else intrinsics_source_size
+        if image_geometry_adapter is None:
+            calibration_size = (
+                source_size if intrinsics_source_size is None else intrinsics_source_size
+            )
+            scaled_intrinsics = scale_intrinsics(intrinsics, calibration_size, target_size)
+        else:
+            scaled_intrinsics = inference_intrinsics
+            if inference_size != target_size:
+                scaled_intrinsics = scale_intrinsics(inference_intrinsics, inference_size, target_size)
         return FlowObservation(
             forward=forward,
             consistency_masks=masks,
-            intrinsics=scale_intrinsics(intrinsics, calibration_size, target_size),
+            intrinsics=scaled_intrinsics,
             source_size=source_size,
             target_size=target_size,
             refinement_uncertainty=uncertainty,

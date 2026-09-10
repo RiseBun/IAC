@@ -22,7 +22,17 @@ def _rankdata(values: np.ndarray) -> np.ndarray:
 
 
 def _spearman(first: np.ndarray, second: np.ndarray) -> float | None:
-    if len(first) < 3 or np.ptp(first) <= 0.0 or np.ptp(second) <= 0.0:
+    if len(first) < 3:
+        return None
+    first_scale = max(1.0, float(np.max(np.abs(first))))
+    second_scale = max(1.0, float(np.max(np.abs(second))))
+    # Producers commonly integrate float32 controls.  Nominally identical
+    # interventions can therefore differ by ~1e-8 after serialization.  That
+    # is not rank variation and must not produce a spurious Spearman value.
+    if (
+        np.ptp(first) <= 1e-6 * first_scale
+        or np.ptp(second) <= 1e-6 * second_scale
+    ):
         return None
     return float(np.corrcoef(_rankdata(first), _rankdata(second))[0, 1])
 

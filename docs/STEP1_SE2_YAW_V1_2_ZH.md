@@ -1,5 +1,12 @@
 # Step 1.2 冻结说明：SE(2) yaw 测量
 
+> **时间契约勘误（2026-09-10）：本页旧 DriveWAM 生成端数字已撤回。**
+> 旧输入把 4 帧历史和 8 帧未来拼成 12 帧，官方读取器却把第 0 帧当作当前时刻；
+> 模型实际读取约 `[-1.5,-0.5,+0.5,+1.5,+2.5]s`，与以 `t=0` 为锚点的动作和
+> 输出标签错位。真实帧 logged-GT 准确率不受影响。生成端 coverage、方向准确率、
+> 下表已经替换为修复成 `current + 8 future` 后的 `temporal-fixed` 重跑结果；
+> 真实帧 logged-GT 准确率不受影响。
+
 ## 决策
 
 恢复连续地平面 SE(2) 作为 Step 1 主测量后端，但不恢复 GitHub 旧版的有效性逻辑和
@@ -37,32 +44,75 @@
 
 ## 冻结结果
 
-数据为同一批 255 个 source、左右 510 条 DriveWAM 分支、四个未来时刻。
+数据为同一批 255 个 source、左右 510 条 temporal-fixed DriveWAM 分支、四个未来
+时刻。
 
 | 层级 | 生成帧 | 真实帧 |
 |---|---:|---:|
-| interval 投影支持 | 1959/2040 = 96.0% | 1004/1020 = 98.4% |
-| 单分支四时刻都可投影 | 452/510 = 88.6% | 243/255 = 95.3% |
-| 单分支 explained | 386/510 = 75.7% | 217/255 = 85.1% |
-| weak | 66/510 = 12.9% | 26/255 = 10.2% |
-| abstain | 58/510 = 11.4% | 12/255 = 4.7% |
+| interval 投影支持 | 1960/2040 = 96.1% | 1004/1020 = 98.4% |
+| 单分支四时刻都可投影 | 459/510 = 90.0% | 243/255 = 95.3% |
+| 单分支 explained | 380/510 = 74.5% | 217/255 = 85.1% |
+| weak | 79/510 = 15.5% | 26/255 = 10.2% |
+| abstain | 51/510 = 10.0% | 12/255 = 4.7% |
 
 生成端成对口径：
 
 | 量 | 结果 |
 |---|---:|
-| 两支四时刻都可投影 | 207/255 = 81.2% |
-| 两支都 explained，正式 pair coverage | 175/255 = 68.6% |
-| material yaw pair（native action 末点差 >= 0.01 rad） | 103 |
-| yaw 方向准确率 | 90/103 = 87.4%，95% CI [79.6%, 92.5%] |
-| yaw Spearman | 0.786，bootstrap 95% CI [0.656, 0.886] |
+| 两支四时刻都可投影 | 218/255 = 85.5% |
+| 两支都 explained，正式 pair coverage | 171/255 = 67.1% |
+| material yaw pair（native action 末点差 >= 0.01 rad） | 106 |
+| yaw 方向准确率 | 87/106 = 82.1%，95% CI [73.7%, 88.2%] |
+| yaw Spearman | 0.832，bootstrap 95% CI [0.731, 0.902] |
 
-因此旧表的 `88.6%` 不是 CCFC 可计分覆盖率。它是单分支投影覆盖；正式的成对
-`explained` 覆盖率是 `68.6%`。
+因此 `90.0%` 不是 CCFC 可计分覆盖率。它是单分支投影覆盖；正式的成对
+`explained` 覆盖率是 `67.1%`。
+
+## G 初始化器消融（Step 1.3 候选）
+
+在不改变像素、光流、投影门、`minimum_fit_improvement=0.05` 或 primary 字段的
+前提下，G 先用固定、候选无关的速度—曲率粗网格寻找可达起点，再运行原局部优化。
+它只修复“局部优化从坏起点出发”的覆盖损失，不改变弃权定义。`temporal-fixed`
+DriveWAM 全量结果为：
+
+| 量 | Step 1.2 | G 候选 |
+|---|---:|---:|
+| 单分支 explained | 380/510 = 74.5% | 442/510 = 86.7% |
+| 两支都 explained | 171/255 = 67.1% | 205/255 = 80.4% |
+| material yaw pair | 106 | 116 |
+| yaw 方向准确率 | 82.1% [73.7%, 88.2%] | 81.9% [73.9%, 87.8%] |
+| yaw Spearman | 0.832 [0.731, 0.902] | 0.925 [0.861, 0.960] |
+
+G 回收 34 对、丢失 0 个原可评分 pair；在原 106 个共同 material pair 上，方向
+命中由 87 提到 88。代价是解码时间约为 Step 1.2 的 2.5 倍。
+
+同一 255 条真实帧 logged-GT 验证中，G 的 `explained` 从 217/255 提到
+231/255；yaw 读出比例中位数从 `0.916` 提到 `0.939`，Spearman 从 `0.918`
+提到 `0.992`，方向准确率为 `120/122 = 98.4%`。因此当前证据支持 G 是真实的
+初始化改进，而不是用错误拟合换取覆盖。但其生成端 pair coverage 仍只有 80.4%，
+配置继续标为 `experimental_ablation`，不回写冻结 Step 1.2。
+
+逐 interval 的候选无关诊断也说明 SE(2) 覆盖的剩余边界。只汇总左右两支同时
+`explained` 的 interval，并在相同 interval 上比较 yaw 增量时，G 的覆盖—准确率为：
+
+| 最少共同 explained interval | pair coverage | material yaw 方向准确率 | Spearman |
+|---:|---:|---:|---:|
+| 4/4 | 161/255 = 63.1% | 82/99 = 82.8% | 0.934 |
+| >=3/4 | 207/255 = 81.2% | 101/119 = 84.9% | 0.951 |
+| >=2/4 | 227/255 = 89.0% | 108/127 = 85.0% | 0.949 |
+| >=1/4 | 240/255 = 94.1% | 110/129 = 85.3% | 0.949 |
+
+`>=2/4` 已保持较强方向和排序，但覆盖仍低于 90%；`>=1/4` 虽越过覆盖门，单个
+时刻不足以支撑稳定的四秒轨迹声明。因此该表只作为“可识别 interval 的 yaw 增量”
+诊断，不替代严格 terminal-yaw primary，也不通过改变门槛追求过线。
+
+上表的正式数值必须由归档脚本重算后再冻结；当前发布门仍使用整条轨迹的双方
+`explained`，不允许把缺失 interval 插补为可测。高覆盖的方向/排序由独立的
+S1.3 流场结构测量承担，SE(2)-G 保留为米制诊断层。
 
 ## “准确率”的边界
 
-生成帧没有外部视觉 GT。这里的 `87.4%` 测的是生成视频的 yaw 变化是否与生成该
+生成帧没有外部视觉 GT。这里的 `82.1%` 测的是生成视频的 yaw 变化是否与生成该
 分支的 native action 同向；它证明条件动作与视觉响应一致，不证明该反事实未来与
 现实 logged GT 一致。
 
@@ -91,20 +141,18 @@ yaw 比例中位数为 `0.930`。因此“严格 logged-GT 子集只有 85 条�
 ## 发布状态
 
 预注册升级条件不变：pair coverage >= 90%，方向准确率 95% CI 下界 >= 0.75，
-并在同一协议上分离至少两个 WAM。当前只通过方向准确率；coverage 为 68.6%，
-且只测了 DriveWAM。因此版本可以冻结并用于 pilot 报告，但不能标为已验证 primary
-benchmark，也不能恢复 GitHub 旧版的历史 CFAC/CCFC/FAU 分数。
+并在同一协议上分离至少两个 WAM。temporal-fixed 重跑的 coverage 为 67.1%，方向
+CI 下界为 73.7%，两项均未通过；同时仍缺少同分布的第二个 WAM。因此不能标为已
+验证 primary benchmark。
 
 服务器归档：
 
 ```text
-/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/kfix_full_20260910/
-  ccfc_step1_2_joined.jsonl
-  ccfc_step1_2_yaw_primary.json
-  real_step1_2_logged_gt_pickle_audit.json
+/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/temporal_contract_fix_20260910/
+  ccfc_manifest_validated.jsonl
+  se2_v1_2/merged.jsonl
+  se2_v1_2/counterfactual_alignment.json
 ```
 
-冻结 config、生成 pair 结果和 logged-GT pickle 审计的 SHA-256 分别为
-`9fba23839bfc229e2504823e26e763589379e0961183a99aefd24ffbdab5e5e4`、
-`2cfc37749c255d550f1e7c004a400d12c250a6acbc991334cb86bbb30e627db3`、
-`db63790efdf604aab181bd42f5fbe93050ffed45a5047e40aed23f008811cf5f`。
+旧 `kfix_full_20260910` 生成端 SHA 已被时间契约勘误取代；temporal-fixed 产物的
+SHA-256 在本轮归档完成后记录。

@@ -16,3 +16,23 @@ reference row. Run the files in this order:
 `prepare_reuse.py` and `build_missing_partition.py` are deterministic helpers
 for resuming an interrupted reference run. External DriveWAM and LingBot-VA
 code and weights are intentionally not redistributed.
+
+## Temporal input contract
+
+DriveWAM's `NavSimEpisodeDataset` requires the serialized `images` array to be
+`[current, future_0.5s, ..., future_4.0s]`. It then selects indices
+`[0, 2, 4, 6, 8]`, corresponding to `0, 1, 2, 3, 4s`. Historical ego poses
+belong in `history_poses`; they must not be prepended to `images`.
+
+Inputs produced by `build_inputs.py` carry
+`input_image_contract=drivewam_current_plus_8_future_v1`. Legacy 12-frame
+pickles must first be copied through `repair_temporal_input_contract.py`; the
+repair never overwrites the source archive. Results generated from the legacy
+`4 history + 8 future` image layout are temporally misaligned and must not be
+compared with actions or measurements anchored at the current frame.
+
+`build_ccfc_manifest.py` reopens every generated branch's immutable source
+pickle and verifies the contract, nine-frame shape, and timestamps before it
+will assemble an evaluation manifest. The source coordinate size must likewise
+come from each private record or an explicit model-adapter CLI argument; it is
+never inferred from resized image files.

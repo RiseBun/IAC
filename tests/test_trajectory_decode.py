@@ -36,6 +36,73 @@ class TrajectoryDecodeTest(unittest.TestCase):
         for lower, upper in zip(np.linspace(0.0, 1.0, 7)[:-1], np.linspace(0.0, 1.0, 7)[1:]):
             self.assertGreaterEqual(int(np.sum((u >= lower) & (u < upper))), 1)
 
+    def test_coarse_initializer_uses_best_candidate_blind_grid_seed(self) -> None:
+        observed = np.ones((1, 8, 8, 2), dtype=np.float32)
+        support = {
+            "projection_supported": True,
+            "source_points": 16,
+            "projected_points": 16,
+            "source_weight": 16.0,
+            "projected_weight": 16.0,
+            "projected_weight_fraction": 1.0,
+            "by_interval": [{
+                "interval_index": 0,
+                "source_points": 16,
+                "projected_points": 16,
+                "source_weight": 16.0,
+                "projected_weight": 16.0,
+                "projected_weight_fraction": 1.0,
+                "projection_supported": True,
+                "reasons": [],
+            }],
+            "policy": {
+                "minimum_source_points": 1,
+                "minimum_projected_points": 1,
+                "minimum_projected_weight_fraction": 0.5,
+            },
+        }
+        starts: list[tuple[float, float]] = []
+
+        def objective(trajectory, observed_flow, *args, **kwargs):
+            energy = abs(float(trajectory[-1, 0]) - 2.0) + abs(float(trajectory[-1, 2]))
+            predicted = np.zeros_like(observed_flow)
+            valid = np.ones(observed_flow.shape[:-1], dtype=bool)
+            return energy, predicted, valid, support
+
+        def fit_once(**kwargs):
+            speed = float(kwargs["initial_speed_mps"])
+            curvature = float(kwargs["initial_curvatures_1pm"][0])
+            starts.append((speed, curvature))
+            trajectory = integrate_piecewise_controls(
+                kwargs["future_times_s"],
+                speeds_mps=np.asarray([speed]),
+                curvatures_1pm=np.asarray([curvature]),
+            )
+            return trajectory, objective(trajectory, kwargs["observed"])[0]
+
+        with (
+            patch("iac_new.trajectory_decode._objective", side_effect=objective),
+            patch("iac_new.trajectory_decode._fit_once", side_effect=fit_once),
+        ):
+            result = decode_continuous_trajectory(
+                observed_flows=observed,
+                camera_to_ego=np.eye(4),
+                intrinsics=np.eye(3),
+                future_times_s=np.asarray([1.0]),
+                roi_mask=np.ones((8, 8), dtype=bool),
+                max_points=16,
+                minimum_projection_points=1,
+                coarse_initializer_enabled=True,
+                coarse_speed_grid_mps=(1.0, 2.0, 3.0),
+                coarse_curvature_grid_1pm=(-0.1, 0.0, 0.1),
+                coarse_initializer_top_k=1,
+            )
+        self.assertEqual(starts, [(2.0, 0.0)])
+        self.assertEqual(
+            result["decoder_parameters"]["coarse_initializer_best"]["speed_mps"],
+            2.0,
+        )
+
     def test_objective_charges_invalid_projection_against_fixed_source_denominator(self) -> None:
         observed = np.ones((1, 4, 2), dtype=np.float64)
         predicted = observed.copy()
@@ -95,6 +162,7 @@ class TrajectoryDecodeTest(unittest.TestCase):
         self.assertEqual(energy, 0.0)
         self.assertTrue(support["projection_supported"])
         self.assertEqual(support["projected_points"], 3)
+        self.assertEqual(support["by_interval"][0]["flow_energy"], 0.0)
 
     def test_decoder_marks_empty_projection_invalid(self) -> None:
         observed = np.ones((1, 8, 8, 2), dtype=np.float32)
@@ -129,6 +197,10 @@ class TrajectoryDecodeTest(unittest.TestCase):
         self.assertEqual(result["projected_points"], 0)
         self.assertEqual(result["projected_weight_fraction"], 0.0)
         self.assertEqual(result["energy"], 4.0)
+        self.assertEqual(
+            result["motion_explanation_by_interval"][0]["motion_explanation_status"],
+            "abstain",
+        )
         self.assertEqual(result["protocol"], "candidate-blind-continuous-trajectory-v1")
 
     def test_longitudinal_residual_penalty_is_zero_at_history_null(self) -> None:

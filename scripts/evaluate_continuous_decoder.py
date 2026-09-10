@@ -74,6 +74,7 @@ def apply_projection_support_contract(
         support_rows = [{} for _ in interval_quality]
     composite = []
     speed_support = list(decoded.get("speed_support") or [])
+    fit_support = list(decoded.get("motion_explanation_by_interval") or [])
     for index, (quality, support) in enumerate(zip(interval_quality, support_rows)):
         input_observability = float(
             np.clip(quality.get("effective_static_pixel_fraction", 0.0), 0.0, 1.0)
@@ -99,6 +100,23 @@ def apply_projection_support_contract(
             ),
             "projection_abstained": not projection_supported,
         })
+        if index < len(fit_support):
+            fit = fit_support[index]
+            quality.update({
+                "fit_energy": float(fit.get("energy", 4.0)),
+                "zero_flow_energy": float(fit.get("zero_flow_energy", 4.0)),
+                "fit_improvement": float(fit.get("fit_improvement", 0.0)),
+                "motion_explanation_status": str(
+                    fit.get("motion_explanation_status", "abstain")
+                ),
+            })
+        else:
+            quality.update({
+                "fit_energy": None,
+                "zero_flow_energy": None,
+                "fit_improvement": None,
+                "motion_explanation_status": "abstain",
+            })
         if not projection_supported:
             quality["input_direction_observable"] = bool(quality.get("direction_observable"))
             quality["input_curvature_status"] = quality.get("curvature_status")
@@ -156,6 +174,7 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
                 if config.get("intrinsics_source_size") is not None else None
             )
         ),
+        image_geometry_adapter=record.get("image_geometry_adapter"),
         return_uncertainty=bool(config.get("flow", {}).get("refinement_uncertainty", False)),
         uncertainty_tail=int(config.get("flow", {}).get("uncertainty_tail", 8)),
         long_range_consistency=bool(config.get("flow", {}).get("long_range_consistency", {}).get("enabled", False)),
@@ -527,6 +546,24 @@ def evaluate_record(record: dict[str, Any], extractor: RaftFlowExtractor, config
             float(decoder_cfg.get("speed_uncertain_observability", 0.55)),
         ),
         curvature_multistart=bool(decoder_cfg.get("curvature_multistart", False)),
+        coarse_initializer_enabled=bool(
+            decoder_cfg.get("coarse_initializer_enabled", False)
+        ),
+        coarse_speed_grid_mps=tuple(
+            float(value)
+            for value in decoder_cfg.get(
+                "coarse_speed_grid_mps",
+                [0.2, 2.0, 5.0, 8.0, 11.0, 14.0, 17.0, 20.0, 23.0, 26.0, 29.0],
+            )
+        ),
+        coarse_curvature_grid_1pm=tuple(
+            float(value)
+            for value in decoder_cfg.get(
+                "coarse_curvature_grid_1pm",
+                [-0.30, -0.20, -0.12, -0.08, -0.04, 0.0, 0.04, 0.08, 0.12, 0.20, 0.30],
+            )
+        ),
+        coarse_initializer_top_k=int(decoder_cfg.get("coarse_initializer_top_k", 12)),
         road_masks=road_masks,
         road_prior_weight=float(decoder_cfg.get("road_prior_weight", 0.0)),
         road_half_width_m=float(decoder_cfg.get("road_half_width_m", 1.1)),

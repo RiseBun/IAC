@@ -1,0 +1,88 @@
+{
+  "protocol": "iac-benchmark-navsim-only",
+  "step1_measurement": {
+    "version": "iac-step1-se2-yaw-v1.3-g",
+    "status": "experimental_ablation",
+    "backend": "candidate_blind_continuous_se2",
+    "primary_field": "yaw_rate_radps",
+    "single_branch_gate": "motion_explanation_status=explained",
+    "counterfactual_pair_gate": "both_branches_explained"
+  },
+  "benchmark": "benchmark",
+  "image": {"width": 448, "height": 256},
+  "intrinsics_source_size": [1920, 1080],
+  "geometry": {"backend": "plane"},
+  "flow": {
+    "backend": "torchvision_raft",
+    "model": "large",
+    "checkpoint": "weights/raft_large_C_T_SKHT_V2-ff5fadd5.pth",
+    "updates": 32,
+    "batch_size": 4,
+    "inference_size": [512, 288],
+    "forward_backward": true,
+    "fb_abs_threshold_px": 1.5,
+    "fb_relative_threshold": 0.05
+  },
+  "mask": {
+    "polygon_normalized": [[0.08, 0.98], [0.92, 0.98], [0.63, 0.53], [0.37, 0.53]],
+    "min_valid_pixels": 1500
+  },
+  "perception": {"backend": "none"},
+  "score": {
+    "minimum_flow_scale_px": 1.0,
+    "primary_motion_fields": ["yaw_rate_radps"],
+    "primary_metric": "explained_pair_terminal_yaw_response",
+    "primary_statistic": "direction_accuracy_and_spearman",
+    "diagnostic_motion_fields": ["speed_mps", "acceleration_mps2", "lateral_speed_mps", "curvature_1pm"],
+    "primary_distance_mode": "diagnostic_only",
+    "primary_pose_mode": "yaw_only",
+    "required_motion_explanation_status": "explained",
+    "exclude_unreliable_metric_longitudinal": true
+  },
+  "observability": {
+    "curvature_min_support_fraction": 0.05,
+    "curvature_min_lateral_contrast_rad": 0.02,
+    "curvature_min_flow_gradient_px": 0.02,
+    "curvature_reliable_lateral_contrast_rad": 1.43
+  },
+  "continuous_decoder": {
+    "max_points": 900,
+    "max_iterations": 12,
+    "initial_speeds_mps": [3.0, 6.0, 10.0],
+    "sampling_mode": "spatial_stratified",
+    "sampling_v_min": 0.55,
+    "sampling_v_max": 0.85,
+    "sampling_grid_rows": 3,
+    "sampling_grid_cols": 6,
+    "profile_radius": 0.12,
+    "lateral_tolerance_m": 0.50,
+    "yaw_tolerance_rad": 0.10,
+    "speed_relative_tolerance": 0.20,
+    "curvature_tolerance_1pm": 0.06,
+    "score_speed": false,
+    "min_effective_pixel_fraction": 0.02,
+    "speed_abstain_observability": 0.25,
+    "speed_uncertain_observability": 0.55,
+    "curvature_multistart": false,
+    "coarse_initializer_enabled": true,
+    "coarse_speed_grid_mps": [0.2, 2.0, 5.0, 8.0, 11.0, 14.0, 17.0, 20.0, 23.0, 26.0, 29.0],
+    "coarse_curvature_grid_1pm": [-0.30, -0.20, -0.12, -0.08, -0.04, 0.0, 0.04, 0.08, 0.12, 0.20, 0.30],
+    "coarse_initializer_top_k": 12,
+    "minimum_projection_points": 30,
+    "minimum_projection_weight_fraction": 0.50,
+    "minimum_fit_improvement": 0.05
+  },
+  "calibration_contract": {
+    "require_explicit_intrinsics_source_size": true,
+    "expected_intrinsics_source_size": [1920, 1080]
+  },
+  "reference_contract": {
+    "require_trusted_gt_candidate": true,
+    "trusted_logged_sources": ["navsim_logged_realized", "private_realized_gt"]
+  },
+  "promotion_criteria": {
+    "pair_coverage_min": 0.90,
+    "yaw_direction_accuracy_ci95_lower_min": 0.75,
+    "minimum_distinguishable_models": 2
+  }
+}

@@ -8,6 +8,8 @@ from typing import Any
 
 import numpy as np
 
+from .image_geometry import validate_image_geometry_adapter
+
 
 def _json_default(value: Any) -> Any:
     """Serialize numpy scalars/arrays emitted by optional diagnostics."""
@@ -196,6 +198,11 @@ def validate_record(
                 f"{sample_id}: intrinsics_source_size {intrinsics_source_size} does not "
                 f"match frozen calibration size {tuple(expected_intrinsics_source_size)}"
             )
+    image_geometry_adapter = validate_image_geometry_adapter(
+        row.get("image_geometry_adapter"),
+        frame_count=len(frames),
+        intrinsics_source_size=intrinsics_source_size,
+    )
     # Preserve native WAM fields without forcing every producer to duplicate
     # them under metadata.  They are optional for image-only experiments but
     # become available to realized-state evaluation when present.
@@ -222,6 +229,7 @@ def validate_record(
         "protocol_variant": protocol_variant,
         "intrinsics": intrinsics,
         "intrinsics_source_size": intrinsics_source_size,
+        "image_geometry_adapter": image_geometry_adapter,
         "distortion": np.asarray(row.get("distortion") or [], dtype=np.float64),
         "camera_to_ego": camera_to_ego,
         "metric_depth_path": metric_depth_path,

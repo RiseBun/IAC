@@ -24,6 +24,24 @@ def _image(path: str, size: tuple[int, int]) -> np.ndarray:
         return np.asarray(image.convert("RGB").resize(size, Image.Resampling.BILINEAR), dtype=np.uint8)
 
 
+def _model_image_paths(history: list[str], future: list[str]) -> list[str]:
+    """Return DriveWAM's native current-plus-future image sequence."""
+    if len(history) != 4 or len(future) != 8:
+        raise ValueError("DriveWAM NAVSIM input requires 4 history and 8 future frames")
+    return [history[-1], *future]
+
+
+def _model_image_times(future_times: list[float]) -> list[float]:
+    """Validate the native 2 Hz horizon before labeling DriveWAM inputs."""
+    if len(future_times) != 8:
+        raise ValueError("DriveWAM NAVSIM input requires 8 future timestamps")
+    values = np.asarray(future_times, dtype=np.float64)
+    expected = np.arange(0.5, 4.01, 0.5, dtype=np.float64)
+    if not np.allclose(values, expected, atol=0.02, rtol=0.0):
+        raise ValueError(f"unexpected DriveWAM future timestamps: {values.tolist()}")
+    return [0.0, *values.tolist()]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, required=True)
@@ -40,7 +58,10 @@ def main() -> None:
         future = list(row.get("future_images") or [])
         if len(history) != 4 or len(future) != 8:
             raise ValueError(f"{row.get('sample_id')}: expected 4 history + 8 future frames")
-        image_paths = history + future
+        # NavSimEpisodeDataset indexes this array as current frame at 0 plus
+        # future frames at 1..8.  History belongs only in history_poses.
+        image_paths = _model_image_paths(history, future)
+        input_image_times = _model_image_times(list(row.get("future_times_s") or []))
         images = np.stack([_image(path, (448, 256)) for path in image_paths], axis=0)
         states = list(row.get("history_ego_state") or [])
         realized = list(row.get("realized_future_ego_state") or [])
@@ -83,6 +104,8 @@ def main() -> None:
                 "action_trajectory_source": "navsim_native_realized_oracle_for_input_condition",
                 "future_images_source": "navsim_native_realized_for_input_condition",
                 "image_paths": image_paths,
+                "input_image_contract": "drivewam_current_plus_8_future_v1",
+                "input_image_times_s": input_image_times,
                 "camera_intrinsic": row.get("camera_intrinsic"),
                 "camera_distortion": row.get("camera_distortion"),
                 "camera_to_ego": row.get("camera_to_ego"),

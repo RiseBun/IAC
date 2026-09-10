@@ -1,0 +1,28 @@
+{
+  "protocol": "raft-refinement-uncertainty-gate-calibration-v1",
+  "reference_domain": "real_logged_navsim_only",
+  "threshold": 0.2653818726539612,
+  "threshold_definition": "median late-iteration vector RMS / (1 + flow magnitude)",
+  "selection_rule": "maximum calibration coverage with direction accuracy >= 0.90",
+  "source_split": "sha256(source_key)[0] < 128",
+  "source_step_s": 0.5,
+  "min_yaw_delta": 0.005,
+  "calibration": {
+    "intervals": 500,
+    "selected": 500,
+    "direction_hits": 295,
+    "material_intervals": 312,
+    "direction_accuracy": 0.9455128205128205,
+    "direction_ci95": [0.9144825230688753, 0.9657059139970228],
+    "spearman": 0.9667010152047597
+  },
+  "validation": {
+    "intervals": 493,
+    "selected": 493,
+    "direction_hits": 274,
+    "material_intervals": 296,
+    "direction_accuracy": 0.9256756756756757,
+    "direction_ci95": [0.8900362349655657, 0.9504079150567184],
+    "spearman": 0.9729674204250475
+  }
+}

@@ -93,18 +93,31 @@ lateral-turn samples. Generated branches never label the WAM action head as GT;
 the protocol rejects that identity and accepts a GT pointer only with an
 explicit trusted realized-trajectory source.
 
-On 255 corrected DriveWAM pairs, single-branch all-interval projection coverage
-is `452/510 = 88.6%` and explained coverage is `386/510 = 75.7%`. Pair coverage
-is `207/255 = 81.2%` for projection and `175/255 = 68.6%` for both branches
-explained. Among 103 pairs with at least `0.01 rad` native-action yaw separation,
-direction accuracy is `90/103 = 87.4% [79.6%, 92.5%]`; Spearman is
-`0.786 [0.656, 0.886]`.
+DriveWAM input pickles now fail closed on the model's native temporal contract:
+`[current, future_0.5s, ..., future_4.0s]`. Earlier generated results used a
+misaligned `4 history + 8 future` array and are withdrawn. On the regenerated
+255-pair set, single-branch all-interval projection coverage is
+`459/510 = 90.0%` and explained coverage is `380/510 = 74.5%`. Pair coverage
+is `218/255 = 85.5%` for projection and `171/255 = 67.1%` for both branches
+explained. Among 106 pairs with at least `0.01 rad` native-action yaw separation,
+direction accuracy is `87/106 = 82.1% [73.7%, 88.2%]`; Spearman is
+`0.832 [0.731, 0.902]`.
+
+A candidate-blind coarse initializer is retained as the Step 1.3-G ablation. It
+raises explained pair coverage to `205/255 = 80.4%` and Spearman to `0.925`
+without degrading the shared-pair direction result; on real logged frames it
+also raises explained coverage from `217/255` to `231/255` and yaw Spearman
+from `0.918` to `0.992`. It remains experimental because strict pair coverage
+is below 90%. The reconstruction-free S1.3 yaw pilot reaches `254/255 = 99.6%`
+pair coverage, `126/149 = 84.6% [77.9%, 89.5%]` direction accuracy and `0.779`
+Spearman. It is the high-coverage ordinal candidate, but still lacks the frozen
+same-source, same-intervention two-model separation required for promotion.
 
 Promotion still requires 90% pair coverage, a direction-accuracy CI lower bound
-of 0.75, and separation of at least two WAMs. Accuracy passes, but coverage and
-cross-model validation do not, so Step 1.2 is a frozen pilot rather than a
-validated primary benchmark. Step 1-S remains an independent diagnostic
-cross-check; the SEA-RAFT A/B is rejected.
+of 0.75, and separation of at least two WAMs. Step 1.2 and G fail coverage;
+S1.3 passes the first two gates but not the cross-model separation gate. They
+therefore remain frozen/diagnostic pilots rather than a validated primary
+benchmark. The off-the-shelf SEA-RAFT A/B is rejected.
 
 ### Step 2: CFAC and CCFC
 

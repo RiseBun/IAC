@@ -113,24 +113,48 @@ class RaftFlowExtractor:
         target_size: tuple[int, int],
         allow_mixed_source_sizes: bool = False,
         intrinsics_source_size: tuple[int, int] | None = None,
+        image_geometry_adapter: dict | None = None,
     ) -> tuple[list[np.ndarray], np.ndarray, tuple[int, int]]:
         images: list[np.ndarray] = []
         source_size: tuple[int, int] | None = None
-        for path in paths:
+        canonical_intrinsics: np.ndarray | None = None
+        frame_transforms = (
+            image_geometry_adapter.get("frame_transforms")
+            if image_geometry_adapter is not None else None
+        )
+        if frame_transforms is not None and len(frame_transforms) != len(paths):
+            raise ValueError("image geometry adapter length does not match frame paths")
+        for frame_index, path in enumerate(paths):
             image = cv2.imread(str(Path(path)), cv2.IMREAD_COLOR)
             if image is None:
                 raise FileNotFoundError(path)
             height, width = image.shape[:2]
             if source_size is None:
                 source_size = (width, height)
-            elif source_size != (width, height) and not allow_mixed_source_sizes:
+            elif (
+                source_size != (width, height)
+                and not allow_mixed_source_sizes
+                and frame_transforms is None
+            ):
                 raise ValueError("all frames in a video must have the same dimensions")
-            calibration_size = (
-                (width, height)
-                if intrinsics_source_size is None
-                else tuple(int(value) for value in intrinsics_source_size)
-            )
-            image_intrinsics = scale_intrinsics(intrinsics, calibration_size, (width, height))
+            if frame_transforms is None:
+                calibration_size = (
+                    (width, height)
+                    if intrinsics_source_size is None
+                    else tuple(int(value) for value in intrinsics_source_size)
+                )
+                image_intrinsics = scale_intrinsics(intrinsics, calibration_size, (width, height))
+            else:
+                geometry = frame_transforms[frame_index]
+                expected_size = tuple(int(value) for value in geometry["frame_size"])
+                if (width, height) != expected_size:
+                    raise ValueError(
+                        f"frame {frame_index} size {(width, height)} does not match "
+                        f"image geometry adapter declaration {expected_size}"
+                    )
+                image_intrinsics = np.asarray(
+                    geometry["source_to_frame"], dtype=np.float64
+                ) @ np.asarray(intrinsics, dtype=np.float64)
             if distortion.size:
                 image = cv2.undistort(
                     image,
@@ -141,10 +165,20 @@ class RaftFlowExtractor:
                 )
             image = cv2.resize(image, target_size, interpolation=cv2.INTER_AREA)
             images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+            target_intrinsics = scale_intrinsics(
+                image_intrinsics, (width, height), target_size
+            )
+            if canonical_intrinsics is None:
+                canonical_intrinsics = target_intrinsics
+            elif not np.allclose(canonical_intrinsics, target_intrinsics, rtol=1e-7, atol=1e-7):
+                raise ValueError(
+                    "image geometry adapter does not map every frame to one canonical camera"
+                )
         if source_size is None:
             raise ValueError("video has no frames")
-        calibration_size = source_size if intrinsics_source_size is None else intrinsics_source_size
-        return images, scale_intrinsics(intrinsics, calibration_size, target_size), source_size
+        if canonical_intrinsics is None:
+            raise ValueError("video has no calibrated frames")
+        return images, canonical_intrinsics, source_size
 
     def _infer_pairs(
         self, first: list[np.ndarray], second: list[np.ndarray],
@@ -172,8 +206,10 @@ class RaftFlowExtractor:
             if return_uncertainty:
                 tail = predictions[-max(2, min(int(uncertainty_tail), len(predictions))):]
                 stack = torch.stack(tail, dim=0)
-                spread = torch.sqrt(torch.mean((stack - stack[-1:]) ** 2, dim=0))
-                uncertainties.append(spread.cpu().numpy()[:, 0])
+                spread = torch.sqrt(
+                    torch.mean(torch.sum((stack - stack[-1:]) ** 2, dim=2), dim=0)
+                )
+                uncertainties.append(spread.cpu().numpy())
         final = np.concatenate(outputs, axis=0).astype(np.float32)
         uncertainty = None if not return_uncertainty else np.concatenate(uncertainties, axis=0).astype(np.float32)
         return final, uncertainty
@@ -187,6 +223,7 @@ class RaftFlowExtractor:
         inference_size: tuple[int, int] | None = None,
         allow_mixed_source_sizes: bool = False,
         intrinsics_source_size: tuple[int, int] | None = None,
+        image_geometry_adapter: dict | None = None,
         return_uncertainty: bool = False,
         uncertainty_tail: int = 8,
         long_range_consistency: bool = False,
@@ -204,6 +241,7 @@ class RaftFlowExtractor:
             inference_size,
             allow_mixed_source_sizes=allow_mixed_source_sizes,
             intrinsics_source_size=intrinsics_source_size,
+            image_geometry_adapter=image_geometry_adapter,
         )
         forward, forward_uncertainty = self._infer_pairs(
             images[:-1], images[1:], return_uncertainty=return_uncertainty,
@@ -238,15 +276,32 @@ class RaftFlowExtractor:
             forward = np.stack([resize_flow(value) for value in forward], axis=0)
             if backward is not None:
                 backward = np.stack([resize_flow(value) for value in backward], axis=0)
+            if forward_uncertainty is not None:
+                scale_x = target_size[0] / float(inference_size[0])
+                scale_y = target_size[1] / float(inference_size[1])
+                scale = float(np.sqrt(0.5 * (scale_x * scale_x + scale_y * scale_y)))
+                forward_uncertainty = np.stack([
+                    cv2.resize(value, target_size, interpolation=cv2.INTER_LINEAR) * scale
+                    for value in forward_uncertainty
+                ], axis=0).astype(np.float32)
         if backward is not None:
             masks = np.stack(
                 [forward_backward_mask(fwd, bwd, absolute_threshold_px=self.fb_abs_threshold_px,
                                         relative_threshold=self.fb_relative_threshold)
                  for fwd, bwd in zip(forward, backward)], axis=0)
-        calibration_size = source_size if intrinsics_source_size is None else intrinsics_source_size
-        scaled_intrinsics = scale_intrinsics(
-            np.asarray(intrinsics, dtype=np.float64), calibration_size, target_size
-        )
+        if image_geometry_adapter is None:
+            calibration_size = (
+                source_size if intrinsics_source_size is None else intrinsics_source_size
+            )
+            scaled_intrinsics = scale_intrinsics(
+                np.asarray(intrinsics, dtype=np.float64), calibration_size, target_size
+            )
+        else:
+            scaled_intrinsics = inference_intrinsics
+            if inference_size != target_size:
+                scaled_intrinsics = scale_intrinsics(
+                    inference_intrinsics, inference_size, target_size
+                )
         if inference_size != target_size and long_range_residual is not None:
             long_range_residual = np.stack([
                 cv2.resize(value, target_size, interpolation=cv2.INTER_LINEAR).astype(np.float32)

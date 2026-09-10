@@ -111,6 +111,31 @@ class ProjectionSupportContractTest(unittest.TestCase):
             self.assertEqual(observability, [0.0])
             self.assertEqual(reasons, ["motion_not_explained:weak"])
 
+    def test_contract_preserves_interval_fit_explanation(self) -> None:
+        decoded = {
+            "valid": True,
+            "projection_supported": True,
+            "projected_weight_fraction": 1.0,
+            "projection_support_by_interval": [{
+                "source_points": 10,
+                "projected_points": 10,
+                "projected_weight_fraction": 1.0,
+                "projection_supported": True,
+                "reasons": [],
+            }],
+            "motion_explanation_by_interval": [{
+                "energy": 0.8,
+                "zero_flow_energy": 1.0,
+                "fit_improvement": 0.2,
+                "motion_explanation_status": "explained",
+            }],
+            "speed_support": [{"observability": 1.0, "status": "usable"}],
+        }
+        quality = [_quality()]
+        apply_projection_support_contract(decoded, quality)
+        self.assertEqual(quality[0]["motion_explanation_status"], "explained")
+        self.assertAlmostEqual(quality[0]["fit_improvement"], 0.2)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,63 @@
+{
+  "protocol": "iac-flow-structure-yaw-v1.3-pilot",
+  "image": {"width": 448, "height": 256},
+  "intrinsics_source_size": [1920, 1080],
+  "protocol_role": "diagnostic_pilot",
+  "calibration_contract": {
+    "require_explicit_intrinsics_source_size": true,
+    "expected_intrinsics_source_size": [1920, 1080]
+  },
+  "flow": {
+    "backend": "torchvision_raft",
+    "model": "large",
+    "checkpoint": "weights/raft_large_C_T_SKHT_V2-ff5fadd5.pth",
+    "updates": 32,
+    "batch_size": 4,
+    "inference_size": [512, 288],
+    "forward_backward": false,
+    "fb_abs_threshold_px": 1.5,
+    "fb_relative_threshold": 0.05
+  },
+  "flow_reliability": {
+    "refinement_uncertainty": true,
+    "uncertainty_tail": 8,
+    "interval_gate": {
+      "statistic": "median",
+      "max_value": 0.2653818726539612,
+      "calibration_domain": "real_logged_navsim_only",
+      "calibration_record": "configs/raft_refinement_uncertainty_real_navsim_v1.json"
+    }
+  },
+  "mask": {
+    "polygon_normalized": [[0.08, 0.98], [0.92, 0.98], [0.63, 0.53], [0.37, 0.53]]
+  },
+  "flow_structure": {
+    "min_flow_px": 0.5,
+    "min_points": 100,
+    "min_spatial_cells": 6,
+    "max_points": 3000,
+    "grid_rows": 3,
+    "grid_cols": 6
+  },
+  "ordinal_alignment": {
+    "primary_descriptor": "horizontal_flow_center",
+    "descriptor_semantics": "yaw_response",
+    "orientation": 1,
+    "action_column": 2,
+    "action_unit": "rad",
+    "minimum_common_intervals": 2,
+    "minimum_action_delta": 0.01,
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 6101,
+    "diagnostic_descriptors": ["foe_x", "curl", "divergence"]
+  },
+  "promotion_criteria": {
+    "status": "diagnostic_pilot",
+    "coverage_min": 0.9,
+    "direction_accuracy_ci95_lower_min": 0.75,
+    "minimum_distinguishable_models": 2,
+    "coverage_definition": "candidate pairs with at least ordinal_alignment.minimum_common_intervals valid intervals",
+    "material_intervention_definition": "absolute left-right action yaw difference >= ordinal_alignment.minimum_action_delta",
+    "model_separation_definition": "the frozen metric must distinguish at least two WAMs on the same sources and intervention distribution"
+  }
+}
