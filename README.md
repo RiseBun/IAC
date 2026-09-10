@@ -110,14 +110,17 @@ also raises explained coverage from `217/255` to `231/255` and yaw Spearman
 from `0.918` to `0.992`. It remains experimental because strict pair coverage
 is below 90%. The reconstruction-free S1.3 yaw pilot reaches `254/255 = 99.6%`
 pair coverage, `126/149 = 84.6% [77.9%, 89.5%]` direction accuracy and `0.779`
-Spearman. It is the high-coverage ordinal candidate, but still lacks the frozen
-same-source, same-intervention two-model separation required for promotion.
+Spearman. S1.3 is therefore the sole selected Step 1 execution path; Step 1.2
+and 1.3-G are retained only as metric diagnostics and are not cascaded or fused
+into its score. The frozen entry point is
+`configs/flow_structure_yaw_v1_3.json`. It still lacks the same-source,
+same-intervention two-model separation required for universal-primary promotion.
 
 Promotion still requires 90% pair coverage, a direction-accuracy CI lower bound
-of 0.75, and separation of at least two WAMs. Step 1.2 and G fail coverage;
-S1.3 passes the first two gates but not the cross-model separation gate. They
-therefore remain frozen/diagnostic pilots rather than a validated primary
-benchmark. The off-the-shelf SEA-RAFT A/B is rejected.
+of 0.75, and separation of at least two WAMs. S1.3 passes the first two gates
+but not the cross-model separation gate. It is operationally selected and
+frozen, but is not yet a universally validated primary benchmark. The
+off-the-shelf SEA-RAFT A/B is rejected.
 
 ### Step 2: CFAC and CCFC
 

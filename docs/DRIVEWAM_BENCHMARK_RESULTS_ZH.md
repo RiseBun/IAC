@@ -220,8 +220,10 @@ yaw 方向准确率为 `274/296 = 92.6% [89.0%, 95.0%]`，Spearman 为 `0.973`�
 相对同一次 temporal-fixed 视频上的 SE(2) Step 1.2，S1.3 把 pair coverage 从
 `171/255 = 67.1%` 提到 `254/255 = 99.6%`，material yaw pair 从 106 提到
 149；方向准确率相近（`82.1%` -> `84.6%`），Spearman 从 `0.832` 降到
-`0.779`。因此它解决的是覆盖，不是让每个已覆盖样本更准；在跨模型分离门完成
-以前不能替换冻结 Step 1.2。
+`0.779`。因此它解决的是覆盖，不是让每个已覆盖样本更准。当前执行策略已冻结为：
+S1.3 是唯一 Step 1 主执行路径；Step 1.2 与 1.3-G 只作为米制/拟合诊断，不能与
+S1.3 级联、融合或择优。这个工程选择不等于通过通用 primary 升级门；同源、
+同干预分布下的两模型可分离性仍待验证。
 
 覆盖率不再是当前绑定约束，但小 yaw 干预仍有清晰分辨率下限：
 
@@ -244,10 +246,15 @@ Epona common-random probe 扩为同一日志中的 40 个不重叠窗口后，�
 
 这轮通过了“覆盖 >=90%”和“方向 CI 下界 >=0.75”，并证明同一候选无关测量可在
 第二个 WAM 上工作；仍未通过“两模型可分离”，因为 Epona 只有单日志、固定干预
-幅度，与 DriveWAM 不是同一 source / intervention distribution。状态继续保持
-`diagnostic_pilot`。冻结配置为
-`configs/flow_structure_yaw_v1_3_pilot.json`，真实域阈值记录为
+幅度，与 DriveWAM 不是同一 source / intervention distribution。S1.3 已被选为
+当前唯一 Step 1，但其通用评测资格仍是待验证状态。冻结执行配置为
+`configs/flow_structure_yaw_v1_3.json`；原 pilot 配置仅作来源留档，真实域阈值记录为
 `configs/raft_refinement_uncertainty_real_navsim_v1.json`。
+
+PhysicalAI DriveWAM 权重不能充当第二模型对照：兼容性检查显示其 checkpoint 不含
+NAVSIM 的 `ego_history_mlp` 与 `ego_command_embed`，加载时会随机初始化这些条件层，
+同时遗留未使用的 curvature 层。继续推理会把随机条件层误当成 WAM 差异，因此该
+对照已在单样本生成前停止，不进入任何指标。
 
 ### 内参修复后的能量复核
 
