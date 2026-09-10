@@ -25,10 +25,10 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
 
 ## Contributions
 
-1. **Candidate-blind motion measurement.** Frozen RAFT-Large flow is fitted by
-   a continuous ground-plane SE(2) decoder without reading candidate
-   trajectories. Explicit calibration size, output projection support, and
-   honest fit states are part of the contract. Only yaw direction/rank currently
+1. **Candidate-blind motion measurement.** The selected S1.3 path reads a frozen
+   RAFT-Large flow field directly as an ordinal yaw response, without metric
+   reconstruction or candidate trajectories. The continuous ground-plane SE(2)
+   decoder remains an explicit, fail-closed diagnostic. Only yaw direction/rank
    enters the primary score.
 2. **Capability-stratified metrics.** CFAC, CCFC, FAU and FCS are reported as
    separate evidence columns with per-column coverage. Unsupported capabilities
@@ -47,9 +47,9 @@ audited flow component.
 flowchart LR
   I["History + WAM future visual state + calibration"] --> S1
   subgraph S1["Step 1 · Visual motion measurement"]
-    S1a["RAFT-Large F/B flow"] --> S1b["Spatially balanced road evidence"]
-    S1b --> S1c["continuous ground-plane SE(2) fit"]
-    S1c --> S1d["projection support · explained gate · yaw response"]
+    S1a["frozen RAFT-Large flow"] --> S1b["real-calibrated reliability gate"]
+    S1b --> S1c["horizontal flow-center yaw descriptor"]
+    S1c --> S1d["coverage · direction · ordinal response"]
   end
   S1d --> S2
   subgraph S2["Step 2 · CCFC"]
@@ -62,6 +62,13 @@ flowchart LR
 ```
 
 ### Step 1: visual motion measurement
+
+The selected S1.3 path bypasses metric SE(2) reconstruction: it aggregates the
+reliable horizontal-flow center over common intervals and tests whether its
+left/right change follows the native-action yaw change. Its frozen entry point
+is [`configs/flow_structure_yaw_v1_3.json`](configs/flow_structure_yaw_v1_3.json).
+The Step 1.2 contract below is retained as a metric-reconstruction diagnostic,
+not cascaded or fused into S1.3.
 
 The restored Step 1.2 contract uses evaluator images at `448×256`, explicitly
 declares that calibration comes from `1920×1080`, runs RAFT at `512×288`, and
@@ -115,15 +122,23 @@ and 1.3-G are retained only as metric diagnostics and are not cascaded or fused
 into its score. The frozen entry point is
 `configs/flow_structure_yaw_v1_3.json`.
 
-Promotion still requires 90% pair coverage, a direction-accuracy CI lower bound
-of 0.75, and separation of at least two WAMs. S1.3 passes the first two gates
-but not the cross-model separation gate. A strict 174-source DriveWAM/Epona
-comparison reused the exact DriveWAM action trajectories in Epona. Direction
-accuracy was `85.7%` versus `92.4%` (paired difference CI `[0.0, 13.3]` points)
-and Spearman was `0.805` versus `0.739` (difference CI `[-0.183, 0.040]`), so
-neither quality difference excludes zero. S1.3 is operationally selected and
-frozen, but is not yet a universally validated primary benchmark. The
-off-the-shelf SEA-RAFT A/B is rejected.
+S1.3 was then tested on the same 174 sources and exact action interventions in
+DriveWAM and Epona. Pair coverage was `100%` versus `97.7%`, direction accuracy
+was `85.7%` versus `92.4%`, and Spearman was `0.805` versus `0.739`; the natural
+quality differences do not exclude zero. Because two naturally generated WAMs
+need not differ, model separation is reported but is not treated as validity.
+The original separation promotion gate remains failed; it is not retroactively
+marked as passed.
+
+A positive control was preregistered before execution: only the left/right
+future-video contrast was reduced to `100% / 50% / 0%`, with actions, sources,
+history, calibration and thresholds fixed. Coverage stayed above `97%` on both
+WAMs, while median response strictly decreased to zero; at zero contrast,
+Spearman became unavailable. S1.3 is therefore validated as a cross-WAM
+**action-response measurement**, not as a natural WAM quality ranking or
+logged-GT fidelity metric. The frozen protocol hash is unchanged; aggregate
+validation is recorded in `configs/flow_structure_yaw_v1_3_validation.json`.
+The off-the-shelf SEA-RAFT A/B is rejected.
 
 ### Step 2: CFAC and CCFC
 

@@ -1,0 +1,49 @@
+{
+  "protocol": "iac-flow-structure-yaw-v1.3-validation-v1",
+  "status": "cross_model_transportability_and_controlled_sensitivity_passed",
+  "measurement_config": "configs/flow_structure_yaw_v1_3.json",
+  "measurement_config_sha256": "62740ccafd3fae497efbffd37cd7d19d6f5ffaa0442bc83a7bba7f1324bf7f94",
+  "sensitivity_preregistration": "configs/flow_structure_yaw_v1_3_sensitivity_preregistered.json",
+  "sensitivity_preregistration_sha256": "ecc6d9d5cc2ad08d7368eb6b15603624812ed7560f34c6fff5c3d7b6895e442a",
+  "sensitivity_preregistration_commit": "f3b65c6",
+  "matched_source_count": 174,
+  "cross_model_transportability": {
+    "drivewam_navsim": {
+      "pair_coverage": 1.0,
+      "common_material_direction_accuracy": 0.8571428571428571,
+      "common_scored_spearman": 0.805
+    },
+    "epona_nuplan": {
+      "pair_coverage": 0.9770114942528736,
+      "common_material_direction_accuracy": 0.9238095238095239,
+      "common_scored_spearman": 0.739
+    },
+    "natural_model_quality_separation": "not_established"
+  },
+  "controlled_sensitivity": {
+    "strengths": [0.0, 0.5, 1.0],
+    "drivewam_navsim": {
+      "coverage": [1.0, 1.0, 1.0],
+      "median_absolute_response": [0.004853969721456844, 0.0033573179135044807, 0.0],
+      "spearman": [0.8022228474017167, 0.7620143216269017, null],
+      "passed": true
+    },
+    "epona_nuplan": {
+      "coverage": [0.9770114942528736, 0.9827586206896551, 0.9827586206896551],
+      "median_absolute_response": [0.005916611579519369, 0.0029263856010860283, 0.0],
+      "spearman": [0.7393768708734654, 0.7091540287394813, null],
+      "passed": true
+    },
+    "all_non_video_inputs_unchanged": true,
+    "full_attenuation_future_frames_byte_identical": true,
+    "overall_pass": true
+  },
+  "validation_decision": {
+    "action_response_measurement": "validated_on_two_wams_with_positive_control",
+    "logged_gt_fidelity": "not_claimed",
+    "natural_wam_quality_ranking": "not_claimed",
+    "original_model_separation_gate": "failed_and_not_retroactively_passed",
+    "revised_validation_rationale": "natural models need not differ; transportability plus a preregistered positive control tests validity directly"
+  },
+  "private_artifact": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_3_sensitivity_20260910/sensitivity_report.json"
+}

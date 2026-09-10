@@ -262,7 +262,32 @@ Epona 减 DriveWAM 的配对方向准确率差为 `+0.067 [0.000, 0.133]`，Spea
 coverage 差只表示 Epona 多弃权 4 对，不能替代质量分离。由于质量差异检验是在
 看过单模型结果后补充，本轮报告为 post-hoc 证据，不用于 promotion。
 
-S1.3 已被选为当前唯一 Step 1，但通用 primary 升级门仍未通过。冻结执行配置为
+自然生成的两个 WAM 未必具有可检测的质量差，因此“必须把任意两个模型排出高低”
+不是有效性本身。更直接的阳性对照是在保持 source、动作、历史帧、标定、RAFT 和
+阈值不变时，只把左右未来视频向逐像素中点收缩。该对照在运行前已于 commit
+`f3b65c6` 预注册，强度为 `0 / 0.5 / 1.0`；强度 1.0 时两支未来帧逐字节相同。
+这是仅用于验证的 pair-dependent 破坏，不进入正式评分协议。
+原配置中的模型分离 promotion gate 仍记为失败，不因本轮阳性对照而事后改判；
+本轮建立的是另一个、问题定义更直接的 action-response 有效性证据。
+
+| 受控左右视频差异 | DriveWAM coverage | DriveWAM 响应中位数 | Epona coverage | Epona 响应中位数 |
+|---:|---:|---:|---:|---:|
+| 100% | 100.0% | 0.004854 | 97.7% | 0.005917 |
+| 50% | 100.0% | 0.003357 | 98.3% | 0.002926 |
+| 0% | 100.0% | 0 | 98.3% | 0 |
+
+两模型均在 coverage 不低于 90% 的同时满足响应严格递减；完整消除左右视频差异后，
+响应归零、material direction pair 归零、Spearman 按契约变为 unavailable。非视频
+输入指纹在三档间完全一致。因此 S1.3 已通过两项独立有效性检查：跨 WAM 可迁移，
+且能在输入仍可测时识别已知的反事实视觉信号丢失；它不是靠增加弃权制造差异。
+
+据此，S1.3 可作为 **action-response 测量器** 使用。边界仍不变：该阳性对照不证明
+它能按自然生成质量给 DriveWAM 与 Epona 排名，也不测 logged-GT 几何保真度。
+冻结配置不改写，以保持预注册记录中的 SHA；验证状态单独记录在
+`configs/flow_structure_yaw_v1_3_validation.json`。
+
+S1.3 已被选为当前唯一 Step 1，并通过 action-response 测量器的跨模型与阳性对照
+验证；自然 WAM 质量排序仍未建立，也不作为有效性的必要条件。冻结执行配置为
 `configs/flow_structure_yaw_v1_3.json`；原 pilot 配置仅作来源留档，真实域阈值记录为
 `configs/raft_refinement_uncertainty_real_navsim_v1.json`。
 

@@ -20,9 +20,9 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 
 ## 方法贡献
 
-1. **候选盲运动测量尺：** 冻结 RAFT-Large，从未来图像拟合连续地平面 SE(2)
-   运动；显式校准尺寸、输出投影支持和 `explained/weak/abstain` 均属于协议，
-   图像测量阶段不读取候选轨迹。当前只有 yaw 的方向/排序通过审计并进入 primary。
+1. **候选盲运动测量尺：** 当前选定的 S1.3 直接把冻结 RAFT-Large 流场读成
+   yaw 的序响应，不做米制重建，也不读取候选轨迹。连续地平面 SE(2) decoder
+   保留为显式、失败关闭的 diagnostic。只有 yaw 方向/排序进入 primary。
 2. **能力分层指标：** CFAC、CCFC、FAU、FCS 作为独立证据列并报告各自 coverage；
    模型不支持某项时记为 `unavailable`，不填 0。
 3. **失败关闭与可复现：** 强制精确时间戳、标定、随机种子、模型版本和 lineage；
@@ -37,9 +37,9 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 flowchart LR
   I["历史图像 + WAM 未来视觉状态 + 标定"] --> S1
   subgraph S1["Step 1 · 图像侧运动测量"]
-    S1a["RAFT-Large 前后向光流"] --> S1b["道路区域空间均衡取证"]
-    S1b --> S1c["连续地平面 SE(2) 拟合"]
-    S1c --> S1d["投影支持 · explained 门 · yaw 响应"]
+    S1a["冻结 RAFT-Large 光流"] --> S1b["真实域标定的可靠性门"]
+    S1b --> S1c["水平流中心 yaw 描述子"]
+    S1c --> S1d["覆盖 · 方向 · 序响应"]
   end
   S1d --> S2
   subgraph S2["Step 2 · CCFC"]
@@ -52,6 +52,11 @@ flowchart LR
 ```
 
 ### Step 1：图像侧运动测量
+
+当前选定的 S1.3 绕过米制 SE(2) 重建：在共同有效 interval 上汇总可靠的水平
+流中心，并检验左右变化是否跟随 native-action yaw 变化。冻结入口为
+[`configs/flow_structure_yaw_v1_3.json`](configs/flow_structure_yaw_v1_3.json)。
+下述 Step 1.2 仅保留为米制重建 diagnostic，不与 S1.3 级联或融合。
 
 恢复后的 Step 1.2 坐标约定为：评测图像 `448×256`，内参显式声明来自
 `1920×1080`，RAFT 推理 `512×288` 后把光流和内参统一映射回评测坐标。冻结配置为
@@ -97,10 +102,18 @@ explained `171/255 = 67.1%`。动作 yaw 差至少 `0.01 rad` 的 106 对中，�
 S1.3 yaw pilot 达到 `254/255 = 99.6%` pair coverage、
 `126/149 = 84.6% [77.9%, 89.5%]` 方向准确率和 `0.779` Spearman。
 
-升级判据保持预注册值：pair coverage 至少 90%、方向准确率 CI 下界至少 0.75，
-并在相同 source 和干预分布上分离至少两个 WAM。Step 1.2/G 未过 coverage；
-S1.3 通过前两门但未过跨模型分离。因此三者仍是冻结或诊断 pilot，不是已验证
-primary benchmark；SEA-RAFT A/B 已否决。
+严格跨模型对照在相同 174 个 source 上，把 DriveWAM 的实际动作干预逐条注入
+Epona。pair coverage 为 `100% / 97.7%`，方向准确率为 `85.7% / 92.4%`，
+Spearman 为 `0.805 / 0.739`；自然质量差异未排除零。两个自然生成的 WAM 不一定
+存在可检测质量差，因此“必须分出高低”只作为结果报告，不再冒充有效性条件。
+原预注册的模型分离升级门仍记为失败，不做事后改判。
+
+运行前另行预注册了阳性对照：只把左右未来视频差异收缩为 `100% / 50% / 0%`，
+source、动作、历史、标定和阈值不变。两个 WAM 的 coverage 始终高于 97%，响应
+中位数均严格降到 0；差异完全消失时 Spearman 按契约变为 unavailable。因此
+S1.3 已被验证为跨 WAM 的 **action-response 测量器**，但不宣称能做自然 WAM
+质量排名或 logged-GT 保真度评分。冻结协议 SHA 不改写，聚合验证记录在
+`configs/flow_structure_yaw_v1_3_validation.json`；SEA-RAFT A/B 已否决。
 
 ### Step 2：CFAC 与 CCFC
 
