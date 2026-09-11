@@ -6,6 +6,12 @@
 
 **中文文档:** [README_zh.md](README_zh.md)
 
+**Joint evaluation framework:**
+[`docs/WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md`](docs/WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md)
+
+The machine-readable stages, input prohibitions and promotion gates are in
+[`configs/wam_joint_evaluation_v1.json`](configs/wam_joint_evaluation_v1.json).
+
 IAC is an evaluation protocol for world action models (WAMs). It asks a
 specific question: when a model emits a native action, is that action aligned
 with the future visual state the model predicts? IAC separates measurement,
@@ -36,6 +42,10 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
 3. **Fail-closed reproducibility.** Exact timestamps, calibration, model
    revision, seed and lineage are required. Private GT is joined only on the
    evaluation server; submitted motion profiles cannot replace image probing.
+4. **Structural counterfactual channel (experimental).** Same-source
+   left/right flow differences are exposed as an ordinal, decoder-free signal
+   for structural CCFC. This is separate from metric CFAC/FAU and is not
+   promoted to a frozen score until independent validation is complete.
 
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
@@ -67,8 +77,9 @@ The selected S1.3 path bypasses metric SE(2) reconstruction: it aggregates the
 reliable horizontal-flow center over common intervals and tests whether its
 left/right change follows the native-action yaw change. Its frozen entry point
 is [`configs/flow_structure_yaw_v1_3.json`](configs/flow_structure_yaw_v1_3.json).
-The Step 1.2 contract below is retained as a metric-reconstruction diagnostic,
-not cascaded or fused into S1.3.
+The continuous Step 1.2 contract below is retained as a metric-reconstruction
+diagnostic, not cascaded or fused into S1.3. The candidate-blind coarse
+initializer G is an experimental ablation of that diagnostic path.
 
 The restored Step 1.2 contract uses evaluator images at `448×256`, explicitly
 declares that calibration comes from `1920×1080`, runs RAFT at `512×288`, and
@@ -140,6 +151,20 @@ logged-GT fidelity metric. The frozen protocol hash is unchanged; aggregate
 validation is recorded in `configs/flow_structure_yaw_v1_3_validation.json`.
 The off-the-shelf SEA-RAFT A/B is rejected.
 
+An additional exploratory structural channel is defined in
+[`configs/flow_structure_counterfactual_delta_v1.json`](configs/flow_structure_counterfactual_delta_v1.json).
+For the same `source_key`, it computes
+
+```text
+ΔS_F = S_F(left) − S_F(right)
+```
+
+and reports raw/common-motion-normalized deltas, direction and temporal
+persistence without reconstructing metres or radians. It can support a
+structural `CCFC-S`, but it does not replace metric `CFAC` or `FAU`; progress
+descriptors remain diagnostic until the independent pure-speed swap validation
+is complete.
+
 ### Step 2: CFAC and CCFC
 
 **CFAC** compares one run's imagined motion profile `P_F` with its native action
@@ -152,6 +177,13 @@ forwards with the same history, seed and nuisance variables:
 CCFC-S = ordinal_consistency(ΔS_F, ΔP_A)
 ```
 
+`CCFC-S` is the structural form used by the current framework. It measures
+whether imagined structure and native action respond consistently to the same
+intervention; it is not by itself proof that the action was causally generated
+from the predicted future. A future-to-action claim requires an additional
+future-only intervention or pathway-ablation control (see the framework
+document).
+
 Any auditable intervention is allowed (for example left/right, slow/fast,
 command change or latent swap). Semantic clear/risk is optional. The evaluator
 must receive both regenerated future visual output and native action; injecting
@@ -159,6 +191,11 @@ an action after generation is only an action-response diagnostic, not CCFC.
 
 FAU reports whether imagined motion (`FAU_F`) and native action (`FAU_A`) each
 approach the private ground-truth future; `FAU = sqrt(FAU_F × FAU_A)`.
+
+`CFAC-S` is the structural analogue of CFAC and requires an action-to-structure
+mapping fitted on a separate calibration set and frozen before confirmation.
+Until that calibration is validated, it must be reported as `unavailable`, not
+as a metre-domain error.
 
 ### Step 3: FCS
 
@@ -256,10 +293,11 @@ python scripts/score_iac_submission.py \
   --output <scorecard.json>
 ```
 
-The server-only primary Step 1 command consumes a private joined manifest and
-runs `scripts/evaluate_continuous_decoder.py` with `configs/plane.json`; paired
-aggregation uses `scripts/evaluate_counterfactual_alignment.py`. Step 1-S remains
-diagnostic-only. The public manifest alone cannot
+The server-only Step 1 command consumes a private joined manifest. The frozen
+execution path is S1.3 (`configs/flow_structure_yaw_v1_3.json`); the continuous
+SE(2) decoder (`scripts/evaluate_continuous_decoder.py` with
+`configs/plane.json`) and Step 1.3-G remain diagnostic/ablation paths. Paired
+aggregation uses `scripts/evaluate_counterfactual_alignment.py`. The public manifest alone cannot
 access images or GT. Capability status is one of
 `pass`, `pilot`, `unavailable`, `missing` or `ineligible`.
 
