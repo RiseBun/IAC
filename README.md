@@ -277,6 +277,25 @@ GS 的 source-disjoint generated calibration 为 `230` 个分支，coverage `98.
 这组结果说明直接把结构流拟合成 action-aligned MAS 仍受模型域差异影响，
 不能与上面的 RCS/GS 分数混排；它保留作诊断和后续校准依据。
 
+An independent, candidate-blind action-to-structure calibration was also
+run using logged real future flow only, then applied once to untouched pure-
+speed generated confirmations.  It is an audit of the MAS interface, not a
+promotion result:
+
+| Model | branch coverage | median MAS | median zero baseline | fast-vs-slow order |
+|---|---:|---:|---:|---:|
+| Epona | `95.0%` (112/118) | `0.550` | `0.650` | `36.0%` (56 twins) |
+| DriveWAM | `100%` (172/172) | `0.270` | `0.350` | `7.0%` (86 twins) |
+
+Both models score below the zero-action baseline and fail the preregistered
+transportability requirement.  This is evidence that the current
+action-to-structure adapter is not yet a reliable MAS; the result is retained
+as a negative control and does not alter the frozen RCS or GS claims.  The
+reproducible artifacts are
+[`reports/mas_independent_epona_20260912.json`](reports/mas_independent_epona_20260912.json),
+[`reports/mas_independent_drivewam_20260912.json`](reports/mas_independent_drivewam_20260912.json),
+and [`tools/calibrate_mas_structure.py`](tools/calibrate_mas_structure.py).
+
 ### Step 3: FCS
 
 FCS sends native action to an independent simulator and scores the realized

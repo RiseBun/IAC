@@ -7,7 +7,20 @@
       "legacy_alias": "CFAC",
       "definition": "single-branch candidate-blind visual structure aligned with the native action",
       "required_inputs": ["generated_future_video", "native_action", "camera_calibration"],
-      "current_status": "implemented; structural calibration pending"
+      "current_status": "implemented; independent action-to-structure audit failed promotion gates",
+      "independent_audit": {
+        "calibration_source": "logged_real_future_flow_only",
+        "reports": [
+          "reports/mas_independent_epona_20260912.json",
+          "reports/mas_independent_drivewam_20260912.json"
+        ],
+        "observed": {
+          "Epona": {"coverage": 0.95, "median_mas": 0.55, "median_zero_baseline": 0.65, "fast_slow_order": 0.36},
+          "DriveWAM": {"coverage": 1.0, "median_mas": 0.27, "median_zero_baseline": 0.35, "fast_slow_order": 0.07}
+        },
+        "status": "diagnostic_only",
+        "reason": "generated confirmations score below zero-action baseline; no transportable action-to-structure alignment"
+      }
     },
     "response_consistency_score": {
       "id": "RCS",

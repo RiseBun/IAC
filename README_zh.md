@@ -182,6 +182,22 @@ Epona − DriveWAM 的 paired 差值为 `0.314`，95% CI `[0.251, 0.340]`；说�
 calibration 分支的 coverage 为 `98.3%`，GS 中位数 `0.503`，随机身份置换均值
 `0.289`。GS 协议已冻结；它仍不声称 future-to-action 因果关系。
 
+**MAS 独立动作—结构校准审计（尚未通过正式验收）：**
+
+校准只使用 logged real future flow，随后一次性应用到未参与校准的 pure-speed
+生成确认集：
+
+| 模型 | 分支覆盖 | MAS 中位数 | 零动作基线中位数 | fast>slow 顺序 |
+|---|---:|---:|---:|---:|
+| Epona | `112/118 = 95.0%` | `0.550` | `0.650` | `36.0%`（56 对） |
+| DriveWAM | `172/172 = 100%` | `0.270` | `0.350` | `7.0%`（86 对） |
+
+两个模型的 MAS 都低于零动作基线，且未满足跨模型可迁移性门槛。因此 MAS 仍是
+诊断通道，不能作为正式排行榜分数；这不改写已冻结的 RCS/GS。可复现实验见
+[`reports/mas_independent_epona_20260912.json`](reports/mas_independent_epona_20260912.json)、
+[`reports/mas_independent_drivewam_20260912.json`](reports/mas_independent_drivewam_20260912.json)
+和 [`tools/calibrate_mas_structure.py`](tools/calibrate_mas_structure.py)。
+
 ### Step 3：FCS
 
 FCS 将 native action 输入独立模拟器，依据模拟器产生的实际状态和任务标签评分。
