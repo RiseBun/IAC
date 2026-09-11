@@ -21,7 +21,17 @@
       "legacy_components": ["FAU_F", "FAU_A", "FAU"],
       "definition": "generated visual future and native action grounded against an external logged or simulated future",
       "required_inputs": ["generated_future_video", "native_action", "external_future_reference"],
-      "current_status": "implemented as tentative wrapper; not a replacement for FCS"
+      "current_status": "cross-model structural pilot completed; scalar aggregation and independent calibration/confirmation freeze pending",
+      "pilot_evidence": {
+        "models": ["Epona", "DriveWAM"],
+        "same_source_logged_future_join": true,
+        "artifacts": [
+          "reports/grounding_score_epona_confirmation_20260911.json",
+          "reports/grounding_score_drivewam_confirmation_20260911.json",
+          "reports/grounding_score_identity_shuffle_20260911.json"
+        ],
+        "claim_boundary": "Pilot evidence measures external future grounding; it does not establish future-to-action causality and is not yet a frozen scalar GS."
+      }
     }
   },
   "missing_value_policy": "unavailable_or_abstain_never_zero_fill",
