@@ -1,0 +1,96 @@
+{
+  "protocol": "iac-grounding-score-calibration-v1",
+  "status": "real_domain_descriptor_calibration",
+  "source_reports": [
+    "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_4_progress_softfb_real_20260911/real_0.jsonl",
+    "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_4_progress_softfb_real_20260911/real_1.jsonl",
+    "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_4_progress_softfb_real_20260911/real_2.jsonl",
+    "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_4_progress_softfb_real_20260911/real_3.jsonl"
+  ],
+  "row_count": 255,
+  "claim_boundary": "Calibration statistics are estimated only from independent real logged NAVSIM videos. They define descriptor scales and missing-data policy; they do not tune to generated confirmation outcomes and do not prove causality.",
+  "descriptors": {
+    "median_flow_magnitude_px": {
+      "n": 987,
+      "median": 31.712703259697395,
+      "mad_normal": 18.389654015699506,
+      "q05": 8.086698542055519,
+      "q25": 20.476267292053162,
+      "q75": 47.41360626266633,
+      "q95": 123.60239133871563,
+      "interval_medians": {
+        "0": 30.685888877034053,
+        "1": 32.18640125758864,
+        "2": 32.016510373169666,
+        "3": 32.257550984226285
+      }
+    },
+    "horizontal_flow_center": {
+      "n": 987,
+      "median": 0.004330706497171219,
+      "mad_normal": 0.030738168189133684,
+      "q05": -0.17547996510414407,
+      "q25": -0.005339139212186393,
+      "q75": 0.053959178527747384,
+      "q95": 0.2735543122734669,
+      "interval_medians": {
+        "0": 0.003244491787459417,
+        "1": 0.004652046958881013,
+        "2": 0.006384877986616962,
+        "3": 0.0036859307308964194
+      }
+    },
+    "vertical_flow_center": {
+      "n": 987,
+      "median": 0.03272847324899099,
+      "mad_normal": 0.023590743605748664,
+      "q05": -0.008215377736583495,
+      "q25": 0.018440968854334747,
+      "q75": 0.05026446152659296,
+      "q95": 0.07603356641473116,
+      "interval_medians": {
+        "0": 0.03142460131818808,
+        "1": 0.030763234328297737,
+        "2": 0.03304192865052481,
+        "3": 0.03463072713138988
+      }
+    },
+    "divergence": {
+      "n": 987,
+      "median": 0.6806007094449488,
+      "mad_normal": 0.46077075629131653,
+      "q05": -0.13344174563859018,
+      "q25": 0.34159317476748874,
+      "q75": 0.960969355733171,
+      "q95": 1.3678304686361036,
+      "interval_medians": {
+        "0": 0.6145338097421523,
+        "1": 0.672053033659455,
+        "2": 0.7407541037774223,
+        "3": 0.6918131109334393
+      }
+    },
+    "curl": {
+      "n": 987,
+      "median": -0.03387091491173615,
+      "mad_normal": 0.17186898289662392,
+      "q05": -0.5525439113543751,
+      "q25": -0.18568201027951048,
+      "q75": 0.05214546199135048,
+      "q95": 0.4230662714693037,
+      "interval_medians": {
+        "0": -0.020783240186530154,
+        "1": -0.05074848025568568,
+        "2": -0.033503804499686596,
+        "3": -0.03387091491173615
+      }
+    }
+  },
+  "status_counts": {
+    "usable": 240,
+    "abstain": 6,
+    "partial": 9
+  },
+  "interval_input_available_fraction": 0.9676470588235294,
+  "measurement_available_fraction": 0.9411764705882353
+}
