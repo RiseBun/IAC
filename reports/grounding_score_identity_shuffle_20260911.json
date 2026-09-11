@@ -1,0 +1,99 @@
+{
+  "protocol": "iac-grounding-score-identity-shuffle-v1",
+  "status": "exploratory_negative_control",
+  "seed": 20260911,
+  "draws": 1000,
+  "claim_boundary": "Identity shuffle is a negative control for same-source structural grounding; it does not by itself establish causal future-to-action grounding.",
+  "models": {
+    "epona": {
+      "branch_count": 118,
+      "metrics": {
+        "median_flow_magnitude_px": {
+          "n": 112,
+          "correct_rho": 0.8345379115510124,
+          "shuffle_rho_mean": 0.00010260221851368323,
+          "shuffle_rho_sd": 0.09291353121472531,
+          "shuffle_q95": 0.15827908599889357,
+          "correct_exceeds_q95": true
+        },
+        "horizontal_flow_center": {
+          "n": 112,
+          "correct_rho": 0.648948353266978,
+          "shuffle_rho_mean": 0.0030919063217712097,
+          "shuffle_rho_sd": 0.09476345395231649,
+          "shuffle_q95": 0.15474652835064961,
+          "correct_exceeds_q95": true
+        },
+        "vertical_flow_center": {
+          "n": 112,
+          "correct_rho": 0.7680557746256599,
+          "shuffle_rho_mean": 0.0026636082682354053,
+          "shuffle_rho_sd": 0.0944299256793491,
+          "shuffle_q95": 0.15783142935858405,
+          "correct_exceeds_q95": true
+        },
+        "divergence": {
+          "n": 112,
+          "correct_rho": 0.5811164119681732,
+          "shuffle_rho_mean": -0.0019382678218835532,
+          "shuffle_rho_sd": 0.09895622065741555,
+          "shuffle_q95": 0.1607121510973695,
+          "correct_exceeds_q95": true
+        },
+        "curl": {
+          "n": 112,
+          "correct_rho": 0.5341466369982956,
+          "shuffle_rho_mean": -0.0018372716997129643,
+          "shuffle_rho_sd": 0.09504279982304334,
+          "shuffle_q95": 0.15285680222781653,
+          "correct_exceeds_q95": true
+        }
+      }
+    },
+    "drivewam": {
+      "branch_count": 172,
+      "metrics": {
+        "median_flow_magnitude_px": {
+          "n": 164,
+          "correct_rho": 0.12199339146618589,
+          "shuffle_rho_mean": 0.0010745474374240888,
+          "shuffle_rho_sd": 0.08079188171153706,
+          "shuffle_q95": 0.13521546391607708,
+          "correct_exceeds_q95": false
+        },
+        "horizontal_flow_center": {
+          "n": 164,
+          "correct_rho": -0.05646119050150071,
+          "shuffle_rho_mean": -0.0015634351783085174,
+          "shuffle_rho_sd": 0.07873737508114294,
+          "shuffle_q95": 0.12659174623038139,
+          "correct_exceeds_q95": false
+        },
+        "vertical_flow_center": {
+          "n": 164,
+          "correct_rho": -0.03414008377085732,
+          "shuffle_rho_mean": 0.0028089387859316856,
+          "shuffle_rho_sd": 0.07910600823202478,
+          "shuffle_q95": 0.13151033432736547,
+          "correct_exceeds_q95": false
+        },
+        "divergence": {
+          "n": 164,
+          "correct_rho": 0.1471168799536019,
+          "shuffle_rho_mean": -0.0027368169067001047,
+          "shuffle_rho_sd": 0.07921683838265824,
+          "shuffle_q95": 0.1253374763373016,
+          "correct_exceeds_q95": true
+        },
+        "curl": {
+          "n": 164,
+          "correct_rho": -0.006012877361618957,
+          "shuffle_rho_mean": 0.002159101826402945,
+          "shuffle_rho_sd": 0.07812663250291564,
+          "shuffle_q95": 0.13246994602213608,
+          "correct_exceeds_q95": false
+        }
+      }
+    }
+  }
+}

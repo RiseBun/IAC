@@ -1,0 +1,49 @@
+{
+  "protocol": "iac-grounding-score-pilot-v1",
+  "status": "exploratory_cross_model_confirmation",
+  "claim_boundary": "Grounding Score pilot compares candidate-blind generated flow structure with same-source logged future. It is not yet a frozen scalar score and does not by itself establish future-to-action causality.",
+  "models": {
+    "Epona": {
+      "branches": 118,
+      "common_intervals": 442,
+      "generated_measurement_available": 0.8983,
+      "logged_gt_measurement_available": 0.9322,
+      "median_flow_magnitude": {
+        "spearman": 0.7249,
+        "median_abs_error_px": 15.3124,
+        "generated_median_px": 43.5353,
+        "logged_gt_median_px": 55.4224
+      },
+      "horizontal_flow_center_spearman": 0.6410,
+      "identity_shuffle": {
+        "flow_magnitude_correct_rho": 0.8345,
+        "shuffle_q95": 0.1583,
+        "exceeds_shuffle_q95": true
+      }
+    },
+    "DriveWAM": {
+      "branches": 172,
+      "common_intervals": 607,
+      "generated_measurement_available": 0.9419,
+      "logged_gt_measurement_available": 0.9535,
+      "median_flow_magnitude": {
+        "spearman": -0.0419,
+        "median_abs_error_px": 61.7078,
+        "generated_median_px": 0.8452,
+        "logged_gt_median_px": 47.9350
+      },
+      "horizontal_flow_center_spearman": 0.2499,
+      "identity_shuffle": {
+        "flow_magnitude_correct_rho": 0.1220,
+        "shuffle_q95": 0.1352,
+        "exceeds_shuffle_q95": false
+      }
+    }
+  },
+  "artifacts": {
+    "epona_raw": "reports/grounding_score_epona_confirmation_20260911.json",
+    "drivewam_raw": "reports/grounding_score_drivewam_confirmation_20260911.json",
+    "identity_shuffle": "reports/grounding_score_identity_shuffle_20260911.json"
+  },
+  "decision": "The same-source logged-future comparison has discriminative pilot evidence across two models: Epona retains measurable geometric structure while DriveWAM does not. Freeze a scalar GS only after an independent calibration/confirmation split and a prespecified aggregation rule."
+}
