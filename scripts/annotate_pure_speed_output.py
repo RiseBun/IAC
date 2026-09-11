@@ -26,15 +26,21 @@ def _roles(root: Path) -> dict[str, str]:
     return result
 
 
-def annotate(output_root: Path, fast_root: Path, slow_root: Path) -> int:
+def _output_manifests(root: Path, name: str) -> list[Path]:
+    direct = root / name
+    nested = sorted(root.glob(f"shard_*/{name}"))
+    return ([direct] if direct.is_file() else []) + nested
+
+
+def annotate(output_root: Path, fast_root: Path, slow_root: Path, *, forced_role: str | None = None) -> int:
     roles = {**_roles(slow_root), **_roles(fast_root)}
     changed = 0
-    for path in sorted(output_root.glob("shard_*/manifest.json")):
+    for path in _output_manifests(output_root, "manifest.json"):
         rows = _read(path)
         for row in rows:
             source = str(row.get("source_key") or "")
             branch = str(row.get("branch_mode") or row.get("branch_role") or "")
-            role = {"left": "fast", "right": "slow"}.get(branch, roles.get(source))
+            role = forced_role or {"left": "fast", "right": "slow"}.get(branch, roles.get(source))
             if role is None:
                 continue
             row["protocol"] = "iac-pure-speed-twin-v1"
@@ -47,12 +53,12 @@ def annotate(output_root: Path, fast_root: Path, slow_root: Path) -> int:
             row["metadata"]["speed_role"] = role
             changed += 1
         path.write_text(json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    for path in sorted(output_root.glob("shard_*/flow_manifest.jsonl")):
+    for path in _output_manifests(output_root, "flow_manifest.jsonl"):
         rows = _read(path)
         for row in rows:
             source = str(row.get("source_key") or "")
             branch = str(row.get("branch_role") or row.get("branch_mode") or "")
-            role = {"left": "fast", "right": "slow"}.get(branch, roles.get(source))
+            role = forced_role or {"left": "fast", "right": "slow"}.get(branch, roles.get(source))
             if role is None:
                 continue
             row["protocol"] = "iac-pure-speed-twin-v1"
@@ -72,8 +78,9 @@ def main() -> None:
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument("--fast-root", type=Path, required=True)
     parser.add_argument("--slow-root", type=Path, required=True)
+    parser.add_argument("--forced-role", choices=("fast", "slow"))
     args = parser.parse_args()
-    print(json.dumps({"annotated_rows": annotate(args.output_root, args.fast_root, args.slow_root)}))
+    print(json.dumps({"annotated_rows": annotate(args.output_root, args.fast_root, args.slow_root, forced_role=args.forced_role)}))
 
 
 if __name__ == "__main__":

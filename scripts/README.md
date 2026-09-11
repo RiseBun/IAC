@@ -21,6 +21,7 @@ protocol once a private evaluation server has joined images and ground truth:
 | `annotate_pure_speed_output.py` | Correct legacy Epona output labels after pure-speed image generation |
 | `prepare_drivewam_pure_speed_samples.py` | Adapt pure-speed action rows to native DriveWAM intervention samples |
 | `prepare_flow_structure_manifest.py` | Normalize generated flow manifests for candidate-blind structure scoring |
+| `prepare_drivewam_flow_manifest.py` | Join DriveWAM generated frames with calibration for flow-structure scoring |
 | `score_iac_submission.py` | Capability-stratified scorecard |
 | `audit_benchmark_manifest.py` | Public (`--public`) or paired private-manifest audit |
 
