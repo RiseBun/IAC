@@ -16,6 +16,7 @@ protocol once a private evaluation server has joined images and ground truth:
 | `evaluate_counterfactual_alignment.py` | Compute paired-intervention CCFC |
 | `score_counterfactual_flow_delta.py` | Score same-source structural flow deltas (exploratory) |
 | `validate_counterfactual_flow_delta.py` | Run normal, reversed-order, identity-swap and zero-contrast CCFC-S controls |
+| `prepare_pure_speed_confirmation.py` | Build scene-disjoint fast/slow action roots; image generation remains pending |
 | `score_iac_submission.py` | Capability-stratified scorecard |
 | `audit_benchmark_manifest.py` | Public (`--public`) or paired private-manifest audit |
 

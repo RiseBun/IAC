@@ -89,3 +89,18 @@ CCFC-S 升级为正式 primary；在 CFAC-S 校准完成前，不报告结构域
   拟合映射、冻结版本和 SHA 之前保持 `unavailable`。
 - **当前对外状态：** S1.3 yaw action-response 可报告；progress 仍为
   `diagnostic_only`；CCFC-S 为框架就绪但确认待完成；CFAC-S 为校准待完成。
+
+## 已准备的 pure-speed action roots
+
+已在服务器生成验证专用 action roots：
+
+`/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_confirmation_roots_20260911`
+
+该集合来自 255 个去重 source，按 scene hash 拆为 calibration `169` twins 和
+confirmation `86` twins，共 `510` 个分支；包含 acceleration `64`、lateral_turn
+`104`、braking `52`、straight_cruise `29`、stop `6`，并声明
+`model_ids=[drivewam_navsim,epona_nuplan]`。每个 twin 的 fast/slow 分支使用
+`1.25×/0.75×` XY translation，yaw 逐点保持不变，history、nuisance 和 source
+保持相同。当前状态为 `action_roots_ready_images_pending`：还没有把这组 roots
+冒充成模型生成的 future images；必须分别用两个模型生成图像后，才可进入
+CCFC-S 的 calibration/confirmation 运行。
