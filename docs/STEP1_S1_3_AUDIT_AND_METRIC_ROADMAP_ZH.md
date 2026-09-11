@@ -104,9 +104,11 @@ hash 拆为 calibration `169` twins 和 confirmation `86` twins，共 `510` 个�
 `1.25×/0.75×` XY translation，yaw 逐点保持不变，history、nuisance 和 source
 保持相同。当前状态为 `action_roots_ready_images_pending`：还没有把这组 roots
 冒充成模型生成的 future images；Epona runner 的确认集 smoke 已完成 `2` 个
-source，完整确认运行已覆盖 `59` 个满足 history contract 的 source；仍必须让
-DriveWAM 与 Epona 生成同口径图像后，才可进入 CCFC-S 的 calibration/confirmation
-运行。
+source，完整确认运行已覆盖 `59` 个满足 history contract 的 source（`118` 条
+分支记录，fast/slow 各 `59`）。其余 27 个 source 被 runner 的历史窗口契约拒绝，
+不能静默计入 coverage。DriveWAM 已完成 fast/slow 各 1 个 source 的外部动作注入
+smoke；完整双模型确认仍未完成，必须生成同口径图像后才可进入 CCFC-S 的
+calibration/confirmation 运行。
 
 此前的 `pure_speed_confirmation_roots_20260911` 使用了旧的 4 点 action 口径，
 已被 v2 替代，不得与本确认集混用。
