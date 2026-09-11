@@ -58,6 +58,20 @@
     }
   },
   "missing_value_policy": "unavailable_or_abstain_never_zero_fill",
+  "reference_identity_contract": {
+    "logged_gt_candidate_id": {
+      "allowed": true,
+      "trajectory_sources": ["navsim_logged_realized", "private_realized_gt"],
+      "forbidden_sources": ["wam_action_head", "logged", "oracle", "proxy"]
+    },
+    "generated_wam_rows": {
+      "gt_candidate_id": null,
+      "action_trajectory_source": "wam_action_head",
+      "future_images_source": "wam_generated",
+      "rationale": "A model action is an evaluated input, not ground truth."
+    },
+    "enforcement": "protocol.validate_record rejects model outputs mislabeled as GT"
+  },
   "causal_boundary": "MAS/RCS establish consistency or response matching; neither alone proves future-to-action mediation.",
   "compatibility": {"preserve_legacy_output_keys": true}
 }
