@@ -1,0 +1,23 @@
+{
+  "protocol": "iac-flow-structure-worlddrive-pilot-v1",
+  "image": {"width": 448, "height": 256},
+  "protocol_role": "third_model_pilot",
+  "calibration_contract": {
+    "require_explicit_intrinsics_source_size": true,
+    "expected_intrinsics_source_size": [1024, 512]
+  },
+  "flow": {
+    "backend": "torchvision_raft",
+    "model": "large",
+    "checkpoint": "weights/raft_large_C_T_SKHT_V2-ff5fadd5.pth",
+    "updates": 32,
+    "batch_size": 4,
+    "forward_backward": false,
+    "fb_abs_threshold_px": 1.5,
+    "fb_relative_threshold": 0.05,
+    "inference_size": [512, 288]
+  },
+  "mask": {"polygon_normalized": [[0.08, 0.98], [0.92, 0.98], [0.63, 0.53], [0.37, 0.53]]},
+  "flow_structure": {"min_flow_px": 0.5, "min_points": 100, "min_spatial_cells": 6, "max_points": 3000, "grid_rows": 3, "grid_cols": 6},
+  "status": "pilot_not_frozen"
+}
