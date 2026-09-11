@@ -16,6 +16,16 @@ from iac_new.visual_consistency import (
 )
 
 
+def _interval_trajectory(value: np.ndarray, interval_count: int) -> np.ndarray:
+    """Resample native 8-knot (0.5s) actions to four 1s flow intervals."""
+    if len(value) == interval_count:
+        return value
+    if len(value) == 2 * interval_count:
+        return value[[1, 3, 5, 7]]
+    indices = np.linspace(0, len(value) - 1, interval_count).round().astype(int)
+    return value[indices]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
@@ -40,7 +50,9 @@ def main() -> None:
         left_valid, right_valid = np.load(args.root / left_meta["valid_path"]), np.load(args.root / right_meta["valid_path"])
         shape = left_flow.shape[1:3]
         roi = polygon_mask(shape[0], shape[1], [[0.08, 0.98], [0.92, 0.98], [0.63, 0.53], [0.37, 0.53]])
-        left_traj, right_traj = np.asarray(left_meta["trajectory"]), np.asarray(right_meta["trajectory"])
+        interval_count = left_flow.shape[0]
+        left_traj = _interval_trajectory(np.asarray(left_meta["trajectory"]), interval_count)
+        right_traj = _interval_trajectory(np.asarray(right_meta["trajectory"]), interval_count)
         left_expected, left_geometry = trajectory_conditioned_flow(left_traj, intrinsics=np.asarray(left_meta["intrinsics"]), camera_to_ego=np.asarray(left_meta["camera_to_ego"]), frame_shape=shape)
         right_expected, right_geometry = trajectory_conditioned_flow(right_traj, intrinsics=np.asarray(right_meta["intrinsics"]), camera_to_ego=np.asarray(right_meta["camera_to_ego"]), frame_shape=shape)
         common = left_valid & right_valid & left_geometry & right_geometry & roi
