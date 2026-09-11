@@ -1,0 +1,1019 @@
+{
+  "summary": {
+    "protocol": "iac-forward-visual-consistency-v1",
+    "count": 59,
+    "branch_status_counts": {
+      "scored": 12,
+      "weak": 9,
+      "unavailable": 215
+    },
+    "branch_reliable_fraction": 0.05084745762711865,
+    "median_branch_residual_px": 2.4302707778267503,
+    "median_branch_direction_cosine": 0.6332288159407478
+  },
+  "rows": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 1,
+        "unavailable": 3
+      },
+      "input_support_fraction": 0.14007350376674108,
+      "interval_coverage": 0.25,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": 11.501146924682649,
+      "median_direction_cosine": -0.22890984024788172,
+      "residual_inlier_fraction": 0.012755946035363747
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "stratum": null,
+      "status_counts": {
+        "scored": 1,
+        "weak": 1,
+        "unavailable": 2
+      },
+      "input_support_fraction": 0.17093549455915177,
+      "interval_coverage": 0.5,
+      "reliable_interval_fraction": 0.25,
+      "median_residual_px": 3.04469523323211,
+      "median_direction_cosine": 0.7770032809044249,
+      "residual_inlier_fraction": 0.4814551274062114
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.10944039481026786,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.05851091657366071,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.08703831263950892,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.05701773507254464,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.1119232177734375,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.19316537039620538,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.08083670479910714,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.03871808733258929,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.0533905029296875,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.05364990234375,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "stratum": null,
+      "status_counts": {
+        "scored": 3,
+        "weak": 1,
+        "unavailable": 0
+      },
+      "input_support_fraction": 0.24429757254464285,
+      "interval_coverage": 1.0,
+      "reliable_interval_fraction": 0.75,
+      "median_residual_px": 0.014206744845030279,
+      "median_direction_cosine": 0.5258620270236137,
+      "residual_inlier_fraction": 1.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "stratum": null,
+      "status_counts": {
+        "scored": 1,
+        "weak": 0,
+        "unavailable": 3
+      },
+      "input_support_fraction": 0.14015633719308035,
+      "interval_coverage": 0.25,
+      "reliable_interval_fraction": 0.25,
+      "median_residual_px": 2.6718695877198977,
+      "median_direction_cosine": 0.9554896517382098,
+      "residual_inlier_fraction": 0.3772334293948127
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07694135393415179,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 1,
+        "unavailable": 3
+      },
+      "input_support_fraction": 0.1530848911830357,
+      "interval_coverage": 0.25,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": 3.879048414458939,
+      "median_direction_cosine": 0.0024174361603573015,
+      "residual_inlier_fraction": 0.07698622314226569
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.09139142717633927,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07163783482142858,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.12265886579241073,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07011849539620535,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "stratum": null,
+      "status_counts": {
+        "scored": 1,
+        "weak": 0,
+        "unavailable": 3
+      },
+      "input_support_fraction": 0.11810738699776786,
+      "interval_coverage": 0.25,
+      "reliable_interval_fraction": 0.25,
+      "median_residual_px": 2.0087724103415363,
+      "median_direction_cosine": 0.9719671803597174,
+      "residual_inlier_fraction": 0.4951649971813885
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.06378609793526786,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.0994415283203125,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.106658935546875,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.055644444056919644,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.09829275948660714,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 1,
+        "unavailable": 3
+      },
+      "input_support_fraction": 0.14213997977120535,
+      "interval_coverage": 0.25,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": 4.300499349892749,
+      "median_direction_cosine": 0.78742279687881,
+      "residual_inlier_fraction": 0.013991005781997287
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.09028843470982142,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.09026663643973215,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07583182198660715,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.09309605189732142,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07393319266183035,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.06214250837053571,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.06370980398995535,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.11345999581473215,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.06444004603794642,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07985578264508929,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.06159101213727679,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.030790056501116072,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.1454315185546875,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.09897504534040177,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "stratum": null,
+      "status_counts": {
+        "scored": 2,
+        "weak": 2,
+        "unavailable": 0
+      },
+      "input_support_fraction": 0.24429757254464285,
+      "interval_coverage": 1.0,
+      "reliable_interval_fraction": 0.5,
+      "median_residual_px": 0.028750484041470365,
+      "median_direction_cosine": -0.06187243345138417,
+      "residual_inlier_fraction": 1.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07082693917410714,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.10507420131138394,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.08631678989955358,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.12600490025111608,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.05870928083147321,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "stratum": null,
+      "status_counts": {
+        "scored": 1,
+        "weak": 0,
+        "unavailable": 3
+      },
+      "input_support_fraction": 0.12907845633370538,
+      "interval_coverage": 0.25,
+      "reliable_interval_fraction": 0.25,
+      "median_residual_px": 2.4302707778267503,
+      "median_direction_cosine": 0.6332288159407478,
+      "residual_inlier_fraction": 0.34617780176888263
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.08868844168526785,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07257734026227679,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.06125749860491071,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.17871529715401785,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.11603219168526788,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.06784711565290179,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "stratum": null,
+      "status_counts": {
+        "scored": 1,
+        "weak": 0,
+        "unavailable": 3
+      },
+      "input_support_fraction": 0.17750113351004465,
+      "interval_coverage": 0.25,
+      "reliable_interval_fraction": 0.25,
+      "median_residual_px": 2.0806599591413253,
+      "median_direction_cosine": 0.9865418072456922,
+      "residual_inlier_fraction": 0.48715707880538034
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07232883998325892,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "stratum": null,
+      "status_counts": {
+        "scored": 2,
+        "weak": 2,
+        "unavailable": 0
+      },
+      "input_support_fraction": 0.24429757254464285,
+      "interval_coverage": 1.0,
+      "reliable_interval_fraction": 0.5,
+      "median_residual_px": 0.11041161769861846,
+      "median_direction_cosine": 0.21006062837637454,
+      "residual_inlier_fraction": 0.9989827967735028
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.09067208426339286,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "branch_role": "real",
+      "sample_id": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "stratum": null,
+      "status_counts": {
+        "scored": 0,
+        "weak": 0,
+        "unavailable": 4
+      },
+      "input_support_fraction": 0.07635498046875,
+      "interval_coverage": 0.0,
+      "reliable_interval_fraction": 0.0,
+      "median_residual_px": null,
+      "median_direction_cosine": null,
+      "residual_inlier_fraction": null
+    }
+  ]
+}

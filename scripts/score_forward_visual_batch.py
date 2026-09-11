@@ -13,6 +13,7 @@ from iac_new.visual_consistency import (
     score_trajectory_visual_consistency,
     trajectory_conditioned_flow,
 )
+from iac_new.scoring import polygon_mask
 
 
 def main() -> None:
@@ -25,6 +26,8 @@ def main() -> None:
         if path.name == "manifest.json":
             continue
         metadata = json.loads(path.read_text(encoding="utf-8"))
+        if "flow_path" not in metadata or "valid_path" not in metadata:
+            continue
         observed = np.load(args.root / metadata["flow_path"])
         valid = np.load(args.root / metadata["valid_path"])
         expected, geometry_valid = trajectory_conditioned_flow(
@@ -34,7 +37,11 @@ def main() -> None:
             frame_shape=observed.shape[1:3],
         )
         score = score_trajectory_visual_consistency(
-            observed, expected, valid_mask=valid & geometry_valid,
+            observed, expected,
+            valid_mask=(valid & geometry_valid & polygon_mask(
+                observed.shape[1], observed.shape[2],
+                [[0.08, 0.98], [0.92, 0.98], [0.63, 0.53], [0.37, 0.53]],
+            )),
             max_median_residual_px=3.0,
         )
         rows.append({
