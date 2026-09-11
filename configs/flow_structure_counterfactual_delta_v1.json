@@ -1,0 +1,58 @@
+{
+  "protocol": "iac-counterfactual-flow-structure-delta-v1",
+  "status": "exploratory_auxiliary_not_formal_primary",
+  "base_measurement": "configs/flow_structure_yaw_v1_3.json",
+  "scope": "same-source counterfactual branch contrast; no metric trajectory reconstruction",
+  "measurement_contract": {
+    "candidate_blind": true,
+    "common_source_required": true,
+    "pair_unit": "source_key/twin",
+    "minimum_common_intervals": 2,
+    "abstention": "if either branch lacks the minimum common intervals, exclude the pair without zero filling"
+  },
+  "channels": {
+    "yaw": {
+      "descriptor": "horizontal_flow_center",
+      "action_reference": "endpoint_column",
+      "action_column": 2,
+      "minimum_action_delta": 0.01,
+      "semantics": "ordinal yaw response"
+    },
+    "progress": {
+      "descriptor": "median_flow_magnitude_px",
+      "action_reference": "trajectory_path_length",
+      "minimum_action_delta": 0.5,
+      "semantics": "ordinal relative progress candidate; diagnostic until independent speed-swap validation passes"
+    },
+    "diagnostic_descriptors": [
+      "vertical_flow_center",
+      "divergence",
+      "curl",
+      "foe_x"
+    ]
+  },
+  "normalization": {
+    "definition": "raw left-minus-right descriptor divided by absolute same-interval branch common mode",
+    "formula": "D_norm(t) = (F_left(t) - F_right(t)) / max(abs((F_left(t) + F_right(t))/2), minimum_common_mode)",
+    "minimum_common_mode": 1e-6,
+    "raw_difference_remains_primary_for_direction": true
+  },
+  "temporal_consistency": {
+    "reported": true,
+    "definition": "maximum fraction of nonzero interval differences sharing one sign",
+    "not_used_as_posthoc_selection": true
+  },
+  "promotion_criteria": {
+    "minimum_twin_coverage": 0.9,
+    "direction_accuracy_ci95_lower_min": 0.75,
+    "minimum_models": 2,
+    "required_controls": ["normal_order", "reversed_order", "identity_swap", "zero_contrast"],
+    "required_holdout": "model selection and threshold calibration must precede untouched confirmatory twins"
+  },
+  "downstream_mapping": {
+    "CCFC-S": "ordinal consistency between delta structure and delta native action",
+    "CFAC-S": "single-branch structural alignment after a frozen action-to-structure calibration",
+    "FAU": "not supplied by this protocol; requires a logged-GT-compatible channel",
+    "FCS": "independent of this protocol"
+  }
+}

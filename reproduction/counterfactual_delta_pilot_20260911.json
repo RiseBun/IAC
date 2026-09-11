@@ -1,0 +1,36 @@
+{
+  "protocol": "iac-counterfactual-flow-structure-delta-v1",
+  "status": "interface_and_negative_control_only",
+  "data": "archived DriveWAM temporal-fixed 255 left/right pairs",
+  "warning": "These pairs are primarily yaw interventions, not pure-speed twins; progress descriptors are not validated by this run.",
+  "results": {
+    "median_flow_magnitude_px": {
+      "pair_count": 255,
+      "coverage": 0.7411764705882353,
+      "action_direction_pairs": 91,
+      "action_direction_accuracy": 0.5604395604395604,
+      "action_response_spearman": 0.15459926411774116,
+      "normalized_action_response_spearman": 0.1620522938552054,
+      "median_temporal_persistence": 0.75
+    },
+    "vertical_flow_center": {
+      "pair_count": 255,
+      "coverage": 0.7411764705882353,
+      "action_direction_pairs": 91,
+      "action_direction_accuracy": 0.7472527472527473,
+      "action_response_spearman": 0.3039744751950799,
+      "normalized_action_response_spearman": 0.3424109920190548,
+      "median_temporal_persistence": 0.75
+    },
+    "divergence": {
+      "pair_count": 255,
+      "coverage": 0.7411764705882353,
+      "action_direction_pairs": 91,
+      "action_direction_accuracy": 0.6483516483516484,
+      "action_response_spearman": 0.28142874917790933,
+      "normalized_action_response_spearman": 0.20567020387849058,
+      "median_temporal_persistence": 0.75
+    }
+  },
+  "interpretation": "The scorer runs and preserves candidate-blind pair semantics. The results do not establish a progress signal because the intervention distribution is yaw-dominated."
+}

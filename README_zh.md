@@ -115,6 +115,13 @@ S1.3 已被验证为跨 WAM 的 **action-response 测量器**，但不宣称能�
 质量排名或 logged-GT 保真度评分。冻结协议 SHA 不改写，聚合验证记录在
 `configs/flow_structure_yaw_v1_3_validation.json`；SEA-RAFT A/B 已否决。
 
+在此基础上，仓库另行提供实验性的结构反事实通道
+[`configs/flow_structure_counterfactual_delta_v1.json`](configs/flow_structure_counterfactual_delta_v1.json)。
+它只在同一 `source_key` 的左右分支上计算
+`Delta S_F = S_F(left) - S_F(right)`，报告原始差分、共同运动归一化差分、方向和跨
+interval 持续性，不恢复米制轨迹。该通道可以支撑结构版 `CCFC-S`，但不能替代旧版
+米制 `CFAC`/`FAU`；progress 通道在独立 speed-swap twin 验证前只作 diagnostic。
+
 ### Step 2：CFAC 与 CCFC
 
 **CFAC** 比较单次推理的想象运动剖面 `P_F` 和 native action 剖面 `P_A`。
