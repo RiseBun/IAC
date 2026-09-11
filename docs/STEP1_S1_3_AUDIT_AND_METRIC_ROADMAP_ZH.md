@@ -123,5 +123,18 @@ candidate-blind 评分。结果为：coverage `56/59 = 94.9%`，正常顺序方�
 
 `/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_epona_confirmation_20260911/`
 
+### DriveWAM pure-speed confirmation（2026-09-11）
+
+DriveWAM 在同一 confirmation twin 集上完成了 `86` 对、`172` 条分支的生成和
+candidate-blind flow 测量，coverage 为 `100%`（`86/86`）。progress 描述量
+`median_flow_magnitude_px` 的正常顺序方向命中为 `40/82 = 48.8%`，95% CI
+`[0.383, 0.594]`，Spearman `0.077`；反转和身份错配分别为 `51.2%`，zero-
+contrast 无可计分响应。与 Epona 的 pilot（方向 `76.8%`、ρ `-0.037`）并列后，
+该通道没有跨模型稳定的方向或秩信号，不能进入正式 progress primary，也不能
+被用作 CFAC-S 的已校准 action-to-structure 映射。两模型的完整产物分别位于：
+
+- Epona：`/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_epona_confirmation_20260911/`
+- DriveWAM：`/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_confirmation_20260911/`
+
 此前的 `pure_speed_confirmation_roots_20260911` 使用了旧的 4 点 action 口径，
 已被 v2 替代，不得与本确认集混用。

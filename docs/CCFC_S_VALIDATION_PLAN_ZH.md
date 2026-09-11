@@ -116,9 +116,12 @@ WAM 质量排名，也不能替代尚未完成的独立 pure-speed twin 确认�
 | Epona，受控视觉反事实 | 97.7% | 92.4% `[0.857, 0.961]` | 通过 coverage/方向门；observer-level |
 | DriveVA，scene-disjoint command-conditioned holdout | 92.0% | 52.6% `[0.373, 0.675]` | coverage 通过，响应门失败 |
 | 255 对旧 structural pilot | 74.1% | 77.9%（CI 未达 promotion gate） | 仅管线/pilot，不作确认结果 |
+| pure-speed confirmation：Epona / DriveWAM | 94.9% / 100.0% | 76.8% `[0.642, 0.859]` / 48.8% `[0.383, 0.594]` | 方向/秩信号未跨模型稳定，progress 不晋级 |
 
 这张表刻意把“测得到”与“响应方向正确”分开。DriveVA 的结果是一个模型级负
 结果，说明 adapter 能解决输入尺寸和运行契约，但不能凭空产生稳定的动作响应。
-因此当前可以冻结的是候选盲的 S1.3 **动作—视觉响应测量器**；不能据此宣称
-CCFC-S 已经成为跨模型质量排名指标。独立 pure-speed swap 确认集仍是进度分支
-升级前的必要证据，且必须在至少两个模型上、按 twin 原子留出后重测。
+pure-speed confirmation 进一步表明 progress 结构量在 Epona 上有方向性但在
+DriveWAM 上接近随机，且两者的 Spearman 分别为 `-0.037` 与 `0.077`，因此不能
+把 progress 晋级为正式 primary，也不能据此宣称 CCFC-S 已经成为跨模型质量排名
+指标。当前可以冻结的是候选盲的 S1.3 **动作—视觉响应测量器**；progress 保持
+diagnostic，CFAC-S 仍需独立 action-to-structure 校准。

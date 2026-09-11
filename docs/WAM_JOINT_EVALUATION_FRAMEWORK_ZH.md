@@ -148,7 +148,7 @@ WAM 生成视频。
 | S1.3 yaw action-response | frozen / validated on two WAMs |
 | 结构差分 scorer | implemented / exploratory |
 | CCFC-S 框架 | specified / validation pending |
-| pure-speed progress channel | pilot evidence only |
+| pure-speed progress channel | cross-model confirmation completed; not promoted (no stable signal) |
 | CFAC-S calibration | not yet run |
 | future-to-action mediation | design only |
 | metric SE(2) reconstruction | diagnostic only |
