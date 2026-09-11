@@ -76,3 +76,16 @@ pathway ablation，并观察 action 是否改变。该通道目前仍是 design-
 在 deadband 与时序诊断完成前，不修改 S1.3 的冻结分数，不把 DriveVA 的近随机
 结果解释成全局协议失败；在 pure-speed 双模型确认完成前，不把 progress 或
 CCFC-S 升级为正式 primary；在 CFAC-S 校准完成前，不报告结构域的正式 CFAC。
+
+## 执行状态（2026-09-11）
+
+- **pure-speed confirmation：未完成。** 当前可访问的 DriveWAM 255 对、DriveVA
+  50-twin 和 WorldDrive swap 均不是满足“纯速度互换、同 history、标签互换、
+  scene-disjoint calibration/confirmation”的确认集，因此不计入 progress promotion。
+  正式输入必须显式声明 `intervention_type=pure_speed`、快慢身份、模型 ID、
+  calibration/confirmation split 和 twin 原子 ID。
+- **CFAC-S calibration：未完成。** 现有 `evaluate_cfac_fau.py` 只实现米制
+  SE(2) CFAC/FAU join，不是结构域的 action→structure 校准。CFAC-S 在独立校准集
+  拟合映射、冻结版本和 SHA 之前保持 `unavailable`。
+- **当前对外状态：** S1.3 yaw action-response 可报告；progress 仍为
+  `diagnostic_only`；CCFC-S 为框架就绪但确认待完成；CFAC-S 为校准待完成。
