@@ -1,0 +1,70 @@
+{
+  "protocol": "iac-pure-speed-cross-model-confirmation-v1",
+  "date": "2026-09-11",
+  "intervention": {
+    "type": "pure_speed",
+    "fast_scale": 1.25,
+    "slow_scale": 0.75,
+    "scaled_axes": ["x", "y"],
+    "yaw_identical_by_construction": true,
+    "unit": "twin/source_key",
+    "confirmation_twin_count": 86,
+    "scene_disjoint_from_calibration": true
+  },
+  "measurement": {
+    "descriptor": "median_flow_magnitude_px",
+    "candidate_blind": true,
+    "metric_reconstruction_used": false,
+    "minimum_common_intervals": 2,
+    "minimum_action_delta": 0.5
+  },
+  "models": {
+    "epona_nuplan": {
+      "generated_sources": 59,
+      "branch_rows": 118,
+      "scored_pairs": 56,
+      "unavailable_pairs": 3,
+      "coverage": 0.9491525423728814,
+      "direction_accuracy": 0.7678571428571429,
+      "direction_accuracy_ci95": [0.6423184678498916, 0.8590062089079139],
+      "spearman": -0.03725222146274778,
+      "reversed_direction_accuracy": 0.23214285714285715,
+      "identity_direction_accuracy": 0.23214285714285715
+    },
+    "drivewam_navsim": {
+      "generated_sources": 86,
+      "branch_rows": 172,
+      "scored_pairs": 86,
+      "unavailable_pairs": 0,
+      "coverage": 1.0,
+      "direction_accuracy": 0.4878048780487805,
+      "direction_accuracy_ci95": [0.38260895860619915, 0.5940922761179496],
+      "spearman": 0.0765050522340493,
+      "reversed_direction_accuracy": 0.5121951219512195,
+      "identity_direction_accuracy": 0.5121951219512195
+    }
+  },
+  "promotion": {
+    "coverage_gate": 0.9,
+    "direction_ci_lower_gate": 0.75,
+    "minimum_models_gate": 2,
+    "coverage_passed": true,
+    "direction_ci_lower_passed": false,
+    "minimum_models_passed": true,
+    "status": "not_promoted",
+    "reason": "progress flow magnitude has no stable cross-model direction/rank signal"
+  },
+  "controls": {
+    "normal_order_required": true,
+    "reversed_order_required": true,
+    "identity_swap_required": true,
+    "zero_contrast_required": true,
+    "zero_contrast_result": "no_scored_response"
+  },
+  "artifacts": {
+    "epona_root": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_epona_confirmation_20260911/",
+    "drivewam_root": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_confirmation_20260911/",
+    "action_root": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_confirmation_roots_v2_20260911/"
+  },
+  "claim_boundary": "Progress remains diagnostic_only. S1.3 yaw structural response remains the frozen primary; CFAC-S requires a separate frozen action-to-structure calibration."
+}

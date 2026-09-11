@@ -13,6 +13,7 @@
 | [`STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md`](STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md) | ZH | S1.3 audit, pure-speed preparation and CFAC-S roadmap |
 | [`CCFC_S_VALIDATION_PLAN_ZH.md`](CCFC_S_VALIDATION_PLAN_ZH.md) | ZH | CCFC-S controls and cross-model validation matrix |
 | [`../configs/cfac_structure_calibration_v1.json`](../configs/cfac_structure_calibration_v1.json) | JSON | CFAC-S calibration contract and claim boundary |
+| [`../reports/pure_speed_confirmation_20260911.json`](../reports/pure_speed_confirmation_20260911.json) | JSON | Cross-model pure-speed confirmation result and promotion decision |
 
 ## Benchmark
 
