@@ -21,7 +21,30 @@
       "legacy_components": ["FAU_F", "FAU_A", "FAU"],
       "definition": "generated visual future and native action grounded against an external logged or simulated future",
       "required_inputs": ["generated_future_video", "native_action", "external_future_reference"],
-      "current_status": "cross-model structural pilot completed; scalar aggregation and independent calibration/confirmation freeze pending",
+      "current_status": "cross-model candidate validated; formal release pending final protocol freeze",
+      "candidate_freeze_status": "source_disjoint_calibration_and_cluster_bootstrap_validated",
+      "candidate_aggregation": {
+        "implementation": "iac_new.visual_consistency.score_structural_grounding",
+        "descriptors": ["median_flow_magnitude_px", "horizontal_flow_center", "vertical_flow_center", "divergence", "curl"],
+        "magnitude_transform": "log1p",
+        "similarity": "exp(-absolute_calibrated_difference)",
+        "interval_aggregation": "median",
+        "branch_aggregation": "median",
+        "minimum_common_intervals": 3,
+        "minimum_descriptors_per_interval": 3,
+        "missing_policy": "unavailable_never_zero_fill",
+        "scale_source": "real_logged_navsim_calibration_only"
+      },
+      "promotion_evidence": {
+        "source_disjoint_generated_calibration": "reports/grounding_score_generated_calibration_validation_20260912.json",
+        "confirmation_bootstrap": "reports/grounding_score_bootstrap_20260912.json",
+        "criteria": {
+          "calibration_coverage_min": 0.90,
+          "confirmation_coverage_min": 0.90,
+          "minimum_distinguishable_models": 2,
+          "cluster_bootstrap_model_difference_ci_excludes_zero": true
+        }
+      },
       "pilot_evidence": {
         "models": ["Epona", "DriveWAM"],
         "same_source_logged_future_join": true,
