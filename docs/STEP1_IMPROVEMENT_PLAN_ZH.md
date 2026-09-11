@@ -219,3 +219,11 @@ normal twin 的方向余弦均为正，且正常相对反向的 residual margin 
 promotion 门槛。统一数值已写入
 `reports/ccfc_structure_forward_scorecard_20260911.json`，下一步仍是更大、场景
 隔离的第三模型确认与独立真实视频阈值校准。
+
+作为额外的跨模型 sanity check，DriveVA 的 10-twin 生成池也使用同一协议完成了
+流提取和 normal/reversed/zero controls。其 normal/reversed direction cosine 为
+`+0.129/−0.129`，normal response gain 为 `0.061`，normal 与 reversed residual
+仅相差约 `1.08 px`；阈值敏感性下方向余弦仍接近零。这不是协议失效，而是该模型在
+这组 twin 上没有足够强的可读反事实响应，因此不能把 coverage 高误读成几何保真度。
+它进一步说明候选量确实能把“强正确响应”（WorldDrive）与“弱/无响应”（DriveVA、
+DriveWAM）分开。DriveVA 同样只有 10 个 twin，结果不用于正式 promotion。
