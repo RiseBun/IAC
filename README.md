@@ -153,6 +153,13 @@ The off-the-shelf SEA-RAFT A/B is rejected.
 
 An additional exploratory structural channel is defined in
 [`configs/flow_structure_counterfactual_delta_v1.json`](configs/flow_structure_counterfactual_delta_v1.json).
+
+The current structural forward-consistency candidate is specified in
+[`configs/ccfc_structure_forward_v1.json`](configs/ccfc_structure_forward_v1.json).
+It compares the left/right video flow difference with the flow induced by the
+corresponding action trajectories, and reports direction, response gain,
+temporal persistence, and normal/reversed/zero controls. It deliberately does
+not reconstruct metres or treat unavailable projection support as zero.
 For the same `source_key`, it computes
 
 ```text

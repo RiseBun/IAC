@@ -1,0 +1,29 @@
+{
+  "protocol": "iac-ccfc-structure-forward-v1",
+  "status": "frozen_candidate_validation_pending",
+  "objective": "Test whether a WAM's counterfactual video difference follows the visual consequence of its action difference.",
+  "unit": "twin/source_key",
+  "inputs": {
+    "observed": "candidate-blind dense flow from left/right generated videos",
+    "expected": "trajectory-conditioned flow from the two supplied action trajectories",
+    "common_mode": "subtract right branch from left branch before scoring",
+    "roi": "fixed public road ROI",
+    "invalid_policy": "exclude and report unavailable; never zero-fill"
+  },
+  "metrics": {
+    "direction_cosine": "median pixel-vector cosine between observed and expected Delta F",
+    "response_gain": "median(|observed Delta F| / |expected Delta F|) per twin",
+    "temporal_persistence": "fraction of intervals retaining the dominant signed response",
+    "reversed_margin": "residual(reversed) - residual(normal)",
+    "zero_control": "observed Delta F magnitude with zero expected contrast"
+  },
+  "controls": ["normal", "reversed", "identity_swap", "zero_contrast"],
+  "calibration": {
+    "flow_backend": "frozen RAFT-Large unless an independent A/B passes",
+    "min_vector_norm_px": 0.10,
+    "thresholds_fit_on": "held-out real logged videos",
+    "confirmation_split": "scene-disjoint twin confirmation"
+  },
+  "claim_boundary": "Structural ordinal/action-response consistency only; not metric distance, absolute speed, logged-GT fidelity, or proof of future-to-action causality.",
+  "promotion_status": "candidate; Epona and DriveWAM cross-model controls completed, third-model and held-out calibration remain pending"
+}
