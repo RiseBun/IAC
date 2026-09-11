@@ -10,6 +10,11 @@ IAC 是面向世界动作模型（WAM）的评测协议，回答一个明确问�
 native action，是否与模型预测的未来视觉状态一致？IAC 将图像测量、干预一致性和
 独立执行分开报告，不把视频质量或任务成功率误当成同一个指标。
 
+完整的联合评测方法、数据契约、指标边界和待验收扩展见
+[`docs/WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md`](docs/WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md)。
+机器可读的阶段、输入禁止项和 promotion gate 见
+[`configs/wam_joint_evaluation_v1.json`](configs/wam_joint_evaluation_v1.json)。
+
 本仓库是可复现发布包，不包含 NAVSIM/Waymo 原始图像、私有真值、WAM 权重或生成
 视频。评测服务器通过 manifest 接口挂载这些输入。Waymo 只作为外部域泛化协议，
 不进入主榜分母。

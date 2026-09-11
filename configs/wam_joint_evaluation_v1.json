@@ -1,0 +1,58 @@
+{
+  "protocol": "iac-wam-joint-evaluation-v1",
+  "status": "framework_complete_validation_pending",
+  "objective": "Measure whether a WAM's action output is causally and counterfactually compatible with its predicted future, without conflating visual quality or task success with that coupling.",
+  "unit_of_analysis": {
+    "single_branch": "source_key + branch_role",
+    "counterfactual": "twin/source_key with symmetric left/right branches",
+    "statistical_unit": "twin or source_key, never individual intervals when branches share a source"
+  },
+  "stages": {
+    "step1_image_observation": {
+      "status": "frozen_yaw_plus_experimental_channels",
+      "input": ["history_images", "wam_generated_future_images", "camera_calibration"],
+      "forbidden_inputs": ["candidate_trajectory", "logged_future_state", "pdm_score"],
+      "output": ["per_interval_structure", "confidence", "availability", "abstention_reason"],
+      "frozen_primary": "yaw structural response",
+      "experimental": ["ordinal progress", "future_to_action mediation probes"]
+    },
+    "step2_counterfactual_consistency": {
+      "status": "framework_ready_validation_pending",
+      "formula": "CCFC-S = ordinal_consistency(Delta S_F, Delta P_A)",
+      "required_controls": ["normal_order", "reversed_order", "identity_swap", "zero_contrast"],
+      "pair_gate": "both branches must provide the required channel; otherwise pair is unavailable"
+    },
+    "step2_single_branch_alignment": {
+      "status": "interface_defined_calibration_pending",
+      "formula": "CFAC-S = alignment(S_F, structuralized P_A)",
+      "warning": "Requires a frozen action-to-structure calibration; does not replace metric CFAC"
+    },
+    "future_to_action": {
+      "status": "design_defined_not_run",
+      "required_intervention": "hold history and command fixed while perturbing future or future latent",
+      "claim_boundary": "Delta S_F versus Delta P_A alone establishes consistency, not mediation"
+    },
+    "fau": {
+      "status": "independent_metric",
+      "requirement": "logged-GT-compatible image-side representation",
+      "not_substituted_by": "structural ordinal channels"
+    },
+    "fcs": {
+      "status": "independent_metric",
+      "requirement": "native action evaluated by an independent simulator and task labels"
+    }
+  },
+  "report_contract": {
+    "must_report": ["status", "coverage", "accuracy_or_alignment", "confidence_interval", "stratum_breakdown", "abstention_reasons", "controls"],
+    "missing_value_policy": "unavailable_or_abstain; never zero-fill",
+    "composite_policy": "report metric vector before considering any aggregate score"
+  },
+  "promotion_gates": {
+    "minimum_twin_coverage": 0.9,
+    "direction_accuracy_ci95_lower": 0.75,
+    "minimum_models": 2,
+    "holdout_required": true,
+    "calibration_before_confirmation": true
+  },
+  "current_claim": "The framework is specified; S1.3 yaw action-response is validated, while CCFC-S progress channels, CFAC-S calibration, and future-to-action mediation remain to be experimentally validated."
+}
