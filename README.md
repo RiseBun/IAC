@@ -44,11 +44,11 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
 3. **Fail-closed reproducibility.** Exact timestamps, calibration, model
    revision, seed and lineage are required. Private GT is joined only on the
    evaluation server; submitted motion profiles cannot replace image probing.
-4. **Structural counterfactual channel (experimental).** Same-source
-   left/right flow differences are exposed as an ordinal, decoder-free signal
-   for the Response Consistency Score (RCS; legacy structural CCFC-S). This is
-   separate from metric MAS/GS and is not promoted to a frozen score until
-   independent validation is complete.
+4. **Structural counterfactual channel.** Same-source left/right flow
+   differences are exposed as an ordinal, decoder-free signal for the Response
+   Consistency Score (RCS; legacy structural CCFC-S). Source-disjoint calibration,
+   reversed/identity/zero controls and clustered bootstrap are now recorded;
+   formal release still requires the final protocol freeze.
 
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
@@ -200,7 +200,7 @@ command change or latent swap). Semantic clear/risk is optional. The evaluator
 must receive both regenerated future visual output and native action; injecting
 an action after generation is only an action-response diagnostic, not CCFC.
 
-The tentative Grounding Score (GS) reports whether imagined motion and native
+The Grounding Score (GS) reports whether imagined motion and native
 action approach the private ground-truth future. Its compatibility components
 remain `FAU_F` and `FAU_A`, with legacy `FAU = sqrt(FAU_F × FAU_A)`.
 
@@ -216,8 +216,63 @@ The same candidate separates a strong response (WorldDrive eval25 extension:
 direction cosine `0.998`, temporal persistence `1.0`, response gain `1.469`)
 from weak or absent responses (DriveVA: `0.129`/`0.061`; DriveWAM:
 `0.016`/`0.0045`). These are pilot diagnostics, not promotion results: the
-third-model confirmation still needs a larger scene-disjoint pool and thresholds
-must be calibrated on held-out real videos.
+formal promotion remains subject to the frozen protocol gates and held-out
+real-video calibration.
+
+### 关键有效性证据与当前模型分数（2026-09-12）
+
+下面把“证明测量器有效的控制结果”和“模型本身的分数”分开报告。所有数值都
+保留 coverage；不可测样本为 `unavailable`，不填零。
+
+**Step 1 / MAS 选择依据（冻结 S1.3 yaw pilot）**
+
+在 255 个配对 source 上，pair coverage 为 `254/255 = 99.6%`，yaw 方向准确率
+为 `126/149 = 84.6%`（95% CI `[77.9%, 89.5%]`），Spearman 为 `0.779`。
+这是测量器的方向与排序有效性证据；lateral、纵向距离、速度和曲率仍是
+diagnostic，不进入 primary。
+
+**RCS：反事实响应分数（旧 CCFC）**
+
+| 模型 | coverage | 正常方向 cosine | 反转 cosine | response gain | temporal persistence |
+|---|---:|---:|---:|---:|---:|
+| Epona | 100% | `+0.416` | `−0.416` | `0.232` | `1.00` |
+| DriveWAM | 100% | `+0.016` | `−0.016` | `0.0045` | `0.50` |
+| WorldDrive (eval25) | 100% | `+0.998` | `−0.998` | `1.469` | `1.00` |
+| DriveVA | 100% | `+0.129` | `−0.129` | `0.061` | `0.786` |
+
+正常/反转控制符号相反，且零差异控制不产生方向分数；这是 RCS 的核心有效性
+证据。该表是 structural pilot 分数，不是米制轨迹精度。
+
+**GS：现实几何保真度分数（旧 FAU 组件）**
+
+GS 使用同源 logged future 作为外部参考，尺度只由 real-only calibration 冻结，
+再按 source/twin 原子 bootstrap：
+
+| 模型 | GS 中位数 | 95% source-cluster CI | coverage |
+|---|---:|---:|---:|
+| Epona | `0.550` | `[0.487, 0.635]` | `94.9%` |
+| DriveWAM | `0.191` | `[0.158, 0.215]` | `94.2%` |
+
+Epona − DriveWAM 的 paired 差值为 `0.314`，95% CI `[0.251, 0.340]`；这证明
+GS 能在两个模型之间区分真实运动结构保真度。该结果不单独证明
+future-to-action 因果关系，因果一致性仍由 RCS 和后续 FCS 负责。
+
+GS 的 source-disjoint generated calibration 为 `230` 个分支，coverage `98.3%`，
+中位数 `0.503`；随机身份置换均值 `0.289`（95% 上界 `0.303`）。详细审计见
+[`reports/grounding_score_bootstrap_20260912.json`](reports/grounding_score_bootstrap_20260912.json)
+和 [`reports/grounding_score_candidate_20260911.json`](reports/grounding_score_candidate_20260911.json)。
+
+**MAS structural diagnostic（尚未作为正式排行榜分数）**
+
+| 模型 | interval coverage | reliable fraction | median residual (px) | direction cosine |
+|---|---:|---:|---:|---:|
+| Epona | `11.0%` | `4.0%` | `5.35` | `0.356` |
+| DriveWAM | `24.1%` | `0%` | `62.07` | `0.220` |
+| WorldDrive (eval25) | `26.9%` | `5.0%` | `6.32` | `0.851` |
+| DriveVA | `21.3%` | `2.5%` | `13.32` | `0.313` |
+
+这组结果说明直接把结构流拟合成 action-aligned MAS 仍受模型域差异影响，
+不能与上面的 RCS/GS 分数混排；它保留作诊断和后续校准依据。
 
 ### Step 3: FCS
 
