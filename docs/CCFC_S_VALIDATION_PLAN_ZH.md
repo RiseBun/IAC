@@ -107,3 +107,18 @@ WAM 质量排名，也不能替代尚未完成的独立 pure-speed twin 确认�
 达到门槛，但结构 yaw 响应未达到方向和 CI 门槛。该结果是模型/数据条件下的真实
 负结果：它不推翻 S1.3 在 DriveWAM/Epona 的受控 observer 验证，也不能把 DriveVA
 自然质量排名解释成 CCFC-S 失败或成功。
+
+## 当前能力矩阵（2026-09-11）
+
+| 能力/数据条件 | twin coverage | 方向准确率（95% CI） | 结论 |
+|---|---:|---:|---|
+| DriveWAM，受控视觉反事实 | 100.0% | 85.8% `[0.780, 0.912]` | 通过 coverage/方向门；observer-level |
+| Epona，受控视觉反事实 | 97.7% | 92.4% `[0.857, 0.961]` | 通过 coverage/方向门；observer-level |
+| DriveVA，scene-disjoint command-conditioned holdout | 92.0% | 52.6% `[0.373, 0.675]` | coverage 通过，响应门失败 |
+| 255 对旧 structural pilot | 74.1% | 77.9%（CI 未达 promotion gate） | 仅管线/pilot，不作确认结果 |
+
+这张表刻意把“测得到”与“响应方向正确”分开。DriveVA 的结果是一个模型级负
+结果，说明 adapter 能解决输入尺寸和运行契约，但不能凭空产生稳定的动作响应。
+因此当前可以冻结的是候选盲的 S1.3 **动作—视觉响应测量器**；不能据此宣称
+CCFC-S 已经成为跨模型质量排名指标。独立 pure-speed swap 确认集仍是进度分支
+升级前的必要证据，且必须在至少两个模型上、按 twin 原子留出后重测。
