@@ -170,3 +170,81 @@ def score_trajectory_visual_consistency(
         "warning": "Forward visual consistency tests a supplied trajectory; unavailable intervals are not zero-filled.",
         "intervals": rows,
     }
+
+
+def score_twin_differential_consistency(
+    observed_left: np.ndarray,
+    observed_right: np.ndarray,
+    expected_left: np.ndarray,
+    expected_right: np.ndarray,
+    *,
+    valid_mask: np.ndarray | None = None,
+    min_valid_fraction: float = 0.05,
+    min_vector_norm_px: float = 0.10,
+) -> dict[str, Any]:
+    """Compare a same-source branch difference against a supplied trajectory difference.
+
+    Common-mode motion is removed before scoring.  The function is intentionally
+    differential: it does not estimate either branch trajectory and it reports
+    low-support intervals as unavailable.  ``expected_left - expected_right``
+    is the normal control; callers can pass its negation for the reversed
+    control and zeros for an identity/zero-difference control.
+    """
+    left = np.asarray(observed_left, dtype=np.float64)
+    right = np.asarray(observed_right, dtype=np.float64)
+    expected = np.asarray(expected_left, dtype=np.float64) - np.asarray(expected_right, dtype=np.float64)
+    if left.shape != right.shape or left.shape != expected.shape or left.ndim != 4 or left.shape[-1] != 2:
+        raise ValueError("twin flow arrays must match [T,H,W,2]")
+    intervals, height, width = left.shape[:3]
+    if valid_mask is None:
+        mask = np.ones((intervals, height, width), dtype=bool)
+    else:
+        mask = np.asarray(valid_mask, dtype=bool)
+        if mask.shape != (intervals, height, width):
+            raise ValueError("valid_mask must match [T,H,W]")
+    observed = left - right
+    rows: list[dict[str, Any]] = []
+    for index in range(intervals):
+        finite = mask[index] & np.isfinite(observed[index]).all(axis=-1) & np.isfinite(expected[index]).all(axis=-1)
+        support = int(finite.sum())
+        support_fraction = float(support / max(height * width, 1))
+        row: dict[str, Any] = {"interval_index": index, "support_pixels": support, "support_fraction": support_fraction}
+        if support == 0 or support_fraction < float(min_valid_fraction):
+            row.update({"status": "unavailable", "reason": "insufficient_common_support"})
+            rows.append(row)
+            continue
+        observed_values = observed[index][finite]
+        expected_values = expected[index][finite]
+        residual_norm = np.linalg.norm(observed_values - expected_values, axis=-1)
+        observed_norm = np.linalg.norm(observed_values, axis=-1)
+        expected_norm = np.linalg.norm(expected_values, axis=-1)
+        vector_valid = (observed_norm >= float(min_vector_norm_px)) & (expected_norm >= float(min_vector_norm_px))
+        cosine = (
+            np.sum(observed_values[vector_valid] * expected_values[vector_valid], axis=-1)
+            / np.maximum(observed_norm[vector_valid] * expected_norm[vector_valid], 1e-8)
+            if np.any(vector_valid) else np.asarray([], dtype=np.float64)
+        )
+        row.update({
+            "status": "scored",
+            "median_residual_px": float(np.median(residual_norm)),
+            "median_observed_delta_px": float(np.median(observed_norm)),
+            "median_expected_delta_px": float(np.median(expected_norm)),
+            "direction_cosine": float(np.mean(cosine)) if len(cosine) else None,
+            "direction_vector_fraction": float(np.mean(vector_valid)),
+        })
+        rows.append(row)
+    scored = [row for row in rows if row["status"] == "scored"]
+    return {
+        "protocol": "iac-twin-differential-forward-consistency-v1",
+        "candidate_blind": True,
+        "metric_reconstruction_used": False,
+        "interval_count": intervals,
+        "status_counts": {status: sum(row["status"] == status for row in rows) for status in ("scored", "unavailable")},
+        "interval_coverage": len(scored) / intervals if intervals else None,
+        "median_residual_px": float(np.median([row["median_residual_px"] for row in scored])) if scored else None,
+        "median_observed_delta_px": float(np.median([row["median_observed_delta_px"] for row in scored])) if scored else None,
+        "median_expected_delta_px": float(np.median([row["median_expected_delta_px"] for row in scored])) if scored else None,
+        "median_direction_cosine": float(np.median([row["direction_cosine"] for row in scored if row["direction_cosine"] is not None])) if any(row["direction_cosine"] is not None for row in scored) else None,
+        "median_direction_vector_fraction": float(np.median([row["direction_vector_fraction"] for row in scored])) if scored else None,
+        "rows": rows,
+    }
