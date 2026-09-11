@@ -20,6 +20,7 @@ protocol once a private evaluation server has joined images and ground truth:
 | `prepare_epona_pure_speed_action_roots.py` | Adapt a pure-speed branch manifest to the Epona matched-action runner format |
 | `annotate_pure_speed_output.py` | Correct legacy Epona output labels after pure-speed image generation |
 | `prepare_drivewam_pure_speed_samples.py` | Adapt pure-speed action rows to native DriveWAM intervention samples |
+| `prepare_flow_structure_manifest.py` | Normalize generated flow manifests for candidate-blind structure scoring |
 | `score_iac_submission.py` | Capability-stratified scorecard |
 | `audit_benchmark_manifest.py` | Public (`--public`) or paired private-manifest audit |
 
