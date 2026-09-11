@@ -55,3 +55,10 @@ progress 通道在独立 speed-swap twin 上达到以下条件前只能作 diagn
 标量：当前结果使用 confirmation-only 的原始结构比较。正式发布前必须在独立 calibration
 split 冻结 descriptor 聚合、尺度和缺失策略，再在 untouched confirmation split 验收；GS
 也不能单独被解释为 future-to-action 因果证明。
+
+基于 real-only calibration 的候选聚合（`exp(-|delta|/scale)`，descriptor/interval/branch
+均取中位数，至少 3 个有效 interval）在 confirmation 上得到：Epona 中位 GS `0.553`
+（coverage `94.9%`），DriveWAM 中位 GS `0.191`（coverage `94.2%`）。Epona 的随机
+身份置换均值为 `0.303`，DriveWAM 为 `0.234`，因此该候选分数同时显示模型差异和
+负对照方向。不过 calibration 目前只冻结了真实域尺度，生成域 calibration split 尚未
+独立完成；上述数值仍标记为 candidate，不进入正式排行榜。
