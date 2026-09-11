@@ -1,0 +1,34 @@
+{
+  "protocol": "iac-cfac-structure-calibration-v1",
+  "status": "input_prepared_fitting_pending",
+  "purpose": "Freeze an action-to-structure mapping for CFAC-S before confirmation scoring.",
+  "calibration_data": {
+    "root": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_confirmation_roots_20260911",
+    "split": "calibration",
+    "scene_disjoint_from_confirmation": true,
+    "models": ["drivewam_navsim", "epona_nuplan"],
+    "channel_scope": {
+      "progress": "pure-speed roots after both models generate images",
+      "yaw": "requires a separate logged-real or yaw-intervention calibration set; pure-speed roots have yaw identical by construction"
+    }
+  },
+  "mapping": {
+    "structure_descriptors": ["horizontal_flow_center", "median_flow_magnitude_px"],
+    "action_features": {
+      "yaw": "per-interval cumulative yaw_rad",
+      "progress": "per-interval trajectory path length_m"
+    },
+    "fit": "robust_affine_per_interval",
+    "pooling": "per_model_only",
+    "minimum_finite_pairs_per_interval": 32,
+    "fallback": "unavailable",
+    "candidate_blind_measurement": true
+  },
+  "confirmation": {
+    "split": "confirmation",
+    "must_be_untouched": true,
+    "report": ["coverage", "alignment", "ci95", "stratum_breakdown", "abstention_reasons"],
+    "controls": ["normal_order", "reversed_order", "identity_swap", "zero_contrast"]
+  },
+  "claim_boundary": "Until a fitted artifact with checksum is produced and evaluated on the untouched confirmation split, CFAC-S is unavailable and must not be reported as metric CFAC."
+}
