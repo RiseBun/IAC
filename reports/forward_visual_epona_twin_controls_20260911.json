@@ -26,7 +26,10 @@
         "median_direction_cosine": null,
         "median_direction_vector_fraction": 0.0
       }
-    }
+    },
+    "normal_response_gain_median": 0.2320096015026992,
+    "normal_response_gain_q25": 0.11233764376969461,
+    "normal_response_gain_q75": 0.37799267891109434
   },
   "rows": [
     {

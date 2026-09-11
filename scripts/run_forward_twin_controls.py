@@ -66,6 +66,10 @@ def main() -> None:
             score = score_twin_differential_consistency(left_flow, right_flow, expected_left, expected_right, valid_mask=common)
             rows.append({"source_key": source, "control": control, **{key: score[key] for key in ("status_counts", "interval_coverage", "median_residual_px", "median_observed_delta_px", "median_expected_delta_px", "median_direction_cosine", "median_direction_vector_fraction")}})
     summary = {"protocol": "iac-twin-differential-forward-consistency-v1", "controls": {control: {key: (float(np.median([row[key] for row in rows if row["control"] == control and row[key] is not None])) if any(row["control"] == control and row[key] is not None for row in rows) else None) for key in ("interval_coverage", "median_residual_px", "median_observed_delta_px", "median_expected_delta_px", "median_direction_cosine", "median_direction_vector_fraction")} for control in ("normal", "reversed", "zero")}}
+    normal = [row["median_observed_delta_px"] / row["median_expected_delta_px"] for row in rows if row["control"] == "normal" and row["median_expected_delta_px"] and row["median_expected_delta_px"] > 0]
+    summary["normal_response_gain_median"] = float(np.median(normal)) if normal else None
+    summary["normal_response_gain_q25"] = float(np.quantile(normal, 0.25)) if normal else None
+    summary["normal_response_gain_q75"] = float(np.quantile(normal, 0.75)) if normal else None
     args.output.write_text(json.dumps({"summary": summary, "rows": rows}, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, indent=2))
 
