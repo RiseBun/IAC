@@ -14,6 +14,8 @@ protocol once a private evaluation server has joined images and ground truth:
 | `evaluate_continuous_motion_alignment.py` | Align probed motion with native action / GT |
 | `evaluate_cfac_fau.py` | Compute CFAC and FAU after the private GT join |
 | `evaluate_counterfactual_alignment.py` | Compute paired-intervention CCFC |
+| `score_counterfactual_flow_delta.py` | Score same-source structural flow deltas (exploratory) |
+| `validate_counterfactual_flow_delta.py` | Run normal, reversed-order, identity-swap and zero-contrast CCFC-S controls |
 | `score_iac_submission.py` | Capability-stratified scorecard |
 | `audit_benchmark_manifest.py` | Public (`--public`) or paired private-manifest audit |
 

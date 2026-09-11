@@ -9,6 +9,7 @@
 | [`WAM_SCOPE_AND_UNIFIED_PROTOCOL_ZH.md`](WAM_SCOPE_AND_UNIFIED_PROTOCOL_ZH.md) | ZH | Admission + three-step contract |
 | [`WAM_SUBMISSION_ZH.md`](WAM_SUBMISSION_ZH.md) | ZH | Author JSONL fields and scoreboard cells |
 | [`RELEASE_MANIFEST_ZH.md`](RELEASE_MANIFEST_ZH.md) | ZH | What is public vs private |
+| [`WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md`](WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md) | ZH | Current joint framework, claims and validation gates |
 
 ## Benchmark
 
@@ -27,6 +28,7 @@ DriveWAM on `benchmark` (1,000 NAVSIM windows):
 - **FAU**: 0.5169 (`FAU_F` 0.5449, `FAU_A` 0.4904)
 - **FCS**: 0.5143 (503/978 executable)
 
-Primary motion fields are lateral speed, yaw rate and curvature. Absolute speed,
-acceleration and metric forward distance are diagnostic only. Unsupported
-capabilities stay `unavailable`, never zero-filled.
+The frozen Step 1 primary is the candidate-blind S1.3 yaw structural response.
+Metric SE(2) reconstruction, lateral/curvature/distance/speed fields and
+progress descriptors remain diagnostic until their independent validation
+gates pass. Unsupported capabilities stay `unavailable`, never zero-filled.
