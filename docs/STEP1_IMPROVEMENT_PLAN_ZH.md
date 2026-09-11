@@ -144,6 +144,14 @@ identity / zero controls 和至少两个 WAM 的 scene-disjoint confirmation。
 较低，主要因为 4 秒前向投影的有效道路区域在部分时刻不足；这些 interval 被标为
 `unavailable`，没有被 zero-fill。下一步必须在真实 held-out 集上校准 residual/support
 阈值，并补 normal / reversed / identity controls 后才能形成正式分数。
+
+#### 前向一致性控制结果（Epona pure-speed）
+
+在同一批生成视频上做了 normal / swapped / zero 控制。zero 轨迹的 residual 明显更大
+（`43.53 px`），说明该分数并非恒定背景量；但 swapped 轨迹（`4.55 px`）略优于
+normal（`5.35 px`），说明当前地面平面前向模型尚未可靠恢复 pure-speed 的动作身份。
+因此这个通道目前只能证明“视频存在运动且可被几何假设部分解释”，不能证明“运动由
+给定分支动作正确诱导”。这也是正式接入 CCFC-S 前必须解决的控制条件。
 ```
 
 S1.3 yaw 保持唯一冻结主通道；任何新通道都必须通过独立校准、双模型确认和控制
