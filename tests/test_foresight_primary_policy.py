@@ -1,6 +1,6 @@
 import unittest
 
-from iac_new.foresight_metrics import evaluate_cfac, evaluate_fau
+from iac_new.foresight_metrics import evaluate_cfac, evaluate_fau, evaluate_grounding_score
 
 
 def _profile(*, yaw: float, lateral: float, source: str) -> dict:
@@ -49,6 +49,15 @@ class ForesightPrimaryPolicyTest(unittest.TestCase):
             result["components"]["lateral_speed_mps"]["fau_f_score"],
             1.0,
         )
+
+    def test_canonical_metric_aliases_are_emitted(self) -> None:
+        imagined = _profile(yaw=0.2, lateral=0.0, source="image_only_candidate_blind_decoder")
+        action = _profile(yaw=0.2, lateral=0.0, source="native_action_head")
+        truth = _profile(yaw=0.2, lateral=0.0, source="ground_truth_future")
+        self.assertEqual(evaluate_cfac(imagined, action)["metric_id"], "MAS")
+        grounding = evaluate_grounding_score(imagined, action, truth)
+        self.assertEqual(grounding["metric_id"], "GS")
+        self.assertEqual(grounding["legacy_metric"], "FAU")
 
 
 if __name__ == "__main__":

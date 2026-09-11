@@ -16,6 +16,16 @@ from iac_new.visual_consistency import (
 )
 
 
+def _interval_trajectory(value: np.ndarray, interval_count: int) -> np.ndarray:
+    """Align native action knots with the observed flow interval axis."""
+    if len(value) == interval_count:
+        return value
+    if len(value) == 2 * interval_count:
+        return value[[1, 3, 5, 7]]
+    indices = np.linspace(0, len(value) - 1, interval_count).round().astype(int)
+    return value[indices]
+
+
 def _score(root: Path, metadata: dict, trajectory: np.ndarray) -> dict:
     observed = np.load(root / metadata["flow_path"])
     valid = np.asarray(np.load(root / metadata["valid_path"]), dtype=bool)
@@ -68,7 +78,10 @@ def main() -> None:
         if "left" not in branches or "right" not in branches:
             continue
         trajectories = {
-            role: np.asarray(branches[role]["trajectory"], dtype=np.float64)
+            role: _interval_trajectory(
+                np.asarray(branches[role]["trajectory"], dtype=np.float64),
+                np.load(args.root / branches[role]["flow_path"]).shape[0],
+            )
             for role in ("left", "right")
         }
         zero = np.zeros_like(trajectories["left"])

@@ -1,4 +1,4 @@
-# 结构反事实指标：Step1 到 CCFC-S / CFAC-S
+# 结构反事实指标：Step1 到 MAS / RCS / GS
 
 ## 目的
 
@@ -21,10 +21,12 @@ D_norm(t) = D(t) / max(abs(C(t)), epsilon)
 
 ## 下游映射
 
-* `CCFC-S`：比较 `Delta S_F` 与 `Delta P_A` 的方向、排序和时间持续性。
-* `CFAC-S`：在冻结的 action-to-structure 标定后，比较单分支结构剖面与 action
-  结构剖面。
-* `FAU`：仍需 logged-GT-compatible 的独立通道；本协议不提供米制 GT 误差。
+* `Response Consistency Score (RCS)`（旧名 `CCFC-S`）：比较 `Delta S_F` 与
+  `Delta P_A` 的方向、排序和时间持续性。
+* `Motion Alignment Score (MAS)`（旧名 `CFAC-S`）：在冻结的
+  action-to-structure 标定后，比较单分支结构剖面与 action 结构剖面。
+* `Grounding Score (GS)`（旧组件名 `FAU`）：仍需 logged-GT-compatible 的独立
+  通道；本协议不提供米制 GT 误差。
 * `FCS`：继续由 native action 和独立模拟器完成，不依赖本协议。
 
 ## 反事实边界

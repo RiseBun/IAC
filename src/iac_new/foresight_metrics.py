@@ -2,10 +2,10 @@
 
 The two primary quantities are deliberately output-only:
 
-``CFAC`` (Cross-modal Future--Action Consistency)
+``Motion Alignment Score`` (legacy alias: ``CFAC``)
     Does the imagined future motion agree with the native action motion?
 
-``FAU`` (Foresight Action Utility)
+``Grounding Score`` (legacy components: ``FAU_F``/``FAU_A``/``FAU``)
     Do *both* imagined motion and native action agree with the observed future,
     relative to the same history?  A planner that never submits a future visual
     state cannot obtain FAU.
@@ -254,6 +254,9 @@ def evaluate_cfac(
                 scores.append(float(np.prod(parts) ** (1.0 / len(parts))))
     return {
         "protocol": "iac-cfac",
+        "metric_id": "MAS",
+        "metric_name": "Motion Alignment Score",
+        "legacy_metric": "CFAC",
         "metric": "CFAC",
         "definition": "imagined_motion_vs_native_action_motion_same_time",
         "status": "ok" if scores else "abstain",
@@ -351,6 +354,48 @@ def evaluate_fau(
         "diagnostic_fields": sorted(set(SHAPE_FIELDS) - set(PRIMARY_FIELDS)),
         "claim": "foresight_utility_not_causal_claim",
         "requires": ["future_visual_output", "native_action", "ground_truth_future"],
+    }
+
+
+def evaluate_grounding_score(
+    imagined_profile: dict[str, Any],
+    action_profile: dict[str, Any],
+    ground_truth_profile: dict[str, Any],
+    *,
+    history_profile: dict[str, Any] | None = None,
+    scales: dict[str, float] | None = None,
+    min_observability: float = 0.0,
+) -> dict[str, Any]:
+    """Return the tentative external Reality Grounding Score.
+
+    The score is the existing FAU joint grounding value with canonical naming;
+    FAU fields remain in the payload as compatibility aliases.  It requires an
+    external logged future and must never be inferred from video smoothness.
+    """
+    fau = evaluate_fau(
+        imagined_profile,
+        action_profile,
+        ground_truth_profile,
+        history_profile=history_profile,
+        scales=scales,
+        min_observability=min_observability,
+    )
+    return {
+        "protocol": "iac-grounding-score-v1",
+        "metric_id": "GS",
+        "metric_name": "Grounding Score",
+        "legacy_metric": "FAU",
+        "status": fau["status"],
+        "score": fau["score"],
+        "coverage": fau["coverage"],
+        "components": {
+            "future_grounding": fau.get("fau_f"),
+            "action_grounding": fau.get("fau_a"),
+            "joint_geometric_mean": fau.get("score"),
+        },
+        "fau_compatibility": fau,
+        "claim": "external_reality_grounding_not_future_to_action_causality",
+        "requires": ["future_visual_output", "native_action", "logged_or_simulated_future"],
     }
 
 

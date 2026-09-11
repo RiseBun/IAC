@@ -148,6 +148,10 @@ def score_trajectory_visual_consistency(
     usable = [row for row in rows if row["status"] in {"scored", "weak"}]
     return {
         "protocol": "iac-forward-visual-consistency-v1",
+        "metric_id": "MAS",
+        "metric": "Motion Alignment Score",
+        "legacy_metric": "CFAC-S",
+        "metric_definition": "single_branch_visual_motion_vs_action_conditioned_structure",
         "candidate_blind": True,
         "metric_reconstruction_used": False,
         "interval_count": intervals,
@@ -241,6 +245,10 @@ def score_twin_differential_consistency(
     ]
     return {
         "protocol": "iac-twin-differential-forward-consistency-v1",
+        "metric_id": "RCS",
+        "metric": "Response Consistency Score",
+        "legacy_metric": "CCFC-S",
+        "metric_definition": "counterfactual_video_response_vs_action_intervention_response",
         "candidate_blind": True,
         "metric_reconstruction_used": False,
         "interval_count": intervals,

@@ -55,6 +55,7 @@ class VisualConsistencyTest(unittest.TestCase):
         self.assertEqual(report["status_counts"]["scored"], 1)
         self.assertAlmostEqual(report["median_residual_px"], 0.0)
         self.assertAlmostEqual(report["median_direction_cosine"], 1.0)
+        self.assertEqual(report["metric_id"], "MAS")
 
     def test_twin_score_reports_signed_temporal_persistence(self) -> None:
         observed_left = np.zeros((2, 4, 4, 2), dtype=np.float64)
@@ -71,6 +72,7 @@ class VisualConsistencyTest(unittest.TestCase):
             observed_left, observed_right, expected_right, expected_left
         )
         self.assertAlmostEqual(reversed_report["temporal_persistence"], 0.0)
+        self.assertEqual(report["metric_id"], "RCS")
 
 
 if __name__ == "__main__":

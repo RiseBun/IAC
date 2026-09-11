@@ -36,16 +36,19 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
    reconstruction or candidate trajectories. The continuous ground-plane SE(2)
    decoder remains an explicit, fail-closed diagnostic. Only yaw direction/rank
    enters the primary score.
-2. **Capability-stratified metrics.** CFAC, CCFC, FAU and FCS are reported as
-   separate evidence columns with per-column coverage. Unsupported capabilities
+2. **Capability-stratified metrics.** The canonical metrics are Motion Alignment
+   Score (MAS; legacy CFAC), Response Consistency Score (RCS; legacy CCFC), and
+   Grounding Score (GS; legacy FAU components), with FCS reported separately.
+   Each is an evidence column with its own coverage. Unsupported capabilities
    are `unavailable`, not zero-filled.
 3. **Fail-closed reproducibility.** Exact timestamps, calibration, model
    revision, seed and lineage are required. Private GT is joined only on the
    evaluation server; submitted motion profiles cannot replace image probing.
 4. **Structural counterfactual channel (experimental).** Same-source
    left/right flow differences are exposed as an ordinal, decoder-free signal
-   for structural CCFC. This is separate from metric CFAC/FAU and is not
-   promoted to a frozen score until independent validation is complete.
+   for the Response Consistency Score (RCS; legacy structural CCFC-S). This is
+   separate from metric MAS/GS and is not promoted to a frozen score until
+   independent validation is complete.
 
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
@@ -62,11 +65,11 @@ flowchart LR
     S1c --> S1d["coverage · direction · ordinal response"]
   end
   S1d --> S2
-  subgraph S2["Step 2 · CCFC"]
+  subgraph S2["Step 2 · Response Consistency Score (RCS)"]
     S2a["Two fixed-condition forwards"] --> S2b["Δ imagined motion ↔ Δ native action"]
   end
   S2 --> S3
-  subgraph S3["Step 3 · FCS"]
+  subgraph S3["Step 3 · Reality Grounding / FCS"]
     S3a["Native action → independent NAVSIM/PDM rollout"] --> S3b["Realized state + task success"]
   end
 ```
@@ -167,24 +170,25 @@ For the same `source_key`, it computes
 ```
 
 and reports raw/common-motion-normalized deltas, direction and temporal
-persistence without reconstructing metres or radians. It can support a
-structural `CCFC-S`, but it does not replace metric `CFAC` or `FAU`; progress
+persistence without reconstructing metres or radians. It can support the
+structural `RCS`, but it does not replace metric `MAS` or `GS`; progress
 descriptors remain diagnostic until the independent pure-speed swap validation
 is complete.
 
-### Step 2: CFAC and CCFC
+### Step 2: Motion Alignment (MAS) and Response Consistency (RCS)
 
-**CFAC** compares one run's imagined motion profile `P_F` with its native action
-profile `P_A`. **CCFC** compares the changes produced by two reproducible
+**Motion Alignment Score (MAS; legacy CFAC)** compares one run's imagined motion
+profile `P_F` with its native action profile `P_A`. **Response Consistency Score
+(RCS; legacy CCFC)** compares the changes produced by two reproducible
 forwards with the same history, seed and nuisance variables:
 
 ```text
 ΔS_F = S_F(branch 1) − S_F(branch 0)
 ΔP_A = P_A(branch 1) − P_A(branch 0)
-CCFC-S = ordinal_consistency(ΔS_F, ΔP_A)
+RCS = ordinal_consistency(ΔS_F, ΔP_A)
 ```
 
-`CCFC-S` is the structural form used by the current framework. It measures
+`RCS` is the structural form used by the current framework. It measures
 whether imagined structure and native action respond consistently to the same
 intervention; it is not by itself proof that the action was causally generated
 from the predicted future. A future-to-action claim requires an additional
@@ -196,13 +200,15 @@ command change or latent swap). Semantic clear/risk is optional. The evaluator
 must receive both regenerated future visual output and native action; injecting
 an action after generation is only an action-response diagnostic, not CCFC.
 
-FAU reports whether imagined motion (`FAU_F`) and native action (`FAU_A`) each
-approach the private ground-truth future; `FAU = sqrt(FAU_F × FAU_A)`.
+The tentative Grounding Score (GS) reports whether imagined motion and native
+action approach the private ground-truth future. Its compatibility components
+remain `FAU_F` and `FAU_A`, with legacy `FAU = sqrt(FAU_F × FAU_A)`.
 
-`CFAC-S` is the structural analogue of CFAC and requires an action-to-structure
+`MAS` in the structural domain requires an action-to-structure
 mapping fitted on a separate calibration set and frozen before confirmation.
 Until that calibration is validated, it must be reported as `unavailable`, not
-as a metre-domain error.
+as a metre-domain error. The executable pilot bundle is recorded in
+[`reports/wam_three_metric_pilot_20260911.json`](reports/wam_three_metric_pilot_20260911.json).
 
 The current cross-model pilot scorecard is recorded in
 [`reports/ccfc_structure_forward_scorecard_20260911.json`](reports/ccfc_structure_forward_scorecard_20260911.json).

@@ -1,0 +1,30 @@
+{
+  "protocol": "iac-wam-three-metric-v1",
+  "status": "implemented_pilot_validation_pending",
+  "canonical_metrics": {
+    "motion_alignment_score": {
+      "id": "MAS",
+      "legacy_alias": "CFAC",
+      "definition": "single-branch candidate-blind visual structure aligned with the native action",
+      "required_inputs": ["generated_future_video", "native_action", "camera_calibration"],
+      "current_status": "implemented; structural calibration pending"
+    },
+    "response_consistency_score": {
+      "id": "RCS",
+      "legacy_alias": "CCFC",
+      "definition": "same-source intervention difference in video aligned with intervention difference in action",
+      "required_inputs": ["left_future_video", "right_future_video", "left_action", "right_action", "shared_history", "controls"],
+      "current_status": "implemented; scene-disjoint promotion validation pending"
+    },
+    "grounding_score": {
+      "id": "GS",
+      "legacy_components": ["FAU_F", "FAU_A", "FAU"],
+      "definition": "generated visual future and native action grounded against an external logged or simulated future",
+      "required_inputs": ["generated_future_video", "native_action", "external_future_reference"],
+      "current_status": "implemented as tentative wrapper; not a replacement for FCS"
+    }
+  },
+  "missing_value_policy": "unavailable_or_abstain_never_zero_fill",
+  "causal_boundary": "MAS/RCS establish consistency or response matching; neither alone proves future-to-action mediation.",
+  "compatibility": {"preserve_legacy_output_keys": true}
+}

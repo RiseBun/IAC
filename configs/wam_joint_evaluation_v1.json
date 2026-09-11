@@ -17,14 +17,18 @@
       "experimental": ["ordinal progress", "future_to_action mediation probes"]
     },
     "step2_counterfactual_consistency": {
+      "canonical_metric": "Response Consistency Score",
+      "legacy_alias": "CCFC",
       "status": "framework_ready_validation_pending",
-      "formula": "CCFC-S = ordinal_consistency(Delta S_F, Delta P_A)",
+      "formula": "RCS = ordinal_consistency(Delta S_F, Delta P_A)",
       "required_controls": ["normal_order", "reversed_order", "identity_swap", "zero_contrast"],
       "pair_gate": "both branches must provide the required channel; otherwise pair is unavailable"
     },
     "step2_single_branch_alignment": {
+      "canonical_metric": "Motion Alignment Score",
+      "legacy_alias": "CFAC",
       "status": "interface_defined_calibration_pending",
-      "formula": "CFAC-S = alignment(S_F, structuralized P_A)",
+      "formula": "MAS = alignment(S_F, structuralized P_A)",
       "warning": "Requires a frozen action-to-structure calibration; does not replace metric CFAC"
     },
     "future_to_action": {
