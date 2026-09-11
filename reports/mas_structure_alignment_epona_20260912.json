@@ -1,0 +1,1606 @@
+{
+  "protocol": "iac-flow-structure-alignment-v1",
+  "metric_reconstruction_used": false,
+  "descriptor": "horizontal_flow_center",
+  "orientation": 1,
+  "action_column": 2,
+  "action_reference": "endpoint_column",
+  "minimum_common_intervals": 2,
+  "minimum_action_delta": 0.01,
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 6101,
+  "pair_count": 115,
+  "status_counts": {
+    "scored": 75,
+    "unavailable": 40
+  },
+  "coverage": 0.6521739130434783,
+  "action_response_spearman": null,
+  "action_response_spearman_ci95": null,
+  "action_direction_pairs": 0,
+  "action_direction_hits": 0,
+  "action_direction_accuracy": null,
+  "action_direction_accuracy_ci95": null,
+  "command_label_direction_hits": 31,
+  "command_label_direction_accuracy": 0.41333333333333333,
+  "command_label_direction_accuracy_ci95": [
+    0.30877729130406334,
+    0.5263348413929564
+  ],
+  "warning": "This scores command/action response, not logged-GT fidelity or policy quality.",
+  "pairs": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0015:01c63ead969e5b60",
+      "stratum": "braking",
+      "common_intervals": [
+        1,
+        2
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.008290595055949177,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0022:3c650e5df6555a95",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0008761984465356998,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0026:2569ea6173835857",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        3
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0021:27decc74a57b53ac",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0021:816c438c23b55c68",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        3
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.020061984968251526,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0025:8145be015e3155e3",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0006340069182206795,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0026:deb96ffe3c3358a9",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0013130719717927807,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0007:2fadb352b7175692",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": -0.0060975502003578486,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0007:df570b3785a95295",
+      "stratum": "acceleration",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0011:358d0feb907e5fbe",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        2
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0020:2df4305ff6ca5247",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": 0.00045432396305417587,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_02035_02387:log-0005-scene-0014:c9d8511d674d598f",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": -0.001092579427605364,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0010:205afaaa8125508c",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0002769402095249684,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0002:ddc904ff3be05595",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.001131351236331478,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0009:c15774bfb6655d18",
+      "stratum": "braking",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0017:b3509fd31f495cfb",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0019:580b253c853c5ef9",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.006179276517955343,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0006:384090d979795249",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0016:a916c0c016825703",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.010446828215198278,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0018:6d78f111c5915e2d",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": -0.008351845814021052,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0004:d5189b6b83175e6b",
+      "stratum": "straight_cruise",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.0002761407859943785,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0018:ec94ff3c7a3c5697",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        1
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.08.16.31.33_veh-38_01589_02072:log-0013-scene-0018:e7a042ae1353592d",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": 0.004327209457114401,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0005:46da0ded2fff5f30",
+      "stratum": "braking",
+      "common_intervals": [
+        1,
+        3
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": 0.02418743175210305,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0019:89c5d338977a58c3",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": 0.0034338783126597883,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0021:082bc931e535569c",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": 0.004558472957425903,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_01943_02303:log-0015-scene-0006:d0ac50e9a5345b83",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.000572401673717738,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0018:a67bfc4fbe5b53e6",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        3
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": 0.016150609506152044,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.03.17_veh-12_02584_02970:log-0017-scene-0012:a0d4a0e5d66553e0",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0001933325014894776,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0011:a792f243015650b5",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.0013723466002825424,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0014:25571ada27965b95",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0015:299c8ea5136253fa",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0011490757025561273,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01894_02311:log-0019-scene-0004:ea0e91c1e268511e",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.005758301394987692,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01894_02311:log-0019-scene-0015:7050a02837a95d06",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        3
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": 0.00701939976992455,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01894_02311:log-0019-scene-0019:66711b1655b45f6d",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.00016002797220682425,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0009:2b47be5d584f5f07",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.007150890757736644,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0003:a1d71fa0f0d358bb",
+      "stratum": "straight_cruise",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.0006479979047084152,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0011:caca394779a955de",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.00036533112830163363,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.37.09_veh-12_00404_00864:log-0022-scene-0001:8bea909e29c453f1",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.003901591413394745,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.37.09_veh-12_00404_00864:log-0022-scene-0014:13026945631d51f6",
+      "stratum": "straight_cruise",
+      "common_intervals": [
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": -0.010286742870420754,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0015:8af47757fd765f6f",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 7.377885251038697e-05,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.48.02_veh-12_04057_04438:log-0024-scene-0014:fb66aa6da0015928",
+      "stratum": "straight_cruise",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.008958742993879913,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.48.02_veh-12_04057_04438:log-0024-scene-0017:a85e57cf4da85606",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.48.02_veh-12_04978_05337:log-0025-scene-0004:bc63204d97515d78",
+      "stratum": "acceleration",
+      "common_intervals": [
+        2,
+        3
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.0002763228343693792,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0008:28a1bafa0c4c54f5",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.00025583115430876887,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0009:637689818c1f5f9d",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": 0.002452661524863912,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.18.33.41_veh-35_03901_04264:log-0027-scene-0004:416f6783fffc5136",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0028564705928056464,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.18.33.41_veh-35_03901_04264:log-0027-scene-0007:e61c2dddf6715ffd",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.02181294953112134,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.18.33.41_veh-35_03901_04264:log-0027-scene-0009:633383ed2e675869",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.005471437425454669,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.14.18.42.45_veh-12_03445_03902:log-0028-scene-0005:f9ba356b7f005ad2",
+      "stratum": "straight_cruise",
+      "common_intervals": [
+        2,
+        3
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.01176374253717441,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0018:43f211fd99295c0e",
+      "stratum": "braking",
+      "common_intervals": [
+        2
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0010:b7b536f0b399575b",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.0008182225751480019,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0016:7ef816ef94de5f73",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0016:ccce59bb3b3a5c29",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0020:1e100a3ca21d5812",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_01415_01821:log-0035-scene-0008:15b400ceaa505015",
+      "stratum": "straight_cruise",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_01415_01821:log-0035-scene-0017:29aeffb980ed567e",
+      "stratum": "braking",
+      "common_intervals": [
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": -0.011923119694449204,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0007:5a475c205fcc545f",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.001987983796864376,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0019:2256b2a677aa5509",
+      "stratum": "braking",
+      "common_intervals": [
+        1
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0010:ef1ddced57375e17",
+      "stratum": "braking",
+      "common_intervals": [
+        0
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0011:16b6bfa2d0125918",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -1.4545682729865186e-07,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0015:c98c22f11afa50f1",
+      "stratum": "braking",
+      "common_intervals": [
+        2
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.07.09.20.59.12_veh-38_01208_01692:log-0039-scene-0001:8b36efa31fcd5b51",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0012882867319077957,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.09.20.59.12_veh-38_01208_01692:log-0039-scene-0007:de589acb883b557d",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.001295557961219225,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.09.20.59.12_veh-38_01208_01692:log-0039-scene-0008:1441b609a5275cf8",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.00038505956303230837,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.09.20.59.12_veh-38_01208_01692:log-0039-scene-0009:9900f75f298f5ec0",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.003929669251885061,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0015:f4cfea0396e3580f",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": 0.001952235125800938,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0019:5f1ccb3b00ec5256",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": 0.011199775251370033,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0023:499e4f03f7e45148",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0005860528734289161,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04471_04922:log-0042-scene-0005:a2358fe1a1655a81",
+      "stratum": "straight_cruise",
+      "common_intervals": [
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": 0.0007100680664739729,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0004:0d9d21e6a8795d5c",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0016:dcf47b7e5b04508c",
+      "stratum": "braking",
+      "common_intervals": [
+        3
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0014:55eb50bf0ff35a1d",
+      "stratum": "braking",
+      "common_intervals": [
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": -0.003993570060571255,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0007:070bd740f0755ba8",
+      "stratum": "straight_cruise",
+      "common_intervals": [
+        1
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.07.24.20.37.45_veh-17_00015_00375:log-0047-scene-0007:aca799e0d64c5707",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.014028788604947964,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0010:db2545c8aa165fef",
+      "stratum": "straight_cruise",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.00046178682005851854,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0012:3c604e6000cd55e8",
+      "stratum": "braking",
+      "common_intervals": [
+        1,
+        2
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.013846056140576914,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0006:c7622ec6bd8f5fa9",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": 0.0012201825681068187,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0010:38e8a4b341b7575c",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0031200624684425936,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0010:bf3a4482597d5bf4",
+      "stratum": "acceleration",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0017:861f324b87945eaf",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": 0.0008975743291526148,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0014:bf78829aee4d5b9f",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0014:e15cea1583a95a9d",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.003153077110999501,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0019:14cab3d3efd3571d",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": 0.009680771133274708,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0023:bd10a57868705ef0",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0005:38762aa8dde35c38",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0005:fe7f61c3806a54b0",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": -0.00016551655969077386,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0006:a0abb211c68f559d",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.013040478192734817,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0007:362bf9c7c9de5397",
+      "stratum": "braking",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.08.30.14.54.34_veh-40_00439_00835:log-0054-scene-0006:14b6e7ce317d531f",
+      "stratum": "braking",
+      "common_intervals": [
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "status": "scored",
+      "flow_structure_delta": -0.041282890904462285,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.08.30.14.54.34_veh-40_00439_00835:log-0054-scene-0009:7310980ca6ab506a",
+      "stratum": "braking",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.08.30.14.54.34_veh-40_00439_00835:log-0054-scene-0015:2ad9640eb724590d",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.08.30.14.54.34_veh-40_00439_00835:log-0054-scene-0016:b501d832ec1059a6",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.0036328403116429892,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0004:13e6cd945bf95a1f",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.00024352378719556768,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0020:8b31009bc5115cb5",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.025530561825438777,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0009:8af840f2d75a5009",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0006:e9e2bc8c4124576c",
+      "stratum": "braking",
+      "common_intervals": [
+        3
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0007:a8fc9a26e2f95ab5",
+      "stratum": "stop",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0009:a653ecacf9545c4d",
+      "stratum": "braking",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0006:7701d9be22cc5ef4",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0008:8083ed2692f552f8",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0008:a3d86f3f609652b3",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        3
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0009:28e6c9ae60975246",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        2
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": -0.04712731001611887,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0011:198a4fb827bb5d69",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1
+      ],
+      "common_interval_count": 2,
+      "status": "scored",
+      "flow_structure_delta": 0.004260008940253628,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0015:387ffe6f91d35261",
+      "stratum": "braking",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.0012647844386001572,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0015:62f425749d205cb9",
+      "stratum": "acceleration",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -2.2560520802886766e-05,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0017:7bcca1a0986a522a",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        1
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.11.02.57.41_veh-50_00352_00535:log-0061-scene-0010:59f3523b2bf25725",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.11.02.57.41_veh-50_01522_02088:log-0062-scene-0009:36636abe856350a0",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.004525236217059636,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.10.11.02.57.41_veh-50_01522_02088:log-0062-scene-0013:fd434427745b5402",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        3
+      ],
+      "common_interval_count": 1,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.11.02.57.41_veh-50_01522_02088:log-0062-scene-0026:cfda60ccc2d35d49",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.00037698176961996517,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.10.11.02.57.41_veh-50_01522_02088:log-0062-scene-0027:3ee41fd31f8f56a1",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": 0.005565844362552544,
+      "action_delta": 0.0,
+      "command_label_direction_match": true,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    },
+    {
+      "source_key": "navsim:2021.10.11.07.12.18_veh-50_00211_00304:log-0063-scene-0004:9345c2fe17ad5fde",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.11.08.31.07_veh-50_01750_01948:log-0064-scene-0003:044f1eed28bd5dc2",
+      "stratum": "lateral_turn",
+      "common_intervals": [],
+      "common_interval_count": 0,
+      "status": "unavailable",
+      "reason": "insufficient_common_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.11.08.31.07_veh-50_01750_01948:log-0064-scene-0004:c30c9be733ae5d7e",
+      "stratum": "lateral_turn",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "status": "scored",
+      "flow_structure_delta": -0.001148305745503443,
+      "action_delta": 0.0,
+      "command_label_direction_match": false,
+      "action_direction_comparable": false,
+      "action_direction_match": null
+    }
+  ]
+}
