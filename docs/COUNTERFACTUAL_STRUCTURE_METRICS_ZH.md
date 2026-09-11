@@ -41,3 +41,17 @@ action decoder 实际读取了 predicted future。若要声称 future-to-action 
 progress 通道在独立 speed-swap twin 上达到以下条件前只能作 diagnostic：twin coverage
 至少 0.90、方向准确率 95% CI 下界至少 0.75、至少两个 WAM、并通过正常顺序/倒序/
 错身份/零差异控制。所有阈值必须在独立校准集冻结后再用于确认集。
+
+## GS 跨模型 pilot（2026-09-11）
+
+在同一 source 的生成分支与 NAVSIM logged future 之间做了 candidate-blind 结构对照，
+并用随机身份置换作为负对照。Epona 的生成流幅度与 logged future 的分支级秩相关为
+`rho=0.835`（逐区间 `rho=0.725`），水平流为 `rho=0.641`；随机置换的幅度相关
+95% 上界为 `0.158`。DriveWAM 的对应幅度相关为 `rho=-0.042`（分支聚合
+`rho=0.122`，未超过随机置换 95% 上界 `0.135`），生成幅度中位数为 `0.85 px`，
+而 logged future 为 `47.9 px`。
+
+该 pilot 说明 GS 有能力区分保留真实运动结构的模型与未保留的模型，但它仍不是冻结
+标量：当前结果使用 confirmation-only 的原始结构比较。正式发布前必须在独立 calibration
+split 冻结 descriptor 聚合、尺度和缺失策略，再在 untouched confirmation split 验收；GS
+也不能单独被解释为 future-to-action 因果证明。
