@@ -89,3 +89,12 @@ Epona 的 pair coverage 为 `170/174 = 97.7%`，方向准确率为 `97/105 = 92.
 这证明的是 S1.3 对已知视觉反事实变化的方向敏感性和 fail-closed 行为；它不是自然
 WAM 质量排名，也不能替代尚未完成的独立 pure-speed twin 确认集。255 对旧 pilot 与
 174 source 的受控运行使用了不同的产物和统计口径，不能混合计算。
+
+第三个模型 DriveVA 的 10-twin pilot 还验证了模型专用图像几何 adapter 的必要性：
+其历史帧为 `1920×1080`、生成帧为 `832×480`，必须显式声明
+`direct_resize` 变换；同时，旧 manifest 的 `gt_candidate_id` 和相对
+`future_frame_paths` 需要在派生评测 manifest 中修正。修正后 20/20 分支完成测量，
+18/20 分支四秒全可用，10/10 twin 可评分；正常方向为 `7/10 = 70.0%`，95% CI
+为 `[0.397, 0.892]`，倒序/身份错配为 `3/10`，零差异为 `unavailable`。由于 twin
+数太少且 CI 很宽，这只是 adapter 与第三模型的 pilot，不满足正式 promotion gate。
+原始 DriveVA manifest 不被覆盖，派生修正仅用于验证。

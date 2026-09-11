@@ -32,6 +32,23 @@ def _key(row: dict[str, Any]) -> tuple[str, str]:
     return str(row.get("source_key") or ""), str(row.get("branch_role") or "")
 
 
+def _normalize_branch_roles(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Accept legacy manifests that encode the role only in branch_id/sample_id."""
+    output = copy.deepcopy(rows)
+    for row in output:
+        if row.get("branch_role") in {"left", "right"}:
+            continue
+        for field in ("branch_id", "sample_id"):
+            value = str(row.get(field) or "")
+            if value.endswith("::left"):
+                row["branch_role"] = "left"
+                break
+            if value.endswith("::right"):
+                row["branch_role"] = "right"
+                break
+    return output
+
+
 def _swap_actions(manifests: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Return an identity-swap control: each image keeps the other action."""
     by_source = {(str(row.get("source_key") or ""), str(row.get("branch_role") or "")): row for row in manifests}
@@ -80,6 +97,8 @@ def run_controls(
     minimum_action_delta: float,
 ) -> dict[str, dict[str, Any]]:
     """Run preregistered controls and return their complete reports."""
+    measurements = _normalize_branch_roles(measurements)
+    manifests = _normalize_branch_roles(manifests)
     swapped_measurements = copy.deepcopy(measurements)
     reports: dict[str, dict[str, Any]] = {}
     common = dict(
