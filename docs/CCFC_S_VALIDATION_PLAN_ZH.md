@@ -78,3 +78,14 @@ intervention 或 future-pathway ablation。若无法干预该路径，保持
 当前 `horizontal_flow_center` pilot 的覆盖和方向 CI 尚未达到 promotion gate。该结果
 只证明控制脚本和输出契约可运行，不改变 S1.3 的冻结状态，也不把结构通道升级为
 正式 primary。
+
+需要与上述旧 pilot 区分的是，当前冻结 S1.3 的受控对照运行已经完成了 observer-level
+复核：在相同的 174 个 source 上，DriveWAM 的 pair coverage 为 `174/174 = 100%`，
+方向准确率为 `91/106 = 85.8%`，95% CI 为 `[0.780, 0.912]`，Spearman 为 `0.802`；
+Epona 的 pair coverage 为 `170/174 = 97.7%`，方向准确率为 `97/105 = 92.4%`，
+95% CI 为 `[0.857, 0.961]`，Spearman 为 `0.739`。两组的倒序和身份错配方向均
+显著翻转，零差异按契约返回 `unavailable`。
+
+这证明的是 S1.3 对已知视觉反事实变化的方向敏感性和 fail-closed 行为；它不是自然
+WAM 质量排名，也不能替代尚未完成的独立 pure-speed twin 确认集。255 对旧 pilot 与
+174 source 的受控运行使用了不同的产物和统计口径，不能混合计算。
