@@ -195,7 +195,8 @@ S1.3 yaw 保持唯一冻结主通道；任何新通道都必须通过独立校�
 - 只有新通道同时满足准确率、coverage、controls 和跨模型要求，才允许改变
   primary；否则维持 S1.3 yaw primary + SE(2)/progress diagnostic。
 响应增益（观测 `ΔF` / 轨迹预期 `ΔF`）的 pair 中位数也明显分离：Epona 为 `0.232`
-（IQR `0.112–0.378`），DriveWAM 仅 `0.0045`（IQR `0.0026–0.0081`）。因此可以
+（IQR `0.112–0.378`），DriveWAM 仅 `0.0045`（IQR `0.0026–0.0081`）；normal
+temporal persistence 分别为 `1.0` 和 `0.5`。因此可以
 把“方向余弦 + response gain + zero/reversed controls”组合成一个**结构性几何保真度
 诊断**：它不输出米制距离，但能区分分支是否响应、响应方向是否正确以及响应幅度是否
 接近动作预期。它仍需第三模型和独立阈值校准后，才能进入正式 CCFC-S。

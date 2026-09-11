@@ -10,6 +10,7 @@
         "median_expected_delta_px": 13.701932166126031,
         "median_direction_cosine": 0.016420976911968973,
         "median_direction_vector_fraction": 0.22101191679069637,
+        "temporal_persistence": 0.5,
         "median_support_fraction": 0.12163652692522321,
         "minimum_support_fraction": 0.08324759347098215
       },
@@ -20,6 +21,7 @@
         "median_expected_delta_px": 13.701932166126031,
         "median_direction_cosine": -0.016420976911968973,
         "median_direction_vector_fraction": 0.22101191679069637,
+        "temporal_persistence": 0.5,
         "median_support_fraction": 0.12163652692522321,
         "minimum_support_fraction": 0.08324759347098215
       },
@@ -30,6 +32,7 @@
         "median_expected_delta_px": 0.0,
         "median_direction_cosine": null,
         "median_direction_vector_fraction": 0.0,
+        "temporal_persistence": null,
         "median_support_fraction": 0.12163652692522321,
         "minimum_support_fraction": 0.08324759347098215
       }
@@ -52,6 +55,7 @@
       "median_expected_delta_px": 13.495473159364149,
       "median_direction_cosine": 0.18962933144117355,
       "median_direction_vector_fraction": 0.4643694976526007,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.16155569893973215,
       "minimum_support_fraction": 0.07820347377232142
     },
@@ -68,6 +72,7 @@
       "median_expected_delta_px": 13.495473159364149,
       "median_direction_cosine": -0.18962933144117355,
       "median_direction_vector_fraction": 0.4643694976526007,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.16155569893973215,
       "minimum_support_fraction": 0.07820347377232142
     },
@@ -84,6 +89,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.16155569893973215,
       "minimum_support_fraction": 0.07820347377232142
     },
@@ -100,6 +106,7 @@
       "median_expected_delta_px": 55.78357688773313,
       "median_direction_cosine": -0.1355356760080262,
       "median_direction_vector_fraction": 0.12168675273171399,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.09440830775669642,
       "minimum_support_fraction": 0.07886614118303571
     },
@@ -116,6 +123,7 @@
       "median_expected_delta_px": 55.78357688773313,
       "median_direction_cosine": 0.1355356760080262,
       "median_direction_vector_fraction": 0.12168675273171399,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.09440830775669642,
       "minimum_support_fraction": 0.07886614118303571
     },
@@ -132,6 +140,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.09440830775669642,
       "minimum_support_fraction": 0.07886614118303571
     },
@@ -148,6 +157,7 @@
       "median_expected_delta_px": 19.03681883760433,
       "median_direction_cosine": -0.5451473965470701,
       "median_direction_vector_fraction": 0.5078021125961857,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.07474190848214285,
       "minimum_support_fraction": 0.06614467075892858
     },
@@ -164,6 +174,7 @@
       "median_expected_delta_px": 19.03681883760433,
       "median_direction_cosine": 0.5451473965470701,
       "median_direction_vector_fraction": 0.5078021125961857,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.07474190848214285,
       "minimum_support_fraction": 0.06614467075892858
     },
@@ -180,6 +191,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.07474190848214285,
       "minimum_support_fraction": 0.06614467075892858
     },
@@ -196,6 +208,7 @@
       "median_expected_delta_px": 20.754072502823732,
       "median_direction_cosine": 0.2200941749641627,
       "median_direction_vector_fraction": 0.3696934755000939,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.17393275669642855,
       "minimum_support_fraction": 0.14141845703125
     },
@@ -212,6 +225,7 @@
       "median_expected_delta_px": 20.754072502823732,
       "median_direction_cosine": -0.2200941749641627,
       "median_direction_vector_fraction": 0.3696934755000939,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.17393275669642855,
       "minimum_support_fraction": 0.14141845703125
     },
@@ -228,6 +242,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.17393275669642855,
       "minimum_support_fraction": 0.14141845703125
     },
@@ -244,6 +259,7 @@
       "median_expected_delta_px": 10.181059262448613,
       "median_direction_cosine": 0.07986021524653875,
       "median_direction_vector_fraction": 0.04429216112318235,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.05216761997767857,
       "minimum_support_fraction": 0.05216761997767857
     },
@@ -260,6 +276,7 @@
       "median_expected_delta_px": 10.181059262448613,
       "median_direction_cosine": -0.07986021524653875,
       "median_direction_vector_fraction": 0.04429216112318235,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.05216761997767857,
       "minimum_support_fraction": 0.05216761997767857
     },
@@ -276,6 +293,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.05216761997767857,
       "minimum_support_fraction": 0.05216761997767857
     },
@@ -292,6 +310,7 @@
       "median_expected_delta_px": 9.700461054794966,
       "median_direction_cosine": -0.0908924719600863,
       "median_direction_vector_fraction": 0.28311897657385215,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.1798924037388393,
       "minimum_support_fraction": 0.07151576450892858
     },
@@ -308,6 +327,7 @@
       "median_expected_delta_px": 9.700461054794966,
       "median_direction_cosine": 0.0908924719600863,
       "median_direction_vector_fraction": 0.28311897657385215,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.1798924037388393,
       "minimum_support_fraction": 0.07151576450892858
     },
@@ -324,6 +344,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1798924037388393,
       "minimum_support_fraction": 0.07151576450892858
     },
@@ -340,6 +361,7 @@
       "median_expected_delta_px": 4.961010904296522,
       "median_direction_cosine": -0.0650017581534075,
       "median_direction_vector_fraction": 0.5591586395971677,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.2086399623325893,
       "minimum_support_fraction": 0.13582066127232142
     },
@@ -356,6 +378,7 @@
       "median_expected_delta_px": 4.961010904296522,
       "median_direction_cosine": 0.0650017581534075,
       "median_direction_vector_fraction": 0.5591586395971677,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.2086399623325893,
       "minimum_support_fraction": 0.13582066127232142
     },
@@ -372,6 +395,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.2086399623325893,
       "minimum_support_fraction": 0.13582066127232142
     },
@@ -388,6 +412,7 @@
       "median_expected_delta_px": 13.908391172887915,
       "median_direction_cosine": -0.025354935989492074,
       "median_direction_vector_fraction": 0.25788542332645614,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.19401768275669642,
       "minimum_support_fraction": 0.09664481026785714
     },
@@ -404,6 +429,7 @@
       "median_expected_delta_px": 13.908391172887915,
       "median_direction_cosine": 0.025354935989492074,
       "median_direction_vector_fraction": 0.25788542332645614,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.19401768275669642,
       "minimum_support_fraction": 0.09664481026785714
     },
@@ -420,6 +446,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.19401768275669642,
       "minimum_support_fraction": 0.09664481026785714
     },
@@ -436,6 +463,7 @@
       "median_expected_delta_px": 50.391168357659616,
       "median_direction_cosine": 0.0988679026880126,
       "median_direction_vector_fraction": 0.2988505747126437,
+      "temporal_persistence": 0.6666666666666666,
       "median_support_fraction": 0.1025390625,
       "minimum_support_fraction": 0.07509940011160714
     },
@@ -452,6 +480,7 @@
       "median_expected_delta_px": 50.391168357659616,
       "median_direction_cosine": -0.0988679026880126,
       "median_direction_vector_fraction": 0.2988505747126437,
+      "temporal_persistence": 0.3333333333333333,
       "median_support_fraction": 0.1025390625,
       "minimum_support_fraction": 0.07509940011160714
     },
@@ -468,6 +497,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1025390625,
       "minimum_support_fraction": 0.07509940011160714
     },
@@ -484,6 +514,7 @@
       "median_expected_delta_px": 28.120957976549935,
       "median_direction_cosine": -0.07148048179030159,
       "median_direction_vector_fraction": 0.21406906235584877,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.194976806640625,
       "minimum_support_fraction": 0.19417898995535715
     },
@@ -500,6 +531,7 @@
       "median_expected_delta_px": 28.120957976549935,
       "median_direction_cosine": 0.07148048179030159,
       "median_direction_vector_fraction": 0.21406906235584877,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.194976806640625,
       "minimum_support_fraction": 0.19417898995535715
     },
@@ -516,6 +548,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.194976806640625,
       "minimum_support_fraction": 0.19417898995535715
     },
@@ -532,6 +565,7 @@
       "median_expected_delta_px": 12.367424426631436,
       "median_direction_cosine": -0.1131742120485241,
       "median_direction_vector_fraction": 0.12030189606596808,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.18072945731026785,
       "minimum_support_fraction": 0.07687813895089286
     },
@@ -548,6 +582,7 @@
       "median_expected_delta_px": 12.367424426631436,
       "median_direction_cosine": 0.1131742120485241,
       "median_direction_vector_fraction": 0.12030189606596808,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.18072945731026785,
       "minimum_support_fraction": 0.07687813895089286
     },
@@ -564,6 +599,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.18072945731026785,
       "minimum_support_fraction": 0.07687813895089286
     },
@@ -580,6 +616,7 @@
       "median_expected_delta_px": 4.345509124602936,
       "median_direction_cosine": 0.1858736840786638,
       "median_direction_vector_fraction": 0.16415602768142273,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.116546630859375,
       "minimum_support_fraction": 0.10416957310267858
     },
@@ -596,6 +633,7 @@
       "median_expected_delta_px": 4.345509124602936,
       "median_direction_cosine": -0.1858736840786638,
       "median_direction_vector_fraction": 0.16415602768142273,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.116546630859375,
       "minimum_support_fraction": 0.10416957310267858
     },
@@ -612,6 +650,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.116546630859375,
       "minimum_support_fraction": 0.10416957310267858
     },
@@ -628,6 +667,7 @@
       "median_expected_delta_px": 27.83672213380484,
       "median_direction_cosine": -0.060109840566937925,
       "median_direction_vector_fraction": 0.26020367349711016,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.1721888950892857,
       "minimum_support_fraction": 0.15597098214285715
     },
@@ -644,6 +684,7 @@
       "median_expected_delta_px": 27.83672213380484,
       "median_direction_cosine": 0.060109840566937925,
       "median_direction_vector_fraction": 0.26020367349711016,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.1721888950892857,
       "minimum_support_fraction": 0.15597098214285715
     },
@@ -660,6 +701,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1721888950892857,
       "minimum_support_fraction": 0.15597098214285715
     },
@@ -676,6 +718,7 @@
       "median_expected_delta_px": 11.796414662926423,
       "median_direction_cosine": 0.05983994191157442,
       "median_direction_vector_fraction": 0.16129430653328394,
+      "temporal_persistence": 0.6666666666666666,
       "median_support_fraction": 0.06270926339285714,
       "minimum_support_fraction": 0.05311802455357143
     },
@@ -692,6 +735,7 @@
       "median_expected_delta_px": 11.796414662926423,
       "median_direction_cosine": -0.05983994191157442,
       "median_direction_vector_fraction": 0.16129430653328394,
+      "temporal_persistence": 0.3333333333333333,
       "median_support_fraction": 0.06270926339285714,
       "minimum_support_fraction": 0.05311802455357143
     },
@@ -708,6 +752,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.06270926339285714,
       "minimum_support_fraction": 0.05311802455357143
     },
@@ -724,6 +769,7 @@
       "median_expected_delta_px": 16.793003650613613,
       "median_direction_cosine": -0.03626217665670248,
       "median_direction_vector_fraction": 0.044114393875144445,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.121490478515625,
       "minimum_support_fraction": 0.11251395089285714
     },
@@ -740,6 +786,7 @@
       "median_expected_delta_px": 16.793003650613613,
       "median_direction_cosine": 0.03626217665670248,
       "median_direction_vector_fraction": 0.044114393875144445,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.121490478515625,
       "minimum_support_fraction": 0.11251395089285714
     },
@@ -756,6 +803,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.121490478515625,
       "minimum_support_fraction": 0.11251395089285714
     },
@@ -772,6 +820,7 @@
       "median_expected_delta_px": 14.371139668963355,
       "median_direction_cosine": -0.19211180234359673,
       "median_direction_vector_fraction": 0.122245577742944,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.10804094587053571,
       "minimum_support_fraction": 0.0826416015625
     },
@@ -788,6 +837,7 @@
       "median_expected_delta_px": 14.371139668963355,
       "median_direction_cosine": 0.19211180234359673,
       "median_direction_vector_fraction": 0.122245577742944,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.10804094587053571,
       "minimum_support_fraction": 0.0826416015625
     },
@@ -804,6 +854,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.10804094587053571,
       "minimum_support_fraction": 0.0826416015625
     },
@@ -820,6 +871,7 @@
       "median_expected_delta_px": 7.059359778349979,
       "median_direction_cosine": 0.17330423969360284,
       "median_direction_vector_fraction": 0.27094161934705474,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.147308349609375,
       "minimum_support_fraction": 0.09770856584821429
     },
@@ -836,6 +888,7 @@
       "median_expected_delta_px": 7.059359778349979,
       "median_direction_cosine": -0.17330423969360284,
       "median_direction_vector_fraction": 0.27094161934705474,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.147308349609375,
       "minimum_support_fraction": 0.09770856584821429
     },
@@ -852,6 +905,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.147308349609375,
       "minimum_support_fraction": 0.09770856584821429
     },
@@ -868,6 +922,7 @@
       "median_expected_delta_px": 37.58249701507371,
       "median_direction_cosine": -0.22297181431654245,
       "median_direction_vector_fraction": 0.6643963814079235,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.10545567103794642,
       "minimum_support_fraction": 0.08385358537946429
     },
@@ -884,6 +939,7 @@
       "median_expected_delta_px": 37.58249701507371,
       "median_direction_cosine": 0.22297181431654245,
       "median_direction_vector_fraction": 0.6643963814079235,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.10545567103794642,
       "minimum_support_fraction": 0.08385358537946429
     },
@@ -900,6 +956,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.10545567103794642,
       "minimum_support_fraction": 0.08385358537946429
     },
@@ -916,6 +973,7 @@
       "median_expected_delta_px": 28.30467538418818,
       "median_direction_cosine": 0.025666195787963884,
       "median_direction_vector_fraction": 0.2387780011202171,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.1934116908482143,
       "minimum_support_fraction": 0.19292340959821427
     },
@@ -932,6 +990,7 @@
       "median_expected_delta_px": 28.30467538418818,
       "median_direction_cosine": -0.025666195787963884,
       "median_direction_vector_fraction": 0.2387780011202171,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.1934116908482143,
       "minimum_support_fraction": 0.19292340959821427
     },
@@ -948,6 +1007,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1934116908482143,
       "minimum_support_fraction": 0.19292340959821427
     },
@@ -964,6 +1024,7 @@
       "median_expected_delta_px": 2.308430916578722,
       "median_direction_cosine": 0.349244727885235,
       "median_direction_vector_fraction": 0.2835855521450496,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -980,6 +1041,7 @@
       "median_expected_delta_px": 2.308430916578722,
       "median_direction_cosine": -0.349244727885235,
       "median_direction_vector_fraction": 0.2835855521450496,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -996,6 +1058,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -1012,6 +1075,7 @@
       "median_expected_delta_px": 13.414650875602643,
       "median_direction_cosine": -0.07701309352527033,
       "median_direction_vector_fraction": 0.4792966053537062,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.12183925083705358,
       "minimum_support_fraction": 0.10569545200892858
     },
@@ -1028,6 +1092,7 @@
       "median_expected_delta_px": 13.414650875602643,
       "median_direction_cosine": 0.07701309352527033,
       "median_direction_vector_fraction": 0.4792966053537062,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.12183925083705358,
       "minimum_support_fraction": 0.10569545200892858
     },
@@ -1044,6 +1109,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.12183925083705358,
       "minimum_support_fraction": 0.10569545200892858
     },
@@ -1060,6 +1126,7 @@
       "median_expected_delta_px": 15.309920491394518,
       "median_direction_cosine": 0.0038650268297629464,
       "median_direction_vector_fraction": 0.1805993580927885,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.054347446986607144,
       "minimum_support_fraction": 0.051478794642857144
     },
@@ -1076,6 +1143,7 @@
       "median_expected_delta_px": 15.309920491394518,
       "median_direction_cosine": -0.0038650268297629464,
       "median_direction_vector_fraction": 0.1805993580927885,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.054347446986607144,
       "minimum_support_fraction": 0.051478794642857144
     },
@@ -1092,6 +1160,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.054347446986607144,
       "minimum_support_fraction": 0.051478794642857144
     },
@@ -1108,6 +1177,7 @@
       "median_expected_delta_px": 11.90106118450117,
       "median_direction_cosine": -0.2487456393742195,
       "median_direction_vector_fraction": 0.3622749026605171,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.18226405552455358,
       "minimum_support_fraction": 0.16330392020089285
     },
@@ -1124,6 +1194,7 @@
       "median_expected_delta_px": 11.90106118450117,
       "median_direction_cosine": 0.2487456393742195,
       "median_direction_vector_fraction": 0.3622749026605171,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.18226405552455358,
       "minimum_support_fraction": 0.16330392020089285
     },
@@ -1140,6 +1211,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.18226405552455358,
       "minimum_support_fraction": 0.16330392020089285
     },
@@ -1156,6 +1228,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1172,6 +1245,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1188,6 +1262,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1204,6 +1279,7 @@
       "median_expected_delta_px": 2.2825483979918015,
       "median_direction_cosine": -0.14758732924402762,
       "median_direction_vector_fraction": 0.10713178482666544,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.053257533482142856,
       "minimum_support_fraction": 0.050074986049107144
     },
@@ -1220,6 +1296,7 @@
       "median_expected_delta_px": 2.2825483979918015,
       "median_direction_cosine": 0.14758732924402762,
       "median_direction_vector_fraction": 0.10713178482666544,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.053257533482142856,
       "minimum_support_fraction": 0.050074986049107144
     },
@@ -1236,6 +1313,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.053257533482142856,
       "minimum_support_fraction": 0.050074986049107144
     },
@@ -1252,6 +1330,7 @@
       "median_expected_delta_px": 16.083972348586066,
       "median_direction_cosine": 0.1560533352257269,
       "median_direction_vector_fraction": 0.12493159191360755,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.10050746372767858,
       "minimum_support_fraction": 0.06459263392857142
     },
@@ -1268,6 +1347,7 @@
       "median_expected_delta_px": 16.083972348586066,
       "median_direction_cosine": -0.1560533352257269,
       "median_direction_vector_fraction": 0.12493159191360755,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.10050746372767858,
       "minimum_support_fraction": 0.06459263392857142
     },
@@ -1284,6 +1364,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.10050746372767858,
       "minimum_support_fraction": 0.06459263392857142
     },
@@ -1300,6 +1381,7 @@
       "median_expected_delta_px": 16.005302853994937,
       "median_direction_cosine": 0.5184938988069324,
       "median_direction_vector_fraction": 0.29548146894567606,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.05152239118303571,
       "minimum_support_fraction": 0.05152239118303571
     },
@@ -1316,6 +1398,7 @@
       "median_expected_delta_px": 16.005302853994937,
       "median_direction_cosine": -0.5184938988069324,
       "median_direction_vector_fraction": 0.29548146894567606,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.05152239118303571,
       "minimum_support_fraction": 0.05152239118303571
     },
@@ -1332,6 +1415,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.05152239118303571,
       "minimum_support_fraction": 0.05152239118303571
     },
@@ -1348,6 +1432,7 @@
       "median_expected_delta_px": 13.457110760328389,
       "median_direction_cosine": -0.2662186088126573,
       "median_direction_vector_fraction": 0.2996002479592583,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.0751953125,
       "minimum_support_fraction": 0.07167271205357142
     },
@@ -1364,6 +1449,7 @@
       "median_expected_delta_px": 13.457110760328389,
       "median_direction_cosine": 0.2662186088126573,
       "median_direction_vector_fraction": 0.2996002479592583,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.0751953125,
       "minimum_support_fraction": 0.07167271205357142
     },
@@ -1380,6 +1466,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.0751953125,
       "minimum_support_fraction": 0.07167271205357142
     },
@@ -1396,6 +1483,7 @@
       "median_expected_delta_px": 39.45799928510734,
       "median_direction_cosine": -0.5590256165167502,
       "median_direction_vector_fraction": 1.0,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.06793212890625,
       "minimum_support_fraction": 0.06793212890625
     },
@@ -1412,6 +1500,7 @@
       "median_expected_delta_px": 39.45799928510734,
       "median_direction_cosine": 0.5590256165167502,
       "median_direction_vector_fraction": 1.0,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.06793212890625,
       "minimum_support_fraction": 0.06793212890625
     },
@@ -1428,6 +1517,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.06793212890625,
       "minimum_support_fraction": 0.06793212890625
     },
@@ -1444,6 +1534,7 @@
       "median_expected_delta_px": 8.305407236635679,
       "median_direction_cosine": -0.13840999350345462,
       "median_direction_vector_fraction": 0.09259466100748352,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.07806396484375,
       "minimum_support_fraction": 0.05083356584821429
     },
@@ -1460,6 +1551,7 @@
       "median_expected_delta_px": 8.305407236635679,
       "median_direction_cosine": 0.13840999350345462,
       "median_direction_vector_fraction": 0.09259466100748352,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.07806396484375,
       "minimum_support_fraction": 0.05083356584821429
     },
@@ -1476,6 +1568,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.07806396484375,
       "minimum_support_fraction": 0.05083356584821429
     },
@@ -1492,6 +1585,7 @@
       "median_expected_delta_px": 11.342445871158876,
       "median_direction_cosine": -0.03076882217614562,
       "median_direction_vector_fraction": 0.22795477122554397,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.13380650111607142,
       "minimum_support_fraction": 0.12084089006696429
     },
@@ -1508,6 +1602,7 @@
       "median_expected_delta_px": 11.342445871158876,
       "median_direction_cosine": 0.03076882217614562,
       "median_direction_vector_fraction": 0.22795477122554397,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.13380650111607142,
       "minimum_support_fraction": 0.12084089006696429
     },
@@ -1524,6 +1619,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.13380650111607142,
       "minimum_support_fraction": 0.12084089006696429
     },
@@ -1540,6 +1636,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1556,6 +1653,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1572,6 +1670,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1588,6 +1687,7 @@
       "median_expected_delta_px": 6.470836336621586,
       "median_direction_cosine": 0.043704828501862344,
       "median_direction_vector_fraction": 0.09084149761673402,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.12178257533482142,
       "minimum_support_fraction": 0.08228410993303571
     },
@@ -1604,6 +1704,7 @@
       "median_expected_delta_px": 6.470836336621586,
       "median_direction_cosine": -0.043704828501862344,
       "median_direction_vector_fraction": 0.09084149761673402,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.12178257533482142,
       "minimum_support_fraction": 0.08228410993303571
     },
@@ -1620,6 +1721,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.12178257533482142,
       "minimum_support_fraction": 0.08228410993303571
     },
@@ -1636,6 +1738,7 @@
       "median_expected_delta_px": 12.208132525008416,
       "median_direction_cosine": -0.3708513449613725,
       "median_direction_vector_fraction": 0.33213369024966544,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.10880824497767858,
       "minimum_support_fraction": 0.10123988560267858
     },
@@ -1652,6 +1755,7 @@
       "median_expected_delta_px": 12.208132525008416,
       "median_direction_cosine": 0.3708513449613725,
       "median_direction_vector_fraction": 0.33213369024966544,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.10880824497767858,
       "minimum_support_fraction": 0.10123988560267858
     },
@@ -1668,6 +1772,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.10880824497767858,
       "minimum_support_fraction": 0.10123988560267858
     },
@@ -1684,6 +1789,7 @@
       "median_expected_delta_px": 21.37153230955529,
       "median_direction_cosine": -0.38190451635085965,
       "median_direction_vector_fraction": 0.5634051297387019,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.05683244977678571,
       "minimum_support_fraction": 0.05424281529017857
     },
@@ -1700,6 +1806,7 @@
       "median_expected_delta_px": 21.37153230955529,
       "median_direction_cosine": 0.38190451635085965,
       "median_direction_vector_fraction": 0.5634051297387019,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.05683244977678571,
       "minimum_support_fraction": 0.05424281529017857
     },
@@ -1716,6 +1823,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.05683244977678571,
       "minimum_support_fraction": 0.05424281529017857
     },
@@ -1732,6 +1840,7 @@
       "median_expected_delta_px": 11.853804285426119,
       "median_direction_cosine": 0.33681138812927347,
       "median_direction_vector_fraction": 0.33781584557824323,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.17081996372767858,
       "minimum_support_fraction": 0.09937395368303571
     },
@@ -1748,6 +1857,7 @@
       "median_expected_delta_px": 11.853804285426119,
       "median_direction_cosine": -0.33681138812927347,
       "median_direction_vector_fraction": 0.33781584557824323,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.17081996372767858,
       "minimum_support_fraction": 0.09937395368303571
     },
@@ -1764,6 +1874,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.17081996372767858,
       "minimum_support_fraction": 0.09937395368303571
     },
@@ -1780,6 +1891,7 @@
       "median_expected_delta_px": 46.51684525979347,
       "median_direction_cosine": 0.1912476752092025,
       "median_direction_vector_fraction": 0.3570632235747755,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.1123046875,
       "minimum_support_fraction": 0.09992327008928571
     },
@@ -1796,6 +1908,7 @@
       "median_expected_delta_px": 46.51684525979347,
       "median_direction_cosine": -0.1912476752092025,
       "median_direction_vector_fraction": 0.3570632235747755,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.1123046875,
       "minimum_support_fraction": 0.09992327008928571
     },
@@ -1812,6 +1925,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1123046875,
       "minimum_support_fraction": 0.09992327008928571
     },
@@ -1828,6 +1942,7 @@
       "median_expected_delta_px": 11.589659936424543,
       "median_direction_cosine": 0.40060396814344895,
       "median_direction_vector_fraction": 0.191196741738137,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.19738333565848215,
       "minimum_support_fraction": 0.09547642299107142
     },
@@ -1844,6 +1959,7 @@
       "median_expected_delta_px": 11.589659936424543,
       "median_direction_cosine": -0.40060396814344895,
       "median_direction_vector_fraction": 0.191196741738137,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.19738333565848215,
       "minimum_support_fraction": 0.09547642299107142
     },
@@ -1860,6 +1976,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.19738333565848215,
       "minimum_support_fraction": 0.09547642299107142
     },
@@ -1876,6 +1993,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1892,6 +2010,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1908,6 +2027,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -1924,6 +2044,7 @@
       "median_expected_delta_px": 14.708579675500975,
       "median_direction_cosine": 0.5840548207813062,
       "median_direction_vector_fraction": 0.05568214844246103,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.10208565848214285,
       "minimum_support_fraction": 0.08028738839285714
     },
@@ -1940,6 +2061,7 @@
       "median_expected_delta_px": 14.708579675500975,
       "median_direction_cosine": -0.5840548207813062,
       "median_direction_vector_fraction": 0.05568214844246103,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.10208565848214285,
       "minimum_support_fraction": 0.08028738839285714
     },
@@ -1956,6 +2078,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.10208565848214285,
       "minimum_support_fraction": 0.08028738839285714
     },
@@ -1972,6 +2095,7 @@
       "median_expected_delta_px": 13.005504856430841,
       "median_direction_cosine": -0.10850156327207343,
       "median_direction_vector_fraction": 0.27680432173286146,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.07162911551339285,
       "minimum_support_fraction": 0.06177629743303571
     },
@@ -1988,6 +2112,7 @@
       "median_expected_delta_px": 13.005504856430841,
       "median_direction_cosine": 0.10850156327207343,
       "median_direction_vector_fraction": 0.27680432173286146,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.07162911551339285,
       "minimum_support_fraction": 0.06177629743303571
     },
@@ -2004,6 +2129,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.07162911551339285,
       "minimum_support_fraction": 0.06177629743303571
     },
@@ -2020,6 +2146,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.21456473214285715
     },
@@ -2036,6 +2163,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.21456473214285715
     },
@@ -2052,6 +2180,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.21456473214285715
     },
@@ -2068,6 +2197,7 @@
       "median_expected_delta_px": 19.52124518017098,
       "median_direction_cosine": 0.1107785369763904,
       "median_direction_vector_fraction": 0.3581775588668376,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.10151890345982142,
       "minimum_support_fraction": 0.09473528180803571
     },
@@ -2084,6 +2214,7 @@
       "median_expected_delta_px": 19.52124518017098,
       "median_direction_cosine": -0.1107785369763904,
       "median_direction_vector_fraction": 0.3581775588668376,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.10151890345982142,
       "minimum_support_fraction": 0.09473528180803571
     },
@@ -2100,6 +2231,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.10151890345982142,
       "minimum_support_fraction": 0.09473528180803571
     },
@@ -2116,6 +2248,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2132,6 +2265,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2148,6 +2282,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2164,6 +2299,7 @@
       "median_expected_delta_px": 14.485196506888535,
       "median_direction_cosine": 0.24946230565368088,
       "median_direction_vector_fraction": 0.055023742168855604,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.14232090541294642,
       "minimum_support_fraction": 0.07856968470982142
     },
@@ -2180,6 +2316,7 @@
       "median_expected_delta_px": 14.485196506888535,
       "median_direction_cosine": -0.24946230565368088,
       "median_direction_vector_fraction": 0.055023742168855604,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.14232090541294642,
       "minimum_support_fraction": 0.07856968470982142
     },
@@ -2196,6 +2333,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.14232090541294642,
       "minimum_support_fraction": 0.07856968470982142
     },
@@ -2212,6 +2350,7 @@
       "median_expected_delta_px": 20.815614999321177,
       "median_direction_cosine": 0.8592608107880783,
       "median_direction_vector_fraction": 1.0,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.053135463169642856,
       "minimum_support_fraction": 0.053135463169642856
     },
@@ -2228,6 +2367,7 @@
       "median_expected_delta_px": 20.815614999321177,
       "median_direction_cosine": -0.8592608107880783,
       "median_direction_vector_fraction": 1.0,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.053135463169642856,
       "minimum_support_fraction": 0.053135463169642856
     },
@@ -2244,6 +2384,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.053135463169642856,
       "minimum_support_fraction": 0.053135463169642856
     },
@@ -2260,6 +2401,7 @@
       "median_expected_delta_px": 6.459152351246685,
       "median_direction_cosine": -0.1073892660259535,
       "median_direction_vector_fraction": 0.09090515596941365,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.097015380859375,
       "minimum_support_fraction": 0.09586007254464286
     },
@@ -2276,6 +2418,7 @@
       "median_expected_delta_px": 6.459152351246685,
       "median_direction_cosine": 0.1073892660259535,
       "median_direction_vector_fraction": 0.09090515596941365,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.097015380859375,
       "minimum_support_fraction": 0.09586007254464286
     },
@@ -2292,6 +2435,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.097015380859375,
       "minimum_support_fraction": 0.09586007254464286
     },
@@ -2308,6 +2452,7 @@
       "median_expected_delta_px": 27.918287515448664,
       "median_direction_cosine": -0.2165967148108287,
       "median_direction_vector_fraction": 0.089067899220073,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.1941746303013393,
       "minimum_support_fraction": 0.18450055803571427
     },
@@ -2324,6 +2469,7 @@
       "median_expected_delta_px": 27.918287515448664,
       "median_direction_cosine": 0.2165967148108287,
       "median_direction_vector_fraction": 0.089067899220073,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.1941746303013393,
       "minimum_support_fraction": 0.18450055803571427
     },
@@ -2340,6 +2486,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1941746303013393,
       "minimum_support_fraction": 0.18450055803571427
     },
@@ -2356,6 +2503,7 @@
       "median_expected_delta_px": 35.84496393534085,
       "median_direction_cosine": 0.11795923169904586,
       "median_direction_vector_fraction": 0.16928116375573468,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.1566554478236607,
       "minimum_support_fraction": 0.15425327845982142
     },
@@ -2372,6 +2520,7 @@
       "median_expected_delta_px": 35.84496393534085,
       "median_direction_cosine": -0.11795923169904586,
       "median_direction_vector_fraction": 0.16928116375573468,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.1566554478236607,
       "minimum_support_fraction": 0.15425327845982142
     },
@@ -2388,6 +2537,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1566554478236607,
       "minimum_support_fraction": 0.15425327845982142
     },
@@ -2404,6 +2554,7 @@
       "median_expected_delta_px": 14.941635633833718,
       "median_direction_cosine": 0.29203141990961845,
       "median_direction_vector_fraction": 0.05538129600259777,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.09908185686383929,
       "minimum_support_fraction": 0.05559430803571429
     },
@@ -2420,6 +2571,7 @@
       "median_expected_delta_px": 14.941635633833718,
       "median_direction_cosine": -0.29203141990961845,
       "median_direction_vector_fraction": 0.05538129600259777,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.09908185686383929,
       "minimum_support_fraction": 0.05559430803571429
     },
@@ -2436,6 +2588,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.09908185686383929,
       "minimum_support_fraction": 0.05559430803571429
     },
@@ -2452,6 +2605,7 @@
       "median_expected_delta_px": 7.08858208605155,
       "median_direction_cosine": 0.09137806087531154,
       "median_direction_vector_fraction": 0.1802055821257763,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2468,6 +2622,7 @@
       "median_expected_delta_px": 7.08858208605155,
       "median_direction_cosine": -0.09137806087531154,
       "median_direction_vector_fraction": 0.1802055821257763,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2484,6 +2639,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2500,6 +2656,7 @@
       "median_expected_delta_px": 2.7116522602287154,
       "median_direction_cosine": 0.3761527449556559,
       "median_direction_vector_fraction": 0.10696694981797417,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2516,6 +2673,7 @@
       "median_expected_delta_px": 2.7116522602287154,
       "median_direction_cosine": -0.3761527449556559,
       "median_direction_vector_fraction": 0.10696694981797417,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2532,6 +2690,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2548,6 +2707,7 @@
       "median_expected_delta_px": 9.989701005305932,
       "median_direction_cosine": 0.2739922790134775,
       "median_direction_vector_fraction": 0.3638487979218712,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.22379847935267855,
       "minimum_support_fraction": 0.13857596261160715
     },
@@ -2564,6 +2724,7 @@
       "median_expected_delta_px": 9.989701005305932,
       "median_direction_cosine": -0.2739922790134775,
       "median_direction_vector_fraction": 0.3638487979218712,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.22379847935267855,
       "minimum_support_fraction": 0.13857596261160715
     },
@@ -2580,6 +2741,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.22379847935267855,
       "minimum_support_fraction": 0.13857596261160715
     },
@@ -2596,6 +2758,7 @@
       "median_expected_delta_px": 54.798500530614774,
       "median_direction_cosine": 0.007175758035974063,
       "median_direction_vector_fraction": 0.07947477539737388,
+      "temporal_persistence": 0.6666666666666666,
       "median_support_fraction": 0.07570103236607142,
       "minimum_support_fraction": 0.057948521205357144
     },
@@ -2612,6 +2775,7 @@
       "median_expected_delta_px": 54.798500530614774,
       "median_direction_cosine": -0.007175758035974063,
       "median_direction_vector_fraction": 0.07947477539737388,
+      "temporal_persistence": 0.3333333333333333,
       "median_support_fraction": 0.07570103236607142,
       "minimum_support_fraction": 0.057948521205357144
     },
@@ -2628,6 +2792,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.07570103236607142,
       "minimum_support_fraction": 0.057948521205357144
     },
@@ -2644,6 +2809,7 @@
       "median_expected_delta_px": 11.33869754406524,
       "median_direction_cosine": 0.37424793105884346,
       "median_direction_vector_fraction": 0.06584714522339218,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.1604221888950893,
       "minimum_support_fraction": 0.06672886439732142
     },
@@ -2660,6 +2826,7 @@
       "median_expected_delta_px": 11.33869754406524,
       "median_direction_cosine": -0.37424793105884346,
       "median_direction_vector_fraction": 0.06584714522339218,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.1604221888950893,
       "minimum_support_fraction": 0.06672886439732142
     },
@@ -2676,6 +2843,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1604221888950893,
       "minimum_support_fraction": 0.06672886439732142
     },
@@ -2692,6 +2860,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2708,6 +2877,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2724,6 +2894,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2740,6 +2911,7 @@
       "median_expected_delta_px": 0.037852380524341714,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2756,6 +2928,7 @@
       "median_expected_delta_px": 0.037852380524341714,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2772,6 +2945,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -2788,6 +2962,7 @@
       "median_expected_delta_px": 38.3112232646878,
       "median_direction_cosine": -0.26185102707689445,
       "median_direction_vector_fraction": 1.0,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.1126708984375,
       "minimum_support_fraction": 0.1126708984375
     },
@@ -2804,6 +2979,7 @@
       "median_expected_delta_px": 38.3112232646878,
       "median_direction_cosine": 0.26185102707689445,
       "median_direction_vector_fraction": 1.0,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.1126708984375,
       "minimum_support_fraction": 0.1126708984375
     },
@@ -2820,6 +2996,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1126708984375,
       "minimum_support_fraction": 0.1126708984375
     },
@@ -2836,6 +3013,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2852,6 +3030,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2868,6 +3047,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2884,6 +3064,7 @@
       "median_expected_delta_px": 15.403215928588164,
       "median_direction_cosine": -0.23066760392295727,
       "median_direction_vector_fraction": 0.24593630205411415,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.13029261997767858,
       "minimum_support_fraction": 0.11551339285714286
     },
@@ -2900,6 +3081,7 @@
       "median_expected_delta_px": 15.403215928588164,
       "median_direction_cosine": 0.23066760392295727,
       "median_direction_vector_fraction": 0.24593630205411415,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.13029261997767858,
       "minimum_support_fraction": 0.11551339285714286
     },
@@ -2916,6 +3098,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.13029261997767858,
       "minimum_support_fraction": 0.11551339285714286
     },
@@ -2932,6 +3115,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2948,6 +3132,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2964,6 +3149,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -2980,6 +3166,7 @@
       "median_expected_delta_px": 18.28988333093143,
       "median_direction_cosine": 0.41759414504160863,
       "median_direction_vector_fraction": 0.2882438252129036,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.1273193359375,
       "minimum_support_fraction": 0.06679861886160714
     },
@@ -2996,6 +3183,7 @@
       "median_expected_delta_px": 18.28988333093143,
       "median_direction_cosine": -0.41759414504160863,
       "median_direction_vector_fraction": 0.2882438252129036,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.1273193359375,
       "minimum_support_fraction": 0.06679861886160714
     },
@@ -3012,6 +3200,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1273193359375,
       "minimum_support_fraction": 0.06679861886160714
     },
@@ -3028,6 +3217,7 @@
       "median_expected_delta_px": 8.62068863857641,
       "median_direction_cosine": 0.2943073897607422,
       "median_direction_vector_fraction": 0.31194961723068104,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.10625348772321429,
       "minimum_support_fraction": 0.08080182756696429
     },
@@ -3044,6 +3234,7 @@
       "median_expected_delta_px": 8.62068863857641,
       "median_direction_cosine": -0.2943073897607422,
       "median_direction_vector_fraction": 0.31194961723068104,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.10625348772321429,
       "minimum_support_fraction": 0.08080182756696429
     },
@@ -3060,6 +3251,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.10625348772321429,
       "minimum_support_fraction": 0.08080182756696429
     },
@@ -3076,6 +3268,7 @@
       "median_expected_delta_px": 16.861372108913564,
       "median_direction_cosine": -0.11747448673014174,
       "median_direction_vector_fraction": 0.1530081922349754,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.07565743582589285,
       "minimum_support_fraction": 0.05531529017857143
     },
@@ -3092,6 +3285,7 @@
       "median_expected_delta_px": 16.861372108913564,
       "median_direction_cosine": 0.11747448673014174,
       "median_direction_vector_fraction": 0.1530081922349754,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.07565743582589285,
       "minimum_support_fraction": 0.05531529017857143
     },
@@ -3108,6 +3302,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.07565743582589285,
       "minimum_support_fraction": 0.05531529017857143
     },
@@ -3124,6 +3319,7 @@
       "median_expected_delta_px": 12.828880391333838,
       "median_direction_cosine": 0.44887531788212287,
       "median_direction_vector_fraction": 0.18859851250674015,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.057346888950892856,
       "minimum_support_fraction": 0.052769252232142856
     },
@@ -3140,6 +3336,7 @@
       "median_expected_delta_px": 12.828880391333838,
       "median_direction_cosine": -0.44887531788212287,
       "median_direction_vector_fraction": 0.18859851250674015,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.057346888950892856,
       "minimum_support_fraction": 0.052769252232142856
     },
@@ -3156,6 +3353,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.057346888950892856,
       "minimum_support_fraction": 0.052769252232142856
     },
@@ -3172,6 +3370,7 @@
       "median_expected_delta_px": 14.388500153170085,
       "median_direction_cosine": 0.3119524289167467,
       "median_direction_vector_fraction": 0.38140086861856815,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.07243129185267858,
       "minimum_support_fraction": 0.06729561941964286
     },
@@ -3188,6 +3387,7 @@
       "median_expected_delta_px": 14.388500153170085,
       "median_direction_cosine": -0.3119524289167467,
       "median_direction_vector_fraction": 0.38140086861856815,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.07243129185267858,
       "minimum_support_fraction": 0.06729561941964286
     },
@@ -3204,6 +3404,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.07243129185267858,
       "minimum_support_fraction": 0.06729561941964286
     },
@@ -3220,6 +3421,7 @@
       "median_expected_delta_px": 36.03602763364919,
       "median_direction_cosine": -0.16921107764621324,
       "median_direction_vector_fraction": 0.4072354828434992,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.16734095982142858,
       "minimum_support_fraction": 0.16664341517857142
     },
@@ -3236,6 +3438,7 @@
       "median_expected_delta_px": 36.03602763364919,
       "median_direction_cosine": 0.16921107764621324,
       "median_direction_vector_fraction": 0.4072354828434992,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.16734095982142858,
       "minimum_support_fraction": 0.16664341517857142
     },
@@ -3252,6 +3455,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.16734095982142858,
       "minimum_support_fraction": 0.16664341517857142
     },
@@ -3268,6 +3472,7 @@
       "median_expected_delta_px": 16.510227961482688,
       "median_direction_cosine": 0.2754133680093661,
       "median_direction_vector_fraction": 0.5004422821760283,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.064849853515625,
       "minimum_support_fraction": 0.05914306640625
     },
@@ -3284,6 +3489,7 @@
       "median_expected_delta_px": 16.510227961482688,
       "median_direction_cosine": -0.2754133680093661,
       "median_direction_vector_fraction": 0.5004422821760283,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.064849853515625,
       "minimum_support_fraction": 0.05914306640625
     },
@@ -3300,6 +3506,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.064849853515625,
       "minimum_support_fraction": 0.05914306640625
     },
@@ -3316,6 +3523,7 @@
       "median_expected_delta_px": 30.609404589070877,
       "median_direction_cosine": -0.3576223321604555,
       "median_direction_vector_fraction": 0.52291013227874,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.06480189732142858,
       "minimum_support_fraction": 0.06393868582589286
     },
@@ -3332,6 +3540,7 @@
       "median_expected_delta_px": 30.609404589070877,
       "median_direction_cosine": 0.3576223321604555,
       "median_direction_vector_fraction": 0.52291013227874,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.06480189732142858,
       "minimum_support_fraction": 0.06393868582589286
     },
@@ -3348,6 +3557,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.06480189732142858,
       "minimum_support_fraction": 0.06393868582589286
     },
@@ -3364,6 +3574,7 @@
       "median_expected_delta_px": 2.855207688975031,
       "median_direction_cosine": -0.10269555783225821,
       "median_direction_vector_fraction": 0.09388025917282658,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.09940011160714285,
       "minimum_support_fraction": 0.08873639787946429
     },
@@ -3380,6 +3591,7 @@
       "median_expected_delta_px": 2.855207688975031,
       "median_direction_cosine": 0.10269555783225821,
       "median_direction_vector_fraction": 0.09388025917282658,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.09940011160714285,
       "minimum_support_fraction": 0.08873639787946429
     },
@@ -3396,6 +3608,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.09940011160714285,
       "minimum_support_fraction": 0.08873639787946429
     },
@@ -3412,6 +3625,7 @@
       "median_expected_delta_px": 9.980442696803031,
       "median_direction_cosine": 0.16105277380301297,
       "median_direction_vector_fraction": 0.3942259096340739,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.09953526088169642,
       "minimum_support_fraction": 0.07802908761160714
     },
@@ -3428,6 +3642,7 @@
       "median_expected_delta_px": 9.980442696803031,
       "median_direction_cosine": -0.16105277380301297,
       "median_direction_vector_fraction": 0.3942259096340739,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.09953526088169642,
       "minimum_support_fraction": 0.07802908761160714
     },
@@ -3444,6 +3659,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.09953526088169642,
       "minimum_support_fraction": 0.07802908761160714
     },
@@ -3460,6 +3676,7 @@
       "median_expected_delta_px": 12.219207286663853,
       "median_direction_cosine": -0.2283223141790369,
       "median_direction_vector_fraction": 0.1364400047919374,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.1697605678013393,
       "minimum_support_fraction": 0.11274937220982142
     },
@@ -3476,6 +3693,7 @@
       "median_expected_delta_px": 12.219207286663853,
       "median_direction_cosine": 0.2283223141790369,
       "median_direction_vector_fraction": 0.1364400047919374,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.1697605678013393,
       "minimum_support_fraction": 0.11274937220982142
     },
@@ -3492,6 +3710,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1697605678013393,
       "minimum_support_fraction": 0.11274937220982142
     },
@@ -3508,6 +3727,7 @@
       "median_expected_delta_px": 15.624262687505812,
       "median_direction_cosine": -0.11334424263230028,
       "median_direction_vector_fraction": 0.15191853496751193,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.14308820452008927,
       "minimum_support_fraction": 0.07809884207589286
     },
@@ -3524,6 +3744,7 @@
       "median_expected_delta_px": 15.624262687505812,
       "median_direction_cosine": 0.11334424263230028,
       "median_direction_vector_fraction": 0.15191853496751193,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.14308820452008927,
       "minimum_support_fraction": 0.07809884207589286
     },
@@ -3540,6 +3761,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.14308820452008927,
       "minimum_support_fraction": 0.07809884207589286
     },
@@ -3556,6 +3778,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -3572,6 +3795,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -3588,6 +3812,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -3604,6 +3829,7 @@
       "median_expected_delta_px": 15.237693920341208,
       "median_direction_cosine": -0.27458202503193296,
       "median_direction_vector_fraction": 0.3028472437884995,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.1829310825892857,
       "minimum_support_fraction": 0.12934221540178573
     },
@@ -3620,6 +3846,7 @@
       "median_expected_delta_px": 15.237693920341208,
       "median_direction_cosine": 0.27458202503193296,
       "median_direction_vector_fraction": 0.3028472437884995,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.1829310825892857,
       "minimum_support_fraction": 0.12934221540178573
     },
@@ -3636,6 +3863,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1829310825892857,
       "minimum_support_fraction": 0.12934221540178573
     },
@@ -3652,6 +3880,7 @@
       "median_expected_delta_px": 10.289159292484634,
       "median_direction_cosine": -0.2170266270372935,
       "median_direction_vector_fraction": 0.1463000678886626,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.05137416294642857,
       "minimum_support_fraction": 0.05137416294642857
     },
@@ -3668,6 +3897,7 @@
       "median_expected_delta_px": 10.289159292484634,
       "median_direction_cosine": 0.2170266270372935,
       "median_direction_vector_fraction": 0.1463000678886626,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.05137416294642857,
       "minimum_support_fraction": 0.05137416294642857
     },
@@ -3684,6 +3914,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.05137416294642857,
       "minimum_support_fraction": 0.05137416294642857
     },
@@ -3700,6 +3931,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -3716,6 +3948,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -3732,6 +3965,7 @@
       "median_expected_delta_px": null,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": null,
+      "temporal_persistence": null,
       "median_support_fraction": null,
       "minimum_support_fraction": null
     },
@@ -3748,6 +3982,7 @@
       "median_expected_delta_px": 11.908559925029834,
       "median_direction_cosine": 0.2725546537138267,
       "median_direction_vector_fraction": 0.12832714889091917,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.057233537946428575,
       "minimum_support_fraction": 0.052036830357142856
     },
@@ -3764,6 +3999,7 @@
       "median_expected_delta_px": 11.908559925029834,
       "median_direction_cosine": -0.2725546537138267,
       "median_direction_vector_fraction": 0.12832714889091917,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.057233537946428575,
       "minimum_support_fraction": 0.052036830357142856
     },
@@ -3780,6 +4016,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.057233537946428575,
       "minimum_support_fraction": 0.052036830357142856
     },
@@ -3796,6 +4033,7 @@
       "median_expected_delta_px": 8.514983190292632,
       "median_direction_cosine": 0.12423747927409616,
       "median_direction_vector_fraction": 0.23052354383430396,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.13747732979910715,
       "minimum_support_fraction": 0.09558977399553571
     },
@@ -3812,6 +4050,7 @@
       "median_expected_delta_px": 8.514983190292632,
       "median_direction_cosine": -0.12423747927409616,
       "median_direction_vector_fraction": 0.23052354383430396,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.13747732979910715,
       "minimum_support_fraction": 0.09558977399553571
     },
@@ -3828,6 +4067,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.13747732979910715,
       "minimum_support_fraction": 0.09558977399553571
     },
@@ -3844,6 +4084,7 @@
       "median_expected_delta_px": 14.865446339368159,
       "median_direction_cosine": -0.15980506319665616,
       "median_direction_vector_fraction": 0.1535140011487961,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.151031494140625,
       "minimum_support_fraction": 0.091064453125
     },
@@ -3860,6 +4101,7 @@
       "median_expected_delta_px": 14.865446339368159,
       "median_direction_cosine": 0.15980506319665616,
       "median_direction_vector_fraction": 0.1535140011487961,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.151031494140625,
       "minimum_support_fraction": 0.091064453125
     },
@@ -3876,6 +4118,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.151031494140625,
       "minimum_support_fraction": 0.091064453125
     },
@@ -3892,6 +4135,7 @@
       "median_expected_delta_px": 16.72131715176014,
       "median_direction_cosine": 0.1773507290473008,
       "median_direction_vector_fraction": 0.504506719108489,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.057098388671875,
       "minimum_support_fraction": 0.05320521763392857
     },
@@ -3908,6 +4152,7 @@
       "median_expected_delta_px": 16.72131715176014,
       "median_direction_cosine": -0.1773507290473008,
       "median_direction_vector_fraction": 0.504506719108489,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.057098388671875,
       "minimum_support_fraction": 0.05320521763392857
     },
@@ -3924,6 +4169,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.057098388671875,
       "minimum_support_fraction": 0.05320521763392857
     },
@@ -3940,6 +4186,7 @@
       "median_expected_delta_px": 10.020733969880542,
       "median_direction_cosine": 0.1711744887265999,
       "median_direction_vector_fraction": 0.14018104098566758,
+      "temporal_persistence": 0.6666666666666666,
       "median_support_fraction": 0.059971400669642856,
       "minimum_support_fraction": 0.051783970424107144
     },
@@ -3956,6 +4203,7 @@
       "median_expected_delta_px": 10.020733969880542,
       "median_direction_cosine": -0.1711744887265999,
       "median_direction_vector_fraction": 0.14018104098566758,
+      "temporal_persistence": 0.3333333333333333,
       "median_support_fraction": 0.059971400669642856,
       "minimum_support_fraction": 0.051783970424107144
     },
@@ -3972,6 +4220,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.059971400669642856,
       "minimum_support_fraction": 0.051783970424107144
     },
@@ -3988,6 +4237,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -4004,6 +4254,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -4020,6 +4271,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.24429757254464285,
       "minimum_support_fraction": 0.24429757254464285
     },
@@ -4036,6 +4288,7 @@
       "median_expected_delta_px": 14.788041553352077,
       "median_direction_cosine": 0.11988896118356551,
       "median_direction_vector_fraction": 0.06732130065428843,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.16400582449776785,
       "minimum_support_fraction": 0.13680594308035715
     },
@@ -4052,6 +4305,7 @@
       "median_expected_delta_px": 14.788041553352077,
       "median_direction_cosine": -0.11988896118356551,
       "median_direction_vector_fraction": 0.06732130065428843,
+      "temporal_persistence": 0.5,
       "median_support_fraction": 0.16400582449776785,
       "minimum_support_fraction": 0.13680594308035715
     },
@@ -4068,6 +4322,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.16400582449776785,
       "minimum_support_fraction": 0.13680594308035715
     },
@@ -4084,6 +4339,7 @@
       "median_expected_delta_px": 2.1499666307044802,
       "median_direction_cosine": -0.07094417495048969,
       "median_direction_vector_fraction": 0.07137768479112792,
+      "temporal_persistence": 0.25,
       "median_support_fraction": 0.1384059361049107,
       "minimum_support_fraction": 0.12542724609375
     },
@@ -4100,6 +4356,7 @@
       "median_expected_delta_px": 2.1499666307044802,
       "median_direction_cosine": 0.07094417495048969,
       "median_direction_vector_fraction": 0.07137768479112792,
+      "temporal_persistence": 0.75,
       "median_support_fraction": 0.1384059361049107,
       "minimum_support_fraction": 0.12542724609375
     },
@@ -4116,6 +4373,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1384059361049107,
       "minimum_support_fraction": 0.12542724609375
     },
@@ -4132,6 +4390,7 @@
       "median_expected_delta_px": 24.851635595722463,
       "median_direction_cosine": 0.8633330411732357,
       "median_direction_vector_fraction": 0.5,
+      "temporal_persistence": 1.0,
       "median_support_fraction": 0.1326904296875,
       "minimum_support_fraction": 0.06943184988839286
     },
@@ -4148,6 +4407,7 @@
       "median_expected_delta_px": 24.851635595722463,
       "median_direction_cosine": -0.8633330411732357,
       "median_direction_vector_fraction": 0.5,
+      "temporal_persistence": 0.0,
       "median_support_fraction": 0.1326904296875,
       "minimum_support_fraction": 0.06943184988839286
     },
@@ -4164,6 +4424,7 @@
       "median_expected_delta_px": 0.0,
       "median_direction_cosine": null,
       "median_direction_vector_fraction": 0.0,
+      "temporal_persistence": null,
       "median_support_fraction": 0.1326904296875,
       "minimum_support_fraction": 0.06943184988839286
     }
