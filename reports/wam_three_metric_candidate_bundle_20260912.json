@@ -1,0 +1,45 @@
+{
+  "protocol": "iac-wam-three-metric-v1",
+  "status": "pilot_grounding_pending",
+  "canonical_metrics": [
+    "Motion Alignment Score",
+    "Response Consistency Score",
+    "Grounding Score"
+  ],
+  "legacy_aliases": {
+    "CFAC": "Motion Alignment Score",
+    "CCFC": "Response Consistency Score",
+    "FAU": "Grounding Score components"
+  },
+  "models": {
+    "Epona": {
+      "grounding_score": {
+        "metric_id": "GS",
+        "metric_name": "Grounding Score",
+        "legacy_alias": "FAU",
+        "status": "candidate",
+        "score": 0.5528983639137252,
+        "coverage": 0.9491525423728814,
+        "identity_shuffle_mean_score": 0.3032158222220855,
+        "identity_shuffle_q95_mean_score": 0.32720928682593337,
+        "source_report": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/grounding_score_candidate_20260911.json",
+        "claim_boundary": "external reality grounding; not future-to-action causality"
+      }
+    },
+    "DriveWAM": {
+      "grounding_score": {
+        "metric_id": "GS",
+        "metric_name": "Grounding Score",
+        "legacy_alias": "FAU",
+        "status": "candidate",
+        "score": 0.1907535628429283,
+        "coverage": 0.9418604651162791,
+        "identity_shuffle_mean_score": 0.23404393519101782,
+        "identity_shuffle_q95_mean_score": 0.24020379581586618,
+        "source_report": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/grounding_score_candidate_20260911.json",
+        "claim_boundary": "external reality grounding; not future-to-action causality"
+      }
+    }
+  },
+  "missing_value_policy": "unavailable_or_abstain_never_zero_fill"
+}
