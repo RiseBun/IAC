@@ -193,6 +193,8 @@ DriveVA 的模型级负结果与盲法人工根因审计协议见
 [`docs/DRIVEVA_HUMAN_AUDIT_PROTOCOL_ZH.md`](docs/DRIVEVA_HUMAN_AUDIT_PROTOCOL_ZH.md)；
 S1.3 审计发现与 CCFC-S/CFAC-S 后续路线见
 [`docs/STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md`](docs/STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md)；
+Step1.3 的深度/光流改进优先级与预注册验收门见
+[`docs/STEP1_IMPROVEMENT_PLAN_ZH.md`](docs/STEP1_IMPROVEMENT_PLAN_ZH.md)；
 Step 1.2 与 GitHub 旧版的逐项差异见
 [`docs/STEP1_SE2_YAW_V1_2_ZH.md`](docs/STEP1_SE2_YAW_V1_2_ZH.md)。
 逐样本结果文件不属于公开发布包。
