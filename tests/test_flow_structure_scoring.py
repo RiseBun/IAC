@@ -4,6 +4,7 @@ import unittest
 
 from iac_new.flow_structure_scoring import (
     score_counterfactual_structure_pairs,
+    score_counterfactual_structure_pairs_interval_aligned,
     score_flow_structure_pairs,
 )
 
@@ -159,6 +160,47 @@ class FlowStructureScoringTest(unittest.TestCase):
         self.assertEqual(report["action_direction_accuracy"], 0.5)
         self.assertEqual(report["pairs"][0]["temporal_persistence"], 1.0)
         self.assertAlmostEqual(report["pairs"][0]["normalized_flow_delta"], 2.0 / 3.0)
+
+    def test_interval_aligned_snr_drops_low_signal_but_keeps_temporal_order(self) -> None:
+        measurements = [
+            _progress_measurement("a", "left", [0.001, 0.20, 0.30, 0.40]),
+            _progress_measurement("a", "right", [0.000, 0.05, 0.10, 0.20]),
+            _progress_measurement("b", "left", [0.001, 0.001, 0.001, 0.001]),
+            _progress_measurement("b", "right", [0.000, 0.000, 0.000, 0.000]),
+        ]
+        manifests = [
+            {"source_key": "a", "branch_role": "left", "action_trajectory": [[1.0, 0.0, 0.0], [2.0, 0.0, 0.0], [3.0, 0.0, 0.0], [4.0, 0.0, 0.0]]},
+            {"source_key": "a", "branch_role": "right", "action_trajectory": [[0.5, 0.0, 0.0], [1.0, 0.0, 0.0], [1.5, 0.0, 0.0], [2.0, 0.0, 0.0]]},
+            {"source_key": "b", "branch_role": "left", "action_trajectory": [[1.0, 0.0, 0.0]]},
+            {"source_key": "b", "branch_role": "right", "action_trajectory": [[0.5, 0.0, 0.0]]},
+        ]
+        report = score_counterfactual_structure_pairs_interval_aligned(
+            measurements,
+            manifests,
+            flow_delta_deadband=0.01,
+            minimum_snr_intervals=2,
+            minimum_action_delta=0.1,
+        )
+        self.assertEqual(report["status_counts"], {"scored": 1, "unavailable": 1})
+        self.assertEqual(report["coverage"], 0.5)
+        self.assertEqual(report["action_direction_accuracy"], 1.0)
+        self.assertEqual(report["pairs"][0]["snr_interval_count"], 3)
+        self.assertEqual(report["pairs"][0]["snr_rejected_intervals"], [0])
+
+    def test_interval_alignment_uses_same_time_not_endpoint(self) -> None:
+        measurements = [
+            _progress_measurement("a", "left", [0.1, 0.2]),
+            _progress_measurement("a", "right", [0.0, 0.0]),
+        ]
+        manifests = [
+            {"source_key": "a", "branch_role": "left", "action_trajectory": [[1.0, 0.0, 0.0], [1.0, 0.0, 0.0]]},
+            {"source_key": "a", "branch_role": "right", "action_trajectory": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]},
+        ]
+        report = score_counterfactual_structure_pairs_interval_aligned(
+            measurements, manifests, minimum_action_delta=0.01, flow_delta_deadband=0.0,
+        )
+        self.assertEqual(report["action_direction_accuracy"], 1.0)
+        self.assertAlmostEqual(report["pairs"][0]["action_delta"], 1.0)
 
 
 if __name__ == "__main__":

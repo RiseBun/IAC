@@ -1,0 +1,3449 @@
+{
+  "protocol": "iac-counterfactual-flow-structure-interval-aligned-snr-v1",
+  "metric_reconstruction_used": false,
+  "candidate_blind": true,
+  "experimental": true,
+  "descriptor": "median_flow_magnitude_px",
+  "orientation": 1,
+  "action_reference": "trajectory_path_length",
+  "action_column": 2,
+  "minimum_common_intervals": 2,
+  "minimum_snr_intervals": 2,
+  "flow_delta_deadband": 0.005,
+  "minimum_action_delta": 0.5,
+  "pair_count": 86,
+  "status_counts": {
+    "scored": 82,
+    "unavailable": 4
+  },
+  "coverage": 0.9534883720930233,
+  "action_response_spearman": 0.008891936308921322,
+  "normalized_action_response_spearman": -0.01947083727865391,
+  "action_direction_pairs": 70,
+  "action_direction_hits": 37,
+  "action_direction_accuracy": 0.5285714285714286,
+  "action_direction_accuracy_ci95": [
+    0.4132188746832562,
+    0.6409512360361571
+  ],
+  "median_temporal_persistence": 0.75,
+  "warning": "Experimental interval-aligned SNR score; deadband must be calibrated independently and this is not metric distance.",
+  "pairs": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.4823322055219137,
+        0.24044048351366065,
+        0.011757087394169363,
+        0.00580441393372344
+      ],
+      "action_delta_by_interval": [
+        -0.7211530133555082,
+        -0.5871926989643286,
+        0.604960514431518,
+        1.9638012249272325
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.126098785453915,
+      "action_delta": 0.00888390773359471,
+      "normalized_flow_delta": 0.14920850067068075,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -32.19322743810949,
+        -0.02203622490164836,
+        0.014531077604706732,
+        -0.019003572827601456
+      ],
+      "action_delta_by_interval": [
+        3.38448089842257,
+        7.0456405991475,
+        11.054029772882775,
+        15.172568826103024
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.020519898864624908,
+      "action_delta": 9.049835186015137,
+      "normalized_flow_delta": -0.026453584330463277,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        13.739731121993344,
+        0.007046723010085021,
+        -0.02970066595011267,
+        0.03109598966461813
+      ],
+      "action_delta_by_interval": [
+        1.780480498927509,
+        3.7329125549925735,
+        6.1692166398040875,
+        9.350564887854482
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.019071356337351575,
+      "action_delta": 4.9510645973983305,
+      "normalized_flow_delta": 0.023474900400730362,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -106.02481065206192,
+        0.09632312219860373,
+        0.027914335312786198,
+        0.008093172371751223
+      ],
+      "action_delta_by_interval": [
+        1.2680703328374507,
+        2.2673441394959166,
+        2.3684512167072844,
+        2.1495277592618396
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.01800375384226871,
+      "action_delta": 2.2084359493788783,
+      "normalized_flow_delta": 0.023468151929824963,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        2.054993379490327,
+        -0.0034927819172201335,
+        0.02491716241332098,
+        -0.017095686150729206
+      ],
+      "action_delta_by_interval": [
+        1.556008424670086,
+        2.8881747892321368,
+        4.294526531424864,
+        5.549343247932885
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [
+        1
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": 0.02491716241332098,
+      "action_delta": 4.294526531424864,
+      "normalized_flow_delta": 0.03214346541174663,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        89.64608883939522,
+        -0.01963664617191252,
+        -0.026518583255787265,
+        -0.001259344984503974
+      ],
+      "action_delta_by_interval": [
+        -0.7164534826393829,
+        -0.8507758541453327,
+        -0.062185386498497586,
+        0.9576684290092086
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.01963664617191252,
+      "action_delta": -0.7164534826393829,
+      "normalized_flow_delta": -0.021622804243298252,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        3.9289536688791387,
+        0.08620099858885721,
+        -0.02246484022907891
+      ],
+      "action_delta_by_interval": [
+        0.3455888981966173,
+        0.5222039510574943,
+        0.25066560694062723
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.08620099858885721,
+      "action_delta": 0.3455888981966173,
+      "normalized_flow_delta": 0.08824855820703824,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -46.213844557068114,
+        -0.05293105897850803,
+        -0.006942946337101685
+      ],
+      "action_delta_by_interval": [
+        -0.7788063065421555,
+        -0.14764238022749288,
+        1.2071806057552221
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.05293105897850803,
+      "action_delta": -0.14764238022749288,
+      "normalized_flow_delta": -0.06277755786899551,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -24.46306369974937,
+        0.0461908846337844,
+        0.006587845701596651,
+        0.01138809061177104
+      ],
+      "action_delta_by_interval": [
+        2.9719825430263107,
+        5.978863252685276,
+        9.391688588285405,
+        12.876557294803888
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.008987968156683845,
+      "action_delta": 7.68527592048534,
+      "normalized_flow_delta": 0.007710753178279985,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        1.7680711834804868,
+        -0.0057807541405316965,
+        0.004950276218281702
+      ],
+      "action_delta_by_interval": [
+        4.167859425516692,
+        12.335681351216472,
+        16.649267158672465
+      ],
+      "snr_kept_intervals": [
+        0,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.33333333333333337,
+      "status": "scored",
+      "flow_delta": 0.8811452146699775,
+      "action_delta": 8.251770388366582,
+      "normalized_flow_delta": 0.00941825204978119,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -0.8559855475790528,
+        -0.046992967250021334,
+        -0.008531567095215742,
+        -0.007116416298060035
+      ],
+      "action_delta_by_interval": [
+        -0.7433493460515486,
+        -0.904981373722676,
+        0.17711776196738427,
+        1.5248369129815647
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.027762267172618538,
+      "action_delta": -0.28311579204208215,
+      "normalized_flow_delta": -0.02896616888372359,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        18.078529600863874,
+        0.01719618947181334,
+        0.0015590897348959354
+      ],
+      "action_delta_by_interval": [
+        0.44568870949559125,
+        1.1237332235448765,
+        1.2514313187052721
+      ],
+      "snr_kept_intervals": [
+        0,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.33333333333333337,
+      "status": "scored",
+      "flow_delta": 9.047862895167844,
+      "action_delta": 0.7847109665202339,
+      "normalized_flow_delta": 0.11273323838511304,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -6.667139314296946,
+        0.0019192283222408957,
+        0.024260692036055298,
+        -0.0026175451529443228
+      ],
+      "action_delta_by_interval": [
+        2.6501292028505112,
+        5.1812646076886395,
+        7.6527554394120045,
+        10.184964825496408
+      ],
+      "snr_kept_intervals": [
+        0,
+        2
+      ],
+      "snr_rejected_intervals": [
+        1,
+        3
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.5,
+      "status": "scored",
+      "flow_delta": -3.3214393111304457,
+      "action_delta": 5.151442321131258,
+      "normalized_flow_delta": -0.06056978788245042,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        61.37966880666576,
+        -0.032759073373662684,
+        -0.005179675255271743,
+        0.021984092851723758
+      ],
+      "action_delta_by_interval": [
+        1.3836077818454893,
+        2.777600295674519,
+        4.149043982610465,
+        5.583623657398967
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.008402208798226007,
+      "action_delta": 3.463322139142492,
+      "normalized_flow_delta": 0.009857984999195149,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -1.7123577461685215,
+        -0.20251350505118815,
+        -0.02109824437376928,
+        0.01716829154105093
+      ],
+      "action_delta_by_interval": [
+        1.289416172069709,
+        2.65470023668359,
+        4.099666133665249,
+        5.82000891606366
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.11180587471247871,
+      "action_delta": 3.3771831851744194,
+      "normalized_flow_delta": -0.10307926094267246,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.30533478037444794,
+        0.14890647787770162,
+        0.010461207117226201,
+        0.01764627530926277
+      ],
+      "action_delta_by_interval": [
+        0.9251132814889164,
+        2.054912931583586,
+        3.3663838506555974,
+        4.925511855048109
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.0832763765934822,
+      "action_delta": 2.7106483911195918,
+      "normalized_flow_delta": 0.09582672935349704,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -34.08077210724883,
+        0.05913635236989434,
+        -0.00019637186418997032,
+        -0.034597387234969634
+      ],
+      "action_delta_by_interval": [
+        0.5480378341598966,
+        1.0586878916886011,
+        1.5456937619551487,
+        1.7291480140673192
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        3
+      ],
+      "snr_rejected_intervals": [
+        2
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.034597387234969634,
+      "action_delta": 1.0586878916886011,
+      "normalized_flow_delta": -0.03807578441552826,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -7.436201931655148,
+        -0.045819541137734676,
+        -0.011826169622904947
+      ],
+      "action_delta_by_interval": [
+        2.263430223249383,
+        6.925988550315299,
+        9.317111300895945
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.045819541137734676,
+      "action_delta": 6.925988550315299,
+      "normalized_flow_delta": -0.04769483079378704,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        10.608759286230224,
+        0.12501934381394308,
+        0.040698799800135355
+      ],
+      "action_delta_by_interval": [
+        3.8084491512217404,
+        11.605694264416094,
+        15.666137796769945
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.12501934381394308,
+      "action_delta": 11.605694264416094,
+      "normalized_flow_delta": 0.14623633328313082,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -6.558124147243177,
+        -0.09455364864376459,
+        -0.010726765879051525,
+        0.015068305299290818
+      ],
+      "action_delta_by_interval": [
+        -0.1971757510650245,
+        -0.4410813819070918,
+        -0.7328622348868548,
+        -1.0245946420963001
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.052640207261408056,
+      "action_delta": -0.5869718083969733,
+      "normalized_flow_delta": -0.053196569136549195,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.044460438916928524,
+        -0.04863558783957378,
+        0.004578582516097995,
+        -0.021541483019540508
+      ],
+      "action_delta_by_interval": [
+        0.860626833390153,
+        1.8235244309940484,
+        2.869310279038565,
+        3.8463067206484665
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        3
+      ],
+      "snr_rejected_intervals": [
+        2
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.021541483019540508,
+      "action_delta": 1.8235244309940484,
+      "normalized_flow_delta": -0.023645928772707523,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        1.7964503867766979,
+        -0.05645178958053376,
+        -0.0383357201144392,
+        -0.026793828865382396
+      ],
+      "action_delta_by_interval": [
+        1.592430359411054,
+        3.148153499857024,
+        4.644970103453664,
+        6.239145058392221
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.0325647744899108,
+      "action_delta": 3.896561801655344,
+      "normalized_flow_delta": -0.04119369378853736,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.015498262756899805,
+        -0.043685456656173516,
+        0.04249071149809369,
+        0.03690922876130309
+      ],
+      "action_delta_by_interval": [
+        0.5490617902897901,
+        1.1985556419123113,
+        1.8926714466947336,
+        2.3813167381473272
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.02620374575910145,
+      "action_delta": 1.5456135443035226,
+      "normalized_flow_delta": 0.029250675595628262,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        24.499338493401524,
+        0.22705897391477192,
+        -0.03771012975783006,
+        -0.004338570726653002
+      ],
+      "action_delta_by_interval": [
+        2.1737340511878545,
+        4.412459296969942,
+        6.715768745405146,
+        9.036347875015558
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": 0.22705897391477192,
+      "action_delta": 4.412459296969942,
+      "normalized_flow_delta": 0.2890258588494405,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -4.052158166278332,
+        0.12233250451837907,
+        0.029689390118676995,
+        -0.02771829432550088
+      ],
+      "action_delta_by_interval": [
+        0.8475709143158952,
+        1.2160692752097475,
+        1.1411648750927714,
+        1.0130274047917887
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.000985547896588057,
+      "action_delta": 1.07709613994228,
+      "normalized_flow_delta": 0.0012645085109851014,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        28.633663195908582,
+        -0.2134499278246964,
+        -0.019752597333196786,
+        0.003908807532401304
+      ],
+      "action_delta_by_interval": [
+        1.0294388413829525,
+        2.412627310391482,
+        4.162864299115823,
+        6.237338037934469
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.019752597333196786,
+      "action_delta": 2.412627310391482,
+      "normalized_flow_delta": -0.014281313645886555,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -14.726671575225396,
+        -0.004055781326314678,
+        0.08796257461722001,
+        0.0009827659033905256
+      ],
+      "action_delta_by_interval": [
+        1.889210115158031,
+        3.716902547232806,
+        5.731539558645171,
+        7.855824017034461
+      ],
+      "snr_kept_intervals": [
+        0,
+        2
+      ],
+      "snr_rejected_intervals": [
+        1,
+        3
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.5,
+      "status": "scored",
+      "flow_delta": -7.319354500304088,
+      "action_delta": 3.810374836901601,
+      "normalized_flow_delta": -0.1556958010465622,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        54.437342398435504,
+        0.8839786628827141,
+        0.001708777811467499,
+        -0.004325495262842871
+      ],
+      "action_delta_by_interval": [
+        1.139793881412146,
+        2.3705340091731406,
+        3.617409643616047,
+        4.853811893707727
+      ],
+      "snr_kept_intervals": [
+        0,
+        1
+      ],
+      "snr_rejected_intervals": [
+        2,
+        3
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.5,
+      "status": "scored",
+      "flow_delta": 27.660660530659108,
+      "action_delta": 1.7551639452926433,
+      "normalized_flow_delta": 0.35106438910499915,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        3.7294379914494584,
+        -0.0025574569194624086,
+        0.017643367040936386
+      ],
+      "action_delta_by_interval": [
+        2.8795309264907765,
+        6.232572600743946,
+        10.006088443231459
+      ],
+      "snr_kept_intervals": [
+        0,
+        2
+      ],
+      "snr_rejected_intervals": [
+        1
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.33333333333333337,
+      "status": "scored",
+      "flow_delta": 1.8735406792451974,
+      "action_delta": 6.442809684861118,
+      "normalized_flow_delta": 0.025949075516197115,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -2.5785992267600477,
+        -0.00022890252642271403,
+        0.12884835532442873,
+        -0.013924454767623384
+      ],
+      "action_delta_by_interval": [
+        0.9606747917686256,
+        1.7761660429938182,
+        2.403406141806487,
+        2.98634438048507
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [
+        1
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.013924454767623384,
+      "action_delta": 2.403406141806487,
+      "normalized_flow_delta": -0.01634053606971706,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -18.918403439937265,
+        -0.07056342401749882,
+        -0.021330066866919073
+      ],
+      "action_delta_by_interval": [
+        0.7688447761876496,
+        2.552200334362329,
+        3.131475172850544
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.07056342401749882,
+      "action_delta": 2.552200334362329,
+      "normalized_flow_delta": -0.08403911198539532,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -4.1083887282229625,
+        0.010343540750480829,
+        0.05428675641799163,
+        0.013151324466533332
+      ],
+      "action_delta_by_interval": [
+        2.6640712756060267,
+        5.48140233234227,
+        8.122819646993513,
+        10.858583446293991
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.01174743260850708,
+      "action_delta": 6.8021109896678915,
+      "normalized_flow_delta": 0.010910133102374528,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -0.49373422690896973,
+        0.045272899150458845,
+        0.0073856686423205975,
+        0.006820215786729866
+      ],
+      "action_delta_by_interval": [
+        0.5737710627655783,
+        1.0582315016868007,
+        1.5669612666298667,
+        1.9121598686236947
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.007102942214525232,
+      "action_delta": 1.3125963841583337,
+      "normalized_flow_delta": 0.007283525195480894,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -9.591874401812731,
+        0.04780128062688327,
+        -0.03845119062583935,
+        -0.08407431197848658
+      ],
+      "action_delta_by_interval": [
+        0.9016711325684912,
+        1.873230764714188,
+        2.759216941601472,
+        3.45578122586182
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.061262751302162965,
+      "action_delta": 2.3162238531578296,
+      "normalized_flow_delta": -0.06777956621473091,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        6.253485630589665,
+        0.03766775213475604,
+        -0.00512419340437531,
+        0.013105848878857462
+      ],
+      "action_delta_by_interval": [
+        1.4104933937220023,
+        2.94096019726142,
+        4.5524206027311145,
+        6.354650272163056
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.02538680050680675,
+      "action_delta": 3.7466903999962673,
+      "normalized_flow_delta": 0.02811321154259134,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        4.5815046457507265,
+        0.02824582050394897,
+        0.024151923873243275,
+        0.015009544784744921
+      ],
+      "action_delta_by_interval": [
+        -0.5412923214520498,
+        -0.30566942418946574,
+        0.5706659836994858,
+        1.6464528618114995
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.026198872188596123,
+      "action_delta": 0.13249827975501005,
+      "normalized_flow_delta": 0.030811746249936687,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        35.533334727814164,
+        -0.05486396464174326,
+        -0.005122990194947663,
+        0.01984548022495536
+      ],
+      "action_delta_by_interval": [
+        3.0893872731208596,
+        6.110583919991061,
+        9.10827775850505,
+        12.106962294556439
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.007361245015003848,
+      "action_delta": 7.609430839248056,
+      "normalized_flow_delta": 0.008038368320038127,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        54.46873733108799,
+        0.011724616207695937,
+        0.030061226680445308,
+        0.007020124136891015
+      ],
+      "action_delta_by_interval": [
+        -0.6409192558916392,
+        -1.196070204562944,
+        -0.306747895459913,
+        0.9164726073445619
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.020892921444070622,
+      "action_delta": -0.4738335756757761,
+      "normalized_flow_delta": 0.028521776235387358,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.3720481643446476,
+        0.039336779259305565,
+        0.013448481975227411,
+        0.009842673497681531
+      ],
+      "action_delta_by_interval": [
+        2.937265957222664,
+        5.897131686380408,
+        8.610037400749409,
+        11.240420947170698
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.026392630617266488,
+      "action_delta": 7.253584543564909,
+      "normalized_flow_delta": 0.028582209040779166,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -31.79401517996095,
+        -0.007715128004399552,
+        0.06818219836644113,
+        0.02487808066586472
+      ],
+      "action_delta_by_interval": [
+        1.4735858988044201,
+        3.095497784666026,
+        4.964002873571718,
+        7.204618174443404
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.008581476330732585,
+      "action_delta": 4.029750329118872,
+      "normalized_flow_delta": 0.011690803642918619,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        101.18665550862323,
+        -0.04293383044733634,
+        -0.04129110758324084,
+        -0.00614810762368978
+      ],
+      "action_delta_by_interval": [
+        1.7022566526807585,
+        3.575542960691326,
+        5.574575204385537,
+        7.697511174286809
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.02371960760346531,
+      "action_delta": 4.575059082538432,
+      "normalized_flow_delta": -0.028242274132202566,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "action_delta_by_interval": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "snr_kept_intervals": [],
+      "snr_rejected_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_interval_count": 0,
+      "snr_rejection_fraction": 1.0,
+      "status": "unavailable",
+      "reason": "insufficient_snr_intervals"
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -22.245519820405264,
+        -0.029845514633476622,
+        0.041948810037892525,
+        -0.0015242001094863955
+      ],
+      "action_delta_by_interval": [
+        1.701584160980126,
+        3.5020337426049677,
+        5.559396933908665,
+        7.7348562651108566
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.029845514633476622,
+      "action_delta": 3.5020337426049677,
+      "normalized_flow_delta": -0.03706846082087191,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -9.59710374474291,
+        0.005805318156671069,
+        0.025062841020926485,
+        0.011859491961379143
+      ],
+      "action_delta_by_interval": [
+        2.3965400994772716,
+        4.966054343518966,
+        8.062338668878471,
+        11.498867134851643
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.008832405059025106,
+      "action_delta": 6.514196506198719,
+      "normalized_flow_delta": 0.011825708786692101,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        37.872838229014235,
+        -0.008296462833076612,
+        0.0008813729049054198,
+        -0.0039045245159873287
+      ],
+      "action_delta_by_interval": [
+        -0.3977201017175498,
+        0.2886306702280379,
+        1.50353416448907,
+        3.0483793627861164
+      ],
+      "snr_kept_intervals": [
+        0,
+        1
+      ],
+      "snr_rejected_intervals": [
+        2,
+        3
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.5,
+      "status": "scored",
+      "flow_delta": 18.932270883090577,
+      "action_delta": -0.054544715744755945,
+      "normalized_flow_delta": 0.18495648041427756,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        20.58004647669196,
+        -0.005316401176035379,
+        -0.006887639456167993,
+        -0.006455065081143352
+      ],
+      "action_delta_by_interval": [
+        2.2367657364408533,
+        4.599271262533227,
+        7.265435743211249,
+        10.393037493295488
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.0058857331285893655,
+      "action_delta": 5.932353502872238,
+      "normalized_flow_delta": -0.007437988455646693,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.13945140899647868,
+        0.09954623430461051,
+        0.037706843391877465,
+        -0.003114563706671847
+      ],
+      "action_delta_by_interval": [
+        0.5402902776832921,
+        1.0592059252759478,
+        1.6002210761917866,
+        2.2003917911043427
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": 0.09954623430461051,
+      "action_delta": 1.0592059252759478,
+      "normalized_flow_delta": 0.08260963421361582,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -62.081979051753336,
+        -0.001233734165933753,
+        -0.015498628358228683
+      ],
+      "action_delta_by_interval": [
+        4.003634768002927,
+        12.162325298970927,
+        16.386788156622487
+      ],
+      "snr_kept_intervals": [
+        0,
+        3
+      ],
+      "snr_rejected_intervals": [
+        2
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.33333333333333337,
+      "status": "scored",
+      "flow_delta": -31.048738840055783,
+      "action_delta": 10.195211462312706,
+      "normalized_flow_delta": -0.46161786176712927,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        54.26409535384221,
+        0.03866609821459743,
+        0.008316172033694835
+      ],
+      "action_delta_by_interval": [
+        3.269085213612863,
+        9.76376387931117,
+        13.075348920791463
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.03866609821459743,
+      "action_delta": 9.76376387931117,
+      "normalized_flow_delta": 0.0368547201992008,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        10.729388586356265,
+        0.008522725400028963,
+        -0.005911461371793658
+      ],
+      "action_delta_by_interval": [
+        0.7380156000897468,
+        2.005142666981267,
+        5.484839896448763
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.008522725400028963,
+      "action_delta": 2.005142666981267,
+      "normalized_flow_delta": 0.008333509323769618,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -3.6733943632589217,
+        0.05423512288924959,
+        -0.013379863193043073,
+        -0.0027014644451164305
+      ],
+      "action_delta_by_interval": [
+        -0.4642340108829004,
+        -1.0276550325451674,
+        -1.6377774559148954,
+        -2.3439625477001003
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.013379863193043073,
+      "action_delta": -1.0276550325451674,
+      "normalized_flow_delta": -0.016438569407162117,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        8.484891436761224,
+        -0.009393216557721407,
+        0.04315289873422845
+      ],
+      "action_delta_by_interval": [
+        -0.24365540872167513,
+        -0.511172129706372,
+        -1.1167668834812536
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.04315289873422845,
+      "action_delta": -0.511172129706372,
+      "normalized_flow_delta": 0.05311544607818989,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        67.18845616562893,
+        -0.055688492042210935,
+        -0.01750664148507952,
+        -0.0039974983641564155
+      ],
+      "action_delta_by_interval": [
+        -0.6016146170910586,
+        -1.2220696920026186,
+        -0.9360463603672584,
+        -0.07034040828026988
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.01750664148507952,
+      "action_delta": -0.9360463603672584,
+      "normalized_flow_delta": -0.022432477083284268,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -22.05761964859272,
+        -0.06384297386359972,
+        -0.017159617813189754,
+        0.016900750987945745
+      ],
+      "action_delta_by_interval": [
+        3.1320212582749214,
+        6.397882098352802,
+        9.941070786098948,
+        13.665835533126241
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.040501295838394735,
+      "action_delta": 8.169476442225875,
+      "normalized_flow_delta": -0.055464741078116456,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        9.358465253638116,
+        -0.018794091618343445,
+        -0.015797650301195953,
+        0.0218714118310791
+      ],
+      "action_delta_by_interval": [
+        -0.7863339614657145,
+        -0.7611077559988892,
+        0.2534082844825445,
+        1.6042823594331832
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.003036880764941574,
+      "action_delta": -0.2538497357581724,
+      "normalized_flow_delta": 0.0043667664814040115,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "action_delta_by_interval": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "snr_kept_intervals": [],
+      "snr_rejected_intervals": [
+        0,
+        1,
+        3
+      ],
+      "snr_interval_count": 0,
+      "snr_rejection_fraction": 1.0,
+      "status": "unavailable",
+      "reason": "insufficient_snr_intervals"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -34.28251510866983,
+        -0.0018249164225890846,
+        0.027912081755455564,
+        0.0009614148445624693
+      ],
+      "action_delta_by_interval": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "snr_kept_intervals": [
+        0,
+        2
+      ],
+      "snr_rejected_intervals": [
+        1,
+        3
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.5,
+      "status": "scored",
+      "flow_delta": -17.127301513457187,
+      "action_delta": 0.0,
+      "normalized_flow_delta": -1.3493785549108464,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -53.71825442554933,
+        -0.01739324553855026,
+        0.017206822239819508,
+        -0.008108781028858258
+      ],
+      "action_delta_by_interval": [
+        2.2652914684079555,
+        4.481026588134132,
+        6.736525289268471,
+        9.249802541375239
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.01275101328370426,
+      "action_delta": 5.608775938701301,
+      "normalized_flow_delta": -0.015604287599153442,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -95.19857558154246,
+        -0.18295622198083372,
+        -0.060219568214618824,
+        -0.015052240381031368
+      ],
+      "action_delta_by_interval": [
+        1.817627037756318,
+        3.683191625685529,
+        5.352311817846719,
+        6.838385385166646
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.12158789509772627,
+      "action_delta": 4.517751721766124,
+      "normalized_flow_delta": -0.14788516597566148,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        69.00721090574513,
+        -0.15455076295561854,
+        0.014990225660279521
+      ],
+      "action_delta_by_interval": [
+        1.0543154849833845,
+        3.626919751690241,
+        5.135153875956277
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.014990225660279521,
+      "action_delta": 3.626919751690241,
+      "normalized_flow_delta": 0.017215784521047574,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -49.891650953669284,
+        -0.060572982540654574,
+        -0.026797829205928103,
+        0.007797500127845747
+      ],
+      "action_delta_by_interval": [
+        1.8272837230614645,
+        3.768347502789963,
+        5.797276396026167,
+        7.843213968500951
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.04368540587329134,
+      "action_delta": 4.782811949408065,
+      "normalized_flow_delta": -0.05352595383461337,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        5.139190504121331,
+        -0.04166707001650938,
+        -0.0063333905323168516
+      ],
+      "action_delta_by_interval": [
+        0.72598666593011,
+        2.1336632421320685,
+        2.647269742404516
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.0063333905323168516,
+      "action_delta": 2.1336632421320685,
+      "normalized_flow_delta": -0.0074203069675043585,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        8.679142157676495,
+        -0.052160885027785264,
+        -0.045869267142877757,
+        0.008327741821409163
+      ],
+      "action_delta_by_interval": [
+        0.7089897610309959,
+        1.359382880221684,
+        2.0544199492419715,
+        2.7898613024874788
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.018770762660734297,
+      "action_delta": 1.7069014147318278,
+      "normalized_flow_delta": -0.017524079815743037,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -16.276459037483846,
+        0.06347535103112034,
+        0.0059363468948043785,
+        0.00033378069876299765
+      ],
+      "action_delta_by_interval": [
+        1.5633120209372176,
+        3.30524884582801,
+        5.383569202725137,
+        7.85674887579227
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": 0.0059363468948043785,
+      "action_delta": 3.30524884582801,
+      "normalized_flow_delta": 0.005625964734758359,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -55.87066778926315,
+        -0.1519399251588749,
+        0.014408362356278404,
+        0.0013193148892938211
+      ],
+      "action_delta_by_interval": [
+        1.5425929322399465,
+        3.016745676076509,
+        4.543348385553145,
+        6.130528055964092
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.1519399251588749,
+      "action_delta": 3.016745676076509,
+      "normalized_flow_delta": -0.1680431199086209,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -30.65730796241364,
+        -0.2258286781153236,
+        0.03326778494769145,
+        0.05792978591667575
+      ],
+      "action_delta_by_interval": [
+        1.3123797953872565,
+        2.6952484795232667,
+        4.1518636971264655,
+        5.689464841966949
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.09628044658381607,
+      "action_delta": 3.423556088324866,
+      "normalized_flow_delta": -0.069387841467728,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        15.751827609208306,
+        0.04863770985206384,
+        0.007847435063467967
+      ],
+      "action_delta_by_interval": [
+        3.3798357762416895,
+        10.221851277185678,
+        14.021127350781853
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.04863770985206384,
+      "action_delta": 10.221851277185678,
+      "normalized_flow_delta": 0.05048059322995357,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -134.69072325845517,
+        0.04049112697768109,
+        -0.0075450710501993035
+      ],
+      "action_delta_by_interval": [
+        2.1101692815256534,
+        7.087474875308867,
+        10.090598223979221
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.0075450710501993035,
+      "action_delta": 7.087474875308867,
+      "normalized_flow_delta": -0.00942977278652154,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -0.4349580693502446,
+        0.012416709618368604,
+        0.00613443414205761
+      ],
+      "action_delta_by_interval": [
+        1.1147589983460326,
+        5.537772460799254,
+        7.9236705718155065
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.00613443414205761,
+      "action_delta": 5.537772460799254,
+      "normalized_flow_delta": 0.006768098311072162,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        35.8225246628968,
+        -0.029453182448319737,
+        -0.022091238536315116
+      ],
+      "action_delta_by_interval": [
+        0.5524648138129598,
+        0.9704648444314472,
+        0.8435592270209149
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.022091238536315116,
+      "action_delta": 0.8435592270209149,
+      "normalized_flow_delta": -0.023807930889248256,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        4.103897966587439,
+        0.07055959472180295,
+        0.002098760944723721,
+        0.01209157020057372
+      ],
+      "action_delta_by_interval": [
+        0.8091449285180339,
+        1.6173773479100353,
+        2.3339870878000104,
+        2.820156066762868
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        3
+      ],
+      "snr_rejected_intervals": [
+        2
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": 0.07055959472180295,
+      "action_delta": 1.6173773479100353,
+      "normalized_flow_delta": 0.08212653682509342,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -48.25871729773925,
+        -0.06324197617906435,
+        -0.008025868149552307
+      ],
+      "action_delta_by_interval": [
+        -0.4982894457917315,
+        -0.08785366157559338,
+        0.7852716198158687
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.06324197617906435,
+      "action_delta": -0.08785366157559338,
+      "normalized_flow_delta": -0.06594852162324172,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -45.9886191752926,
+        -0.0038071882982455563,
+        -0.02540369548392185,
+        -0.018657571963167974
+      ],
+      "action_delta_by_interval": [
+        -0.600577924200693,
+        -0.0997900936570777,
+        1.016087544587477,
+        2.393493836840115
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [
+        1
+      ],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.25,
+      "status": "scored",
+      "flow_delta": -0.02540369548392185,
+      "action_delta": 1.016087544587477,
+      "normalized_flow_delta": -0.02618473367676276,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -20.619667388364434,
+        0.007625400630836943,
+        0.024014313158484568
+      ],
+      "action_delta_by_interval": [
+        1.1733831024825567,
+        4.137606840369566,
+        5.612045014370846
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.007625400630836943,
+      "action_delta": 4.137606840369566,
+      "normalized_flow_delta": 0.008514910395854404,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        53.56451677625893,
+        -0.011468925054347268,
+        0.13857486806324237,
+        0.04138125082895161
+      ],
+      "action_delta_by_interval": [
+        -0.7364007264493221,
+        -0.7073633246612976,
+        0.35801712541389064,
+        1.774906867458074
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.08997805944609699,
+      "action_delta": -0.17467309962370348,
+      "normalized_flow_delta": 0.10651201982118719,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        1.922656156418853,
+        -0.013037627770074334,
+        0.024113298550647033
+      ],
+      "action_delta_by_interval": [
+        1.3946216367265905,
+        4.010280179783585,
+        5.338220996770016
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.024113298550647033,
+      "action_delta": 4.010280179783585,
+      "normalized_flow_delta": 0.028764072684970658,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.6666666666666666
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -38.960797221670745,
+        0.22847541114701764,
+        0.00933918667542799,
+        -0.016248914813924986
+      ],
+      "action_delta_by_interval": [
+        2.3508500771264,
+        4.762312348210315,
+        7.487810515427622,
+        10.426859010054685
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.0034548640692484978,
+      "action_delta": 6.125061431818969,
+      "normalized_flow_delta": -0.004305516076650842,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        25.221110938745937,
+        -0.005384218358258419,
+        -0.12123489876070992,
+        -0.03267851133190325
+      ],
+      "action_delta_by_interval": [
+        1.508851217946611,
+        2.8922713614292963,
+        4.361593066041674,
+        5.845960709396721
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.019031364845080834,
+      "action_delta": 3.6269322137354854,
+      "normalized_flow_delta": -0.02230986757332377,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.75
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -52.10970488192038,
+        -0.06154367178251341,
+        -0.059882758398957625
+      ],
+      "action_delta_by_interval": [
+        0.6170870907772281,
+        1.8706698261896086,
+        1.9154020763853303
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.06154367178251341,
+      "action_delta": 1.8706698261896086,
+      "normalized_flow_delta": -0.06893961870018143,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        83.68248531004619,
+        -0.007369997415629159,
+        0.051953117146681604,
+        -0.027076651696081422
+      ],
+      "action_delta_by_interval": [
+        -0.4681873408935665,
+        0.13162913547753963,
+        1.4070207739466212,
+        2.8963319677980026
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 4,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.022291559865526223,
+      "action_delta": 0.7693249547120804,
+      "normalized_flow_delta": 0.025271721619902557,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        5.835776323950995,
+        0.8469418963879902,
+        0.0628326988318505
+      ],
+      "action_delta_by_interval": [
+        2.307224464467674,
+        4.786965128020517,
+        10.872315046813693
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": 0.8469418963879902,
+      "action_delta": 4.786965128020517,
+      "normalized_flow_delta": 0.7473258506749716,
+      "action_direction_comparable": true,
+      "action_direction_match": true,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -3.2417715607588207,
+        -0.07169729309101347,
+        -0.04303026216626149
+      ],
+      "action_delta_by_interval": [
+        1.4551329457878701,
+        2.823153037532368,
+        5.293378005261346
+      ],
+      "snr_kept_intervals": [
+        0,
+        1,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.07169729309101347,
+      "action_delta": 2.823153037532368,
+      "normalized_flow_delta": -0.08791018799379023,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 1.0
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "common_interval_count": 4,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "action_delta_by_interval": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "snr_kept_intervals": [],
+      "snr_rejected_intervals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "snr_interval_count": 0,
+      "snr_rejection_fraction": 1.0,
+      "status": "unavailable",
+      "reason": "insufficient_snr_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        3
+      ],
+      "common_interval_count": 2,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -8.058327481438454,
+        0.003970496805186574
+      ],
+      "action_delta_by_interval": [
+        -0.3725312319293419,
+        0.3910265397464343
+      ],
+      "snr_kept_intervals": [
+        0
+      ],
+      "snr_rejected_intervals": [
+        3
+      ],
+      "snr_interval_count": 1,
+      "snr_rejection_fraction": 0.5,
+      "status": "unavailable",
+      "reason": "insufficient_snr_intervals"
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        62.35009008149376,
+        -0.0005381414761940206,
+        -0.01557449023387436
+      ],
+      "action_delta_by_interval": [
+        0.22766279773188947,
+        0.3515073257122747,
+        0.3404103351400316
+      ],
+      "snr_kept_intervals": [
+        0,
+        3
+      ],
+      "snr_rejected_intervals": [
+        2
+      ],
+      "snr_interval_count": 2,
+      "snr_rejection_fraction": 0.33333333333333337,
+      "status": "scored",
+      "flow_delta": 31.167257795629943,
+      "action_delta": 0.28403656643596054,
+      "normalized_flow_delta": 0.3377512594429255,
+      "action_direction_comparable": false,
+      "action_direction_match": null,
+      "temporal_persistence": 0.5
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532",
+      "stratum": "unknown",
+      "descriptor": "median_flow_magnitude_px",
+      "common_intervals": [
+        0,
+        2,
+        3
+      ],
+      "common_interval_count": 3,
+      "flow_delta_deadband": 0.005,
+      "flow_delta_by_interval": [
+        -15.615489958685032,
+        -0.021469090042096628,
+        0.08452319562607968
+      ],
+      "action_delta_by_interval": [
+        -0.05584332620507415,
+        2.5422680714659496,
+        4.19115538103704
+      ],
+      "snr_kept_intervals": [
+        0,
+        2,
+        3
+      ],
+      "snr_rejected_intervals": [],
+      "snr_interval_count": 3,
+      "snr_rejection_fraction": 0.0,
+      "status": "scored",
+      "flow_delta": -0.021469090042096628,
+      "action_delta": 2.5422680714659496,
+      "normalized_flow_delta": -0.016733500528115043,
+      "action_direction_comparable": true,
+      "action_direction_match": false,
+      "temporal_persistence": 0.6666666666666666
+    }
+  ]
+}

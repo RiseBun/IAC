@@ -1,0 +1,31 @@
+{
+  "protocol": "iac-counterfactual-flow-structure-interval-aligned-snr-v1",
+  "status": "experimental_not_frozen",
+  "base_protocol": "iac-counterfactual-flow-structure-delta-v1",
+  "metric_reconstruction_used": false,
+  "candidate_blind": true,
+  "flow": {
+    "descriptor": "median_flow_magnitude_px",
+    "orientation": 1,
+    "interval_alignment": "normalized_interval_time",
+    "action_reference": "trajectory_path_length"
+  },
+  "snr_gate": {
+    "flow_delta_deadband_px": 0.005,
+    "minimum_snr_intervals": 2,
+    "deadband_source": "pilot_value_pending_independent_noise_calibration",
+    "calibration_contract": "fit on held-out repeated-flow/noise data, never on confirmation twins"
+  },
+  "coverage": {
+    "minimum_common_intervals": 2,
+    "pair_unit": true,
+    "report_interval_and_pair_coverage_separately": true
+  },
+  "promotion": {
+    "not_primary": true,
+    "requires_independent_deadband_calibration": true,
+    "requires_two_model_confirmation": true,
+    "requires_clean_case_cost_report": true
+  },
+  "warning": "This is an A/B protocol experiment. It reports ordinal counterfactual response, not metric distance, absolute speed, or logged-GT fidelity."
+}

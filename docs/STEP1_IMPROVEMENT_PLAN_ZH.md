@@ -40,6 +40,24 @@ pure-speed confirmation 已验证 progress 通道不能晋级：Epona 方向 `76
 P0 的目标是提高准确性和诚实性，不承诺提升 coverage；它不改变冻结 S1.3
 primary，先作为 preregistered A/B。
 
+#### P0-B 首轮结果（2026-09-11）
+
+B 已在两个模型的 pure-speed confirmation 上以同一套实现跑完。它没有改变冻结
+S1.3，也没有在确认集上估计 deadband；`0.005 px` 只是待独立噪声校准的 pilot
+值。对照结果如下：
+
+| 模型 | 冻结 v1（endpoint/整段聚合） | B：interval 对齐、无 deadband | B：0.005 px deadband |
+|---|---:|---:|---:|
+| Epona | 94.9% / 76.8% / ρ=-0.037 | 94.9% / 76.8% / ρ=-0.019 | 94.9% / 76.8% / ρ=-0.019 |
+| DriveWAM | 100.0% / 48.8% / ρ=0.077 | 100.0% / 52.2% / ρ=0.088 | 95.3% / 52.9% / ρ=0.009 |
+
+表中依次为 pair coverage / 方向准确率 / action-response Spearman。DriveWAM 的
+小幅上升没有排除 0.5（95% Wilson CI 为 `[0.406, 0.635]`，deadband 后为
+`[0.413, 0.641]`）；Epona 完全不变。deadband 从 `0.01 px` 开始反而持续损失
+coverage 和方向，未观察到可迁移的去噪窗口。因此 B 的当前结论是**口径修正已
+完成，但不是性能修复，也不能晋级 primary**。死区必须改由独立重复流噪声标定，
+之后再决定是否保留为 weak/unavailable 门，而不能用确认集择优。
+
 ### P1：光流 backbone A/B 或小规模生成域适配
 
 直接替换光流不是已知解。仓库已有 SEA-RAFT A/B：coverage 从 `74.1%` 降到
