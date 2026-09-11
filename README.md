@@ -204,6 +204,15 @@ mapping fitted on a separate calibration set and frozen before confirmation.
 Until that calibration is validated, it must be reported as `unavailable`, not
 as a metre-domain error.
 
+The current cross-model pilot scorecard is recorded in
+[`reports/ccfc_structure_forward_scorecard_20260911.json`](reports/ccfc_structure_forward_scorecard_20260911.json).
+The same candidate separates a strong response (WorldDrive eval25 extension:
+direction cosine `0.998`, temporal persistence `1.0`, response gain `1.469`)
+from weak or absent responses (DriveVA: `0.129`/`0.061`; DriveWAM:
+`0.016`/`0.0045`). These are pilot diagnostics, not promotion results: the
+third-model confirmation still needs a larger scene-disjoint pool and thresholds
+must be calibrated on held-out real videos.
+
 ### Step 3: FCS
 
 FCS sends native action to an independent simulator and scores the realized
