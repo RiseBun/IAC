@@ -5,6 +5,7 @@ import unittest
 import numpy as np
 
 from iac_new.visual_consistency import (
+    score_structural_grounding,
     score_trajectory_visual_consistency,
     score_twin_differential_consistency,
     trajectory_conditioned_flow,
@@ -12,6 +13,34 @@ from iac_new.visual_consistency import (
 
 
 class VisualConsistencyTest(unittest.TestCase):
+    def test_structural_grounding_is_calibrated_and_fail_closed(self) -> None:
+        rows = [
+            {
+                "interval_index": i,
+                "input_available": True,
+                "median_flow_magnitude_px": 10.0,
+                "horizontal_flow_center": 0.1,
+                "vertical_flow_center": 0.2,
+                "divergence": 0.3,
+                "curl": 0.4,
+            }
+            for i in range(3)
+        ]
+        scales = {key: 1.0 for key in (
+            "median_flow_magnitude_px",
+            "horizontal_flow_center",
+            "vertical_flow_center",
+            "divergence",
+            "curl",
+        )}
+        result = score_structural_grounding(rows, rows, descriptor_scales=scales)
+        self.assertEqual(result["metric_id"], "GS")
+        self.assertEqual(result["status"], "ok")
+        self.assertAlmostEqual(result["score"], 1.0)
+        unavailable = score_structural_grounding(rows[:2], rows[:2], descriptor_scales=scales)
+        self.assertEqual(unavailable["status"], "unavailable")
+        self.assertIsNone(unavailable["score"])
+
     def test_zero_trajectory_has_zero_ground_plane_flow(self) -> None:
         expected, valid = trajectory_conditioned_flow(
             np.zeros((2, 3)),

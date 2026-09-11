@@ -267,3 +267,85 @@ def score_twin_differential_consistency(
         "minimum_support_fraction": float(np.min([row["support_fraction"] for row in scored])) if scored else None,
         "rows": rows,
     }
+
+
+STRUCTURAL_GROUNDING_DESCRIPTORS = (
+    "median_flow_magnitude_px",
+    "horizontal_flow_center",
+    "vertical_flow_center",
+    "divergence",
+    "curl",
+)
+
+
+def score_structural_grounding(
+    generated_rows: list[dict[str, Any]],
+    reference_rows: list[dict[str, Any]],
+    *,
+    descriptor_scales: dict[str, float],
+    min_common_intervals: int = 3,
+    min_descriptors_per_interval: int = 3,
+) -> dict[str, Any]:
+    """Compare generated flow structure with a same-source external future.
+
+    This is the structural, metric-free Grounding Score candidate.  Scales
+    must be frozen from a separate real-video calibration split; this function
+    never estimates them from the compared rows.  Missing intervals and
+    descriptors are omitted from their local evidence, but a branch is marked
+    ``unavailable`` unless it has the configured minimum number of intervals.
+    No zero-filled evidence is permitted.
+    """
+    if len(generated_rows) != len(reference_rows):
+        raise ValueError("generated_rows and reference_rows must have equal length")
+    if min_common_intervals < 1 or min_descriptors_per_interval < 1:
+        raise ValueError("minimum evidence counts must be positive")
+    scales = {str(k): float(v) for k, v in descriptor_scales.items()}
+    for key in STRUCTURAL_GROUNDING_DESCRIPTORS:
+        if key not in scales or not np.isfinite(scales[key]) or scales[key] <= 0:
+            raise ValueError(f"missing positive calibration scale for {key}")
+
+    def _transform(key: str, value: float) -> float:
+        return float(np.log1p(max(value, 0.0))) if key == "median_flow_magnitude_px" else float(value)
+
+    interval_scores: list[dict[str, Any]] = []
+    for index, (generated, reference) in enumerate(zip(generated_rows, reference_rows)):
+        if generated.get("interval_index", index) != reference.get("interval_index", index):
+            raise ValueError("generated/reference interval axes do not match")
+        row: dict[str, Any] = {"interval_index": int(generated.get("interval_index", index))}
+        if not (generated.get("input_available", True) and reference.get("input_available", True)):
+            row.update({"status": "unavailable", "reason": "missing_common_input"})
+            interval_scores.append(row)
+            continue
+        components: dict[str, float] = {}
+        for key in STRUCTURAL_GROUNDING_DESCRIPTORS:
+            first, second = generated.get(key), reference.get(key)
+            if first is None or second is None or not np.isfinite(first) or not np.isfinite(second):
+                continue
+            delta = abs(_transform(key, float(first)) - _transform(key, float(second)))
+            components[key] = float(np.exp(-delta / scales[key]))
+        if len(components) < min_descriptors_per_interval:
+            row.update({"status": "unavailable", "reason": "insufficient_descriptors"})
+        else:
+            row.update({"status": "scored", "score": float(np.median(list(components.values()))), "components": components})
+        interval_scores.append(row)
+    scored = [row for row in interval_scores if row.get("status") == "scored"]
+    branch_available = len(scored) >= int(min_common_intervals)
+    branch_score = float(np.median([row["score"] for row in scored])) if branch_available else None
+    return {
+        "protocol": "iac-structural-grounding-score-v1",
+        "metric_id": "GS",
+        "metric": "Grounding Score",
+        "legacy_metric": "FAU",
+        "metric_definition": "candidate_blind_generated_flow_structure_vs_same_source_external_future",
+        "status": "ok" if branch_available else "unavailable",
+        "score": branch_score,
+        "coverage": float(branch_available),
+        "common_interval_count": len(scored),
+        "interval_count": len(interval_scores),
+        "minimum_common_intervals": int(min_common_intervals),
+        "minimum_descriptors_per_interval": int(min_descriptors_per_interval),
+        "descriptor_scales": scales,
+        "intervals": interval_scores,
+        "claim": "external_reality_grounding_not_future_to_action_causality",
+        "missing_value_policy": "unavailable_never_zero_fill",
+    }
