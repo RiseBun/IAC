@@ -248,6 +248,8 @@ Aggregate provenance and the private artifact contract are documented in
 The DriveVA model-level negative result and the blinded human root-cause audit
 protocol are documented in
 [`docs/DRIVEVA_HUMAN_AUDIT_PROTOCOL_ZH.md`](docs/DRIVEVA_HUMAN_AUDIT_PROTOCOL_ZH.md).
+The S1.3 audit findings and the CCFC-S/CFAC-S roadmap are documented in
+[`docs/STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md`](docs/STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md).
 The per-sample result files are not part of the public release.
 
 ## Repository layout
