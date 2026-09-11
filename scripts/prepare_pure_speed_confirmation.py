@@ -28,6 +28,38 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
     ]
 
 
+def _read_input(path: Path) -> list[dict[str, Any]]:
+    """Read a JSONL manifest or temporal-fixed DriveWAM input root."""
+    if path.is_file():
+        return _read_jsonl(path)
+    manifests = sorted(path.glob("shard_*/manifest.json"))
+    if not manifests:
+        manifests = sorted(path.glob("shards/shard_*/manifest.json"))
+    if not manifests:
+        raise ValueError(f"no input manifest found under {path}")
+    rows: list[dict[str, Any]] = []
+    for manifest in manifests:
+        for item in json.loads(manifest.read_text(encoding="utf-8")):
+            sample_path = Path(str(item.get("sample") or item.get("source_sample") or ""))
+            if not sample_path.is_file():
+                raise ValueError(f"missing temporal input sample: {sample_path}")
+            payload = pickle.loads(sample_path.read_bytes())
+            metadata = payload.get("metadata") or {}
+            row = dict(item)
+            row.update(
+                {
+                    "source_key": row.get("source_key") or metadata.get("source_key"),
+                    "source_sample": str(sample_path),
+                    "action_trajectory": metadata.get("action_trajectory"),
+                    "stratum": metadata.get("stratum"),
+                    "scene_group": metadata.get("scene_group"),
+                    "history_fingerprint": metadata.get("source_key"),
+                }
+            )
+            rows.append(row)
+    return rows
+
+
 def _trajectory(value: Any) -> np.ndarray:
     result = np.asarray(value, dtype=np.float64).squeeze()
     if result.ndim != 2 or result.shape[1] < 3 or not np.all(np.isfinite(result)):
@@ -202,7 +234,7 @@ def main() -> None:
     parser.add_argument("--stratum-manifest", type=Path)
     args = parser.parse_args()
     report = prepare(
-        _read_jsonl(args.input_manifest),
+        _read_input(args.input_manifest),
         output_root=args.output_root,
         fast_scale=args.fast_scale,
         slow_scale=args.slow_scale,
