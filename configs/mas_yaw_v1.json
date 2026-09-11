@@ -1,0 +1,57 @@
+{
+  "protocol": "iac-mas-yaw-direction-v1",
+  "metric_id": "MAS",
+  "version": "1.0",
+  "definition": "single-branch visual yaw structure aligned with the native action direction",
+  "representation": {
+    "flow_backend": "RAFT-Large",
+    "descriptor": "median_over_available_intervals(horizontal_flow_center)",
+    "metric_reconstruction_used": false,
+    "candidate_blind": true,
+    "output_domain": "ordinal_direction_only",
+    "unsupported_domains": ["metric_distance", "absolute_speed", "lateral_translation", "curvature"]
+  },
+  "adapter": {
+    "orientation": 1,
+    "action_yaw_abs_threshold_rad": 0.0005,
+    "visual_center_abs_threshold": 0.0001,
+    "calibration_domain": "logged_realized_navsim_future",
+    "calibration_source": "pure_speed_confirmation_roots_v2_20260911/calibration/real_gt_flow",
+    "fit_rule": "choose sign maximizing calibration sign agreement",
+    "frozen_before_confirmation": true
+  },
+  "aggregation": {
+    "branch_descriptor": "median finite interval descriptor",
+    "pair_gate": "both left and right branches available",
+    "statistical_unit": "source_key/twin",
+    "bootstrap": {"unit": "source_key", "draws": 20000, "seed": 20260912}
+  },
+  "controls": ["normal_action", "reversed_action", "zero_action"],
+  "promotion_criteria": {
+    "pair_coverage_min": 0.9,
+    "source_bootstrap_direction_ci95_lower_min": 0.75,
+    "minimum_models": 2
+  },
+  "observed_confirmation": {
+    "Epona": {
+      "pair_coverage": 0.9482758620689655,
+      "direction_accuracy": 0.8363636363636363,
+      "source_bootstrap_ci95": [0.793939393939394, 0.8757575757575757],
+      "reversed_action_accuracy": 0.16363636363636364,
+      "status": "passed"
+    },
+    "DriveWAM": {
+      "pair_coverage": 0.9597701149425287,
+      "direction_accuracy": 0.8143712574850299,
+      "source_bootstrap_ci95": [0.7664670658682635, 0.8622754491017964],
+      "reversed_action_accuracy": 0.18562874251497005,
+      "status": "passed"
+    }
+  },
+  "reports": [
+    "reports/mas_yaw_epona_20260912.json",
+    "reports/mas_yaw_drivewam_20260912.json"
+  ],
+  "claim_boundary": "MAS is a directional yaw-alignment score; it does not claim metric trajectory fidelity or future-to-action mediation.",
+  "missing_value_policy": "unavailable_never_zero_fill"
+}

@@ -198,6 +198,25 @@ calibration 分支的 coverage 为 `98.3%`，GS 中位数 `0.503`，随机身份
 [`reports/mas_independent_drivewam_20260912.json`](reports/mas_independent_drivewam_20260912.json)
 和 [`tools/calibrate_mas_structure.py`](tools/calibrate_mas_structure.py)。
 
+**冻结的 MAS-yaw 方向变体：**
+
+正式 MAS 范围收窄为方向一致性：对每个分支，将可用 interval 的
+`horizontal_flow_center` 中位数符号与 native terminal yaw 符号比较。方向适配器和
+死区只用 logged real future 校准并在确认集前冻结；不做米制轨迹重建，因此不声称
+距离、速度、横向位移或曲率精度。
+
+| 模型 | twin 覆盖率 | 方向准确率 | source bootstrap 95% CI | 反向动作准确率 |
+|---|---:|---:|---:|---:|
+| Epona | `94.8%` | `83.6%` | `[79.4%, 87.6%]` | `16.4%` |
+| DriveWAM | `96.0%` | `81.4%` | `[76.6%, 86.2%]` | `18.6%` |
+
+两个模型均通过 MAS-yaw 冻结门槛（覆盖率 ≥90%，bootstrap 下界 ≥75%）。progress、
+速度、横向距离、曲率以及绝对轨迹对齐仍为 diagnostic-only。完整定义和产物见
+[`configs/mas_yaw_v1.json`](configs/mas_yaw_v1.json)、
+[`reports/mas_yaw_epona_20260912.json`](reports/mas_yaw_epona_20260912.json)、
+[`reports/mas_yaw_drivewam_20260912.json`](reports/mas_yaw_drivewam_20260912.json)
+和 [`tools/score_mas_yaw_direction.py`](tools/score_mas_yaw_direction.py)。
+
 同一 pure-speed twin 上的 NeuFlow-only 光流 A/B 也未改善结果：Epona 的 fast>slow
 顺序准确率为 `69.5%`，DriveWAM 为 `43.0%`。因此更换光流 backbone 不是当前缺口的
 直接修复。结果见

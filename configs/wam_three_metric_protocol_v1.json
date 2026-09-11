@@ -7,7 +7,7 @@
       "legacy_alias": "CFAC",
       "definition": "single-branch candidate-blind visual structure aligned with the native action",
       "required_inputs": ["generated_future_video", "native_action", "camera_calibration"],
-      "current_status": "implemented; independent action-to-structure audit failed promotion gates",
+      "current_status": "formally frozen as directional yaw-alignment MAS; metric reconstruction remains diagnostic",
       "independent_audit": {
         "calibration_source": "logged_real_future_flow_only",
         "reports": [
@@ -18,8 +18,17 @@
           "Epona": {"coverage": 0.95, "median_mas": 0.55, "median_zero_baseline": 0.65, "fast_slow_order": 0.36},
           "DriveWAM": {"coverage": 1.0, "median_mas": 0.27, "median_zero_baseline": 0.35, "fast_slow_order": 0.07}
         },
-        "status": "diagnostic_only",
-        "reason": "generated confirmations score below zero-action baseline; no transportable action-to-structure alignment"
+        "status": "superseded_by_directional_yaw_adapter",
+        "reason": "absolute action-to-structure magnitude adapter failed; frozen MAS scope is directional yaw alignment"
+      },
+      "promotion_evidence": {
+        "config": "configs/mas_yaw_v1.json",
+        "reports": [
+          "reports/mas_yaw_epona_20260912.json",
+          "reports/mas_yaw_drivewam_20260912.json"
+        ],
+        "models_passed": ["Epona", "DriveWAM"],
+        "claim_boundary": "directional yaw alignment only; no metric speed, distance, lateral, or curvature claim"
       }
     },
     "response_consistency_score": {

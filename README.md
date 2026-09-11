@@ -277,6 +277,26 @@ GS 的 source-disjoint generated calibration 为 `230` 个分支，coverage `98.
 这组结果说明直接把结构流拟合成 action-aligned MAS 仍受模型域差异影响，
 不能与上面的 RCS/GS 分数混排；它保留作诊断和后续校准依据。
 
+**Frozen MAS-yaw variant.**  The metric scope is now explicitly directional:
+the median `horizontal_flow_center` sign over a branch is compared with the
+sign of the native terminal yaw.  Orientation and deadbands are frozen from
+logged real future flow; source-level bootstrap is used for confirmation.  This
+avoids metric trajectory reconstruction, but it must not be interpreted as a
+metre-domain motion score.
+
+| Model | twin coverage | direction accuracy | source-bootstrap 95% CI | reversed-action accuracy |
+|---|---:|---:|---:|---:|
+| Epona | `94.8%` | `83.6%` | `[79.4%, 87.6%]` | `16.4%` |
+| DriveWAM | `96.0%` | `81.4%` | `[76.6%, 86.2%]` | `18.6%` |
+
+Both models pass the frozen MAS-yaw gates (coverage ≥90%, bootstrap lower
+bound ≥75%).  Progress, speed, lateral displacement, curvature, and absolute
+trajectory alignment remain diagnostic-only.  Full artifacts are
+[`configs/mas_yaw_v1.json`](configs/mas_yaw_v1.json),
+[`reports/mas_yaw_epona_20260912.json`](reports/mas_yaw_epona_20260912.json),
+[`reports/mas_yaw_drivewam_20260912.json`](reports/mas_yaw_drivewam_20260912.json),
+and [`tools/score_mas_yaw_direction.py`](tools/score_mas_yaw_direction.py).
+
 An independent, candidate-blind action-to-structure calibration was also
 run using logged real future flow only, then applied once to untouched pure-
 speed generated confirmations.  It is an audit of the MAS interface, not a

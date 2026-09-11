@@ -27,9 +27,9 @@
     "step2_single_branch_alignment": {
       "canonical_metric": "Motion Alignment Score",
       "legacy_alias": "CFAC",
-      "status": "interface_defined_calibration_pending",
+      "status": "frozen_directional_yaw_variant",
       "formula": "MAS = alignment(S_F, structuralized P_A)",
-      "warning": "Requires a frozen action-to-structure calibration; does not replace metric CFAC"
+      "warning": "Frozen MAS scope is directional yaw alignment; metric distance/progress/lateral/curvature adapters remain diagnostic and do not replace metric CFAC"
     },
     "future_to_action": {
       "status": "design_defined_not_run",
@@ -58,5 +58,5 @@
     "holdout_required": true,
     "calibration_before_confirmation": true
   },
-  "current_claim": "The framework is specified; S1.3 yaw action-response is validated, an independent candidate-blind MAS action-to-structure audit has been run on Epona and DriveWAM but fails the zero-action and transportability controls, RCS has a structural pilot but fails formal promotion pending stronger scene-disjoint confirmation, GS is formally frozen for external-future grounding, and future-to-action mediation remains unvalidated."
+  "current_claim": "The framework is specified; S1.3 yaw action-response and the directional-yaw MAS variant are validated on Epona and DriveWAM with source-level bootstrap gates passed, while metric magnitude/progress MAS remains diagnostic. RCS has a structural pilot but fails formal promotion pending stronger scene-disjoint confirmation, GS is formally frozen for external-future grounding, and future-to-action mediation remains unvalidated."
 }
