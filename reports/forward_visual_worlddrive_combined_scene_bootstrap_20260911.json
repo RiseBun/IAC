@@ -1,0 +1,14 @@
+{
+  "protocol": "iac-ccfc-structure-forward-v1",
+  "model": "WorldDrive",
+  "source_report": "reports/forward_visual_worlddrive_combined_dedup_twin_controls_20260911.json",
+  "cluster_key": "scene_id parsed from source_key",
+  "n_twins": 13,
+  "n_scene_clusters": 11,
+  "scene_direction_accuracy": 0.9090909091,
+  "scene_direction_accuracy_bootstrap_ci95": [0.7272727273, 1.0],
+  "scene_median_direction_cosine_mean": 0.8369687404,
+  "scene_median_direction_cosine_bootstrap_ci95": [0.6370967398, 0.9638423359],
+  "bootstrap": {"resamples": 20000, "seed": 13, "statistic": "mean over scene clusters"},
+  "interpretation": "按 scene 聚类后方向仍主要为正，但 11 个 scene 的样本量不足以证明 95% 下界达到 0.75；正式确认需新增场景。"
+}

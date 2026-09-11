@@ -236,3 +236,9 @@ WorldDrive twin。 pooled normal direction cosine 仍为 `0.998`，response gain
 这组 twin 上没有足够强的可读反事实响应，因此不能把 coverage 高误读成几何保真度。
 它进一步说明候选量确实能把“强正确响应”（WorldDrive）与“弱/无响应”（DriveVA、
 DriveWAM）分开。DriveVA 同样只有 10 个 twin，结果不用于正式 promotion。
+对合并池进一步按 scene 聚类并做 20,000 次 bootstrap：11 个 scene 中 10 个方向为正，
+scene-level 方向准确率为 `0.909`，95% 区间 `[0.727, 1.000]`；scene 聚合方向余弦
+均值为 `0.837`，区间 `[0.637, 0.964]`。这一步避免把同一 scene 的多个窗口当成
+独立证据，但也说明当前场景数不足以证明下界达到预注册的 `0.75`。完整计算记录在
+`reports/forward_visual_worlddrive_combined_scene_bootstrap_20260911.json`；在新增
+scene 前不改变 promotion 判据。
