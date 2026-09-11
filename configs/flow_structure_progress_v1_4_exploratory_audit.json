@@ -4,7 +4,7 @@
   "decision": {
     "selected_step1": "configs/flow_structure_yaw_v1_3.json",
     "progress_channel": "diagnostic_only",
-    "reason": "No tested RAFT reliability rule jointly met the preregistered coverage and direction-accuracy gates on logged real motion."
+    "reason": "Logged-real calibration and the independent cross-model pure-speed confirmation did not jointly meet the preregistered coverage, direction, and transportability gates."
   },
   "acceptance_criteria": {
     "coverage_min": 0.9,
@@ -72,12 +72,22 @@
     "result": "ci_lower_bound_failed"
   },
   "interpretation_boundary": {
-    "established": "Ideal radial expansion is measurable, and Epona has a weak ordinal response to orthogonal progress interventions.",
-    "not_established": "A high-coverage, model-agnostic progress primary metric.",
+    "established": "Ideal radial expansion is measurable; Epona shows a weak orthogonal progress response, but DriveWAM does not replicate it on the independent pure-speed confirmation.",
+    "not_established": "A high-coverage, model-agnostic progress primary metric or a cross-model progress response.",
     "next_required_information": [
       "depth-aware or multi-camera motion separation",
       "or a generated-domain flow estimator calibrated on known motion interventions"
     ]
+  },
+  "cross_model_pure_speed_confirmation": {
+    "artifact": "reports/pure_speed_confirmation_20260911.json",
+    "status": "not_promoted",
+    "epona_direction_accuracy": 0.7678571428571429,
+    "epona_direction_ci95_lower": 0.6423184678498916,
+    "epona_spearman": -0.03725222146274778,
+    "drivewam_direction_accuracy": 0.4878048780487805,
+    "drivewam_direction_ci95_lower": 0.38260895860619915,
+    "drivewam_spearman": 0.0765050522340493
   },
   "private_artifacts": [
     "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/s1_4_progress_epona_exploratory_20260911",

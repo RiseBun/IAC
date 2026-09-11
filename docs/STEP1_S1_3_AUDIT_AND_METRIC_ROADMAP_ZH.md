@@ -79,16 +79,20 @@ CCFC-S 升级为正式 primary；在 CFAC-S 校准完成前，不报告结构域
 
 ## 执行状态（2026-09-11）
 
-- **pure-speed confirmation：未完成。** 当前可访问的 DriveWAM 255 对、DriveVA
-  50-twin 和 WorldDrive swap 均不是满足“纯速度互换、同 history、标签互换、
-  scene-disjoint calibration/confirmation”的确认集，因此不计入 progress promotion。
-  正式输入必须显式声明 `intervention_type=pure_speed`、快慢身份、模型 ID、
-  calibration/confirmation split 和 twin 原子 ID。
+- **pure-speed confirmation：已完成但未通过 promotion。** scene-disjoint 的
+  confirmation twin 已在 Epona（59 个满足 history contract 的 source）和
+  DriveWAM（86 个 source）上生成并测量。Epona 的 coverage 为 `94.9%`、方向
+  `76.8%`（CI 下界 `0.642`）、ρ `-0.037`；DriveWAM 的 coverage 为 `100%`、
+  方向 `48.8%`（CI 下界 `0.383`）、ρ `0.077`。因此 progress 没有跨模型稳定
+  信号，继续保持 `diagnostic_only`。正式输入仍必须显式声明
+  `intervention_type=pure_speed`、快慢身份、模型 ID、calibration/confirmation
+  split 和 twin 原子 ID。
 - **CFAC-S calibration：未完成。** 现有 `evaluate_cfac_fau.py` 只实现米制
   SE(2) CFAC/FAU join，不是结构域的 action→structure 校准。CFAC-S 在独立校准集
   拟合映射、冻结版本和 SHA 之前保持 `unavailable`。
-- **当前对外状态：** S1.3 yaw action-response 可报告；progress 仍为
-  `diagnostic_only`；CCFC-S 为框架就绪但确认待完成；CFAC-S 为校准待完成。
+- **当前对外状态：** S1.3 yaw action-response 可报告；progress 已完成跨模型
+  confirmation 但未通过晋级门，仍为 `diagnostic_only`；CCFC-S 的 progress
+  版本不作为正式 primary；CFAC-S 为校准待完成。
 
 ## 已准备的 pure-speed action roots
 

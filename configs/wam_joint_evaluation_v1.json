@@ -54,5 +54,5 @@
     "holdout_required": true,
     "calibration_before_confirmation": true
   },
-  "current_claim": "The framework is specified; S1.3 yaw action-response is validated, while CCFC-S progress channels, CFAC-S calibration, and future-to-action mediation remain to be experimentally validated."
+  "current_claim": "The framework is specified; S1.3 yaw action-response is validated, the independent pure-speed progress confirmation is complete but fails promotion, CFAC-S calibration remains pending, and future-to-action mediation remains unvalidated."
 }
