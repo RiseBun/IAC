@@ -1,0 +1,42 @@
+{
+  "protocol": "iac-mas-sequence-internal-split-pilot-v1",
+  "status": "exploratory_not_for_promotion",
+  "purpose": "Stress-test action-conditioned sequence features before an independent generated calibration split exists.",
+  "split": {
+    "source_partition": "deterministic alternating source keys within the existing pure-speed confirmation artifacts",
+    "warning": "The artifacts were previously used for confirmation, so this split is not an independent confirmation result."
+  },
+  "models": {
+    "epona_nuplan": {
+      "calibration_sources": 30,
+      "test_sources": 29,
+      "single_descriptor": {
+        "median_flow_magnitude_px": {
+          "n": 27,
+          "accuracy": 0.7777777778
+        }
+      },
+      "majority_fusion": {
+        "descriptors": ["median_flow_magnitude_px", "vertical_flow_center", "divergence", "curl", "horizontal_flow_center"],
+        "n": 27,
+        "accuracy": 0.7037037037
+      }
+    },
+    "drivewam_navsim": {
+      "calibration_sources": 43,
+      "test_sources": 43,
+      "single_descriptor": {
+        "median_flow_magnitude_px": {
+          "n": 43,
+          "accuracy": 0.511627907
+        }
+      },
+      "majority_fusion": {
+        "descriptors": ["median_flow_magnitude_px", "vertical_flow_center", "divergence", "curl", "horizontal_flow_center"],
+        "n": 43,
+        "accuracy": 0.488372093
+      }
+    }
+  },
+  "claim_boundary": "No MAS promotion decision. A generated calibration split with frozen model-specific mapping is required before confirmation scoring."
+}
