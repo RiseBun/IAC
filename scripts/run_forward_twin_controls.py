@@ -30,6 +30,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--min-vector-norm", type=float, default=0.10)
     args = parser.parse_args()
     records = []
     for path in sorted(args.root.glob("*.json")):
@@ -63,9 +64,9 @@ def main() -> None:
             "zero": (right_expected, right_expected),
         }
         for control, (expected_left, expected_right) in controls.items():
-            score = score_twin_differential_consistency(left_flow, right_flow, expected_left, expected_right, valid_mask=common)
+            score = score_twin_differential_consistency(left_flow, right_flow, expected_left, expected_right, valid_mask=common, min_vector_norm_px=args.min_vector_norm)
             rows.append({"source_key": source, "control": control, **{key: score[key] for key in ("status_counts", "interval_coverage", "median_residual_px", "median_observed_delta_px", "median_expected_delta_px", "median_direction_cosine", "median_direction_vector_fraction")}})
-    summary = {"protocol": "iac-twin-differential-forward-consistency-v1", "controls": {control: {key: (float(np.median([row[key] for row in rows if row["control"] == control and row[key] is not None])) if any(row["control"] == control and row[key] is not None for row in rows) else None) for key in ("interval_coverage", "median_residual_px", "median_observed_delta_px", "median_expected_delta_px", "median_direction_cosine", "median_direction_vector_fraction")} for control in ("normal", "reversed", "zero")}}
+    summary = {"protocol": "iac-twin-differential-forward-consistency-v1", "min_vector_norm_px": args.min_vector_norm, "controls": {control: {key: (float(np.median([row[key] for row in rows if row["control"] == control and row[key] is not None])) if any(row["control"] == control and row[key] is not None for row in rows) else None) for key in ("interval_coverage", "median_residual_px", "median_observed_delta_px", "median_expected_delta_px", "median_direction_cosine", "median_direction_vector_fraction")} for control in ("normal", "reversed", "zero")}}
     normal = [row["median_observed_delta_px"] / row["median_expected_delta_px"] for row in rows if row["control"] == "normal" and row["median_expected_delta_px"] and row["median_expected_delta_px"] > 0]
     summary["normal_response_gain_median"] = float(np.median(normal)) if normal else None
     summary["normal_response_gain_q25"] = float(np.quantile(normal, 0.25)) if normal else None
