@@ -129,6 +129,21 @@ SE(2) 自由拟合回答的是“有没有某条轨迹能解释图像”，不�
 `configs/forward_visual_consistency_v1.json`。它目前是 experimental diagnostic，
 不是 S1.3 primary；阈值必须在 held-out real videos 上冻结，并通过 normal / reversed /
 identity / zero controls 和至少两个 WAM 的 scene-disjoint confirmation。
+
+#### 前向一致性首轮真实/生成对照（2026-09-11）
+
+在同一批 Epona source 上，使用同一 RAFT、同一相机几何和同一道路 ROI：
+
+| 输入 | interval residual 中位数 | direction cosine 中位数 | reliable interval fraction |
+|---|---:|---:|---:|
+| logged-real（59 source） | `2.43 px` | `0.633` | `5.1%` |
+| generated（118 branches） | `5.35 px` | `0.356` | `4.0%` |
+
+生成帧 residual 约为真实帧的 `2.2×`，方向余弦更低；这支持“生成视觉运动与给定
+轨迹的前向后果偏离”的假设，但还不是最终几何保真度结论。可靠 interval fraction
+较低，主要因为 4 秒前向投影的有效道路区域在部分时刻不足；这些 interval 被标为
+`unavailable`，没有被 zero-fill。下一步必须在真实 held-out 集上校准 residual/support
+阈值，并补 normal / reversed / identity controls 后才能形成正式分数。
 ```
 
 S1.3 yaw 保持唯一冻结主通道；任何新通道都必须通过独立校准、双模型确认和控制
