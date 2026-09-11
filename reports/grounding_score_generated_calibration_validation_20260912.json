@@ -1,0 +1,15 @@
+{
+  "protocol": "iac-grounding-score-calibration-validation-v1",
+  "status": "source_disjoint_generated_calibration",
+  "generated_measurements": 230,
+  "matched_branches": 230,
+  "scored_branches": 226,
+  "coverage": 0.9826086956521739,
+  "score_median": 0.5026857149426764,
+  "score_q25": 0.3229761457789917,
+  "score_q75": 0.6404060497378302,
+  "identity_shuffle_mean": 0.2885597553877118,
+  "identity_shuffle_q95": 0.3032958199638014,
+  "calibration_scales": "grounding_score_calibration_real_navsim_20260911.json",
+  "claim_boundary": "This validates candidate aggregation on source-disjoint generated calibration data; it is not the untouched confirmation result."
+}
