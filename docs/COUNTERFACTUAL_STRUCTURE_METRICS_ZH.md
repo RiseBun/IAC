@@ -67,3 +67,9 @@ split 冻结 descriptor 聚合、尺度和缺失策略，再在 untouched confir
 calibration 验证：候选 GS coverage `98.3%`、中位数 `0.503`，随机身份置换均值
 `0.289`（95% 上界 `0.303`）。因此聚合规则在 source-disjoint 生成数据上保持稳定。
 正式协议仍需将该规则写入冻结配置，并在 untouched confirmation 上按预注册门槛验收。
+
+按 source/twin 原子做 20,000 次 bootstrap 后，Epona confirmation 的 GS 中位数为
+`0.550`（95% CI `[0.487, 0.635]`），DriveWAM 为 `0.191`（`[0.158, 0.215]`），
+两模型 paired 差值为 `0.314`（`[0.251, 0.340]`）。这些区间均按 source 聚类计算，
+不是把左右分支当作独立样本；因此 GS candidate 已达到“可冻结候选”的证据门槛，但
+正式发布仍需完成最终协议版本号和 SHA 固定。
