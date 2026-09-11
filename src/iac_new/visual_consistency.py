@@ -234,6 +234,11 @@ def score_twin_differential_consistency(
         })
         rows.append(row)
     scored = [row for row in rows if row["status"] == "scored"]
+    aligned_cosines = [
+        float(row["direction_cosine"])
+        for row in scored
+        if row.get("direction_cosine") is not None
+    ]
     return {
         "protocol": "iac-twin-differential-forward-consistency-v1",
         "candidate_blind": True,
@@ -246,6 +251,10 @@ def score_twin_differential_consistency(
         "median_expected_delta_px": float(np.median([row["median_expected_delta_px"] for row in scored])) if scored else None,
         "median_direction_cosine": float(np.median([row["direction_cosine"] for row in scored if row["direction_cosine"] is not None])) if any(row["direction_cosine"] is not None for row in scored) else None,
         "median_direction_vector_fraction": float(np.median([row["direction_vector_fraction"] for row in scored])) if scored else None,
+        "temporal_persistence": (
+            float(np.mean(np.asarray(aligned_cosines) > 0.0))
+            if aligned_cosines else None
+        ),
         "median_support_fraction": float(np.median([row["support_fraction"] for row in scored])) if scored else None,
         "minimum_support_fraction": float(np.min([row["support_fraction"] for row in scored])) if scored else None,
         "rows": rows,

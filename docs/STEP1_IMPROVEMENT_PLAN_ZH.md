@@ -212,7 +212,7 @@ gain 中位数 `0.956`（IQR `0.954–1.026`）。随后在独立的 eval25 池�
 twin（20 个分支、10 个场景），得到 normal/reversed direction cosine
 `+0.998/−0.998`、normal response gain `1.469`（IQR `1.140–2.284`），所有
 normal twin 的方向余弦均为正，且正常相对反向的 residual margin 中位数为
-`146.7 px`。阈值 `0.05–1.0 px` 下结果不变。该扩展强化了“WorldDrive 的方向响应
+`146.7 px`，normal temporal persistence 为 `1.0`。阈值 `0.05–1.0 px` 下结果不变。该扩展强化了“WorldDrive 的方向响应
 可被结构量读出”的 pilot 证据，并与 Epona（方向正确、增益约 `0.232`）和 DriveWAM
 （无可检测分支响应、增益约 `0.0045`）形成可解释的三模型梯度；但 WorldDrive
 仍只有 10 个扩展 twin，95% 二项下界约 `0.692`，不能满足 `≥0.75` 的正式
@@ -222,7 +222,8 @@ promotion 门槛。统一数值已写入
 
 作为额外的跨模型 sanity check，DriveVA 的 10-twin 生成池也使用同一协议完成了
 流提取和 normal/reversed/zero controls。其 normal/reversed direction cosine 为
-`+0.129/−0.129`，normal response gain 为 `0.061`，normal 与 reversed residual
+`+0.129/−0.129`，normal response gain 为 `0.061`，normal temporal persistence 为
+`0.786`，normal 与 reversed residual
 仅相差约 `1.08 px`；阈值敏感性下方向余弦仍接近零。这不是协议失效，而是该模型在
 这组 twin 上没有足够强的可读反事实响应，因此不能把 coverage 高误读成几何保真度。
 它进一步说明候选量确实能把“强正确响应”（WorldDrive）与“弱/无响应”（DriveVA、

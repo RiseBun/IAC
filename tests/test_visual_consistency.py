@@ -6,6 +6,7 @@ import numpy as np
 
 from iac_new.visual_consistency import (
     score_trajectory_visual_consistency,
+    score_twin_differential_consistency,
     trajectory_conditioned_flow,
 )
 
@@ -54,6 +55,22 @@ class VisualConsistencyTest(unittest.TestCase):
         self.assertEqual(report["status_counts"]["scored"], 1)
         self.assertAlmostEqual(report["median_residual_px"], 0.0)
         self.assertAlmostEqual(report["median_direction_cosine"], 1.0)
+
+    def test_twin_score_reports_signed_temporal_persistence(self) -> None:
+        observed_left = np.zeros((2, 4, 4, 2), dtype=np.float64)
+        observed_right = np.zeros_like(observed_left)
+        expected_left = np.zeros_like(observed_left)
+        expected_right = np.zeros_like(observed_left)
+        observed_left[..., 0] = 1.0
+        expected_left[..., 0] = 1.0
+        report = score_twin_differential_consistency(
+            observed_left, observed_right, expected_left, expected_right
+        )
+        self.assertAlmostEqual(report["temporal_persistence"], 1.0)
+        reversed_report = score_twin_differential_consistency(
+            observed_left, observed_right, expected_right, expected_left
+        )
+        self.assertAlmostEqual(reversed_report["temporal_persistence"], 0.0)
 
 
 if __name__ == "__main__":
