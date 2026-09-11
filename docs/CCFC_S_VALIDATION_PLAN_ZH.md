@@ -98,3 +98,12 @@ WAM 质量排名，也不能替代尚未完成的独立 pure-speed twin 确认�
 为 `[0.397, 0.892]`，倒序/身份错配为 `3/10`，零差异为 `unavailable`。由于 twin
 数太少且 CI 很宽，这只是 adapter 与第三模型的 pilot，不满足正式 promotion gate。
 原始 DriveVA manifest 不被覆盖，派生修正仅用于验证。
+
+随后在 scene-disjoint 的 50-twin DriveVA holdout 上，用同一冻结 S1.3 和同一
+`direct_resize` adapter 运行结构控制。该集合是 command-conditioned replication，
+不是 pure-speed：pair coverage 为 `46/50 = 92.0%`，方向命中为 `20/38 = 52.6%`，
+95% CI 为 `[0.373, 0.675]`，Spearman 为 `0.258`；倒序和身份错配均为 `18/38`
+（Spearman `−0.258`），零差异按契约为 `unavailable`。因此 DriveVA 的 coverage
+达到门槛，但结构 yaw 响应未达到方向和 CI 门槛。该结果是模型/数据条件下的真实
+负结果：它不推翻 S1.3 在 DriveWAM/Epona 的受控 observer 验证，也不能把 DriveVA
+自然质量排名解释成 CCFC-S 失败或成功。

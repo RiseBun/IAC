@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -80,7 +81,14 @@ def _zero_contrast(measurements: list[dict[str, Any]], descriptor: str) -> list[
             left_item = left_rows[interval]
             right_item = right_rows[interval]
             if descriptor in left_item and descriptor in right_item:
-                midpoint = 0.5 * (float(left_item[descriptor]) + float(right_item[descriptor]))
+                try:
+                    left_value = float(left_item[descriptor])
+                    right_value = float(right_item[descriptor])
+                except (TypeError, ValueError):
+                    continue
+                if not math.isfinite(left_value) or not math.isfinite(right_value):
+                    continue
+                midpoint = 0.5 * (left_value + right_value)
                 left_item[descriptor] = midpoint
                 right_item[descriptor] = midpoint
     return output
