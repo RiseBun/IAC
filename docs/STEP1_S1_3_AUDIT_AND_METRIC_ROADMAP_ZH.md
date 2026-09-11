@@ -97,14 +97,16 @@ CCFC-S 升级为正式 primary；在 CFAC-S 校准完成前，不报告结构域
 `/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_confirmation_roots_v2_20260911`
 
 该集合来自 255 个去重 source，使用 temporal-fixed 的 8 点 action 轨迹，按 scene
-hash 拆为 calibration `168` twins 和 confirmation `87` twins，共 `510` 个分支；
+hash 拆为 calibration `169` twins 和 confirmation `86` twins，共 `510` 个分支；
 包含 acceleration `64`、lateral_turn
 `104`、braking `52`、straight_cruise `29`、stop `6`，并声明
 `model_ids=[drivewam_navsim,epona_nuplan]`。每个 twin 的 fast/slow 分支使用
 `1.25×/0.75×` XY translation，yaw 逐点保持不变，history、nuisance 和 source
 保持相同。当前状态为 `action_roots_ready_images_pending`：还没有把这组 roots
-冒充成模型生成的 future images；必须分别用两个模型生成图像后，才可进入
-CCFC-S 的 calibration/confirmation 运行。
+冒充成模型生成的 future images；Epona runner 的确认集 smoke 已完成 `2` 个
+source，完整确认运行已覆盖 `59` 个满足 history contract 的 source；仍必须让
+DriveWAM 与 Epona 生成同口径图像后，才可进入 CCFC-S 的 calibration/confirmation
+运行。
 
 此前的 `pure_speed_confirmation_roots_20260911` 使用了旧的 4 点 action 口径，
 已被 v2 替代，不得与本确认集混用。

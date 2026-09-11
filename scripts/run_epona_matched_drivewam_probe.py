@@ -133,6 +133,9 @@ def _flow_row(
     future_paths: list[str],
     action: np.ndarray,
     seed: int,
+    action_trajectory_source: str = "matched_drivewam_navsim_action_head",
+    future_images_source: str = "epona_generated_matched_drivewam_action",
+    protocol: str = "same_source_same_physical_action_v1",
 ) -> dict[str, Any]:
     metadata = item["metadata"]
     anchor = item["window"][9]
@@ -175,14 +178,14 @@ def _flow_row(
             },
         },
         "action_trajectory": action[selected].tolist(),
-        "action_trajectory_source": "matched_drivewam_navsim_action_head",
-        "future_images_source": "epona_generated_matched_drivewam_action",
+        "action_trajectory_source": action_trajectory_source,
+        "future_images_source": future_images_source,
         "wam_model_id": "epona_nuplan",
         "candidate_bank_used_by_decoder": False,
         "command_override": branch,
         "metadata": {
             "stratum": metadata["stratum"],
-            "protocol": "same_source_same_physical_action_v1",
+            "protocol": protocol,
             "source_sample": item["sample_path"],
             "epona_history_frames": 10,
             "randomness_contract": {
@@ -211,6 +214,9 @@ def main() -> None:
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--device", default="cuda:0")
+    parser.add_argument("--action-trajectory-source", default="matched_drivewam_navsim_action_head")
+    parser.add_argument("--future-images-source", default="epona_generated_matched_drivewam_action")
+    parser.add_argument("--protocol", default="same_source_same_physical_action_v1")
     args = parser.parse_args()
 
     if not 0 <= args.shard_index < args.num_shards:
@@ -299,7 +305,9 @@ def main() -> None:
                         "branch_mode": branch,
                         "future_images": future_paths,
                         "action_trajectory": action.tolist(),
-                        "action_trajectory_source": "matched_drivewam_navsim_action_head",
+                        "action_trajectory_source": args.action_trajectory_source,
+                        "future_images_source": args.future_images_source,
+                        "protocol": args.protocol,
                         "random_seed": branch_seed,
                     }
                 )
@@ -311,6 +319,9 @@ def main() -> None:
                         future_paths,
                         action,
                         branch_seed,
+                        args.action_trajectory_source,
+                        args.future_images_source,
+                        args.protocol,
                     )
                 )
                 del latents
