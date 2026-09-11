@@ -22,7 +22,7 @@
         "reason": "absolute action-to-structure magnitude adapter failed; frozen MAS scope is directional yaw alignment"
       },
       "promotion_evidence": {
-        "config": "configs/rcs_yaw_v1.json",
+        "config": "configs/mas_yaw_v1.json",
         "reports": [
           "reports/mas_yaw_epona_20260912.json",
           "reports/mas_yaw_drivewam_20260912.json"
@@ -38,7 +38,7 @@
       "required_inputs": ["left_future_video", "right_future_video", "left_action", "right_action", "shared_history", "controls"],
       "current_status": "formally frozen as directional yaw-response RCS; progress variant remains diagnostic",
       "promotion_evidence": {
-        "config": "configs/mas_yaw_v1.json",
+        "config": "configs/rcs_yaw_v1.json",
         "reports": [
           "reports/rcs_yaw_epona_20260912.json",
           "reports/rcs_yaw_drivewam_20260912.json"
