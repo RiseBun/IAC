@@ -152,6 +152,13 @@ identity / zero controls 和至少两个 WAM 的 scene-disjoint confirmation。
 normal（`5.35 px`），说明当前地面平面前向模型尚未可靠恢复 pure-speed 的动作身份。
 因此这个通道目前只能证明“视频存在运动且可被几何假设部分解释”，不能证明“运动由
 给定分支动作正确诱导”。这也是正式接入 CCFC-S 前必须解决的控制条件。
+
+进一步的 twin differential 控制显示：normal 的 `ΔF_video` 与 `ΔF_action` 方向余弦
+为 `+0.416`，reversed 为 `−0.416`；但观测分支差中位数仅 `2.90 px`，轨迹诱导差异
+约 `15.13 px`。因此当前最可信的读出是**方向/排序响应**，不是幅度或米制保真度：
+normal 比 reversed 好（residual `13.17` 对 `17.43 px`），但 zero-difference 的
+residual 仍最低（`2.90 px`）。该结果支持把 twin differential 作为结构性 CCFC-S
+候选，同时明确禁止把它解释成绝对运动重建。
 ```
 
 S1.3 yaw 保持唯一冻结主通道；任何新通道都必须通过独立校准、双模型确认和控制
