@@ -33,7 +33,8 @@ def annotate(output_root: Path, fast_root: Path, slow_root: Path) -> int:
         rows = _read(path)
         for row in rows:
             source = str(row.get("source_key") or "")
-            role = roles.get(source)
+            branch = str(row.get("branch_mode") or row.get("branch_role") or "")
+            role = {"left": "fast", "right": "slow"}.get(branch, roles.get(source))
             if role is None:
                 continue
             row["protocol"] = "iac-pure-speed-twin-v1"
@@ -50,7 +51,8 @@ def annotate(output_root: Path, fast_root: Path, slow_root: Path) -> int:
         rows = _read(path)
         for row in rows:
             source = str(row.get("source_key") or "")
-            role = roles.get(source)
+            branch = str(row.get("branch_role") or row.get("branch_mode") or "")
+            role = {"left": "fast", "right": "slow"}.get(branch, roles.get(source))
             if role is None:
                 continue
             row["protocol"] = "iac-pure-speed-twin-v1"
