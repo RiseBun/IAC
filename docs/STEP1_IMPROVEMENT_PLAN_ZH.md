@@ -221,6 +221,13 @@ promotion 门槛。统一数值已写入
 `reports/ccfc_structure_forward_scorecard_20260911.json`，下一步仍是更大、场景
 隔离的第三模型确认与独立真实视频阈值校准。
 
+将首个 5-twin 池与 eval25 池按 `(source_key, branch_role)` 去重后得到 13 个
+WorldDrive twin。 pooled normal direction cosine 仍为 `0.998`，response gain
+为 `1.426`，但方向并非全场景稳定：12/13 个 twin 为正，scene 聚类为 10/11
+个为正（95% 二项下界分别约 `0.640` 和 `0.587`）。因此 eval25 的 10/10
+正方向不能作为正式 promotion 证据；该合并结果反而暴露了场景级稳定性缺口，
+后续 confirmation 必须预先固定 scene-level 方向准确率和置信区间。
+
 作为额外的跨模型 sanity check，DriveVA 的 10-twin 生成池也使用同一协议完成了
 流提取和 normal/reversed/zero controls。其 normal/reversed direction cosine 为
 `+0.129/−0.129`，normal response gain 为 `0.061`，normal temporal persistence 为
