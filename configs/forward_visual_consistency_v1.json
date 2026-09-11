@@ -1,0 +1,31 @@
+{
+  "protocol": "iac-forward-visual-consistency-v1",
+  "status": "experimental_not_frozen",
+  "candidate_blind": true,
+  "metric_reconstruction_used": false,
+  "hypothesis": "given trajectory induces the observed generated-video motion",
+  "geometry": {
+    "default_model": "ground_plane",
+    "depth_model_status": "diagnostic_only",
+    "requires_explicit_intrinsics_source_size": true
+  },
+  "scoring": {
+    "min_valid_fraction": 0.2,
+    "max_median_residual_px": 3.0,
+    "min_direction_cosine": 0.0,
+    "residual_inlier_threshold_px": 2.0,
+    "invalid_policy": "exclude_from_evidence_and_report_unavailable"
+  },
+  "calibration": {
+    "thresholds_fit_on": "held_out_real_logged_videos",
+    "confirmation_must_be_scene_disjoint": true,
+    "no_free_trajectory_optimization": true
+  },
+  "promotion": {
+    "not_primary": true,
+    "requires_normal_reversed_identity_zero_controls": true,
+    "requires_two_model_confirmation": true,
+    "requires_semantic_or_twin_cross_check": true
+  },
+  "warning": "This score tests a supplied trajectory against image motion; it is not a free trajectory estimator and is not metric fidelity by itself."
+}

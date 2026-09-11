@@ -115,6 +115,20 @@ scale-agnostic monocular depth；Depth Anything V2 是稳健的相对深度候�
                 +--> robust SE(2) / 3D motion (diagnostic only)
 
 每个 channel 独立输出 reliable / weak / unavailable
+
+### 3.1 前向视觉一致性（新主攻方向）
+
+SE(2) 自由拟合回答的是“有没有某条轨迹能解释图像”，不是“给定轨迹是否
+解释图像”。因此新增一个不做自由优化的实验协议：由给定的 `[x, y, yaw]`
+轨迹和相机几何前向生成预期流场，再与视频实际流场逐 interval 比较。可用地面
+平面模型，也可接入深度模型；两者都必须把投影无效区域从证据中排除并报告
+`unavailable`，不能 zero-fill。
+
+该协议输出 robust flow residual、方向余弦、inlier fraction 和 interval coverage，
+代码位于 `src/iac_new/visual_consistency.py`，配置位于
+`configs/forward_visual_consistency_v1.json`。它目前是 experimental diagnostic，
+不是 S1.3 primary；阈值必须在 held-out real videos 上冻结，并通过 normal / reversed /
+identity / zero controls 和至少两个 WAM 的 scene-disjoint confirmation。
 ```
 
 S1.3 yaw 保持唯一冻结主通道；任何新通道都必须通过独立校准、双模型确认和控制
@@ -140,5 +154,7 @@ S1.3 yaw 保持唯一冻结主通道；任何新通道都必须通过独立校�
 - **不**直接把深度接入冻结 primary；
 - **不**把 SEA-RAFT 作为现成替代；
 - 先做 P0 的时间对齐和噪声校准，再做小规模 C/D A/B；
+- 将“给定轨迹 → 预期视觉运动 → 生成流场残差”作为比自由 SE(2) 拟合更直接的
+  consistency 主攻方向，但在校准和控制实验完成前不晋级；
 - 只有新通道同时满足准确率、coverage、controls 和跨模型要求，才允许改变
   primary；否则维持 S1.3 yaw primary + SE(2)/progress diagnostic。
