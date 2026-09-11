@@ -62,3 +62,8 @@ split 冻结 descriptor 聚合、尺度和缺失策略，再在 untouched confir
 身份置换均值为 `0.303`，DriveWAM 为 `0.234`，因此该候选分数同时显示模型差异和
 负对照方向。不过 calibration 目前只冻结了真实域尺度，生成域 calibration split 尚未
 独立完成；上述数值仍标记为 candidate，不进入正式排行榜。
+
+随后用 115 个与 confirmation 不重合的 Epona source（230 个分支）完成了生成域
+calibration 验证：候选 GS coverage `98.3%`、中位数 `0.503`，随机身份置换均值
+`0.289`（95% 上界 `0.303`）。因此聚合规则在 source-disjoint 生成数据上保持稳定。
+正式协议仍需将该规则写入冻结配置，并在 untouched confirmation 上按预注册门槛验收。
