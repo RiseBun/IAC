@@ -53,11 +53,51 @@ def _rcs(path: Path) -> dict[str, Any]:
     }
 
 
+def _gs(path: Path, model: str) -> dict[str, Any]:
+    """Load an explicitly supplied structural GS candidate report.
+
+    The report is never inferred from MAS/RCS inputs.  A missing model entry
+    remains unavailable and retains the protocol's no-zero-fill contract.
+    """
+    report = _load(path)
+    model_table = report.get("models", {})
+    source = model_table.get(model)
+    if source is None and isinstance(model_table, dict):
+        source = next(
+            (value for key, value in model_table.items() if str(key).lower() == model.lower()),
+            None,
+        )
+    if source is None:
+        source = report
+    if not isinstance(source, dict) or source.get("score_median") is None:
+        return {
+            "metric_id": "GS",
+            "metric_name": "Grounding Score",
+            "legacy_alias": "FAU",
+            "status": "unavailable",
+            "reason": "grounding_candidate_report_missing_model_or_score",
+            "source_report": str(path),
+        }
+    return {
+        "metric_id": "GS",
+        "metric_name": "Grounding Score",
+        "legacy_alias": "FAU",
+        "status": "candidate",
+        "score": source.get("score_median"),
+        "coverage": source.get("coverage"),
+        "identity_shuffle_mean_score": source.get("identity_shuffle_mean_score"),
+        "identity_shuffle_q95_mean_score": source.get("identity_shuffle_q95_mean_score"),
+        "source_report": str(path),
+        "claim_boundary": "external reality grounding; not future-to-action causality",
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--mas", action="append", metavar="MODEL=PATH", default=[])
     parser.add_argument("--rcs", action="append", metavar="MODEL=PATH", default=[])
+    parser.add_argument("--gs", action="append", metavar="MODEL=PATH", default=[])
     args = parser.parse_args()
     models: dict[str, dict[str, Any]] = {}
     for item in args.mas:
@@ -66,15 +106,18 @@ def main() -> None:
     for item in args.rcs:
         model, path = item.split("=", 1)
         models.setdefault(model, {})["response_consistency_score"] = _rcs(Path(path))
+    for item in args.gs:
+        model, path = item.split("=", 1)
+        models.setdefault(model, {})["grounding_score"] = _gs(Path(path), model)
     for model, values in models.items():
-        values["grounding_score"] = {
+        values.setdefault("grounding_score", {
             "metric_id": "GS",
             "metric_name": "Grounding Score",
             "legacy_alias": "FAU",
             "status": "unavailable",
             "reason": "external_logged_or_simulated_future_reference_not_joined_in_this_structural_pilot",
             "claim_boundary": "must not be inferred from flow smoothness or affine explainability",
-        }
+        })
     result = {
         "protocol": "iac-wam-three-metric-v1",
         "status": "pilot_grounding_pending",
