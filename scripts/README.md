@@ -17,6 +17,7 @@ protocol once a private evaluation server has joined images and ground truth:
 | `score_counterfactual_flow_delta.py` | Score same-source structural flow deltas (exploratory) |
 | `validate_counterfactual_flow_delta.py` | Run normal, reversed-order, identity-swap and zero-contrast CCFC-S controls |
 | `prepare_pure_speed_confirmation.py` | Build scene-disjoint fast/slow action roots; image generation remains pending |
+| `prepare_epona_pure_speed_action_roots.py` | Adapt a pure-speed branch manifest to the Epona matched-action runner format |
 | `score_iac_submission.py` | Capability-stratified scorecard |
 | `audit_benchmark_manifest.py` | Public (`--public`) or paired private-manifest audit |
 

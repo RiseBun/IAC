@@ -151,6 +151,9 @@ def prepare(
         scene = _scene_group(row)
         split = _choose_split(scene, selection_seed, confirmation_fraction)
         stratum = str((stratum_by_source or {}).get(source) or _stratum(row))
+        source_sample = _source_sample(row)
+        if source_sample is None:
+            raise ValueError(f"{source}: missing source_sample")
         strata[stratum] += 1
         scenes[scene] = split
         for role, scale in (("left", fast_scale), ("right", slow_scale)):
@@ -179,6 +182,7 @@ def prepare(
                     "action_trajectory": action.tolist(),
                     "source_action_trajectory": base.tolist(),
                     "source_record": str(row.get("sample_id") or source),
+                    "source_sample": str(source_sample),
                 }
             )
 
