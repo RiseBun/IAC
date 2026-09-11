@@ -28,8 +28,10 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 1. **候选盲运动测量尺：** 当前选定的 S1.3 直接把冻结 RAFT-Large 流场读成
    yaw 的序响应，不做米制重建，也不读取候选轨迹。连续地平面 SE(2) decoder
    保留为显式、失败关闭的 diagnostic。只有 yaw 方向/排序进入 primary。
-2. **能力分层指标：** CFAC、CCFC、FAU、FCS 作为独立证据列并报告各自 coverage；
-   模型不支持某项时记为 `unavailable`，不填 0。
+2. **能力分层指标：** Motion Alignment Score（MAS，旧 CFAC）、Response
+   Consistency Score（RCS，旧 CCFC）、Grounding Score（GS，旧 FAU 组件）和
+   FCS 作为独立证据列并报告各自 coverage；模型不支持某项时记为
+   `unavailable`，不填 0。
 3. **失败关闭与可复现：** 强制精确时间戳、标定、随机种子、模型版本和 lineage；
    私有 GT 只在评测端 join，作者提交的运动剖面不能替代图像侧探针。
 
@@ -47,7 +49,7 @@ flowchart LR
     S1c --> S1d["覆盖 · 方向 · 序响应"]
   end
   S1d --> S2
-  subgraph S2["Step 2 · CCFC"]
+  subgraph S2["Step 2 · RCS"]
     S2a["固定条件运行两次"] --> S2b["Δ 想象运动 ↔ Δ native action"]
   end
   S2 --> S3
@@ -127,24 +129,57 @@ S1.3 已被验证为跨 WAM 的 **action-response 测量器**，但不宣称能�
 interval 持续性，不恢复米制轨迹。该通道可以支撑结构版 `CCFC-S`，但不能替代旧版
 米制 `CFAC`/`FAU`；progress 通道在独立 speed-swap twin 验证前只作 diagnostic。
 
-### Step 2：CFAC 与 CCFC
+### Step 2：MAS 与 RCS（旧 CFAC / CCFC）
 
-**CFAC** 比较单次推理的想象运动剖面 `P_F` 和 native action 剖面 `P_A`。
-**CCFC** 在相同历史、随机种子和 nuisance 下进行两次可复现推理，比较干预造成的
+**Motion Alignment Score（MAS，旧 CFAC）** 比较单次推理的想象运动剖面 `P_F`
+和 native action 剖面 `P_A`。
+**Response Consistency Score（RCS，旧 CCFC）** 在相同历史、随机种子和 nuisance
+下进行两次可复现推理，比较干预造成的
 变化：
 
 ```text
 ΔS_F = S_F(分支 1) − S_F(分支 0)
 ΔP_A = P_A(分支 1) − P_A(分支 0)
-CCFC-S = ordinal_consistency(ΔS_F, ΔP_A)
+RCS = ordinal_consistency(ΔS_F, ΔP_A)
 ```
 
 任何可审计干预均可使用，如 left/right、slow/fast、command 变化或 latent swap；
 semantic clear/risk 不是硬条件。评测端必须收到干预后重新生成的 future visual 和
 native action；生成后直接注入动作只能记为 action-response 诊断，不能记为 CCFC。
 
-FAU 分别比较想象运动（`FAU_F`）和 native action（`FAU_A`）是否接近私有真实未来，
-并定义 `FAU = sqrt(FAU_F × FAU_A)`。
+**Grounding Score（GS，旧 FAU 组件）** 比较生成视觉未来与同源 logged future 的
+结构一致性；兼容输出仍保留 `FAU_F`、`FAU_A` 和 `FAU = sqrt(FAU_F × FAU_A)`。
+当前 GS candidate 使用 real-only calibration 冻结尺度，并要求至少 3/4 个有效
+interval；它不单独证明 future-to-action 因果关系。
+
+### 关键有效性证据与模型分数（2026-09-12）
+
+**Step 1 / S1.3 yaw：** 255 个配对 source 上，pair coverage `254/255 = 99.6%`，
+方向准确率 `126/149 = 84.6%`（95% CI `[77.9%, 89.5%]`），Spearman `0.779`。
+
+**RCS（结构反事实响应）：**
+
+| 模型 | coverage | 正常 cosine | 反转 cosine | response gain | persistence |
+|---|---:|---:|---:|---:|---:|
+| Epona | 100% | `+0.416` | `−0.416` | `0.232` | `1.00` |
+| DriveWAM | 100% | `+0.016` | `−0.016` | `0.0045` | `0.50` |
+| WorldDrive（eval25） | 100% | `+0.998` | `−0.998` | `1.469` | `1.00` |
+| DriveVA | 100% | `+0.129` | `−0.129` | `0.061` | `0.786` |
+
+正常/反转符号相反，零差异控制不产生方向分数，这是 RCS 测量器有效性的核心
+控制证据。
+
+**GS（现实几何保真度）：**
+
+| 模型 | GS 中位数 | source-cluster 95% CI | coverage |
+|---|---:|---:|---:|
+| Epona | `0.550` | `[0.487, 0.635]` | `94.9%` |
+| DriveWAM | `0.191` | `[0.158, 0.215]` | `94.2%` |
+
+Epona − DriveWAM 的 paired 差值为 `0.314`，95% CI `[0.251, 0.340]`；说明 GS
+能够区分两个 WAM 的现实运动结构保真度。115 个 source-disjoint generated
+calibration 分支的 coverage 为 `98.3%`，GS 中位数 `0.503`，随机身份置换均值
+`0.289`。这些是 candidate 分数，正式发布前仍需固定最终协议版本和 SHA。
 
 ### Step 3：FCS
 
