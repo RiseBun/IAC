@@ -217,7 +217,10 @@ direction cosine `0.998`, temporal persistence `1.0`, response gain `1.469`)
 from weak or absent responses (DriveVA: `0.129`/`0.061`; DriveWAM:
 `0.016`/`0.0045`). These are pilot diagnostics, not promotion results: the
 formal promotion remains subject to the frozen protocol gates and held-out
-real-video calibration.
+real-video calibration. GS is the exception: its real-only calibration,
+source-disjoint generated calibration, and source-cluster confirmation bootstrap
+have passed the frozen GS gates and are recorded in
+`configs/wam_three_metric_protocol_v1.json`.
 
 ### 关键有效性证据与当前模型分数（2026-09-12）
 

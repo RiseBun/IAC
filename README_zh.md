@@ -149,8 +149,9 @@ native action；生成后直接注入动作只能记为 action-response 诊断�
 
 **Grounding Score（GS，旧 FAU 组件）** 比较生成视觉未来与同源 logged future 的
 结构一致性；兼容输出仍保留 `FAU_F`、`FAU_A` 和 `FAU = sqrt(FAU_F × FAU_A)`。
-当前 GS candidate 使用 real-only calibration 冻结尺度，并要求至少 3/4 个有效
-interval；它不单独证明 future-to-action 因果关系。
+当前 GS 使用 real-only calibration 冻结尺度，并要求至少 3/4 个有效
+interval；source-disjoint calibration 与 source-cluster bootstrap 已通过冻结验收。
+它不单独证明 future-to-action 因果关系。
 
 ### 关键有效性证据与模型分数（2026-09-12）
 
@@ -177,9 +178,9 @@ interval；它不单独证明 future-to-action 因果关系。
 | DriveWAM | `0.191` | `[0.158, 0.215]` | `94.2%` |
 
 Epona − DriveWAM 的 paired 差值为 `0.314`，95% CI `[0.251, 0.340]`；说明 GS
-能够区分两个 WAM 的现实运动结构保真度。115 个 source-disjoint generated
+能够区分两个 WAM 的现实运动结构保真度。230 个 source-disjoint generated
 calibration 分支的 coverage 为 `98.3%`，GS 中位数 `0.503`，随机身份置换均值
-`0.289`。这些是 candidate 分数，正式发布前仍需固定最终协议版本和 SHA。
+`0.289`。GS 协议已冻结；它仍不声称 future-to-action 因果关系。
 
 ### Step 3：FCS
 

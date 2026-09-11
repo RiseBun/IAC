@@ -37,7 +37,7 @@
       "claim_boundary": "Delta S_F versus Delta P_A alone establishes consistency, not mediation"
     },
     "fau": {
-      "status": "independent_metric",
+      "status": "independent_metric_aliased_as_GS",
       "requirement": "logged-GT-compatible image-side representation",
       "not_substituted_by": "structural ordinal channels"
     },
@@ -58,5 +58,5 @@
     "holdout_required": true,
     "calibration_before_confirmation": true
   },
-  "current_claim": "The framework is specified; S1.3 yaw action-response is validated, Motion Alignment Score (MAS; legacy CFAC) calibration remains pending, Response Consistency Score (RCS; legacy CCFC) has a structural pilot but fails formal promotion pending scene-disjoint confirmation, Grounding Score (GS; legacy FAU components) requires an external future reference, and future-to-action mediation remains unvalidated."
+  "current_claim": "The framework is specified; S1.3 yaw action-response is validated, Motion Alignment Score (MAS; legacy CFAC) calibration remains pending, Response Consistency Score (RCS; legacy CCFC) has a structural pilot but fails formal promotion pending scene-disjoint confirmation, Grounding Score (GS; legacy FAU components) is formally frozen for external-future grounding, and future-to-action mediation remains unvalidated."
 }
