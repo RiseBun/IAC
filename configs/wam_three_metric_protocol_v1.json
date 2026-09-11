@@ -22,7 +22,7 @@
         "reason": "absolute action-to-structure magnitude adapter failed; frozen MAS scope is directional yaw alignment"
       },
       "promotion_evidence": {
-        "config": "configs/mas_yaw_v1.json",
+        "config": "configs/rcs_yaw_v1.json",
         "reports": [
           "reports/mas_yaw_epona_20260912.json",
           "reports/mas_yaw_drivewam_20260912.json"
@@ -36,7 +36,20 @@
       "legacy_alias": "CCFC",
       "definition": "same-source intervention difference in video aligned with intervention difference in action",
       "required_inputs": ["left_future_video", "right_future_video", "left_action", "right_action", "shared_history", "controls"],
-      "current_status": "implemented; scene-disjoint promotion validation pending"
+      "current_status": "formally frozen as directional yaw-response RCS; progress variant remains diagnostic",
+      "promotion_evidence": {
+        "config": "configs/mas_yaw_v1.json",
+        "reports": [
+          "reports/rcs_yaw_epona_20260912.json",
+          "reports/rcs_yaw_drivewam_20260912.json"
+        ],
+        "observed": {
+          "Epona": {"pair_coverage": 0.9827586206896551, "direction_accuracy": 0.9238095238095239, "source_bootstrap_ci95": [0.866666666666667, 0.971428571428571], "reversed_direction_accuracy": 0.0761904761904762},
+          "DriveWAM": {"pair_coverage": 1.0, "direction_accuracy": 0.8584905660377359, "source_bootstrap_ci95": [0.790238095238095, 0.923809523809524], "reversed_direction_accuracy": 0.14150943396226415}
+        },
+        "status": "passed",
+        "claim_boundary": "directional yaw response only; pure-speed progress RCS remains diagnostic"
+      }
     },
     "grounding_score": {
       "id": "GS",

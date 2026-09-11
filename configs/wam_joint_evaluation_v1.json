@@ -19,7 +19,7 @@
     "step2_counterfactual_consistency": {
       "canonical_metric": "Response Consistency Score",
       "legacy_alias": "CCFC",
-      "status": "framework_ready_validation_pending",
+      "status": "frozen_directional_yaw_variant",
       "formula": "RCS = ordinal_consistency(Delta S_F, Delta P_A)",
       "required_controls": ["normal_order", "reversed_order", "identity_swap", "zero_contrast"],
       "pair_gate": "both branches must provide the required channel; otherwise pair is unavailable"
@@ -58,5 +58,5 @@
     "holdout_required": true,
     "calibration_before_confirmation": true
   },
-  "current_claim": "The framework is specified; S1.3 yaw action-response and the directional-yaw MAS variant are validated on Epona and DriveWAM with source-level bootstrap gates passed, while metric magnitude/progress MAS remains diagnostic. RCS has a structural pilot but fails formal promotion pending stronger scene-disjoint confirmation, GS is formally frozen for external-future grounding, and future-to-action mediation remains unvalidated."
+  "current_claim": "The framework is specified; directional-yaw MAS and RCS variants are validated on Epona and DriveWAM with source-level bootstrap gates passed, while metric magnitude/progress channels remain diagnostic. GS is formally frozen for external-future grounding, and future-to-action mediation remains unvalidated."
 }

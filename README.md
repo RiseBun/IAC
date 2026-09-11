@@ -246,6 +246,20 @@ diagnostic，不进入 primary。
 正常/反转控制符号相反，且零差异控制不产生方向分数；这是 RCS 的核心有效性
 证据。该表是 structural pilot 分数，不是米制轨迹精度。
 
+**Frozen RCS-yaw variant.**  The same-source difference in
+`horizontal_flow_center` is compared with the native yaw intervention.  Its
+orientation and deadband are frozen from logged real future flow, and the
+uncertainty interval is bootstrapped over source/twin units:
+
+| Model | twin coverage | direction accuracy | source-bootstrap 95% CI | reversed-action accuracy |
+|---|---:|---:|---:|---:|
+| Epona | `98.3%` | `92.4%` | `[86.7%, 97.1%]` | `7.6%` |
+| DriveWAM | `100%` | `85.8%` | `[79.0%, 92.4%]` | `14.2%` |
+
+Both models pass the frozen RCS-yaw gates.  Pure-speed progress RCS remains a
+separate diagnostic because its DriveWAM result is near chance; it is not
+silently folded into the yaw score.
+
 **GS：现实几何保真度分数（旧 FAU 组件）**
 
 GS 使用同源 logged future 作为外部参考，尺度只由 real-only calibration 冻结，

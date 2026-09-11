@@ -170,6 +170,18 @@ interval；source-disjoint calibration 与 source-cluster bootstrap 已通过冻
 正常/反转符号相反，零差异控制不产生方向分数，这是 RCS 测量器有效性的核心
 控制证据。
 
+**冻结的 RCS-yaw 变体：** 对同一 source 的左右分支，计算
+`horizontal_flow_center` 差分并与 native yaw 干预方向比较。方向适配器和死区只由
+logged real future 校准，置信区间按 source/twin bootstrap：
+
+| 模型 | twin 覆盖率 | 方向准确率 | source bootstrap 95% CI | 反向动作准确率 |
+|---|---:|---:|---:|---:|
+| Epona | `98.3%` | `92.4%` | `[86.7%, 97.1%]` | `7.6%` |
+| DriveWAM | `100%` | `85.8%` | `[79.0%, 92.4%]` | `14.2%` |
+
+两个模型均通过冻结的 RCS-yaw 门槛。pure-speed progress RCS 另行保留为诊断通道，
+因为 DriveWAM 在该任务上接近随机，不能静默并入 yaw 分数。
+
 **GS（现实几何保真度）：**
 
 | 模型 | GS 中位数 | source-cluster 95% CI | coverage |

@@ -1,0 +1,39 @@
+{
+  "protocol": "iac-rcs-yaw-direction-v1",
+  "metric_id": "RCS",
+  "version": "1.0",
+  "definition": "same-source differential horizontal-flow structure aligned with native yaw intervention",
+  "representation": {
+    "flow_backend": "RAFT-Large",
+    "descriptor": "median_interval(horizontal_flow_center_left - horizontal_flow_center_right)",
+    "metric_reconstruction_used": false,
+    "candidate_blind": true,
+    "output_domain": "ordinal_direction_only",
+    "unsupported_domains": ["metric_distance", "absolute_speed", "future_to_action_mediation"]
+  },
+  "adapter": {
+    "orientation": 1,
+    "action_yaw_delta_threshold_rad": 0.01,
+    "flow_delta_threshold": 0.0001,
+    "calibration_source": "configs/mas_yaw_v1.json",
+    "frozen_before_confirmation": true
+  },
+  "aggregation": {
+    "common_interval_minimum": 2,
+    "statistical_unit": "source_key/twin",
+    "bootstrap": {"unit": "source_key", "draws": 20000, "seed": 20260912}
+  },
+  "controls": ["normal_action", "reversed_action", "identity_swap", "zero_contrast"],
+  "promotion_criteria": {
+    "pair_coverage_min": 0.9,
+    "source_bootstrap_direction_ci95_lower_min": 0.75,
+    "minimum_models": 2
+  },
+  "observed_confirmation": {
+    "Epona": {"pair_coverage": 0.9827586206896551, "direction_accuracy": 0.9238095238095239, "source_bootstrap_ci95": [0.866666666666667, 0.971428571428571], "reversed_direction_accuracy": 0.0761904761904762, "status": "passed"},
+    "DriveWAM": {"pair_coverage": 1.0, "direction_accuracy": 0.8584905660377359, "source_bootstrap_ci95": [0.790238095238095, 0.923809523809524], "reversed_direction_accuracy": 0.14150943396226415, "status": "passed"}
+  },
+  "reports": ["reports/rcs_yaw_epona_20260912.json", "reports/rcs_yaw_drivewam_20260912.json"],
+  "claim_boundary": "RCS is a directional counterfactual yaw-response score; progress and metric trajectory variants remain diagnostic.",
+  "missing_value_policy": "unavailable_never_zero_fill"
+}

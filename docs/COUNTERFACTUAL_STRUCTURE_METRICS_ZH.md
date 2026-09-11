@@ -42,6 +42,15 @@ progress 通道在独立 speed-swap twin 上达到以下条件前只能作 diagn
 至少 0.90、方向准确率 95% CI 下界至少 0.75、至少两个 WAM、并通过正常顺序/倒序/
 错身份/零差异控制。所有阈值必须在独立校准集冻结后再用于确认集。
 
+### 冻结的 yaw 变体
+
+当前正式的 MAS-yaw 和 RCS-yaw 均只使用 `horizontal_flow_center` 的方向结构，
+不做米制轨迹重建。MAS-yaw 比较单支视觉结构与 native terminal yaw；RCS-yaw 比较
+同源左右差分与 yaw 干预差分。两者的方向适配器、死区和 source-level bootstrap
+规则已写入 `configs/mas_yaw_v1.json` 与 `configs/rcs_yaw_v1.json`，并在 Epona、
+DriveWAM 上通过 coverage ≥0.90、bootstrap CI 下界 ≥0.75 的验收。速度、距离、
+lateral 和 curvature 仍不属于正式 primary。
+
 ## GS 跨模型 pilot（2026-09-11）
 
 在同一 source 的生成分支与 NAVSIM logged future 之间做了 candidate-blind 结构对照，
