@@ -110,5 +110,18 @@ source，完整确认运行已覆盖 `59` 个满足 history contract 的 source�
 smoke；完整双模型确认仍未完成，必须生成同口径图像后才可进入 CCFC-S 的
 calibration/confirmation 运行。
 
+### Epona pure-speed confirmation pilot（2026-09-11）
+
+Epona 确认集已完成 `59` 个满足 runner history contract 的 source（`118` 条
+分支），并用 `median_flow_magnitude_px` 作为 progress 结构描述量完成一次
+candidate-blind 评分。结果为：coverage `56/59 = 94.9%`，正常顺序方向命中
+`43/56 = 76.8%`，95% CI `[0.642, 0.859]`，Spearman `-0.037`；反转和身份错配
+方向命中均为 `13/56 = 23.2%`，zero-contrast 无可计分响应。该结果说明结构流对
+快慢顺序有方向性响应，并通过了反转/身份控制，但没有证明幅度排序有效；同时它
+仍只有一个模型，未满足 promotion 的两模型与 CI 下界门槛，progress 继续保持
+`diagnostic_only`。产物位于服务器：
+
+`/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_epona_confirmation_20260911/`
+
 此前的 `pure_speed_confirmation_roots_20260911` 使用了旧的 4 点 action 口径，
 已被 v2 替代，不得与本确认集混用。
