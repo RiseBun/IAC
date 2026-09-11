@@ -205,3 +205,10 @@ S1.3 yaw 保持唯一冻结主通道；任何新通道都必须通过独立校�
 （`+0.047` 到 `−0.083`）。Epona/DriveWAM 的 response gain 中位数分别稳定在
 `0.232` 和 `0.0045`。这表明结构量的跨模型分离不是由单一阈值调出来的，可以
 冻结为“方向 + 响应增益 + controls”的 CCFC-S 候选，但仍不能称为米制保真度。
+
+第三模型 WorldDrive 的 5-twin command-0/command-2 pilot 已完成：normal/reversed
+direction cosine 为 `+0.762/−0.762`，residual 为 `3.24/5.06 px`，normal response
+gain 中位数 `0.956`（IQR `0.954–1.026`）。这与 Epona（方向正确、增益约 `0.232`）
+和 DriveWAM（无可检测分支响应、增益约 `0.0045`）形成了可解释的三模型梯度。它
+支持将 twin differential 固定为跨模型几何反事实诊断，但 WorldDrive 当前只有 5
+twin，仍需扩大 scene-disjoint confirmation 后才可满足正式 promotion 的统计要求。
