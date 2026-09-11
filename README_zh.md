@@ -198,6 +198,12 @@ calibration 分支的 coverage 为 `98.3%`，GS 中位数 `0.503`，随机身份
 [`reports/mas_independent_drivewam_20260912.json`](reports/mas_independent_drivewam_20260912.json)
 和 [`tools/calibrate_mas_structure.py`](tools/calibrate_mas_structure.py)。
 
+同一 pure-speed twin 上的 NeuFlow-only 光流 A/B 也未改善结果：Epona 的 fast>slow
+顺序准确率为 `69.5%`，DriveWAM 为 `43.0%`。因此更换光流 backbone 不是当前缺口的
+直接修复。结果见
+[`reports/neu_flow_structure_epona_20260912.json`](reports/neu_flow_structure_epona_20260912.json)
+和 [`reports/neu_flow_structure_drivewam_20260912.json`](reports/neu_flow_structure_drivewam_20260912.json)。
+
 ### Step 3：FCS
 
 FCS 将 native action 输入独立模拟器，依据模拟器产生的实际状态和任务标签评分。

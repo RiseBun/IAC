@@ -296,6 +296,11 @@ reproducible artifacts are
 [`reports/mas_independent_drivewam_20260912.json`](reports/mas_independent_drivewam_20260912.json),
 and [`tools/calibrate_mas_structure.py`](tools/calibrate_mas_structure.py).
 
+A NeuFlow-only backbone check on the same pure-speed twins did not rescue the
+signal: fast-vs-slow ordering was `69.5%` for Epona and `43.0%` for DriveWAM.
+The artifacts are [`reports/neu_flow_structure_epona_20260912.json`](reports/neu_flow_structure_epona_20260912.json)
+and [`reports/neu_flow_structure_drivewam_20260912.json`](reports/neu_flow_structure_drivewam_20260912.json).
+
 ### Step 3: FCS
 
 FCS sends native action to an independent simulator and scores the realized
