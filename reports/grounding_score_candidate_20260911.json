@@ -1,0 +1,47 @@
+{
+  "protocol": "iac-grounding-score-candidate-v1",
+  "status": "candidate_frozen_on_real_calibration_applied_to_confirmation",
+  "calibration_source": "grounding_score_calibration_real_navsim_20260911.json",
+  "aggregation": {
+    "descriptors": [
+      "median_flow_magnitude_px",
+      "horizontal_flow_center",
+      "vertical_flow_center",
+      "divergence",
+      "curl"
+    ],
+    "magnitude_transform": "log1p",
+    "descriptor_scale_source": "real-domain calibration; magnitude uses IQR-to-sigma in log1p domain",
+    "interval_similarity": "exp(-abs(delta)/scale)",
+    "interval_aggregation": "median over descriptors; minimum 3",
+    "branch_aggregation": "median over intervals; minimum 3",
+    "missing_policy": "unavailable; no zero fill"
+  },
+  "models": {
+    "epona": {
+      "branch_count": 118,
+      "scored_branch_count": 112,
+      "coverage": 0.9491525423728814,
+      "score_median": 0.5528983639137252,
+      "score_q25": 0.4129798945904044,
+      "score_q75": 0.688810358703811,
+      "score_mean": 0.5348441771806935,
+      "identity_shuffle_mean_score": 0.3032158222220855,
+      "identity_shuffle_q95_mean_score": 0.32720928682593337,
+      "identity_shuffle_draws": 200
+    },
+    "drivewam": {
+      "branch_count": 172,
+      "scored_branch_count": 162,
+      "coverage": 0.9418604651162791,
+      "score_median": 0.1907535628429283,
+      "score_q25": 0.12299315191344071,
+      "score_q75": 0.30286719148878904,
+      "score_mean": 0.23968181661328933,
+      "identity_shuffle_mean_score": 0.23404393519101782,
+      "identity_shuffle_q95_mean_score": 0.24020379581586618,
+      "identity_shuffle_draws": 200
+    }
+  },
+  "claim_boundary": "Candidate scalar only; calibration is real-domain and confirmation remains untouched. Formal freeze still requires an independent generated calibration split and confirmation replication."
+}
