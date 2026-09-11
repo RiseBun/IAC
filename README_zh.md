@@ -189,6 +189,8 @@ rollout 不读取 WAM 生成图像，WAM waypoint 也不能冒充实际状态。
 
 聚合结果来源和私有产物合同见
 [`docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md)；
+DriveVA 的模型级负结果与盲法人工根因审计协议见
+[`docs/DRIVEVA_HUMAN_AUDIT_PROTOCOL_ZH.md`](docs/DRIVEVA_HUMAN_AUDIT_PROTOCOL_ZH.md)；
 Step 1.2 与 GitHub 旧版的逐项差异见
 [`docs/STEP1_SE2_YAW_V1_2_ZH.md`](docs/STEP1_SE2_YAW_V1_2_ZH.md)。
 逐样本结果文件不属于公开发布包。

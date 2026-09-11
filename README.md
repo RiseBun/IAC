@@ -245,6 +245,9 @@ results:
 
 Aggregate provenance and the private artifact contract are documented in
 [`docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md).
+The DriveVA model-level negative result and the blinded human root-cause audit
+protocol are documented in
+[`docs/DRIVEVA_HUMAN_AUDIT_PROTOCOL_ZH.md`](docs/DRIVEVA_HUMAN_AUDIT_PROTOCOL_ZH.md).
 The per-sample result files are not part of the public release.
 
 ## Repository layout
