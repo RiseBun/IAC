@@ -159,6 +159,12 @@ normal（`5.35 px`），说明当前地面平面前向模型尚未可靠恢复 p
 normal 比 reversed 好（residual `13.17` 对 `17.43 px`），但 zero-difference 的
 residual 仍最低（`2.90 px`）。该结果支持把 twin differential 作为结构性 CCFC-S
 候选，同时明确禁止把它解释成绝对运动重建。
+
+在 DriveWAM 上的同口径结果完全不同：normal/reversed residual 分别为 `14.36/14.26 px`，
+direction cosine 仅 `+0.016/-0.016`，而视频分支差中位数只有 `0.049 px`（轨迹预期差异
+`13.70 px`）。因此该方法还不能作为跨模型统一 primary；它能够诚实地区分“有方向但
+幅度坍缩”（Epona）和“没有可检测反事实差”（DriveWAM），这本身是几何保真度诊断，
+但不能替代跨模型的正式一致性分数。
 ```
 
 S1.3 yaw 保持唯一冻结主通道；任何新通道都必须通过独立校准、双模型确认和控制
