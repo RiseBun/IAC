@@ -51,13 +51,15 @@
       "not_claimed": ["future_to_action causality", "natural model quality ranking"]
     },
     "gs": {
-      "status": "validated",
-      "models": ["Epona", "DriveWAM"],
-      "claim_scope": "two_model_protocol_validation_only",
+      "status": "conditional",
+      "models": ["Epona"],
+      "diagnostic_models": ["DriveWAM"],
+      "claim_scope": "Epona identity-specific grounding validation; DriveWAM diagnostic only",
       "architecture_universal": false,
       "scope": "generated flow structure against external logged future",
       "recompute": "protocol_and_cli_public_reference_data_private",
-      "not_claimed": ["native action was caused by predicted future"]
+      "identity_specificity_audit": "reports/metric_credibility_audit_20260913.json",
+      "not_claimed": ["two-model identity-specificity", "native action was caused by predicted future"]
     },
     "fcs": {
       "status": "single_model_validated",
@@ -73,6 +75,21 @@
       "required_for": "causal future_to_action claim",
       "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
       "pilot_boundary": "WorldDrive internal future-latent permutation changed action/trajectory in 11/25 groups, but only 1/25 passed the material yaw/lateral gate; blocked-pathway, fixed-action, source-disjoint, and >=30-material-source confirmation requirements remain unmet.",
+      "claim_enabled": false
+    },
+    "conditional_foresight_success": {
+      "status": "implemented_evidence_pending",
+      "scorer": "tools/score_conditional_foresight.py",
+      "scope": "paired same-source change in independent task success under a future-only perturbation",
+      "monitors": ["dose_response"],
+      "not_claimed": ["the predicted future is accurate", "the effect is desirable", "any other model shares the pathway"],
+      "claim_enabled": false
+    },
+    "joint_source_analysis": {
+      "status": "implemented_requires_private_per_source_tables",
+      "scorer": "tools/analyse_joint_source_table.py",
+      "scope": "whether the consistency channels co-vary with independent execution at the source level",
+      "null_result_meaning": "the consistency channels carry no information about task success on this split",
       "claim_enabled": false
     }
   },
