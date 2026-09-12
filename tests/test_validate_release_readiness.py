@@ -64,6 +64,23 @@ class ReleaseReadinessTest(unittest.TestCase):
         self.assertEqual(report["status"], "fail")
         self.assertIn("rcs_yaw:measurement_dimension_boundary_missing_or_drifted", report["errors"])
 
+    def test_fcs_cannot_claim_cross_model_without_two_models(self):
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
+        readiness["claims"]["fcs"]["status"] = "validated"
+        readiness["claims"]["fcs"]["cross_model_status"] = "validated"
+        report = validate(readiness, protocol)
+        self.assertEqual(report["status"], "fail")
+        self.assertIn("fcs:cross_model_claim_without_two_independent_models", report["errors"])
+
+    def test_mediation_validated_status_requires_claim_enabled(self):
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
+        readiness["claims"]["future_to_action_mediation"]["status"] = "validated"
+        report = validate(readiness, protocol)
+        self.assertEqual(report["status"], "fail")
+        self.assertIn("future_to_action_mediation:validated_without_claim_enabled", report["errors"])
+
 
 if __name__ == "__main__":
     unittest.main()

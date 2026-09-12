@@ -76,12 +76,21 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
 
     fcs = claims.get("fcs") or {}
     fcs_cross_model = fcs.get("cross_model_status")
-    fcs_complete = fcs.get("status") == "validated" and fcs_cross_model == "validated"
+    fcs_models = {str(model) for model in (fcs.get("models") or []) if str(model)}
+    fcs_complete = (
+        fcs.get("status") == "validated"
+        and fcs_cross_model == "validated"
+        and len(fcs_models) >= 2
+    )
+    if fcs_cross_model == "validated" and len(fcs_models) < 2:
+        errors.append("fcs:cross_model_claim_without_two_independent_models")
     if not fcs_complete:
         warnings.append("fcs:cross_model_evidence_pending")
 
     mediation = claims.get("future_to_action_mediation") or {}
     mediation_complete = mediation.get("status") == "validated"
+    if mediation_complete and mediation.get("claim_enabled") is not True:
+        errors.append("future_to_action_mediation:validated_without_claim_enabled")
     if not mediation_complete:
         warnings.append("future_to_action_mediation:confirmation_pending")
     if "pilot" in str(mediation.get("status") or ""):
