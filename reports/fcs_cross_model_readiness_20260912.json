@@ -1,0 +1,35 @@
+{
+  "protocol": "iac-fcs-cross-model-readiness-v1",
+  "as_of": "2026-09-12",
+  "status": "pending",
+  "claim_enabled": false,
+  "formal_model_reports": [
+    {
+      "model_id": "drivewam_navsim_checkpoint_20260824",
+      "report": "reports/fcs_drivewam_summary_20260912.json",
+      "status": "validated_single_model",
+      "scored_rows": 978,
+      "native_action_source": "drivewam_native_action_head",
+      "independent_realized_state": true,
+      "action_injection_verified": true
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "model_id": "wam_pending_20260829",
+      "artifact": "closed_loop_recovered_20260829",
+      "reasons": [
+        "native_action_source_missing",
+        "action_trajectory_source_is_staging_candidate",
+        "independent_realized_state_evidence_missing"
+      ],
+      "cannot_count_as_second_model": true
+    }
+  ],
+  "promotion_gate": {
+    "minimum_distinct_models": 2,
+    "minimum_scored_rows_per_model": 30,
+    "assessor": "tools/assess_fcs_cross_model.py"
+  },
+  "claim_boundary": "A second model with an independently verified native-action rollout is still required; MAS/RCS/GS cannot substitute for cross-model FCS."
+}

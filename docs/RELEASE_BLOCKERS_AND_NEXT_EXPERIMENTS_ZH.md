@@ -52,6 +52,7 @@ state 和明确的 task-label provenance。当前 DriveWAM 已有一份合规汇
 报告已经通过 native-action provenance 检查，才开启跨模型 FCS 声明。现有
 `closed_loop_recovered_20260829` 中缺少 action source 或标为 staging 的记录会被
 明确拒绝，不会被计作第二模型。
+当前逐项审计记录见 [`reports/fcs_cross_model_readiness_20260912.json`](../reports/fcs_cross_model_readiness_20260912.json)。
 
 ### 非 yaw 运动量
 
