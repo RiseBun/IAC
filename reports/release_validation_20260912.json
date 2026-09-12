@@ -12,11 +12,13 @@
   "warnings": [
     "fcs:cross_model_evidence_pending",
     "future_to_action_mediation:confirmation_pending",
+    "future_to_action_mediation:pilot_present_but_unqualified",
     "gs:reference_data_private_public_score_recompute_unavailable"
   ],
   "evidence_boundary": {
     "fcs_cross_model_complete": false,
     "future_to_action_mediation_complete": false,
+    "future_to_action_mediation_pilot_present": true,
     "gs_reference_publicly_recomputable": false
   },
   "status": "pass"
