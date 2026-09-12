@@ -52,7 +52,8 @@
   "adapter_policy": {
     "allowed": "coordinate/image-geometry normalization declared in manifest",
     "frozen_before_confirmation": true,
-    "model_specific_metric_tuning": false
+    "model_specific_metric_tuning": false,
+    "validator": "tools/validate_metric_comparability.py"
   },
   "release_boundary": "The package is publishable as a conditional consistency-and-grounding standard. It is not a complete causal future-driven benchmark until mediation confirmation and cross-model FCS are supplied."
 }
