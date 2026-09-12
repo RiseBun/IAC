@@ -61,6 +61,9 @@ uncertainty, not by adding capability columns.
 3. **Fail-closed reproducibility.** Exact timestamps, calibration, model
    revision, seed and lineage are required. Private GT is joined only on the
    evaluation server; submitted motion profiles cannot replace image probing.
+   Model adapters may only declare the frozen orientation transform; the
+   comparability validator also checks that MAS/RCS share the same calibration
+   contract, descriptor, bootstrap and promotion gates.
 4. **Structural counterfactual channel.** Same-source left/right flow
    differences are exposed as an ordinal, decoder-free signal for the Response
    Consistency Score (RCS; legacy structural CCFC-S). Source-disjoint calibration,

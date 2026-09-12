@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any
 
 
@@ -33,6 +34,8 @@ def validate_directional_yaw_config(config: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("adapter orientation must be -1 or 1")
     if adapter.get("frozen_before_confirmation") is not True:
         raise ValueError("adapter must be frozen before confirmation")
+    if not str(adapter.get("calibration_contract_id") or ""):
+        raise ValueError("adapter calibration_contract_id is required")
     allowed = set(contract.get("model_specific_fields_allowed") or [])
     if allowed != {"orientation"}:
         raise ValueError("only orientation may be model-specific")
@@ -56,4 +59,45 @@ def validate_directional_yaw_config(config: dict[str, Any]) -> dict[str, Any]:
         "adapter_model_specific_fields": ["orientation"],
         "shared_descriptor": contract.get("shared_descriptor"),
         "calibration_source_disjoint": True,
+        "calibration_contract_id": str(adapter["calibration_contract_id"]),
+    }
+
+
+def validate_directional_yaw_config_set(configs: list[dict[str, Any]]) -> dict[str, Any]:
+    """Validate both individual configs and their shared frozen contract.
+
+    MAS and RCS are different estimands, so their action thresholds may differ,
+    but the image descriptor, bootstrap unit, missing-value policy, calibration
+    contract, and promotion policy must remain comparable.  This check catches
+    a common failure mode where every adapter passes a local schema check while
+    the published columns were calibrated under different rules.
+    """
+    if not configs:
+        raise ValueError("at least one directional-yaw config is required")
+    reports = [validate_directional_yaw_config(config) for config in configs]
+    invariant_fields = {
+        "shared_descriptor": [report["shared_descriptor"] for report in reports],
+        "calibration_contract_id": [report["calibration_contract_id"] for report in reports],
+    }
+    mismatches = {
+        name: values for name, values in invariant_fields.items() if len(set(values)) != 1
+    }
+    bootstrap = []
+    promotion = []
+    for config in configs:
+        bootstrap.append(config["aggregation"]["bootstrap"])
+        promotion.append(config["promotion_criteria"])
+    if len({json.dumps(value, sort_keys=True) for value in bootstrap}) != 1:
+        mismatches["bootstrap"] = bootstrap
+    if len({json.dumps(value, sort_keys=True) for value in promotion}) != 1:
+        mismatches["promotion_criteria"] = promotion
+    if mismatches:
+        raise ValueError(f"directional-yaw config set is not comparable: {mismatches}")
+    return {
+        "status": "valid",
+        "config_count": len(configs),
+        "shared_descriptor": reports[0]["shared_descriptor"],
+        "calibration_contract_id": reports[0]["calibration_contract_id"],
+        "bootstrap": bootstrap[0],
+        "promotion_criteria": promotion[0],
     }

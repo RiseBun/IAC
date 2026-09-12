@@ -3,7 +3,7 @@ import json
 import unittest
 from pathlib import Path
 
-from iac_new.metric_contract import validate_directional_yaw_config
+from iac_new.metric_contract import validate_directional_yaw_config, validate_directional_yaw_config_set
 
 
 class MetricContractTest(unittest.TestCase):
@@ -25,5 +25,22 @@ class MetricContractTest(unittest.TestCase):
     def test_non_candidate_blind_config_is_rejected(self) -> None:
         changed = copy.deepcopy(self.rcs)
         changed["representation"]["candidate_blind"] = False
+        with self.assertRaises(ValueError):
+            validate_directional_yaw_config(changed)
+
+    def test_config_set_requires_shared_calibration_contract(self) -> None:
+        result = validate_directional_yaw_config_set([self.mas, self.rcs])
+        self.assertEqual(result["status"], "valid")
+        self.assertEqual(result["calibration_contract_id"], "iac-yaw-real-only-v1")
+
+    def test_config_set_rejects_promotion_gate_drift(self) -> None:
+        changed = copy.deepcopy(self.rcs)
+        changed["promotion_criteria"]["pair_coverage_min"] = 0.95
+        with self.assertRaises(ValueError):
+            validate_directional_yaw_config_set([self.mas, changed])
+
+    def test_missing_calibration_contract_id_is_rejected(self) -> None:
+        changed = copy.deepcopy(self.mas)
+        changed["adapter"].pop("calibration_contract_id")
         with self.assertRaises(ValueError):
             validate_directional_yaw_config(changed)
