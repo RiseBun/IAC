@@ -123,10 +123,18 @@ def _local_state(simulated: np.ndarray, initial: Any, times: list[float], interv
 
 
 def run(rows: list[dict[str, Any]], cache_root: Path, *, horizon_s: float, interval_s: float, success_threshold: float) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    from navsim.common.dataloader import MetricCacheLoader
-    from navsim.evaluate.pdm_score import pdm_score_from_interpolated_trajectory, transform_trajectory
-    from navsim.planning.simulation.planner.pdm_planner.scoring.pdm_scorer import PDMScorer
-    from navsim.planning.simulation.planner.pdm_planner.simulation.pdm_simulator import PDMSimulator
+    try:
+        from navsim.common.dataloader import MetricCacheLoader
+        from navsim.evaluate.pdm_score import pdm_score_from_interpolated_trajectory, transform_trajectory
+        from navsim.planning.simulation.planner.pdm_planner.scoring.pdm_scorer import PDMScorer
+        from navsim.planning.simulation.planner.pdm_planner.simulation.pdm_simulator import PDMSimulator
+    except ModuleNotFoundError as error:
+        missing = error.name or "NAVSIM/PDM dependency"
+        raise RuntimeError(
+            "FCS requires the separately installed NAVSIM/PDM runtime; "
+            f"missing import {missing!r}. Install the licensed dependency and "
+            "rerun this command. Do not convert this environment failure into a score."
+        ) from error
 
     loader = MetricCacheLoader(cache_root)
     outputs: list[dict[str, Any]] = []

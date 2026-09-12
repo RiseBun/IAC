@@ -14,3 +14,5 @@ python reproduction/navsim/run_rollouts.py \
 ```
 
 NAVSIM and its metric cache must be installed separately under their licenses.
+If the runtime is absent, the command fails with an explicit dependency error;
+that condition is `unavailable`, not an FCS failure or zero score.
