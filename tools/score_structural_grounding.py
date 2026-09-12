@@ -72,7 +72,12 @@ def score(
         return result
     generated_index = index(generated)
     reference_index = index(reference)
-    sources = sorted({source for source, _ in generated_index} | {source for source, _ in reference_index})
+    # Coverage is defined over generated branches under evaluation.  Reference
+    # files may contain a larger private pool; reference-only sources must not
+    # silently dilute the model's denominator.
+    generated_sources = {source for source, _ in generated_index}
+    reference_only_sources = {source for source, _ in reference_index} - generated_sources
+    sources = sorted(generated_sources)
     source_reports: list[dict[str, Any]] = []
     for source in sources:
         intervals = sorted({interval for item_source, interval in generated_index if item_source == source} | {interval for item_source, interval in reference_index if item_source == source})
@@ -103,6 +108,7 @@ def score(
         "metric_id": "GS",
         "status": "ok" if scored else "unavailable",
         "source_count": len(source_reports),
+        "reference_only_source_count": len(reference_only_sources),
         "scored_source_count": len(scored),
         "source_coverage": len(scored) / len(source_reports) if source_reports else None,
         "score_median": float(np.median(values)) if len(values) else None,

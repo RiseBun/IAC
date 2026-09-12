@@ -43,3 +43,17 @@ class StructuralGroundingCliTest(unittest.TestCase):
         report = score(generated, reference, scales=scales, bootstrap_draws=20)
         self.assertEqual(report["status"], "unavailable")
         self.assertEqual(report["scored_source_count"], 0)
+
+    def test_reference_only_sources_do_not_dilute_generated_coverage(self) -> None:
+        scales = {key: 1.0 for key in ("median_flow_magnitude_px", "horizontal_flow_center", "vertical_flow_center", "divergence", "curl")}
+        generated = [
+            {"source_key": "evaluated", "interval_index": i, "input_available": True, **{key: 1.0 for key in scales}}
+            for i in range(3)
+        ]
+        reference = list(generated) + [
+            {"source_key": "extra_private_reference", "interval_index": i, "input_available": True, **{key: 1.0 for key in scales}}
+            for i in range(3)
+        ]
+        report = score(generated, reference, scales=scales, bootstrap_draws=20)
+        self.assertEqual(report["source_coverage"], 1.0)
+        self.assertEqual(report["reference_only_source_count"], 1)
