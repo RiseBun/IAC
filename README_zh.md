@@ -48,6 +48,10 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 本发布版不宣称提出新的光流网络。创新点是围绕冻结、审计过的光流组件建立了防
 泄漏的测量和评分协议。
 
+机器可读的发布边界见 [`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json)：
+当前版本可以作为条件式一致性/保真度标准发布，但在 mediation 和跨架构 FCS
+证据补齐前，不宣称 future-to-action 因果或跨架构普适性。
+
 我们还在 174 个配对干预 source 上独立审计了五种无需 decoder 的流场描述子。只有
 `horizontal_flow_center` 通过两个模型的方向门槛；流幅度、垂直中心、散度和旋度均
 未通过。因此 yaw-only 不是遗漏实验，而是当前证据支持的能力边界；其余通道在新的

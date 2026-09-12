@@ -103,6 +103,12 @@ The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
 audited flow component.
 
+The machine-readable release boundary is recorded in
+[`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json):
+the package is publishable as a conditional consistency/grounding standard, but
+does not claim future-to-action causality or cross-architecture FCS until those
+separate evidence channels are supplied.
+
 An independent same-source channel audit tested five decoder-free descriptors on
 174 matched intervention sources. Only `horizontal_flow_center` passed the
 two-model direction gate; flow magnitude, vertical center, divergence and curl

@@ -1,0 +1,58 @@
+{
+  "protocol": "iac-wam-release-readiness-v1",
+  "as_of": "2026-09-12",
+  "evaluation_scope": "conditional_capability_stratified",
+  "assumption": "future_driven_generation_is_not_required",
+  "scoring_policy": {
+    "supported_channel_scored_independently": true,
+    "missing_or_unsupported": "unavailable_with_reason",
+    "unavailable_is_zero": false,
+    "overall_aggregate": "not_defined"
+  },
+  "claims": {
+    "mas_yaw": {
+      "status": "validated",
+      "models": ["Epona", "DriveWAM"],
+      "scope": "candidate_blind directional yaw alignment",
+      "not_claimed": ["metric distance", "speed", "lateral amplitude", "curvature", "future_to_action causality"]
+    },
+    "rcs_yaw": {
+      "status": "validated",
+      "models": ["Epona", "DriveWAM"],
+      "scope": "same-source counterfactual yaw response",
+      "not_claimed": ["future_to_action causality", "natural model quality ranking"]
+    },
+    "gs": {
+      "status": "validated",
+      "models": ["Epona", "DriveWAM"],
+      "scope": "generated flow structure against external logged future",
+      "recompute": "protocol_and_cli_public_reference_data_private",
+      "not_claimed": ["native action was caused by predicted future"]
+    },
+    "fcs": {
+      "status": "single_model_validated",
+      "models": ["DriveWAM"],
+      "cross_model_status": "pending",
+      "scope": "independent simulator execution and explicit task label"
+    },
+    "future_to_action_mediation": {
+      "status": "scorer_implemented_confirmation_pending",
+      "scope": "future-only intervention or pathway ablation",
+      "required_for": "causal future_to_action claim"
+    }
+  },
+  "diagnostic_only": [
+    "metric_SE2_reconstruction",
+    "metric_speed",
+    "metric_distance",
+    "lateral_amplitude",
+    "curvature",
+    "pure_speed_progress"
+  ],
+  "adapter_policy": {
+    "allowed": "coordinate/image-geometry normalization declared in manifest",
+    "frozen_before_confirmation": true,
+    "model_specific_metric_tuning": false
+  },
+  "release_boundary": "The package is publishable as a conditional consistency-and-grounding standard. It is not a complete causal future-driven benchmark until mediation confirmation and cross-model FCS are supplied."
+}
