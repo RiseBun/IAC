@@ -1,0 +1,38 @@
+{
+  "protocol": "iac-fcs-evidence-packet-builder-v1",
+  "metric_id": "FCS",
+  "model_id": "drivewam_navsim_checkpoint_20260824",
+  "packet": {
+    "source_key": "aggregate:drivewam_navsim_checkpoint_20260824",
+    "evidence_status": "unavailable",
+    "coverage": 1.0,
+    "failure_reason": "paired_future_only_intervention_missing",
+    "native_action_source": "drivewam_native_action_head",
+    "legacy_rollout_diagnostic": {
+      "task_success_rate": 0.5143149284,
+      "scored_rows": 978,
+      "independent_realized_state": true,
+      "action_injection_verified": true
+    },
+    "required_paired_conditions": [
+      "baseline",
+      "future_perturbed",
+      "future_perturbed_pathway_blocked",
+      "future_fixed_action_pathway_control"
+    ],
+    "intervention": {
+      "paired": false,
+      "type": "future_only_required"
+    }
+  },
+  "validation": {
+    "protocol": "iac-metric-evidence-contract-v1",
+    "metric_id": "FCS",
+    "status": "unavailable",
+    "evidence_status": "unavailable",
+    "missing": [],
+    "score_allowed": false,
+    "claim_boundary": "Independent realized-task outcome under native action and explicit intervention evidence."
+  },
+  "claim_boundary": "Independent rollout diagnostic only until paired future-only intervention is present."
+}

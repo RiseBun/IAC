@@ -42,3 +42,5 @@ Step1 不是一个必须服务所有指标的单一运动读取器。MAS、RCS�
 这里的 `scored`/`weak` 只表示证据字段完整；`weak` 仍需按协议单独报告，不能与 `scored` 混成一个覆盖率。它不等于模型质量通过，也不等于 future-to-action 因果已经成立。GS 仍需逐样本 reference identity/representation，FCS 仍需成对 future-only intervention，不能从 MAS/RCS 包推导。
 
 GS 的逐分支证据包也已从同源 generated/logged descriptor 对照中重建，并保留了缺失分支：Epona 为 112 scored / 6 unavailable，DriveWAM 为 162 scored / 10 unavailable。该结果与现有候选 GS 覆盖率一致；它只是把 reference 身份和表征写入样本级协议，不改变 GS 分数定义。
+
+FCS 的 DriveWAM 独立 rollout 汇总（978 行、成功率 0.5143）经过 `tools/build_fcs_evidence_packet.py` 后仍为 `unavailable`，原因是缺少四条件 paired future-only intervention。这是预期的 fail-closed 结果：独立执行成功率被保留为 diagnostic，不能升级成 future-to-action 分数。
