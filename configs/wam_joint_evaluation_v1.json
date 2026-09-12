@@ -14,7 +14,8 @@
       "forbidden_inputs": ["candidate_trajectory", "logged_future_state", "pdm_score"],
       "output": ["per_interval_structure", "confidence", "availability", "abstention_reason"],
       "frozen_primary": "yaw structural response",
-      "experimental": ["ordinal progress", "future_to_action mediation probes"]
+      "experimental": ["ordinal progress", "non_yaw_structure_channels", "future_to_action_mediation_probes"],
+      "channel_audit": "reports/structure_channel_audit_20260912.json"
     },
     "step2_counterfactual_consistency": {
       "canonical_metric": "Response Consistency Score",

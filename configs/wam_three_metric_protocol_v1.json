@@ -115,5 +115,16 @@
     "enforcement": "protocol.validate_record rejects model outputs mislabeled as GT"
   },
   "causal_boundary": "MAS/RCS establish consistency or response matching; neither alone proves future-to-action mediation.",
+  "optional_evidence_channels": {
+    "future_to_action_mediation": {
+      "config": "configs/future_to_action_mediation_v1.json",
+      "scorer": "tools/score_future_to_action_mediation.py",
+      "status": "scorer_implemented_wam_confirmation_pending"
+    },
+    "non_yaw_structure_channels": {
+      "audit": "reports/structure_channel_audit_20260912.json",
+      "status": "diagnostic_only"
+    }
+  },
   "compatibility": {"preserve_legacy_output_keys": true}
 }
