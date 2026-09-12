@@ -64,19 +64,16 @@ action-only 试验中作为对照。
 future RGB（或 decoded latent）
   → RAFT-Large 前后向一致性
   → 动态抑制
-  → 标定地面平面自车几何
-  → candidate-blind continuous decoder
-  → observability / abstention
-  → lateral motion、yaw rate、curvature
+  → candidate-blind flow-structure descriptors
+  → ordinal yaw response + coverage/abstention
 ```
 
-动作和 waypoint 只在最后比较阶段读取，不能进入图像解码器。正式主表使用
-lateral motion、yaw rate、curvature，以及归一化相对距离/弧长形状和
-observability/coverage-risk；绝对速度、加速度和未归一化米制前向距离不进入主分，
-只保留为诊断项。若后续独立 dev 集证明纵向米制量达到误差预算，才允许新版本协议
-重新纳入，不能在当前版本中隐式恢复。
+动作和 waypoint 只在最后比较阶段读取，不能进入图像探针。当前冻结主通道只报告
+`horizontal_flow_center` 对应的 ordinal yaw 方向/排序；连续地面平面 SE(2)
+重建、lateral/longitudinal 米制位移、速度和曲率都保留为 diagnostic，不能冒充
+已验证的轨迹精度。
 
-### Step 2：Action–Future Consistency（CCFC 主指标）
+### Step 2：Action–Future Consistency（RCS，旧 CCFC）
 
 对固定 history、prompt、seed 和 nuisance，提交任意一种可重复的成对干预，例如：
 
@@ -92,7 +89,7 @@ future-latent swap
 ```text
 ΔP_F(t) = P_F,branch1(t) − P_F,branch0(t)
 ΔP_A(t) = P_A,branch1(t) − P_A,branch0(t)
-CCFC    = consistency(ΔP_F, ΔP_A)
+RCS     = ordinal_consistency(ΔP_F, ΔP_A)
 ```
 
 必须分别报告方向一致性、幅度一致性、时间对齐、coverage 和干预类型。
@@ -105,11 +102,11 @@ CCFC    = consistency(ΔP_F, ΔP_A)
    评测端直接注入、覆盖或替换 action 的实验只能记为 action-response 诊断，不能
    记为 CCFC。
 
-* 两侧 future 与 action 都随干预改变：报告 `CCFC`，并将其作为主榜指标列；
+* 两侧 future 与 action 都随干预改变：报告 `RCS`（旧名 `CCFC`）；
 * 只有 future 表征改变 native action：报告 `F2A mechanism`；
 * 只有 action 改变 future 图像：报告 `A→F response`；
-* 没有可重复干预：该模型的 `CCFC` 为 `unavailable`，不能填 0，也不影响它报告
-  `CFAC`/`FAU` 等其它可用主榜列。
+* 没有可重复干预：该模型的 `RCS` 为 `unavailable`，不能填 0，也不影响它报告
+  其它可用通道。
 
 semantic clear/risk 是一种高价值干预，但不是所有模型的硬性准入条件。
 

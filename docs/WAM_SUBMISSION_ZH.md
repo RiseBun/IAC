@@ -4,8 +4,8 @@
 当前主榜使用 `benchmark` split。统一准入是“future visual state +
 native action”；生成形式不设限，详见
 [`WAM_SCOPE_AND_UNIFIED_PROTOCOL_ZH.md`](WAM_SCOPE_AND_UNIFIED_PROTOCOL_ZH.md)。
-CCFC/FCS 是能力分层主榜列：模型支持就提交并计分，不支持就标记
-`unavailable`，不得填 0。`ineligible` 只用于违反硬准入条件的提交。
+MAS、RCS、GS、FCS 是能力分层记分板列：模型提供对应证据就计分，不支持或
+无法测量就标记 `unavailable`，不得填 0。`ineligible` 只用于违反硬准入条件的提交。
 
 ## 0. 新提交的硬条件
 
@@ -52,18 +52,18 @@ decoder 和重建协议生成与模型原生时间轴对应的 RGB 文件（至�
 
 | 值 | 必须交 | 可打的格子 |
 |---|---|---|
-| `native_action_conditioned` | ≥4 个未来点覆盖 4 秒 + 同轴 native action | CFAC（及兼容旧 L1/A→F/F→A）；CCFC、FAU、FCS 需额外证据 |
+| `native_action_conditioned` | ≥4 个未来点覆盖 4 秒 + 同轴 native action | MAS（旧 CFAC）；RCS、GS、FCS 需额外证据 |
 | `externally_controlled_video` | ≥4 个未来点覆盖 4 秒 + 外控轨迹；`action_source=external_control` | 仅 A→F |
 | `video_only` | ≥4 个未来点覆盖 4 秒 | 无 IAC 主格 |
 | `action_only` | 仅动作 | 无 IAC 主格 |
 
 禁止字段：`realized_future_ego_state`、logged/oracle action 冒充 native。
-CCFC 若要参评，另需同一 `counterfactual_group_id` 下两条 `branch_mode`，并固定
+RCS 若要参评，另需同一 `counterfactual_group_id` 下两条 `branch_mode`，并固定
 history、seed、nuisance；`clear`/`risk` 只是可选示例。干预必须改变模型的条件或
 输入并重新生成 future 与 native action；评测端不得在生成后直接注入、覆盖或替换
-action，再把结果声称为 CCFC。
+action，再把结果声称为 RCS。
 
-停车（`stratum=stop`）只进入独立停车识别和 coverage 报告，不进入 CFAC 的运动
+停车（`stratum=stop`）只进入独立停车识别和 coverage 报告，不进入 MAS 的运动
 平均值；其余分层仍分别报告后再做 macro-average。
 
 ## 2. 评测服务器怎么跑
@@ -100,34 +100,33 @@ python scripts/score_iac_submission.py \
 
 公开 manifest 不能单独打分。动作只在最后比较阶段读取。
 
-## 3. 主榜指标与能力状态
+## 3. 条件式记分板与能力状态
 
-主榜不把不同能力强行压成一个总分，而是并列展示以下列，并同时展示每列的
-`n`、coverage 和状态。这样没有成对干预的模型仍可报告 CFAC/FAU，不会因缺少
-CCFC 被判零分；但也不能把 `unavailable` 当作可比的低分。
+记分板不把不同能力强行压成一个总分，而是并列展示每个通道的 `n`、coverage、
+置信区间、分层和状态。它不假设 WAM 一定由预测未来驱动：没有 future-only
+干预的模型仍可报告 MAS/RCS/GS/FCS 中实际支持的通道，不会因缺少 mediation 被
+判零分；但 `unavailable` 不能当作可比的低分。
 
-主评分只使用已通过误差预算的形状/相对量：`lateral_speed_mps`、`yaw_rate_radps`、
-`curvature_1pm`，以及归一化相对距离/弧长形状。`speed_mps`、`acceleration_mps2`
-和未归一化的前向米制位移不进入主分，只作为诊断列。任何指标未达到可靠性门槛时，
-必须从主分移除并标记为 `diagnostic_only`，不能用降权掩盖不可靠性。
+当前冻结主通道只使用 candidate-blind 的 ordinal yaw 结构；米制 SE(2) 重建、
+lateral/纵向距离、速度和曲率仍为 diagnostic。任何通道未达到独立可靠性门槛时，
+必须标记为 `diagnostic_only` 或 `unavailable`，不能用降权掩盖不可靠性。
 
 | 主榜列 | 回答的问题 | 最小证据 | 不支持时 |
 |---|---|---|---|
-| `CFAC` | 单次推理中，想象运动与 native action 的形状是否一致 | 一条 future visual + 一条 native action | `unavailable` |
-| `CCFC` | 两次固定条件推理中，干预引起的想象变化与动作变化是否一致 | 同 history/seed/nuisance 的成对分支；干预类型显式记录 | `unavailable` |
-| `FAU_F` | 想象运动相对 history 是否接近私有 GT future | future visual + 私有 GT join | `unavailable` |
-| `FAU_A` | native action 相对 history 是否接近私有 GT future | native action + 私有 GT join | `unavailable` |
-| `FAU` | 想象与动作是否都接近真实未来 | `sqrt(FAU_F × FAU_A)` | `unavailable` |
+| `MAS`（旧 CFAC） | 单次推理中，视觉 yaw 结构与 native action 方向是否一致 | 一条 future visual + 一条 native action | `unavailable` |
+| `RCS`（旧 CCFC） | 固定条件干预下，视觉差分与动作差分方向是否一致 | 同 history/seed/nuisance 的成对分支 | `unavailable` |
+| `GS`（旧 FAU 组件） | 生成视觉结构是否接近外部 logged future | future visual + 私有 GT-compatible reference | `unavailable` |
 | `FCS` | native action 在独立执行中是否成功 | 兼容 simulator、realized state、task label | `unavailable` |
 
-`CCFC` 是正式主榜指标，但不是所有模型的硬性准入条件；排名时按能力列和
-coverage 分层报告，不对缺失列做零填充或未经校准的总平均。
+MAS/RCS/GS/FCS 都不是所有模型的硬性准入条件；按能力列和 coverage 分层报告，
+不对缺失列做零填充或未经校准的总平均。future-to-action mediation 是额外的
+因果证据列，缺少 future-only/pathway intervention 时为 `unavailable`。
 
-### 3.1 兼容的 CCFC 干预
+### 3.1 兼容的 RCS 干预
 
 不要求 semantic clear/risk。只要可重复、可审计，以下任一种都可以：
 `left/right`、`slow/fast`、command 变化、future-latent swap。semantic 干预只是一种
-`intervention_type`，不是 CCFC 的唯一形式。
+`intervention_type`，不是 RCS 的唯一形式。
 
 ## 4. 记分板格子（兼容旧字段）
 
@@ -136,12 +135,13 @@ coverage 分层报告，不对缺失列做零填充或未经校准的总平均�
 | `l1` | 生成未来 vs native action 的形状对齐 | 主表 MAE/容差 + 覆盖 |
 | `a2f` | 左/右或 clear/risk 图像是否随动作变 | bootstrap L1 下界 > 0.005 |
 | `f2a` | 干预未来表征后 native action 是否变 | 内容敏感，不是 zero 开关 |
-| `ccfc` | 同 history 的任意可重复双分支，Δimage↔Δaction | 主榜 CCFC；缺少双分支则 `unavailable` |
-| `fau` | `sqrt(FAU_F × FAU_A)`，两侧都对私有 GT future | 主榜 FAU；缺 GT 则 `unavailable` |
+| `mas` | 单支视觉 yaw 结构↔native action 方向 | MAS-yaw；缺图像或动作则 `unavailable` |
+| `rcs` | 同 history 的可重复双分支，Δstructure↔Δaction | RCS-yaw；缺少双分支则 `unavailable` |
+| `gs` | 生成视觉结构↔外部 logged future | GS；缺 reference 则 `unavailable` |
 | `fcs` | 再加独立 rollout | 主榜 FCS；无兼容环境则 `unavailable` |
 
 不具备某项可选能力 = `unavailable`；声称具备但材料不完整 = `missing`；违反硬准入
 = `ineligible`；小 n 已有结果 = `pilot`。禁止把这些状态写成 0 分。
 
-参考记分板示例：`datasets/scorecard_example.json`。CCFC/FCS/FAU 是否可用按实际证据
+参考记分板示例：`datasets/scorecard_example.json`。RCS/GS/FCS 是否可用按实际证据
 填写；没有证据的列标记 `unavailable`，而不是伪造分数。

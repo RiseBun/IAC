@@ -41,14 +41,14 @@ history + command
                               ↓
                        structure S_F(t)
                               ↓
-                   confidence / explained / abstain
+               confidence / explained / abstain
                               ↓
                same-source counterfactual delta ΔS_F
                               ↓
-                   CCFC-S / CFAC-S / F→A audit
+                   MAS / RCS / future-to-action audit
 
 native action P_A ───────────→ independent simulator ─→ FCS
-logged future + GT-compatible channel ────────────────→ FAU
+logged future + GT-compatible channel ────────────────→ GS
 ```
 
 每条分支都必须携带 source、时间轴、模型、标定、随机种子和 lineage。统计单位是
@@ -107,42 +107,43 @@ pair 只有在左右分支都拥有所需 channel 和最低共同 interval 时�
 
 ## 5. 指标定义
 
-### 5.1 CCFC-S
+### 5.1 RCS-yaw（旧 CCFC-S）
 
 ```text
 ΔS_F = S_F(left) - S_F(right)
 ΔP_A = P_A(left) - P_A(right)
-CCFC-S = ordinal_consistency(ΔS_F, ΔP_A)
+RCS-yaw = ordinal_consistency(ΔS_F, ΔP_A)
 ```
 
 报告：方向准确率、pair coverage、Spearman/配对排序、时间持续性和四类控制。
 
 它回答的是“预测未来和动作是否对同一个干预作出一致响应”。
 
-### 5.2 CFAC-S
+### 5.2 MAS-yaw（旧 CFAC-S）
 
 ```text
-CFAC-S = alignment(S_F, structuralized(P_A))
+MAS-yaw = alignment(S_F, yaw_direction(P_A))
 ```
 
-这里需要一个只在校准集拟合、随后冻结的 action-to-structure 映射。没有该映射时，
-CFAC-S 必须报告为未完成，不能把结构值直接与米制 action 做 MAE。
+当前冻结的 MAS-yaw 只使用 real-only 校准的 yaw 方向/死区适配器，不声称米制
+轨迹重建。任何 lateral、纵向距离、速度和曲率映射都必须单独校准并通过独立
+跨模型门槛，否则只能标为 diagnostic/unavailable。
 
 ### 5.3 Future-to-action audit
 
 `ΔS_F ↔ ΔP_A` 不是路径级因果证明。要声称 action 由 future 驱动，必须做至少一个：
 
 1. 固定 history 和 command，只改变 predicted future/future latent，观察 action 是否变化；
-2. 屏蔽 future-to-action pathway，观察 action 和 CCFC-S 是否下降；
+2. 屏蔽 future-to-action pathway，观察 action 和 RCS 是否下降；
 3. 固定 predicted future，只改变 action pathway，作为反向特异性对照。
 
 没有这一步，论文措辞只能使用“action-state consistency”，不能使用“future-caused
 action generation”。
 
-### 5.4 FAU 与 FCS
+### 5.4 GS 与 FCS
 
-FAU 继续使用 logged-GT-compatible 图像侧表示，衡量预测未来和 native action 是否
-接近真实未来。结构 ordinal channel 不能替代它。
+GS 继续使用 logged-GT-compatible 图像侧表示，衡量生成视觉未来是否接近外部
+真实未来。它不能替代 RCS，也不单独证明 future-to-action 因果关系。
 
 FCS 继续把 native action 放入独立模拟器，根据实际状态和任务标签评分；它不读取
 WAM 生成视频。
@@ -166,9 +167,9 @@ WAM 生成视频。
 |---|---|
 | S1.3 yaw action-response | frozen / validated on two WAMs |
 | 结构差分 scorer | implemented / exploratory |
-| CCFC-S 框架 | specified / pure-speed progress confirmation completed but not promoted |
+| RCS-yaw（旧 CCFC-S） | frozen / validated on two WAMs |
 | pure-speed progress channel | cross-model confirmation completed; not promoted (no stable signal) |
-| CFAC-S calibration | not yet run |
+| MAS-yaw（旧 CFAC-S） | frozen / validated on two WAMs |
 | future-to-action mediation | scorer implemented / WAM confirmation not run |
 | metric SE(2) reconstruction | diagnostic only |
 | FAU | independent GT-compatible axis |
@@ -179,7 +180,7 @@ WAM 生成视频。
 在所有通道完成验证前，不压成单一总分，优先报告：
 
 ```text
-{ CCFC-S, CFAC-S, future-to-action, FAU, FCS, coverage, abstention }
+{ MAS, RCS, GS, future-to-action mediation, FCS, coverage, abstention }
 ```
 
 这样可以区分“视频看起来逼真”“动作与未来一致”“未来真正影响动作”和“实际任务
