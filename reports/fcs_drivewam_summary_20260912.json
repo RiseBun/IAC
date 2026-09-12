@@ -1,6 +1,8 @@
 {
   "protocol": "iac-fcs-independent-rollout-v1",
   "model": "DriveWAM",
+  "model_id": "drivewam_navsim_checkpoint_20260824",
+  "action_sources": ["drivewam_native_action_head"],
   "status": "validated_single_model",
   "input_rows": 978,
   "output_rows": 978,
