@@ -55,6 +55,12 @@
     "missing_value_policy": "unavailable_or_abstain; never zero-fill",
     "composite_policy": "report metric vector before considering any aggregate score"
   },
+  "ranking_policy": {
+    "natural_model_quality_ranking": "not_supported",
+    "aggregate_across_capabilities": "not_defined",
+    "allowed_comparison": "same_metric_source_disjoint_or_paired_with_uncertainty",
+    "reason": "Consistency and grounding channels are evidence dimensions, not a calibrated total utility scale."
+  },
   "promotion_gates": {
     "minimum_twin_coverage": 0.9,
     "direction_accuracy_ci95_lower": 0.75,

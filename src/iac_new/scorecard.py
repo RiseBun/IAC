@@ -57,6 +57,13 @@ CONDITIONAL_SCORING_POLICY = {
     "aggregate_score": "not_defined",
 }
 
+RANKING_POLICY = {
+    "natural_model_quality_ranking": "not_supported",
+    "aggregate_across_capabilities": "not_defined",
+    "allowed_comparison": "same_metric_source_disjoint_or_paired_with_uncertainty",
+    "reason": "Directional consistency and grounding are capability evidence, not a calibrated total utility scale.",
+}
+
 
 def claimed_cells(capability: str) -> tuple[str, ...]:
     if capability not in CLAIMED:
@@ -262,6 +269,7 @@ def build_model_scorecard(
     }
     return {
         "scoring_policy": dict(CONDITIONAL_SCORING_POLICY),
+        "ranking_policy": dict(RANKING_POLICY),
         "model_id": model_id,
         "capability": capability,
         "claimed_cells": list(claimed),

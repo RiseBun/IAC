@@ -9,6 +9,11 @@
     "unavailable_is_zero": false,
     "overall_aggregate": "not_defined"
   },
+  "ranking_policy": {
+    "natural_model_quality_ranking": "not_supported",
+    "aggregate_across_capabilities": "not_defined",
+    "allowed_comparison": "same_metric_source_disjoint_or_paired_with_uncertainty"
+  },
   "claims": {
     "mas_yaw": {
       "status": "validated",

@@ -42,6 +42,9 @@ optional mediation channel are reported independently with their own coverage.
 An unsupported or unevaluable channel is `unavailable` with a reason; it is
 excluded from that channel's denominator, never converted to zero, and no
 overall aggregate score is defined.
+The release also does not define a natural model-quality ranking: comparisons
+are allowed only within the same metric with source-disjoint or paired
+uncertainty, not by adding capability columns.
 
 ## Contributions
 

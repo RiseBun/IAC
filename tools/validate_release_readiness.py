@@ -58,6 +58,12 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
     if "causal_and_cross_model_evidence_pending" not in protocol_status:
         errors.append("protocol:causal_boundary_status_mismatch")
 
+    ranking = protocol.get("ranking_policy") or {}
+    if ranking.get("natural_model_quality_ranking") != "not_supported":
+        errors.append("protocol:natural_model_ranking_policy_missing")
+    if ranking.get("aggregate_across_capabilities") != "not_defined":
+        errors.append("protocol:aggregate_policy_missing")
+
     complete_causal = not errors and fcs_complete and mediation_complete
     return {
         "protocol": "iac-wam-release-readiness-validator-v1",

@@ -44,6 +44,8 @@ class ScorecardTest(unittest.TestCase):
         self.assertFalse(policy["future_driven_assumption"])
         self.assertFalse(policy["zero_fill_unavailable"])
         self.assertEqual(policy["aggregate_score"], "not_defined")
+        self.assertEqual(card["ranking_policy"]["natural_model_quality_ranking"], "not_supported")
+        self.assertEqual(card["ranking_policy"]["aggregate_across_capabilities"], "not_defined")
 
     def test_canonical_metric_coverage_aliases_are_normalized(self) -> None:
         card = build_model_scorecard(
