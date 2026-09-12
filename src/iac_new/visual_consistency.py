@@ -77,6 +77,19 @@ def _robust_median_scale(values: np.ndarray, floor: float = 1e-3) -> float:
     return max(float(floor), mad)
 
 
+def _weighted_median(values: list[float], weights: list[float]) -> float | None:
+    if not values:
+        return None
+    order = np.argsort(np.asarray(values, dtype=np.float64))
+    sorted_values = np.asarray(values, dtype=np.float64)[order]
+    sorted_weights = np.asarray(weights, dtype=np.float64)[order]
+    total = float(np.sum(sorted_weights))
+    if total <= 0.0:
+        return float(np.median(sorted_values))
+    index = int(np.searchsorted(np.cumsum(sorted_weights), 0.5 * total, side="left"))
+    return float(sorted_values[min(index, len(sorted_values) - 1)])
+
+
 def score_trajectory_visual_consistency(
     observed_flows: np.ndarray,
     expected_flows: np.ndarray,
@@ -188,6 +201,7 @@ def score_trajectory_conditioned_likelihood(
     likelihood_scale_px: float = 2.0,
     residual_inlier_threshold_px: float = 2.0,
     min_direction_cosine: float = 0.0,
+    interval_quality_weights: np.ndarray | None = None,
 ) -> dict[str, Any]:
     """Score a supplied trajectory with a fixed, candidate-blind support set.
 
@@ -225,6 +239,12 @@ def score_trajectory_conditioned_likelihood(
     )
     if expected_valid.shape != fixed.shape:
         raise ValueError("expected_valid_mask must match [T,H,W]")
+    if interval_quality_weights is None:
+        quality = np.ones(intervals, dtype=np.float64)
+    else:
+        quality = np.asarray(interval_quality_weights, dtype=np.float64)
+        if quality.shape != (intervals,) or not np.isfinite(quality).all() or np.any(quality < 0.0):
+            raise ValueError("interval_quality_weights must be finite, non-negative, and match [T]")
     if likelihood_scale_px <= 0.0:
         raise ValueError("likelihood_scale_px must be positive")
 
@@ -238,6 +258,7 @@ def score_trajectory_conditioned_likelihood(
             "interval_index": index,
             "fixed_support_pixels": input_count,
             "fixed_support_fraction": input_fraction,
+            "interval_quality_weight": float(quality[index]),
         }
         if input_count == 0 or input_fraction < float(min_fixed_support_fraction):
             row.update({"status": "unavailable", "reason": "insufficient_fixed_support"})
@@ -284,6 +305,10 @@ def score_trajectory_conditioned_likelihood(
 
     scored = [row for row in rows if row["status"] == "scored"]
     usable = [row for row in rows if row["status"] in {"scored", "weak"}]
+    weighted_values = [float(row["likelihood"]) for row in usable]
+    weighted_weights = [float(row["interval_quality_weight"]) for row in usable]
+    weighted_reliable_values = [float(row["likelihood"]) for row in scored]
+    weighted_reliable_weights = [float(row["interval_quality_weight"]) for row in scored]
     return {
         "protocol": "iac-trajectory-conditioned-likelihood-v1",
         "metric_id": "MAS",
@@ -306,6 +331,8 @@ def score_trajectory_conditioned_likelihood(
         # its likelihood would make the negative control look unavailable.
         "score": float(np.median([row["likelihood"] for row in usable])) if usable else None,
         "reliable_score": float(np.median([row["likelihood"] for row in scored])) if scored else None,
+        "quality_weighted_score": _weighted_median(weighted_values, weighted_weights),
+        "quality_weighted_reliable_score": _weighted_median(weighted_reliable_values, weighted_reliable_weights),
         "median_residual_px": float(np.median([row["median_residual_px"] for row in usable])) if usable else None,
         "median_direction_cosine": float(np.median([row["direction_cosine"] for row in usable if row.get("direction_cosine") is not None])) if any(row.get("direction_cosine") is not None for row in usable) else None,
         "thresholds": {
@@ -315,6 +342,7 @@ def score_trajectory_conditioned_likelihood(
             "residual_inlier_threshold_px": float(residual_inlier_threshold_px),
             "min_direction_cosine": float(min_direction_cosine),
         },
+        "quality_weighting": "candidate_blind_interval_structure_only",
         "missing_value_policy": "unavailable_never_zero_fill",
         "warning": "Projection validity is reported separately from fixed input support; this score is not a metric trajectory reconstruction.",
         "intervals": rows,

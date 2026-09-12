@@ -27,3 +27,9 @@ Step1 的任务不是预测一个视频统计量，而是回答一个条件问�
 ## 当前四模型 pilot
 
 详见 [`reports/step1_se2_hybrid_pilot_20260912.json`](../reports/step1_se2_hybrid_pilot_20260912.json)。结果是异质的：WorldDrive、Epona 的 RCS 有明显控制分离，DriveVA 较弱，DriveWAM 接近随机。因此这一版完成了正确估计量和诚实缺失值机制，但尚未达到正式发布门槛。
+
+## Step1.3 结构量的融合试验
+
+我们把 Step1.3 的 `structure_confidence` 作为候选无关的时间权重叠加到 SE(2) 似然上。结果并不具有跨模型一致性：Epona 的正常/反转分离提高 2.7 个百分点，DriveWAM 下降 4.8 个百分点，DriveVA 下降 10 个百分点，WorldDrive 基本不变。详见 [`reports/step1_se2_hybrid_structure_fusion_pilot_20260912.json`](../reports/step1_se2_hybrid_structure_fusion_pilot_20260912.json)。
+
+因此，结构量目前只进入诊断和弃权解释，不作为 MAS/RCS 的默认主权重。它反映“流场看起来是否结构化”，不等价于“流场是否符合给定动作”。

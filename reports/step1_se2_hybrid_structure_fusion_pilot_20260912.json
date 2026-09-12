@@ -1,0 +1,18 @@
+{
+  "protocol": "iac-step1-se2-hybrid-structure-fusion-pilot-v1",
+  "date": "2026-09-12",
+  "status": "diagnostic_only",
+  "what_changed": "Step1.3 flow-structure confidence was used as a candidate-blind interval weight on top of the fixed-support SE(2) likelihood.",
+  "results": {
+    "Epona": {"baseline_normal_beats_reversed": 0.8108, "structure_weighted_normal_beats_reversed": 0.8378, "delta": 0.0270},
+    "DriveWAM": {"baseline_normal_beats_reversed": 0.6032, "structure_weighted_normal_beats_reversed": 0.5556, "delta": -0.0476},
+    "DriveVA": {"baseline_normal_beats_reversed": 0.8000, "structure_weighted_normal_beats_reversed": 0.7000, "delta": -0.1000},
+    "WorldDrive": {"baseline_normal_beats_reversed": 0.9231, "structure_weighted_normal_beats_reversed": 0.9231, "delta": 0.0000}
+  },
+  "interpretation": [
+    "Structure confidence is candidate-blind, but it is not a universal proxy for action-conditioned correctness.",
+    "The weighting improves one model, degrades two, and is neutral on one.",
+    "Keep Step1.3 structure descriptors for diagnostics, abstention explanations, and future calibrated uncertainty; do not apply them as the default MAS/RCS score weight."
+  ],
+  "claim_boundary": "This is an internal A/B on existing raw-flow archives, not a promoted metric."
+}

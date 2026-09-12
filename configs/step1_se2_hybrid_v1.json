@@ -13,6 +13,11 @@
     "depth_adapter": "optional",
     "free_trajectory_optimization": false
   },
+  "structure_channels": {
+    "foe_divergence_curl": "diagnostic",
+    "structure_confidence_weighting": "diagnostic_only",
+    "default_primary_score_weight": 0.0
+  },
   "score": {
     "likelihood_scale_px": 2.0,
     "residual_inlier_threshold_px": 2.0,

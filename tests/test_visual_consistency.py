@@ -139,6 +139,22 @@ class VisualConsistencyTest(unittest.TestCase):
         self.assertIsNotNone(report["score"])
         self.assertIsNone(report["reliable_score"])
 
+    def test_quality_weight_is_candidate_blind_and_reported_separately(self) -> None:
+        observed = np.zeros((2, 4, 4, 2), dtype=np.float64)
+        expected = observed.copy()
+        expected[1, ..., 0] = 1.0
+        fixed = np.ones((2, 4, 4), dtype=bool)
+        report = score_trajectory_conditioned_likelihood(
+            observed,
+            expected,
+            fixed_support_mask=fixed,
+            interval_quality_weights=np.asarray([1.0, 0.1]),
+        )
+        self.assertEqual(report["status_counts"]["scored"], 2)
+        self.assertEqual(report["quality_weighting"], "candidate_blind_interval_structure_only")
+        self.assertAlmostEqual(report["intervals"][1]["interval_quality_weight"], 0.1)
+        self.assertIsNotNone(report["quality_weighted_score"])
+
     def test_twin_score_reports_signed_temporal_persistence(self) -> None:
         observed_left = np.zeros((2, 4, 4, 2), dtype=np.float64)
         observed_right = np.zeros_like(observed_left)

@@ -17,6 +17,7 @@ from typing import Any
 import numpy as np
 
 from iac_new.scoring import polygon_mask
+from iac_new.road_structure import flow_structure_profile
 from iac_new.visual_consistency import (
     score_trajectory_conditioned_likelihood,
     trajectory_conditioned_flow,
@@ -67,6 +68,7 @@ def _score(
     *,
     min_projection_valid_fraction: float,
     likelihood_scale_px: float,
+    interval_quality_weights: np.ndarray | None = None,
 ) -> dict[str, Any]:
     report = score_trajectory_conditioned_likelihood(
         observed_delta,
@@ -75,6 +77,7 @@ def _score(
         expected_valid_mask=expected_valid,
         min_projection_valid_fraction=min_projection_valid_fraction,
         likelihood_scale_px=likelihood_scale_px,
+        interval_quality_weights=interval_quality_weights,
     )
     return {
         key: report.get(key)
@@ -85,11 +88,30 @@ def _score(
             "interval_coverage",
             "reliable_interval_fraction",
             "score",
+            "quality_weighted_score",
             "median_residual_px",
             "median_direction_cosine",
             "intervals",
         )
     }
+
+
+def _structure_quality(flow: np.ndarray, valid: np.ndarray, roi: np.ndarray, intrinsics: np.ndarray) -> tuple[np.ndarray, list[dict[str, Any]]]:
+    weights = np.asarray(valid, dtype=np.float32)
+    profile = flow_structure_profile(
+        flow,
+        weights,
+        roi,
+        np.asarray(intrinsics, dtype=float),
+        min_points=30,
+        min_spatial_cells=3,
+        max_points=1500,
+    )
+    values = []
+    for row in profile["rows"]:
+        confidence = float(row.get("structure_confidence", 0.0) or 0.0)
+        values.append(float(np.clip(confidence, 0.05, 1.0)))
+    return np.asarray(values, dtype=np.float64), profile["rows"]
 
 
 def run(root: Path, *, min_projection_valid_fraction: float, likelihood_scale_px: float) -> dict[str, Any]:
@@ -114,15 +136,20 @@ def run(root: Path, *, min_projection_valid_fraction: float, likelihood_scale_px
         left_expected, left_projection = _load_expected(left_meta, interval_count, shape)
         right_expected, right_projection = _load_expected(right_meta, interval_count, shape)
         roi = polygon_mask(shape[0], shape[1], [[0.08, 0.98], [0.92, 0.98], [0.63, 0.53], [0.37, 0.53]])
+        left_quality, left_structure = _structure_quality(left_flow, left_valid, roi, np.asarray(left_meta["intrinsics"], dtype=float))
+        right_quality, right_structure = _structure_quality(right_flow, right_valid, roi, np.asarray(right_meta["intrinsics"], dtype=float))
+        pair_quality = np.minimum(left_quality, right_quality)
         left_mas = _score(
             left_flow, left_expected, left_valid & roi[None, ...], left_projection,
             min_projection_valid_fraction=min_projection_valid_fraction,
             likelihood_scale_px=likelihood_scale_px,
+            interval_quality_weights=left_quality,
         )
         right_mas = _score(
             right_flow, right_expected, right_valid & roi[None, ...], right_projection,
             min_projection_valid_fraction=min_projection_valid_fraction,
             likelihood_scale_px=likelihood_scale_px,
+            interval_quality_weights=right_quality,
         )
         # This mask is frozen before normal/reversed/zero candidates are scored.
         fixed_support = left_valid & right_valid & roi[None, ...]
@@ -133,18 +160,21 @@ def run(root: Path, *, min_projection_valid_fraction: float, likelihood_scale_px
             observed_delta, expected_delta, fixed_support, expected_valid,
             min_projection_valid_fraction=min_projection_valid_fraction,
             likelihood_scale_px=likelihood_scale_px,
+            interval_quality_weights=pair_quality,
         )
         reversed_score = _score(
             observed_delta, -expected_delta, fixed_support, expected_valid,
             min_projection_valid_fraction=min_projection_valid_fraction,
             likelihood_scale_px=likelihood_scale_px,
+            interval_quality_weights=pair_quality,
         )
         zero = _score(
             np.zeros_like(observed_delta), expected_delta, fixed_support, expected_valid,
             min_projection_valid_fraction=min_projection_valid_fraction,
             likelihood_scale_px=likelihood_scale_px,
+            interval_quality_weights=pair_quality,
         )
-        rows.append({"source_key": source, "mas_left": left_mas, "mas_right": right_mas, "normal": normal, "reversed": reversed_score, "zero_contrast": zero})
+        rows.append({"source_key": source, "mas_left": left_mas, "mas_right": right_mas, "normal": normal, "reversed": reversed_score, "zero_contrast": zero, "structure_left": left_structure, "structure_right": right_structure})
 
     def effective(key: str) -> list[dict[str, Any]]:
         return [
@@ -175,6 +205,13 @@ def run(root: Path, *, min_projection_valid_fraction: float, likelihood_scale_px
         and row["normal"].get("interval_coverage", 0.0) >= 0.75
         and row["zero_contrast"].get("interval_coverage", 0.0) >= 0.75
     ]
+    paired_quality = [
+        row for row in rows
+        if row["normal"].get("quality_weighted_score") is not None
+        and row["reversed"].get("quality_weighted_score") is not None
+        and row["normal"].get("interval_coverage", 0.0) >= 0.75
+        and row["reversed"].get("interval_coverage", 0.0) >= 0.75
+    ]
     return {
         "protocol": "iac-step1-se2-hybrid-fixed-support-v1",
         "metric_id": "MAS/RCS",
@@ -186,6 +223,7 @@ def run(root: Path, *, min_projection_valid_fraction: float, likelihood_scale_px
             "median_score": float(np.median([row["score"] for row in normal])) if normal else None,
             "median_direction_cosine": float(np.median([row["median_direction_cosine"] for row in normal if row.get("median_direction_cosine") is not None])) if any(row.get("median_direction_cosine") is not None for row in normal) else None,
             "direction_accuracy": float(np.mean([float(row.get("median_direction_cosine") or 0.0) > 0.0 for row in normal])) if normal else None,
+            "median_quality_weighted_score": float(np.median([row["quality_weighted_score"] for row in normal if row.get("quality_weighted_score") is not None])) if any(row.get("quality_weighted_score") is not None for row in normal) else None,
         },
         "mas": {
             "effective_branches": len(mas_branches),
@@ -200,6 +238,7 @@ def run(root: Path, *, min_projection_valid_fraction: float, likelihood_scale_px
                 "effective_pairs": len(reversed_rows),
                 "median_score": float(np.median([row["score"] for row in reversed_rows])) if reversed_rows else None,
                 "normal_beats_reversed": float(np.mean([row["normal"]["score"] > row["reversed"]["score"] for row in paired])) if paired else None,
+                "quality_weighted_normal_beats_reversed": float(np.mean([row["normal"]["quality_weighted_score"] > row["reversed"]["quality_weighted_score"] for row in paired_quality])) if paired_quality else None,
             },
             "zero_contrast": {
                 "directional_estimand": "unavailable",
