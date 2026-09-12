@@ -111,6 +111,8 @@ The machine-readable release boundary is recorded in
 the package is publishable as a conditional consistency/grounding standard, but
 does not claim future-to-action causality or cross-architecture FCS until those
 separate evidence channels are supplied.
+Run [`tools/validate_release_readiness.py`](tools/validate_release_readiness.py)
+before publishing a new scorecard; it fails closed if these boundaries drift.
 
 An independent same-source channel audit tested five decoder-free descriptors on
 174 matched intervention sources. Only `horizontal_flow_center` passed the
