@@ -23,7 +23,11 @@ except ImportError:  # SciPy < 1.11 does not re-export the warning at top level.
 def _rho(action: np.ndarray, response: np.ndarray) -> float:
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", ConstantInputWarning)
-        value = float(spearmanr(action, response).statistic)
+        result = spearmanr(action, response)
+        # SciPy 1.11 exposes ``statistic``; older releases return a named
+        # tuple with ``correlation`` (and support positional access only).
+        value = getattr(result, "statistic", getattr(result, "correlation", result[0]))
+        value = float(value)
     return value
 
 

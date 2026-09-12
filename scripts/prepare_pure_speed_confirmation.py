@@ -152,8 +152,6 @@ def prepare(
         split = _choose_split(scene, selection_seed, confirmation_fraction)
         stratum = str((stratum_by_source or {}).get(source) or _stratum(row))
         source_sample = _source_sample(row)
-        if source_sample is None:
-            raise ValueError(f"{source}: missing source_sample")
         strata[stratum] += 1
         scenes[scene] = split
         for role, scale in (("left", fast_scale), ("right", slow_scale)):
@@ -182,7 +180,11 @@ def prepare(
                     "action_trajectory": action.tolist(),
                     "source_action_trajectory": base.tolist(),
                     "source_record": str(row.get("sample_id") or source),
-                    "source_sample": str(source_sample),
+                    "source_sample": str(source_sample) if source_sample is not None else None,
+                    "source_sample_status": (
+                        "available" if source_sample is not None
+                        else "missing_required_before_image_generation"
+                    ),
                 }
             )
 
@@ -208,6 +210,10 @@ def prepare(
             for split in ("calibration", "confirmation")
         },
         "stratum_counts": dict(strata),
+        "source_sample_missing_count": sum(
+            1 for values in split_rows.values() for value in values
+            if value.get("source_sample") is None
+        ) // 2,
         "fast_scale": float(fast_scale),
         "slow_scale": float(slow_scale),
         "yaw_identical_by_construction": True,
