@@ -1,0 +1,38 @@
+{
+  "protocol": "iac-step1-evidence-layer-v1",
+  "version": "1.0-experimental",
+  "status": "experimental_not_promoted",
+  "objective": "Expose candidate-blind visual evidence products that can be consumed independently by MAS, RCS and GS.",
+  "channels": {
+    "temporal_motion": {
+      "required": true,
+      "output": "ordinal_temporal_motion",
+      "minimum_intervals": 2
+    },
+    "counterfactual_response": {
+      "required_for_rcs": true,
+      "output": "same_source_signed_response",
+      "minimum_intervals": 2
+    },
+    "grounding": {
+      "required_for_gs": true,
+      "output": "descriptor_grounding",
+      "reference": "same_source_external_future"
+    },
+    "reliability": {
+      "required": true,
+      "output": "support_and_abstention_diagnostics"
+    }
+  },
+  "depth": {
+    "required": false,
+    "role": "optional_adapter_for_validity_and_grounding_diagnostics",
+    "must_not": [
+      "select_pixels_using_candidate_action",
+      "replace_missing_visual_response",
+      "claim_metric_trajectory_accuracy_without_independent_validation"
+    ]
+  },
+  "missing_value_policy": "unavailable_never_zero_fill",
+  "claim_boundary": "The evidence layer supports metric-specific MAS/RCS/GS scoring but does not establish future-to-action causality or metric trajectory reconstruction."
+}
