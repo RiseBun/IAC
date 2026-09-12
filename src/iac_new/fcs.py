@@ -14,6 +14,8 @@ import numpy as np
 
 from .state_protocol import task_success_from_label
 
+FORBIDDEN_ACTION_SOURCES = {"logged", "oracle", "proxy", "candidate", "gt", "ground_truth"}
+
 
 def _wilson(successes: int, total: int, z: float = 1.959963984540054) -> list[float] | None:
     if total <= 0:
@@ -47,6 +49,8 @@ def score_fcs_rollout(
         raise ValueError("minimum_rows must be positive")
     normalized: list[dict[str, Any]] = []
     seen: set[tuple[str, str]] = set()
+    model_ids: set[str] = set()
+    action_sources: set[str] = set()
     for index, row in enumerate(rows):
         source = str(row.get(source_field) or row.get("sample_id") or "")
         branch = str(row.get("branch_role") or row.get("branch_id") or "single")
@@ -59,6 +63,22 @@ def score_fcs_rollout(
         if key in seen:
             raise ValueError(f"duplicate FCS rollout row: {key}")
         seen.add(key)
+        model_id = str(row.get("wam_model_id") or "").strip()
+        if not model_id:
+            item.update({"status": "unavailable", "reason": "missing_wam_model_id"})
+            normalized.append(item)
+            continue
+        model_ids.add(model_id)
+        action_source = str(row.get("action_trajectory_source") or row.get("action_source") or "").strip()
+        if not action_source:
+            item.update({"status": "unavailable", "reason": "missing_native_action_source"})
+            normalized.append(item)
+            continue
+        if action_source.lower() in FORBIDDEN_ACTION_SOURCES:
+            item.update({"status": "unavailable", "reason": "action_source_is_not_native"})
+            normalized.append(item)
+            continue
+        action_sources.add(action_source)
         independent_state = row.get("independent_realized_state")
         if independent_state is None:
             # Backward-compatible evidence form emitted by the NAVSIM runner:
@@ -93,6 +113,8 @@ def score_fcs_rollout(
         normalized.append(item)
 
     scored = [item for item in normalized if item["status"] == "scored"]
+    if len(model_ids) > 1:
+        raise ValueError(f"FCS input mixes WAM models: {sorted(model_ids)}")
     successes = sum(bool(item["task_success"]) for item in scored)
     strata: dict[str, dict[str, Any]] = {}
     for stratum in sorted({item["stratum"] for item in scored}):
@@ -112,6 +134,8 @@ def score_fcs_rollout(
         "protocol": "iac-fcs-independent-rollout-v1",
         "status": "pass" if len(scored) >= minimum_rows else "unavailable",
         "rows": len(rows),
+        "model_id": next(iter(model_ids), None),
+        "action_sources": sorted(action_sources),
         "scored_rows": len(scored),
         "unavailable_rows": len(normalized) - len(scored),
         "coverage": len(scored) / len(rows) if rows else None,

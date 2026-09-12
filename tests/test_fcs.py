@@ -6,8 +6,8 @@ from iac_new.fcs import score_fcs_rollout
 class FcsTests(unittest.TestCase):
     def test_scores_explicit_independent_outcomes(self) -> None:
         report = score_fcs_rollout([
-            {"source_key": "a", "task_success": True, "stratum": "turn", "independent_realized_state": True, "action_injection_verified": True},
-            {"source_key": "b", "task_success": False, "stratum": "straight", "independent_realized_state": True, "action_injection_verified": True},
+            {"source_key": "a", "task_success": True, "stratum": "turn", "wam_model_id": "m", "action_trajectory_source": "m_native", "independent_realized_state": True, "action_injection_verified": True},
+            {"source_key": "b", "task_success": False, "stratum": "straight", "wam_model_id": "m", "action_trajectory_source": "m_native", "independent_realized_state": True, "action_injection_verified": True},
         ])
         self.assertEqual(report["status"], "pass")
         self.assertEqual(report["successes"], 1)
@@ -32,6 +32,8 @@ class FcsTests(unittest.TestCase):
         report = score_fcs_rollout([{
             "source_key": "a",
             "task_success": True,
+            "wam_model_id": "m",
+            "action_trajectory_source": "m_native",
             "realized_state_available": True,
             "state_reference_source": "navsim_pdm_kinematic_bicycle_closed_loop",
             "action_injection_verified": True,
@@ -42,6 +44,8 @@ class FcsTests(unittest.TestCase):
         report = score_fcs_rollout([{
             "source_key": "a",
             "task_success": True,
+            "wam_model_id": "m",
+            "action_trajectory_source": "m_native",
             "realized_state_available": True,
             "state_reference_source": "annotated_guess",
             "action_injection_verified": True,
