@@ -340,6 +340,20 @@ GS 的 source-disjoint generated calibration 为 `230` 个分支，coverage `98.
 [`reports/grounding_score_bootstrap_20260912.json`](reports/grounding_score_bootstrap_20260912.json)
 和 [`reports/grounding_score_candidate_20260911.json`](reports/grounding_score_candidate_20260911.json)。
 
+GS 的重算入口是
+[`tools/score_structural_grounding.py`](tools/score_structural_grounding.py)。它接收
+生成流结构 JSONL、外部参考未来 JSONL 和冻结的 descriptor scales；参考未来可以由
+评测方保留在私有环境，缺失 interval 会记为 `unavailable`，绝不会用零填充。因而
+协议和代码可独立复现，公开仓库仍不泄露 NAVSIM/Waymo 图像或 GT。
+
+```text
+python tools/score_structural_grounding.py \
+  --generated generated_flow_structure.jsonl \
+  --reference logged_future_flow_structure.jsonl \
+  --scales configs/gs_descriptor_scales.json \
+  --output gs_report.json
+```
+
 **MAS structural diagnostic（尚未作为正式排行榜分数）**
 
 | 模型 | interval coverage | reliable fraction | median residual (px) | direction cosine |

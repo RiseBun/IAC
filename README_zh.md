@@ -244,6 +244,12 @@ Epona − DriveWAM 的 paired 差值为 `0.314`，95% CI `[0.251, 0.340]`；说�
 calibration 分支的 coverage 为 `98.3%`，GS 中位数 `0.503`，随机身份置换均值
 `0.289`。GS 协议已冻结；它仍不声称 future-to-action 因果关系。
 
+公开重算入口为 [`tools/score_structural_grounding.py`](tools/score_structural_grounding.py)：
+评测方提供生成流结构 JSONL、外部参考未来 JSONL 和冻结尺度
+[`configs/gs_descriptor_scales.json`](configs/gs_descriptor_scales.json) 即可重算 GS。
+参考未来可以留在私有评测环境；缺失 interval 会报告为 `unavailable`，绝不以零填充。
+因此公开的是协议与执行路径，不是 NAVSIM/Waymo 的私有图像或 GT。
+
 **MAS 独立动作—结构校准审计（尚未通过正式验收）：**
 
 校准只使用 logged real future flow，随后一次性应用到未参与校准的 pure-speed
