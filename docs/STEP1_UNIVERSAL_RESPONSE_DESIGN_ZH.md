@@ -90,3 +90,24 @@ Epona/DriveWAM 的有效方向覆盖或 CI 仍不足，DriveVA 也未通过 CI�
 MAS/RCS；Epona、DriveWAM 的 coverage/方向问题仍是真实限制，DriveVA 的样本量
 和 CI 仍不足。`zero_contrast` 的共同中点控制仅验证 fail-closed 行为，不把
 它解释为模型没有响应。
+
+## Step1 重构：共享证据层
+
+当前结论不再是继续把一个 yaw 标量调成“通用指标”，而是让 Step1 输出四类
+相互独立的证据：
+
+1. `temporal_motion`：单支未来中的时序运动和持续性；
+2. `counterfactual_response`：同源左右分支的有符号视觉差分；
+3. `grounding`：生成 future 与外部 logged future 的结构对齐；
+4. `reliability`：支持率、深度有效率和弃权原因。
+
+MAS 消费单支 temporal/action evidence，RCS 消费 twin response evidence，GS
+消费 grounding evidence；FCS 仍需要独立的 future-only intervention，不能由
+Step1 单独推出。实现入口是
+[`../src/iac_new/step1_evidence.py`](../src/iac_new/step1_evidence.py)，协议配置是
+[`../configs/step1_evidence_layer_v1.json`](../configs/step1_evidence_layer_v1.json)。
+
+深度在这一版中是可选 adapter，而不是硬依赖。它可以帮助判断几何有效性和
+grounding 质量，但不能：按候选动作筛像素、把缺失的视觉响应补出来、或在没有
+独立真实验证时宣称米制轨迹准确。这样可以先让没有深度输出的 WAM 参评，同时
+保留深度作为后续 GS/结构质量的增强通道。
