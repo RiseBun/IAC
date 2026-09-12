@@ -301,7 +301,7 @@ future-to-action 因果。详见 [`reports/fcs_drivewam_summary_20260912.json`](
 fail-closed 评分器得到 coverage `1.000`，成功率 Wilson 95% CI 为
 `[0.4830, 0.5455]`。
 通用的 fail-closed 评分器位于 [`tools/score_fcs_rollout.py`](tools/score_fcs_rollout.py)：
-它要求显式任务标签、稳定 source key、已验证的 native-action 注入和独立 realized state；
+它要求显式任务标签及其模拟器来源、稳定 source key、已验证的 native-action 注入和独立 realized state；
 缺失记录报告为 `unavailable`，绝不当成失败。
 
 ## 数据集

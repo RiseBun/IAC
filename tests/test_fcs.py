@@ -6,8 +6,8 @@ from iac_new.fcs import score_fcs_rollout
 class FcsTests(unittest.TestCase):
     def test_scores_explicit_independent_outcomes(self) -> None:
         report = score_fcs_rollout([
-            {"source_key": "a", "task_success": True, "stratum": "turn", "wam_model_id": "m", "action_trajectory_source": "m_native", "independent_realized_state": True, "action_injection_verified": True},
-            {"source_key": "b", "task_success": False, "stratum": "straight", "wam_model_id": "m", "action_trajectory_source": "m_native", "independent_realized_state": True, "action_injection_verified": True},
+            {"source_key": "a", "task_success": True, "task_success_source": "simulator_score", "stratum": "turn", "wam_model_id": "m", "action_trajectory_source": "m_native", "independent_realized_state": True, "action_injection_verified": True},
+            {"source_key": "b", "task_success": False, "task_success_source": "simulator_score", "stratum": "straight", "wam_model_id": "m", "action_trajectory_source": "m_native", "independent_realized_state": True, "action_injection_verified": True},
         ])
         self.assertEqual(report["status"], "pass")
         self.assertEqual(report["successes"], 1)
@@ -32,6 +32,7 @@ class FcsTests(unittest.TestCase):
         report = score_fcs_rollout([{
             "source_key": "a",
             "task_success": True,
+            "task_success_source": "simulator_score",
             "wam_model_id": "m",
             "action_trajectory_source": "m_native",
             "realized_state_available": True,
@@ -44,6 +45,7 @@ class FcsTests(unittest.TestCase):
         report = score_fcs_rollout([{
             "source_key": "a",
             "task_success": True,
+            "task_success_source": "simulator_score",
             "wam_model_id": "m",
             "action_trajectory_source": "m_native",
             "realized_state_available": True,
@@ -58,3 +60,15 @@ class FcsTests(unittest.TestCase):
                 {"source_key": "a", "task_success": True},
                 {"source_key": "a", "task_success": False},
             ])
+
+    def test_image_derived_success_is_unavailable(self) -> None:
+        report = score_fcs_rollout([{
+            "source_key": "a",
+            "task_success": True,
+            "task_success_source": "image",
+            "wam_model_id": "m",
+            "action_trajectory_source": "m_native",
+            "independent_realized_state": True,
+            "action_injection_verified": True,
+        }])
+        self.assertEqual(report["status"], "unavailable")

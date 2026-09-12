@@ -417,8 +417,8 @@ generated future images. This is a single-model result; cross-model FCS remains
 pending and the score does not establish future-to-action mediation. See
 [`reports/fcs_drivewam_summary_20260912.json`](reports/fcs_drivewam_summary_20260912.json).
 The reusable fail-closed scorer is [`tools/score_fcs_rollout.py`](tools/score_fcs_rollout.py):
-it requires explicit task labels, stable source keys, verified native-action
-injection, and independent realized state, and reports missing rows as
+it requires explicit task labels and their simulator provenance, stable source
+keys, verified native-action injection, and independent realized state, and reports missing rows as
 `unavailable` rather than failures.
 
 ## Benchmark dataset

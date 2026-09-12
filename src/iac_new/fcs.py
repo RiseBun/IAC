@@ -15,6 +15,7 @@ import numpy as np
 from .state_protocol import task_success_from_label
 
 FORBIDDEN_ACTION_SOURCES = {"logged", "oracle", "proxy", "candidate", "gt", "ground_truth"}
+FORBIDDEN_SUCCESS_SOURCES = {"image", "visual", "manual", "inferred", "guess", "human_guess"}
 
 
 def _wilson(successes: int, total: int, z: float = 1.959963984540054) -> list[float] | None:
@@ -79,6 +80,15 @@ def score_fcs_rollout(
             normalized.append(item)
             continue
         action_sources.add(action_source)
+        success_source = str(row.get("task_success_source") or "").strip()
+        if not success_source:
+            item.update({"status": "unavailable", "reason": "missing_task_success_source"})
+            normalized.append(item)
+            continue
+        if success_source.lower() in FORBIDDEN_SUCCESS_SOURCES:
+            item.update({"status": "unavailable", "reason": "task_success_source_is_not_independent"})
+            normalized.append(item)
+            continue
         independent_state = row.get("independent_realized_state")
         if independent_state is None:
             # Backward-compatible evidence form emitted by the NAVSIM runner:
