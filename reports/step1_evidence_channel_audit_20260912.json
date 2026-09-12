@@ -1,0 +1,252 @@
+{
+  "protocol": "iac-step1-evidence-channel-audit-v1",
+  "models": {
+    "Epona": {
+      "protocol": "iac-step1-evidence-channel-audit-v1",
+      "source_report": "reports\\step1_evidence_raw_epona_20260912.json",
+      "pair_count": 59,
+      "min_intervals": 2,
+      "channels": {
+        "yaw_direction": {
+          "pairs_total": 59,
+          "pairs_evaluable": 0,
+          "coverage": 0.0,
+          "direction_accuracy": null,
+          "direction_ci95": null,
+          "median_interval_direction_accuracy": null,
+          "status_counts": {
+            "scored": 0,
+            "weak": 0,
+            "inverted": 0,
+            "unavailable": 59
+          },
+          "formal_gate_candidate": false
+        },
+        "lateral_direction": {
+          "pairs_total": 59,
+          "pairs_evaluable": 56,
+          "coverage": 0.9491525423728814,
+          "direction_accuracy": 0.375,
+          "direction_ci95": [
+            0.25,
+            0.5
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 0,
+            "weak": 32,
+            "inverted": 24,
+            "unavailable": 3
+          },
+          "formal_gate_candidate": false
+        },
+        "longitudinal_order": {
+          "pairs_total": 59,
+          "pairs_evaluable": 56,
+          "coverage": 0.9491525423728814,
+          "direction_accuracy": 0.6071428571428571,
+          "direction_ci95": [
+            0.48214285714285715,
+            0.7321428571428571
+          ],
+          "median_interval_direction_accuracy": 0.75,
+          "status_counts": {
+            "scored": 0,
+            "weak": 48,
+            "inverted": 8,
+            "unavailable": 3
+          },
+          "formal_gate_candidate": false
+        }
+      },
+      "claim_boundary": "Source/twin aggregation of the shared evidence layer. It is not a cross-architecture promotion result and does not establish future-to-action causality."
+    },
+    "DriveWAM": {
+      "protocol": "iac-step1-evidence-channel-audit-v1",
+      "source_report": "reports\\step1_evidence_raw_drivewam_20260912.json",
+      "pair_count": 86,
+      "min_intervals": 2,
+      "channels": {
+        "yaw_direction": {
+          "pairs_total": 86,
+          "pairs_evaluable": 82,
+          "coverage": 0.9534883720930233,
+          "direction_accuracy": 0.36585365853658536,
+          "direction_ci95": [
+            0.2682926829268293,
+            0.47560975609756095
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 0,
+            "weak": 56,
+            "inverted": 26,
+            "unavailable": 4
+          },
+          "formal_gate_candidate": false
+        },
+        "lateral_direction": {
+          "pairs_total": 86,
+          "pairs_evaluable": 82,
+          "coverage": 0.9534883720930233,
+          "direction_accuracy": 0.3780487804878049,
+          "direction_ci95": [
+            0.2682926829268293,
+            0.4878048780487805
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 0,
+            "weak": 54,
+            "inverted": 28,
+            "unavailable": 4
+          },
+          "formal_gate_candidate": false
+        },
+        "longitudinal_order": {
+          "pairs_total": 86,
+          "pairs_evaluable": 82,
+          "coverage": 0.9534883720930233,
+          "direction_accuracy": 0.3902439024390244,
+          "direction_ci95": [
+            0.2926829268292683,
+            0.4878048780487805
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 0,
+            "weak": 50,
+            "inverted": 32,
+            "unavailable": 4
+          },
+          "formal_gate_candidate": false
+        }
+      },
+      "claim_boundary": "Source/twin aggregation of the shared evidence layer. It is not a cross-architecture promotion result and does not establish future-to-action causality."
+    },
+    "DriveVA": {
+      "protocol": "iac-step1-evidence-channel-audit-v1",
+      "source_report": "reports\\step1_evidence_raw_driveva_20260912.json",
+      "pair_count": 10,
+      "min_intervals": 2,
+      "channels": {
+        "yaw_direction": {
+          "pairs_total": 10,
+          "pairs_evaluable": 10,
+          "coverage": 1.0,
+          "direction_accuracy": 0.6,
+          "direction_ci95": [
+            0.3,
+            0.9
+          ],
+          "median_interval_direction_accuracy": 0.7375,
+          "status_counts": {
+            "scored": 5,
+            "weak": 2,
+            "inverted": 3,
+            "unavailable": 0
+          },
+          "formal_gate_candidate": false
+        },
+        "lateral_direction": {
+          "pairs_total": 10,
+          "pairs_evaluable": 10,
+          "coverage": 1.0,
+          "direction_accuracy": 0.4,
+          "direction_ci95": [
+            0.1,
+            0.7
+          ],
+          "median_interval_direction_accuracy": 0.4375,
+          "status_counts": {
+            "scored": 2,
+            "weak": 3,
+            "inverted": 5,
+            "unavailable": 0
+          },
+          "formal_gate_candidate": false
+        },
+        "longitudinal_order": {
+          "pairs_total": 10,
+          "pairs_evaluable": 0,
+          "coverage": 0.0,
+          "direction_accuracy": null,
+          "direction_ci95": null,
+          "median_interval_direction_accuracy": null,
+          "status_counts": {
+            "scored": 0,
+            "weak": 0,
+            "inverted": 0,
+            "unavailable": 10
+          },
+          "formal_gate_candidate": false
+        }
+      },
+      "claim_boundary": "Source/twin aggregation of the shared evidence layer. It is not a cross-architecture promotion result and does not establish future-to-action causality."
+    },
+    "WorldDrive": {
+      "protocol": "iac-step1-evidence-channel-audit-v1",
+      "source_report": "reports\\step1_evidence_raw_worlddrive_20260912.json",
+      "pair_count": 13,
+      "min_intervals": 2,
+      "channels": {
+        "yaw_direction": {
+          "pairs_total": 13,
+          "pairs_evaluable": 13,
+          "coverage": 1.0,
+          "direction_accuracy": 0.9230769230769231,
+          "direction_ci95": [
+            0.7692307692307693,
+            1.0
+          ],
+          "median_interval_direction_accuracy": 1.0,
+          "status_counts": {
+            "scored": 9,
+            "weak": 4,
+            "inverted": 0,
+            "unavailable": 0
+          },
+          "formal_gate_candidate": true
+        },
+        "lateral_direction": {
+          "pairs_total": 13,
+          "pairs_evaluable": 11,
+          "coverage": 0.8461538461538461,
+          "direction_accuracy": 0.5454545454545454,
+          "direction_ci95": [
+            0.2727272727272727,
+            0.8181818181818182
+          ],
+          "median_interval_direction_accuracy": 0.625,
+          "status_counts": {
+            "scored": 2,
+            "weak": 4,
+            "inverted": 5,
+            "unavailable": 2
+          },
+          "formal_gate_candidate": false
+        },
+        "longitudinal_order": {
+          "pairs_total": 13,
+          "pairs_evaluable": 11,
+          "coverage": 0.8461538461538461,
+          "direction_accuracy": 0.36363636363636365,
+          "direction_ci95": [
+            0.09090909090909091,
+            0.6363636363636364
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 3,
+            "weak": 3,
+            "inverted": 5,
+            "unavailable": 2
+          },
+          "formal_gate_candidate": false
+        }
+      },
+      "claim_boundary": "Source/twin aggregation of the shared evidence layer. It is not a cross-architecture promotion result and does not establish future-to-action causality."
+    }
+  },
+  "claim_boundary": "Evidence-channel pilot only; no universal MAS/RCS promotion."
+}

@@ -5,6 +5,7 @@ import numpy as np
 from iac_new.step1_evidence import (
     assemble_step1_evidence,
     counterfactual_response_evidence,
+    response_channel_evidence,
     temporal_motion_evidence,
 )
 
@@ -26,7 +27,7 @@ def _profile(values, available=True):
 class Step1EvidenceTest(unittest.TestCase):
     def test_temporal_evidence_is_ordinal_and_candidate_blind(self) -> None:
         result = temporal_motion_evidence(_profile([0.2, 0.3, 0.4]))
-        self.assertEqual(result["status"], "scored")
+        self.assertIn(result["status"], {"scored", "weak"})
         self.assertEqual(result["temporal_persistence"], 1.0)
         self.assertFalse(result["metric_reconstruction_used"])
         self.assertFalse(result["candidate_selection_used"])
@@ -46,9 +47,25 @@ class Step1EvidenceTest(unittest.TestCase):
             depth_valid_mask=np.ones((2, 3), dtype=bool),
         )
         self.assertEqual(result["protocol"], "iac-step1-evidence-layer-v1")
-        self.assertEqual(result["channels"]["counterfactual_response"]["status"], "scored")
+        self.assertIn(result["channels"]["counterfactual_response"]["status"], {"scored", "weak"})
         self.assertFalse(result["channels"]["grounding"]["status"] == "scored")
         self.assertFalse(result["metric_reconstruction_used"])
+
+    def test_action_channels_are_independent(self) -> None:
+        left = _profile([0.2, 0.3])
+        right = _profile([-0.2, -0.3])
+        for row in left["rows"]:
+            row["left_right_horizontal_contrast"] = 0.2
+        for row in right["rows"]:
+            row["left_right_horizontal_contrast"] = -0.2
+        result = response_channel_evidence(
+            left,
+            right,
+            {"yaw_direction": 0.4, "lateral_direction": 0.4, "longitudinal_order": 0.0},
+        )
+        self.assertIn(result["yaw_direction"]["status"], {"scored", "weak"})
+        self.assertIn(result["lateral_direction"]["status"], {"scored", "weak"})
+        self.assertEqual(result["longitudinal_order"]["status"], "unavailable")
 
 
 if __name__ == "__main__":

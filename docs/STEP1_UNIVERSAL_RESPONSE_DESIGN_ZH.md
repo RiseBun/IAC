@@ -111,3 +111,26 @@ Step1 单独推出。实现入口是
 grounding 质量，但不能：按候选动作筛像素、把缺失的视觉响应补出来、或在没有
 独立真实验证时宣称米制轨迹准确。这样可以先让没有深度输出的 WAM 参评，同时
 保留深度作为后续 GS/结构质量的增强通道。
+
+## 多通道 raw-flow 首轮结果
+
+把四个模型的原始 flow 转成共享证据后，再按 source/twin 聚合，而不是把四个
+interval 当成四个独立样本。结果见
+[`../reports/step1_evidence_channel_audit_20260912.json`](../reports/step1_evidence_channel_audit_20260912.json)。
+
+| 模型 | 通道 | pair coverage | 方向命中 | 95% CI | 解释 |
+|---|---|---:|---:|---|---|
+| Epona | yaw | 0% | — | — | action yaw 无左右差异 |
+| Epona | lateral | 94.9% | 37.5% | [25.0%, 50.0%] | 描述子方向不稳定 |
+| Epona | longitudinal | 94.9% | 60.7% | [48.2%, 73.2%] | 有序信号但不足 |
+| DriveWAM | yaw | 95.3% | 36.6% | [26.8%, 47.6%] | 方向接近随机 |
+| DriveWAM | lateral | 95.3% | 37.8% | [26.8%, 48.8%] | 方向接近随机 |
+| DriveWAM | longitudinal | 95.3% | 39.0% | [29.3%, 48.8%] | 方向接近随机 |
+| DriveVA | yaw | 100% | 60.0% | [30.0%, 90.0%] | 样本太小 |
+| WorldDrive | yaw | 100% | 92.3% | [76.9%, 100%] | 仅此通道达到 pilot gate |
+
+这轮结果说明“增加 lateral/纵向字段”本身不会自动解决 Step1；描述子必须和
+动作分量建立独立的 real-only 映射，并通过负控制。当前只有 WorldDrive 的 yaw
+通道达到 pilot 门，仍不能升级为普适 MAS/RCS。GS 的 grounding 通道尚未在这轮
+raw-flow 桥接中计算，因为归档中没有同口径的 external reference profile；这
+不是填零，而是 `unavailable`。
