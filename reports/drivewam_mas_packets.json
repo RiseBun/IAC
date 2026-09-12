@@ -1,0 +1,3832 @@
+{
+  "protocol": "iac-metric-evidence-packet-builder-v1",
+  "metric_id": "MAS",
+  "model_id": "DriveWAM",
+  "input": "/tmp/drivewam_se2.json",
+  "raw_root_used": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/forward_visual_drivewam_full_20260911",
+  "rows": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.255997874416769e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6606824184452852
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.797605995020467e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7704957527303876
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.768483904432186e-46,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7838532372046542
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.0882482056091163e-53,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4263152259261903
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.37377392831597e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.30355485759154827
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.6980900908651887e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5069241202084375
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.847912815572928e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7021468341780285
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.1659222536442795e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.971991219930045
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.246327937349884e-11,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20847312442001573
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.1266227134604198e-10,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2154953958169748
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.2484964221134294e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6913680491112856
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.539701758630792e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.738623384966807
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.959027758141256e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8160111356984796
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.946885843628304e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8515597116139625
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.1953741130227268e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.745993646941252
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.6705286075941837e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8428867156827754
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.715766653798462e-47,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7349293311442644
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.1078635819452447e-53,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.36405168106217434
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.8221615206911426e-39,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.9080412591905204
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.5152279014473498e-44,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8268702262831037
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.3942098191708249e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6985687772146477
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.156512693755825e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7683631950888715
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.662259130671817e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4755246627168249
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.496159754279096e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5139999286173175
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.4216983181675566e-43,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8365336569348276
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.2703058000539296e-48,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.726238489542437
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.101904417047418e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.23841815975444358
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.2106778879617065e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.30602648297523016
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.14061572975067e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4900064244414305
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.4267101902072444e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7650082090084945
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.3540773403681547e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.47186630023556286
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.8797806086542014e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.666741023627668
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.2737733429242524e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6316742808194732
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0003102440050025749,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7170301234920409
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.3528807780620408e-52,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.607484474266543
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.5889464857993533e-53,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3217217503033764
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.5784767075991818e-39,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.9013223641944463
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.716143239944363e-44,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8202137911342708
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.191036829408411e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.174545017870349e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.9798847935604064e-14,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.489033835391534
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.748261735521204e-16,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6084392176457992
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.1889205166529465e-11,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.1792329930758798
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.2506130195173285e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.24710007852095084
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.209674271993374e-18,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7394264401456206
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.1519917013853138e-21,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.9073185095295881
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.13616246698550932
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9",
+      "evidence_status": "weak",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.2889449957098668e-79,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.1960614604896852
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.216157859519776e-15,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.1953833250053537
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.9826945571069034e-22,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20732207866371616
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.643099740343919e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4302412734670569
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.4541244408330873e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6514562067242488
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.930978013206636e-48,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3009672353487044
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.200424559148677e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.22344564208722967
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.4160036509347704e-26,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3125044614176601
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.267209149261308e-29,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.41390356199585976
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.5775106176203495e-52,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4388339638803626
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.4618304407679425e-11,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2452530516096795
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.7168211265179226e-31,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.26925547862088656
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.729543250281716e-34,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.351122492683275
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.821530502633236e-26,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.540447212506246
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.51150385657248e-28,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7145406524377186
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.694779407235848e-51,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2530962238560925
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.06491362695410094
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.2414524996853455e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5297219644514242
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.2789026851589072e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6299878649439645
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.185771968447839e-21,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.45597473053037335
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.769496120307475e-25,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6033710471839532
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.414056544507143e-12,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2351345563566279
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.8470111213839605e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.32180205582125776
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.318164762702171e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7013080876579341
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.679976354219511e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8175280177029054
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.6384821753865147e-47,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7773127989149832
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.46275555028138e-53,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5045952601898779
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.145165491022766e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7516864158755086
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.724948122872968e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8367478049825112
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.451114112461487e-50,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.421345206652866
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "evidence_status": "weak",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.180394173443609e-51,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.13951745306588623
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.413763002650637e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.41096794917553
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.6876445273480964e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6050574630594617
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.692815030212615e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2889035619958598
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.6040646908416886e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3949425369405382
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.913802537197522e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.969573131558284
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.913802537197522e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.969573131558284
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.615501122811676e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.41277036191020056
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.272526058803438e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7115961167820687
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.260982429628432e-51,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.35185416517952744
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.4056813207705233e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.24034549218359627
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.3319390750957099e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.620815190234849
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.730217736004461e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7775269469626669
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.524336454245344e-12,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.18568420301234922
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.140490983087734e-15,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.28793989578128343
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.054797696717185e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4003854664858305
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.903694438921425e-12,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4549396816332357
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.0275445435855624e-39,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.9044453565564994
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.132707733313034e-45,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8176797059033478
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.383232672358961e-43,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8219626668570206
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.623969130063182e-49,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6721393389963595
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.4154753658794567e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.43688878578056956
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.6454197880612115e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6210114926118924
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.419890842260274e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.0080363221531465e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.152284781889697e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.734384131314709e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.0391313329978956e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8498554500678135
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.629286602902956e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.9352648297523021
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.717890656328163e-48,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.743870012135056
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.1721433710032003e-53,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.31353951031479765
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.0777892673062215e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6466200299807268
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.3785740643089905e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7289777999857234
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.3736754152873105e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.3736754152873105e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.393008289371785e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.195061135532605e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.0141492948617981e-52,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4842690413305732
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.0968880410143342e-15,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.281899136269541
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.11287386679991435
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "evidence_status": "weak",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.496655591036345e-29,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.1474944678421015
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.7795013516413124e-10,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5262509815118852
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.865107232038758e-12,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7707277464487116
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424",
+      "evidence_status": "weak",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.628164345334512e-54,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2127114711970876
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.0768143123169913e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.22344564208722964
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.308070936233502e-18,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5018827182525519
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.249744990512154e-16,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6399011349846527
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.231191495361177e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4483903205082447
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.2178103750928038e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5328538796487972
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.9732569965368795e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3106395888357484
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.042099224530384e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4678421015061746
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.529272326778175e-10,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20417231779570275
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.3660488414852515e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2633396388036262
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.938043797455023e-14,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2967110429009922
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.997712580147003e-14,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.40556071097151825
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.0777966214845664e-42,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8584749089870798
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.163746135825012e-49,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7181633235777
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.4732969830957276e-17,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.24359340424013134
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.912510503394835e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.33010921550431865
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.0083863273480613e-16,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2096866300235563
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.106234218791326e-28,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.39316689271182814
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.810948713963898e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.40193803983153686
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.0036637395246363e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.41963202227139695
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.843904960166798e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.40461489042758225
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.785166464465917e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4888732243557713
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.944464096644249e-14,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6995681347705047
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.2599523771228074e-21,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8167784995360126
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.32071562183076e-10,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6227782140052823
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.084759155036037e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7691127132557642
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.0422050110643158
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "evidence_status": "weak",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.1706359450031992e-89,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.09567064030266259
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.456767665283182e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7567635091726747
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.4089210942058566e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.9402794632022271
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.1390085108545896e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.19859554572060817
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.0089260013708074e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.24401277750017847
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.0758325007301612e-51,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.28536119637375973
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.315904878870953e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2121582554072382
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.7129312386298856e-11,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20855342993789708
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.844881919657373e-12,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.26678385323720466
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.968047367819683e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6117852808908559
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.1117867178803765e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7045916910557499
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.3713476516026925e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6514294382182881
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.583101293163118e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8093190092083661
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.31985602060519e-24,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.23642836747804982
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.168036434432302e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3046523663359269
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.3220420856763364e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.23209186951245625
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.0052522079140985e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.28541473338568063
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.9095138449012952e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.9095138449012952e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.0248568240294571e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7041990863016632
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.066578792391016e-16,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8591084302948105
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.770712274847122e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5593279320436862
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.808068688589441e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.571757441644657
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.3436896706508285e-44,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.34461774573488474
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.540628566477275e-44,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4317492326361625
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    }
+  ],
+  "validation": {
+    "protocol": "iac-metric-evidence-contract-v1",
+    "metric_id": "MAS",
+    "rows": 172,
+    "status_counts": {
+      "valid": 168,
+      "unavailable": 4,
+      "invalid": 0
+    },
+    "valid": true,
+    "reports": [
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      }
+    ],
+    "missing_value_policy": "unavailable_never_zero_fill"
+  },
+  "claim_boundary": "Source-level evidence completeness only; validation does not promote a pilot metric or establish causal mediation."
+}

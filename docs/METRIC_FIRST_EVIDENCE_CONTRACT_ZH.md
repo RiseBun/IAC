@@ -27,3 +27,16 @@ Step1 不是一个必须服务所有指标的单一运动读取器。MAS、RCS�
 ## 对现有报告的回放
 
 对已有 Epona、DriveWAM 的 MAS/RCS/GS/FCS 汇总报告做回放，7 个候选全部被标为 `unavailable`。这不是说旧数字一定错误，而是旧报告没有携带足够的指标身份与干预证据：MAS 缺 native-action provenance，RCS 缺显式 counterfactual group/branch/action-delta，GS 缺 reference identity，FCS 缺成对 future intervention。完整结果见 [`reports/metric_first_readiness_20260912.json`](../reports/metric_first_readiness_20260912.json)。
+
+## 样本级证据包试验
+
+`tools/build_metric_evidence_packets.py` 将固定支持 SE(2) 报告转换为样本级 MAS/RCS 包。模型身份和 native action 来源必须由命令行显式提供；RCS 还必须从同源左右分支的原始轨迹计算 `action_delta`。缺任何一项就保留为 `unavailable`，低覆盖样本标为 `weak`，不会把缺证据变成 0 分。
+
+2026-09-12 的两个模型试验（同一 SE(2) 观测器、无分数调参）如下：
+
+| 模型 | MAS scored / weak / unavailable | RCS scored / weak / unavailable |
+|---|---:|---:|
+| Epona | 106 / 10 / 2 | 37 / 0 / 22 |
+| DriveWAM | 148 / 20 / 4 | 63 / 0 / 23 |
+
+这里的 `scored`/`weak` 只表示证据字段完整；`weak` 仍需按协议单独报告，不能与 `scored` 混成一个覆盖率。它不等于模型质量通过，也不等于 future-to-action 因果已经成立。GS 仍需逐样本 reference identity/representation，FCS 仍需成对 future-only intervention，不能从 MAS/RCS 包推导。

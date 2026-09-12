@@ -1,0 +1,4003 @@
+{
+  "protocol": "iac-metric-evidence-packet-builder-v1",
+  "metric_id": "RCS",
+  "model_id": "DriveWAM",
+  "input": "/tmp/drivewam_se2.json",
+  "raw_root_used": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/forward_visual_drivewam_full_20260911",
+  "rows": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.443141937255859,
+          -0.016552448272705078,
+          0.0031135082244873047
+        ],
+        "longitudinal_m": 4.443141937255859,
+        "lateral_m": -0.016552448272705078,
+        "yaw_rad": 0.0031135082244873047,
+        "norm": 4.443173860212881,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0005138799719198439,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6606824184452852
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00043836767915566004
+        },
+        "zero": {
+          "likelihood": 0.001201603518847382
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          15.192283630371094,
+          -0.3641533851623535,
+          -0.002978116273880005
+        ],
+        "longitudinal_m": 15.192283630371094,
+        "lateral_m": -0.3641533851623535,
+        "yaw_rad": -0.002978116273880005,
+        "norm": 15.196647606059148,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.8977230002559057e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.37712363480619604
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 2.618942100987665e-13
+        },
+        "zero": {
+          "likelihood": 8.492428606465511e-13
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          9.487645149230957,
+          -0.18621444702148438,
+          -0.00013537704944610596
+        ],
+        "longitudinal_m": 9.487645149230957,
+        "lateral_m": -0.18621444702148438,
+        "yaw_rad": -0.00013537704944610596,
+        "norm": 9.489472393991784,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.1795072428399234e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.30355485759154827
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 4.171684006453373e-05
+        },
+        "zero": {
+          "likelihood": 9.231134067320379e-05
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          6.679784178733826,
+          0.07862353324890137,
+          0.0024366378784179688
+        ],
+        "longitudinal_m": 6.679784178733826,
+        "lateral_m": 0.07862353324890137,
+        "yaw_rad": 0.0024366378784179688,
+        "norm": 6.680247321143688,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 6.016392299100592e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7021468341780285
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 4.365564467877251e-06
+        },
+        "zero": {
+          "likelihood": 4.14938227165107e-05
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "evidence_status": "unavailable",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.567493438720703,
+          -0.20690512657165527,
+          -0.0012183338403701782
+        ],
+        "longitudinal_m": 5.567493438720703,
+        "lateral_m": -0.20690512657165527,
+        "yaw_rad": -0.0012183338403701782,
+        "norm": 5.571336859851239,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.003446275952482086,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.17540509672353488
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0027037937237518865
+        },
+        "zero": {
+          "likelihood": 0.00615475927109501
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          3.371542453765869,
+          -0.06620979309082031,
+          0.003339126706123352
+        ],
+        "longitudinal_m": 3.371542453765869,
+        "lateral_m": -0.06620979309082031,
+        "yaw_rad": 0.003339126706123352,
+        "norm": 3.372194152775588,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0016503647450199146,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6913680491112856
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0034125803553297558
+        },
+        "zero": {
+          "likelihood": 0.007826663285668325
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          1.3745406866073608,
+          0.028966426849365234,
+          0.0008460581302642822
+        ],
+        "longitudinal_m": 1.3745406866073608,
+        "lateral_m": 0.028966426849365234,
+        "yaw_rad": 0.0008460581302642822,
+        "norm": 1.3748461255128932,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.03641384155883279,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8160111356984796
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.03484434729257767
+        },
+        "zero": {
+          "likelihood": 0.08439497397201556
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.226109266281128,
+          0.2586315870285034,
+          -0.013176023960113525
+        ],
+        "longitudinal_m": 4.226109266281128,
+        "lateral_m": 0.2586315870285034,
+        "yaw_rad": -0.013176023960113525,
+        "norm": 4.234036305461196,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0004037408570148902,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.745993646941252
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00025574294893563725
+        },
+        "zero": {
+          "likelihood": 0.0009707050022791677
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          12.479381561279297,
+          3.230825424194336,
+          0.019267603754997253
+        ],
+        "longitudinal_m": 12.479381561279297,
+        "lateral_m": 3.230825424194336,
+        "yaw_rad": 0.019267603754997253,
+        "norm": 12.89083272384576,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 7.516416354574215e-12,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3195713469912199
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 8.110014704039025e-12
+        },
+        "zero": {
+          "likelihood": 1.1420808920505884e-11
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          16.663284301757812,
+          0.15724802017211914,
+          -0.0034293830394744873
+        ],
+        "longitudinal_m": 16.663284301757812,
+        "lateral_m": 0.15724802017211914,
+        "yaw_rad": -0.0034293830394744873,
+        "norm": 16.664026596886014,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 3.734082583184998e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7996555785566422
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 3.8757609955626604e-07
+        },
+        "zero": {
+          "likelihood": 7.884698494363625e-07
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.10553503036499,
+          -0.033104896545410156,
+          0.00674593448638916
+        ],
+        "longitudinal_m": 4.10553503036499,
+        "lateral_m": -0.033104896545410156,
+        "yaw_rad": 0.00674593448638916,
+        "norm": 4.105674040564039,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0012902072492176925,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6985687772146477
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0008173824389439302
+        },
+        "zero": {
+          "likelihood": 0.002111376247866944
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          1.314253807067871,
+          0.12414336204528809,
+          -0.002391502261161804
+        ],
+        "longitudinal_m": 1.314253807067871,
+        "lateral_m": 0.12414336204528809,
+        "yaw_rad": -0.002391502261161804,
+        "norm": 1.32010619384024,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.06148380699435118,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4755246627168249
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.05447836475980678
+        },
+        "zero": {
+          "likelihood": 0.11609387854691589
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          10.188484191894531,
+          0.43863916397094727,
+          9.025633335113525e-05
+        ],
+        "longitudinal_m": 10.188484191894531,
+        "lateral_m": 0.43863916397094727,
+        "yaw_rad": 9.025633335113525e-05,
+        "norm": 10.197922065440592,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 6.543714179103521e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7006924120208438
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 1.326789781478864e-07
+        },
+        "zero": {
+          "likelihood": 1.1175955629553654e-06
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.61798095703125,
+          -0.02482891082763672,
+          -9.02414321899414e-05
+        ],
+        "longitudinal_m": 5.61798095703125,
+        "lateral_m": -0.02482891082763672,
+        "yaw_rad": -9.02414321899414e-05,
+        "norm": 5.618035823712961,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0010609819119702703,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.23841815975444358
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0013186701268906463
+        },
+        "zero": {
+          "likelihood": 0.002744360139757538
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          6.245718955993652,
+          -0.12000465393066406,
+          0.0009024590253829956
+        ],
+        "longitudinal_m": 6.245718955993652,
+        "lateral_m": -0.12000465393066406,
+        "yaw_rad": 0.0009024590253829956,
+        "norm": 6.246871793838556,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 5.816179048163686e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4900064244414305
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00013305430286683888
+        },
+        "zero": {
+          "likelihood": 0.00023067922200567423
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.250985622406006,
+          0.06414055824279785,
+          -0.0018049180507659912
+        ],
+        "longitudinal_m": 5.250985622406006,
+        "lateral_m": 0.06414055824279785,
+        "yaw_rad": -0.0018049180507659912,
+        "norm": 5.251377655021153,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0003749416627871639,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.47186630023556286
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00043730403781757396
+        },
+        "zero": {
+          "likelihood": 0.0007781844129013379
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.1160688400268555,
+          0.07448577880859375,
+          -0.0014439374208450317
+        ],
+        "longitudinal_m": 2.1160688400268555,
+        "lateral_m": 0.07448577880859375,
+        "yaw_rad": -0.0014439374208450317,
+        "norm": 2.117379878985488,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.010423749872796213,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6316742808194732
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.008147284927608033
+        },
+        "zero": {
+          "likelihood": 0.03025362016335831
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          9.338432312011719,
+          0.049657344818115234,
+          0.004602581262588501
+        ],
+        "longitudinal_m": 9.338432312011719,
+        "lateral_m": 0.049657344818115234,
+        "yaw_rad": 0.004602581262588501,
+        "norm": 9.338565472366364,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 8.993508845786531e-10,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2809176243843243
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 5.098883500665955e-07
+        },
+        "zero": {
+          "likelihood": 1.0327353144327865e-08
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          15.650459289550781,
+          1.2000503540039062,
+          -0.002165883779525757
+        ],
+        "longitudinal_m": 15.650459289550781,
+        "lateral_m": 1.2000503540039062,
+        "yaw_rad": -0.002165883779525757,
+        "norm": 15.696400909669828,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 3.097950384955955e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7924370047826398
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 3.5795234939383866e-07
+        },
+        "zero": {
+          "likelihood": 7.154161727723202e-07
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          1.0128192901611328,
+          0.1593165397644043,
+          0.0036098361015319824
+        ],
+        "longitudinal_m": 1.0128192901611328,
+        "lateral_m": 0.1593165397644043,
+        "yaw_rad": 0.0036098361015319824,
+        "norm": 1.025279330368892,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.13595495363685473,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.14313772647954004
+        },
+        "zero": {
+          "likelihood": 0.31577941843073537
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.003047943115234,
+          0.09310722351074219,
+          -0.043679237365722656
+        ],
+        "longitudinal_m": 4.003047943115234,
+        "lateral_m": 0.09310722351074219,
+        "yaw_rad": -0.043679237365722656,
+        "norm": 4.004368822389596,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0006723276223142502,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.48493825397958457
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0013046817100494813
+        },
+        "zero": {
+          "likelihood": 0.0022614499400212366
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.564476013183594,
+          -3.0704736709594727,
+          -0.05884069204330444
+        ],
+        "longitudinal_m": 5.564476013183594,
+        "lateral_m": -3.0704736709594727,
+        "yaw_rad": -0.05884069204330444,
+        "norm": 6.3556796719462705,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0002730164490517147,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.1792329930758798
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00020331416832570587
+        },
+        "zero": {
+          "likelihood": 0.0004777971091795892
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.9540562629699707,
+          0.45467424392700195,
+          -0.032849669456481934
+        ],
+        "longitudinal_m": 2.9540562629699707,
+        "lateral_m": 0.45467424392700195,
+        "yaw_rad": -0.032849669456481934,
+        "norm": 2.989022611768954,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.001469014037334237,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.737499107716468
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0010666850877219622
+        },
+        "zero": {
+          "likelihood": 0.002653717905127562
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          8.416046142578125,
+          3.9063720703125,
+          -0.06786531209945679
+        ],
+        "longitudinal_m": 8.416046142578125,
+        "lateral_m": 3.9063720703125,
+        "yaw_rad": -0.06786531209945679,
+        "norm": 9.27869501203203,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.13616246698550932
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": null
+        },
+        "zero": {
+          "likelihood": null
+        }
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          1.2901382446289062,
+          0.27621936798095703,
+          0.009566068649291992
+        ],
+        "longitudinal_m": 1.2901382446289062,
+        "lateral_m": 0.27621936798095703,
+        "yaw_rad": 0.009566068649291992,
+        "norm": 1.31941098190494,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.1525258845549048,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.19395567135412947
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.1826875152647359
+        },
+        "zero": {
+          "likelihood": 0.33515193728051024
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          6.637583255767822,
+          0.07034730911254883,
+          0.009594321250915527
+        ],
+        "longitudinal_m": 6.637583255767822,
+        "lateral_m": 0.07034730911254883,
+        "yaw_rad": 0.009594321250915527,
+        "norm": 6.63796296104076,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00012081859322019665,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4302412734670569
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00011010197136847961
+        },
+        "zero": {
+          "likelihood": 0.0003221326892808765
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd",
+      "evidence_status": "unavailable",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          7.879489898681641,
+          -0.024828672409057617,
+          0.0002707242965698242
+        ],
+        "longitudinal_m": 7.879489898681641,
+        "lateral_m": -0.024828672409057617,
+        "yaw_rad": 0.0002707242965698242,
+        "norm": 7.87952902143848,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00020487013650915883,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.16596473695481476
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00012818945503698654
+        },
+        "zero": {
+          "likelihood": 0.0003345743513548459
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.7566328048706055,
+          2.054051399230957,
+          0.0
+        ],
+        "longitudinal_m": 4.7566328048706055,
+        "lateral_m": 2.054051399230957,
+        "yaw_rad": 0.0,
+        "norm": 5.181185461943421,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0009400583283027977,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3125044614176601
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0004329339905180847
+        },
+        "zero": {
+          "likelihood": 0.0013362991146156082
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "evidence_status": "unavailable",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          10.00535774230957,
+          0.5038142204284668,
+          0.011506423354148865
+        ],
+        "longitudinal_m": 10.00535774230957,
+        "lateral_m": 0.5038142204284668,
+        "yaw_rad": 0.011506423354148865,
+        "norm": 10.018040962088266,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 5.717045845734204e-11,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.18437254622028695
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 5.191339260580257e-08
+        },
+        "zero": {
+          "likelihood": 2.7027403401746277e-09
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.917884349822998,
+          2.3690643310546875,
+          0.020576179027557373
+        ],
+        "longitudinal_m": 2.917884349822998,
+        "lateral_m": 2.3690643310546875,
+        "yaw_rad": 0.020576179027557373,
+        "norm": 3.7585819483897045,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.007141533690032431,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.26925547862088656
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.008601702725346317
+        },
+        "zero": {
+          "likelihood": 0.015721853083198796
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          3.5086950063705444,
+          1.1286683082580566,
+          0.01155155897140503
+        ],
+        "longitudinal_m": 3.5086950063705444,
+        "lateral_m": 1.1286683082580566,
+        "yaw_rad": 0.01155155897140503,
+        "norm": 3.685778918534096,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0024468717760891246,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.540447212506246
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0010740104620523174
+        },
+        "zero": {
+          "likelihood": 0.003500268828640743
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          6.754390716552734,
+          9.045900344848633,
+          0.023102760314941406
+        ],
+        "longitudinal_m": 6.754390716552734,
+        "lateral_m": 9.045900344848633,
+        "yaw_rad": 0.023102760314941406,
+        "norm": 11.289403914216221,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.04910236276679278
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": null
+        },
+        "zero": {
+          "likelihood": null
+        }
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.351187229156494,
+          0.1282815933227539,
+          -0.0019402801990509033
+        ],
+        "longitudinal_m": 2.351187229156494,
+        "lateral_m": 0.1282815933227539,
+        "yaw_rad": -0.0019402801990509033,
+        "norm": 2.3546849722247916,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0239880074189424,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5297219644514242
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.008751972524312469
+        },
+        "zero": {
+          "likelihood": 0.04097557534573067
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          3.7619006633758545,
+          1.4855799674987793,
+          0.0014440417289733887
+        ],
+        "longitudinal_m": 3.7619006633758545,
+        "lateral_m": 1.4855799674987793,
+        "yaw_rad": 0.0014440417289733887,
+        "norm": 4.044607091696038,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0009294655442091982,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.45597473053037335
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0026256985638621264
+        },
+        "zero": {
+          "likelihood": 0.0022749213936815575
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.67751407623291,
+          2.953573226928711,
+          0.05008675158023834
+        ],
+        "longitudinal_m": 5.67751407623291,
+        "lateral_m": 2.953573226928711,
+        "yaw_rad": 0.05008675158023834,
+        "norm": 6.400021060538533,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 2.8760489142116916e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2351345563566279
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 5.503029337968894e-05
+        },
+        "zero": {
+          "likelihood": 2.38327998103326e-05
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          3.7799867391586304,
+          -0.11586713790893555,
+          0.0037903636693954468
+        ],
+        "longitudinal_m": 3.7799867391586304,
+        "lateral_m": -0.11586713790893555,
+        "yaw_rad": 0.0037903636693954468,
+        "norm": 3.7817640472032426,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0015129979125393341,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7013080876579341
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0006324367996612738
+        },
+        "zero": {
+          "likelihood": 0.002666797615563692
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          12.081489562988281,
+          1.054699420928955,
+          0.0017146766185760498
+        ],
+        "longitudinal_m": 12.081489562988281,
+        "lateral_m": 1.054699420928955,
+        "yaw_rad": 0.0017146766185760498,
+        "norm": 12.127439295631149,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 3.818315454989317e-11,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.46403205082447
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 1.9315298239785996e-11
+        },
+        "zero": {
+          "likelihood": 8.357701364476248e-11
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          3.641326427459717,
+          0.14276468753814697,
+          -0.009836837649345398
+        ],
+        "longitudinal_m": 3.641326427459717,
+        "lateral_m": 0.14276468753814697,
+        "yaw_rad": -0.009836837649345398,
+        "norm": 3.644137301296337,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0008120594689863395,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7516864158755086
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0005390153168422045
+        },
+        "zero": {
+          "likelihood": 0.0036010851004679868
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          10.083732604980469,
+          6.281641006469727,
+          -0.012995481491088867
+        ],
+        "longitudinal_m": 10.083732604980469,
+        "lateral_m": 6.281641006469727,
+        "yaw_rad": -0.012995481491088867,
+        "norm": 11.880271287535793,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.10658326789920766
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": null
+        },
+        "zero": {
+          "likelihood": null
+        }
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          7.388155460357666,
+          -0.21518158912658691,
+          -0.0016470104455947876
+        ],
+        "longitudinal_m": 7.388155460357666,
+        "lateral_m": -0.21518158912658691,
+        "yaw_rad": -0.0016470104455947876,
+        "norm": 7.3912885842290885,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00019325651326157993,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.41096794917553
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00010702689651967606
+        },
+        "zero": {
+          "likelihood": 0.0006501804159626755
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          7.745355606079102,
+          -0.17380046844482422,
+          -0.0010829716920852661
+        ],
+        "longitudinal_m": 7.745355606079102,
+        "lateral_m": -0.17380046844482422,
+        "yaw_rad": -0.0010829716920852661,
+        "norm": 7.747305418032795,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0008928829122409432,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2889035619958598
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00040795611248644497
+        },
+        "zero": {
+          "likelihood": 0.0014994551622516607
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "longitudinal_m": 0.0,
+        "lateral_m": 0.0,
+        "yaw_rad": 0.0,
+        "norm": 0.0,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.0,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.969573131558284
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 1.0
+        },
+        "zero": {
+          "likelihood": 1.0
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          8.144755840301514,
+          -0.16552376747131348,
+          0.0023915469646453857
+        ],
+        "longitudinal_m": 8.144755840301514,
+        "lateral_m": -0.16552376747131348,
+        "yaw_rad": 0.0023915469646453857,
+        "norm": 8.146437966081887,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.2496153755051068e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.41277036191020056
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 9.159917340890814e-06
+        },
+        "zero": {
+          "likelihood": 7.028714012369231e-05
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "evidence_status": "unavailable",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          11.532878875732422,
+          -0.16138601303100586,
+          0.00022560358047485352
+        ],
+        "longitudinal_m": 11.532878875732422,
+        "lateral_m": -0.16138601303100586,
+        "yaw_rad": 0.00022560358047485352,
+        "norm": 11.534008004957087,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 8.642327175510354e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.1598704404311514
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 6.861024839243964e-07
+        },
+        "zero": {
+          "likelihood": 0.0002102833203500871
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.030938386917114,
+          -0.15724778175354004,
+          0.0006542950868606567
+        ],
+        "longitudinal_m": 5.030938386917114,
+        "lateral_m": -0.15724778175354004,
+        "yaw_rad": 0.0006542950868606567,
+        "norm": 5.0333953099199995,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.000396339789894741,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.620815190234849
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0001766410078405628
+        },
+        "zero": {
+          "likelihood": 0.0007175538177610385
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          10.35879135131836,
+          -1.4814419746398926,
+          -0.02039569616317749
+        ],
+        "longitudinal_m": 10.35879135131836,
+        "lateral_m": -1.4814419746398926,
+        "yaw_rad": -0.02039569616317749,
+        "norm": 10.464207785054489,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.329747165662386e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.18568420301234922
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 1.0211099282328731e-06
+        },
+        "zero": {
+          "likelihood": 1.9635582632880023e-05
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.2065000534057617,
+          0.4143279790878296,
+          0.00595623254776001
+        ],
+        "longitudinal_m": 2.2065000534057617,
+        "lateral_m": 0.4143279790878296,
+        "yaw_rad": 0.00595623254776001,
+        "norm": 2.2450714101428484,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.019440814893295463,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4003854664858305
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0237394904825992
+        },
+        "zero": {
+          "likelihood": 0.03983200503851571
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          16.37390899658203,
+          0.935728907585144,
+          0.00036098062992095947
+        ],
+        "longitudinal_m": 16.37390899658203,
+        "lateral_m": 0.935728907585144,
+        "yaw_rad": 0.00036098062992095947,
+        "norm": 16.40062451698555,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.8897895971648862e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7889124848311799
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 1.3711184924795328e-07
+        },
+        "zero": {
+          "likelihood": 9.541391027302039e-07
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          13.009902954101562,
+          -1.311779499053955,
+          0.000586584210395813
+        ],
+        "longitudinal_m": 13.009902954101562,
+        "lateral_m": -1.311779499053955,
+        "yaw_rad": 0.000586584210395813,
+        "norm": 13.075868639343232,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.1188459274729341e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.640677421657506
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 5.708306115199291e-09
+        },
+        "zero": {
+          "likelihood": 1.6565632572892798e-08
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.974427223205566,
+          -0.09103846549987793,
+          0.0016244500875473022
+        ],
+        "longitudinal_m": 5.974427223205566,
+        "lateral_m": -0.09103846549987793,
+        "yaw_rad": 0.0016244500875473022,
+        "norm": 5.975121026926437,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0002646327825956738,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.43688878578056956
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00022595383113352635
+        },
+        "zero": {
+          "likelihood": 0.0005695872457934249
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.3150157928466797,
+          0.4034653902053833,
+          0.0025269240140914917
+        ],
+        "longitudinal_m": 2.3150157928466797,
+        "lateral_m": 0.4034653902053833,
+        "yaw_rad": 0.0025269240140914917,
+        "norm": 2.3499125148754145,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.011463754287392377,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.01166546358139311
+        },
+        "zero": {
+          "likelihood": 0.02901936757407078
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          1.1092777252197266,
+          0.13448834419250488,
+          -0.003248870372772217
+        ],
+        "longitudinal_m": 1.1092777252197266,
+        "lateral_m": 0.13448834419250488,
+        "yaw_rad": -0.003248870372772217,
+        "norm": 1.1174053613398283,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.15133919953137032,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.07386433546711269
+        },
+        "zero": {
+          "likelihood": 0.257741567289516
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          3.0505146980285645,
+          -0.07862377166748047,
+          -0.001308545470237732
+        ],
+        "longitudinal_m": 3.0505146980285645,
+        "lateral_m": -0.07862377166748047,
+        "yaw_rad": -0.001308545470237732,
+        "norm": 3.0515280324209333,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0014686777133798411,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8498554500678135
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0009078327073279483
+        },
+        "zero": {
+          "likelihood": 0.00981139498218003
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          13.673065185546875,
+          0.2896672487258911,
+          -0.005414798855781555
+        ],
+        "longitudinal_m": 13.673065185546875,
+        "lateral_m": 0.2896672487258911,
+        "yaw_rad": -0.005414798855781555,
+        "norm": 13.676134249240356,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 8.781092981529197e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.264089156970519
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 4.635673257892803e-13
+        },
+        "zero": {
+          "likelihood": 1.260830777133642e-12
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.277353286743164,
+          0.037242889404296875,
+          0.010398060083389282
+        ],
+        "longitudinal_m": 4.277353286743164,
+        "lateral_m": 0.037242889404296875,
+        "yaw_rad": 0.010398060083389282,
+        "norm": 4.277528058596135,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0012925708395194696,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6466200299807268
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0008565736081140314
+        },
+        "zero": {
+          "likelihood": 0.0034610341467583784
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "longitudinal_m": 0.0,
+        "lateral_m": 0.0,
+        "yaw_rad": 0.0,
+        "norm": 0.0,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.0,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 1.0
+        },
+        "zero": {
+          "likelihood": 1.0
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          0.0,
+          0.0,
+          0.0002932995557785034
+        ],
+        "longitudinal_m": 0.0,
+        "lateral_m": 0.0,
+        "yaw_rad": 0.0002932995557785034,
+        "norm": 0.0002932995557785034,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.29254353925150905,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.4775344964100561
+        },
+        "zero": {
+          "likelihood": 0.9812597171848629
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "evidence_status": "unavailable",
+      "coverage": 0.25,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          9.269859313964844,
+          -0.14069557189941406,
+          -0.0009024888277053833
+        ],
+        "longitudinal_m": 9.269859313964844,
+        "lateral_m": -0.14069557189941406,
+        "yaw_rad": -0.0009024888277053833,
+        "norm": 9.270927017248002,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.6835988297969792e-16,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2340638161182097
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 6.100746861021399e-12
+        },
+        "zero": {
+          "likelihood": 4.795385995136173e-09
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          6.069379806518555,
+          4.107069969177246,
+          0.012995481491088867
+        ],
+        "longitudinal_m": 6.069379806518555,
+        "lateral_m": 4.107069969177246,
+        "yaw_rad": 0.012995481491088867,
+        "norm": 7.32840800242672,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.11060746662859591
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": null
+        },
+        "zero": {
+          "likelihood": null
+        }
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.124383449554443,
+          1.0358190536499023,
+          0.00721973180770874
+        ],
+        "longitudinal_m": 5.124383449554443,
+        "lateral_m": 1.0358190536499023,
+        "yaw_rad": 0.00721973180770874,
+        "norm": 5.2280282109509555,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00016396700402013164,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5262509815118852
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0001586937614854637
+        },
+        "zero": {
+          "likelihood": 0.00045254453788068285
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          7.858390808105469,
+          -0.19449114799499512,
+          0.0022787153720855713
+        ],
+        "longitudinal_m": 7.858390808105469,
+        "lateral_m": -0.19449114799499512,
+        "yaw_rad": 0.0022787153720855713,
+        "norm": 7.860797548093239,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.1667410236276679
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": null
+        },
+        "zero": {
+          "likelihood": null
+        }
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.03769588470459,
+          -2.089743137359619,
+          0.0028878450393676758
+        ],
+        "longitudinal_m": 2.03769588470459,
+        "lateral_m": -2.089743137359619,
+        "yaw_rad": 0.0028878450393676758,
+        "norm": 2.918773584629787,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0004542013222075623,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5018827182525519
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 6.207754810756485e-05
+        },
+        "zero": {
+          "likelihood": 0.00016247784912871622
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.809368133544922,
+          -0.10138356685638428,
+          -0.004241585731506348
+        ],
+        "longitudinal_m": 2.809368133544922,
+        "lateral_m": -0.10138356685638428,
+        "yaw_rad": -0.004241585731506348,
+        "norm": 2.811200086876727,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.002866715527505715,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4483903205082447
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00350359195711403
+        },
+        "zero": {
+          "likelihood": 0.014285060326005568
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          7.944299697875977,
+          -0.09517645835876465,
+          0.0016244351863861084
+        ],
+        "longitudinal_m": 7.944299697875977,
+        "lateral_m": -0.09517645835876465,
+        "yaw_rad": 0.0016244351863861084,
+        "norm": 7.9448699729251535,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 8.420670545292901e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3106395888357484
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 5.132148259315557e-05
+        },
+        "zero": {
+          "likelihood": 0.0002217910339427503
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          6.1650848388671875,
+          -0.10345268249511719,
+          -0.0018952041864395142
+        ],
+        "longitudinal_m": 6.1650848388671875,
+        "lateral_m": -0.10345268249511719,
+        "yaw_rad": -0.0018952041864395142,
+        "norm": 6.165953058509642,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0009252848288213195,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20417231779570275
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0007818987583388974
+        },
+        "zero": {
+          "likelihood": 0.0017056531815169123
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.78753662109375,
+          -0.9972834587097168,
+          0.0034970492124557495
+        ],
+        "longitudinal_m": 5.78753662109375,
+        "lateral_m": -0.9972834587097168,
+        "yaw_rad": 0.0034970492124557495,
+        "norm": 5.8728329336760865,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00038244121285224876,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2967110429009922
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0002486920136278466
+        },
+        "zero": {
+          "likelihood": 0.0007523656170211333
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          13.986549377441406,
+          1.2579840421676636,
+          0.0007219761610031128
+        ],
+        "longitudinal_m": 13.986549377441406,
+        "lateral_m": 1.2579840421676636,
+        "yaw_rad": 0.0007219761610031128,
+        "norm": 14.043008504562142,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 3.86636045174051e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6844171603968877
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 9.668423370891716e-09
+        },
+        "zero": {
+          "likelihood": 1.495810520552752e-08
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          10.138744354248047,
+          0.11586689949035645,
+          -0.0004512369632720947
+        ],
+        "longitudinal_m": 10.138744354248047,
+        "lateral_m": 0.11586689949035645,
+        "yaw_rad": -0.0004512369632720947,
+        "norm": 10.139406413730981,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 6.852283736834188e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.22178599471768148
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 5.785209421015696e-05
+        },
+        "zero": {
+          "likelihood": 0.00026006931293749106
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.786776542663574,
+          7.069952011108398,
+          0.10721278190612793
+        ],
+        "longitudinal_m": 4.786776542663574,
+        "lateral_m": 7.069952011108398,
+        "yaw_rad": 0.10721278190612793,
+        "norm": 8.538673532193041,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 8.439997053033272e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2096866300235563
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 6.067833534070199e-06
+        },
+        "zero": {
+          "likelihood": 1.4440699548711822e-05
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          0.8500442504882812,
+          -0.03724265098571777,
+          -0.010919809341430664
+        ],
+        "longitudinal_m": 0.8500442504882812,
+        "lateral_m": -0.03724265098571777,
+        "yaw_rad": -0.010919809341430664,
+        "norm": 0.8509297768186755,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.1528190917298494,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3991273467056892
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.05136236848627934
+        },
+        "zero": {
+          "likelihood": 0.2803968790827867
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.875682830810547,
+          -0.05379533767700195,
+          -0.005324557423591614
+        ],
+        "longitudinal_m": 2.875682830810547,
+        "lateral_m": -0.05379533767700195,
+        "yaw_rad": -0.005324557423591614,
+        "norm": 2.876190889472759,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.004124121737029049,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.40461489042758225
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0016749013631219085
+        },
+        "zero": {
+          "likelihood": 0.006820771638876389
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.676737070083618,
+          1.5492026805877686,
+          0.014078378677368164
+        ],
+        "longitudinal_m": 2.676737070083618,
+        "lateral_m": 1.5492026805877686,
+        "yaw_rad": 0.014078378677368164,
+        "norm": 3.0927574247985152,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0006139096358052751,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6995681347705047
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0004928141287753259
+        },
+        "zero": {
+          "likelihood": 0.0022515469951142402
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.437112808227539,
+          -0.14069557189941406,
+          0.000789642333984375
+        ],
+        "longitudinal_m": 4.437112808227539,
+        "lateral_m": -0.14069557189941406,
+        "yaw_rad": 0.000789642333984375,
+        "norm": 4.439342962694367,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00017718123644177317,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6227782140052823
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00012280221362176755
+        },
+        "zero": {
+          "likelihood": 0.00041708619824970474
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          3.7860147058963776,
+          5.230566024780273,
+          0.02960062026977539
+        ],
+        "longitudinal_m": 3.7860147058963776,
+        "lateral_m": 5.230566024780273,
+        "yaw_rad": 0.02960062026977539,
+        "norm": 6.457058501327807,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.036539010636019706
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": null
+        },
+        "zero": {
+          "likelihood": null
+        }
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.726490020751953,
+          -0.14069557189941406,
+          0.003542199730873108
+        ],
+        "longitudinal_m": 4.726490020751953,
+        "lateral_m": -0.14069557189941406,
+        "yaw_rad": 0.003542199730873108,
+        "norm": 4.72858495825113,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 8.172233415717222e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7567635091726747
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.00013427826249232393
+        },
+        "zero": {
+          "likelihood": 0.0005003192707816437
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.356864929199219,
+          -0.06207132339477539,
+          0.008438050746917725
+        ],
+        "longitudinal_m": 5.356864929199219,
+        "lateral_m": -0.06207132339477539,
+        "yaw_rad": 0.008438050746917725,
+        "norm": 5.357231180336811,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.002673995835642623,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.19859554572060817
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0035413282378319163
+        },
+        "zero": {
+          "likelihood": 0.00621794023356366
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          10.330156326293945,
+          -2.333892822265625,
+          -0.034947916865348816
+        ],
+        "longitudinal_m": 10.330156326293945,
+        "lateral_m": -2.333892822265625,
+        "yaw_rad": -0.034947916865348816,
+        "norm": 10.590581041113232,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.14211399814405026
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": null
+        },
+        "zero": {
+          "likelihood": null
+        }
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.891534805297852,
+          -0.583472728729248,
+          0.0007219761610031128
+        ],
+        "longitudinal_m": 5.891534805297852,
+        "lateral_m": -0.583472728729248,
+        "yaw_rad": 0.0007219761610031128,
+        "norm": 5.920356687603909,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0014712914457123707,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20855342993789708
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0011872710067014716
+        },
+        "zero": {
+          "likelihood": 0.0026359700108859116
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.682765483856201,
+          0.10345268249511719,
+          0.00022561848163604736
+        ],
+        "longitudinal_m": 2.682765483856201,
+        "lateral_m": 0.10345268249511719,
+        "yaw_rad": 0.00022561848163604736,
+        "norm": 2.68475942121251,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.003051901079810849,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6117852808908559
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0045184929796054565
+        },
+        "zero": {
+          "likelihood": 0.01508117084949647
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.106297016143799,
+          -0.26483869552612305,
+          -0.0004512369632720947
+        ],
+        "longitudinal_m": 5.106297016143799,
+        "lateral_m": -0.26483869552612305,
+        "yaw_rad": -0.0004512369632720947,
+        "norm": 5.1131603686313065,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00022643851248721887,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6514294382182881
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0003173075217152993
+        },
+        "zero": {
+          "likelihood": 0.0005916662414952789
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          10.917198181152344,
+          0.2234576940536499,
+          0.005730628967285156
+        ],
+        "longitudinal_m": 10.917198181152344,
+        "lateral_m": 0.2234576940536499,
+        "yaw_rad": 0.005730628967285156,
+        "norm": 10.919486357319935,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00016530892695151579,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2037797130416161
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 3.720969713397372e-05
+        },
+        "zero": {
+          "likelihood": 0.0002338909924144702
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          5.323329925537109,
+          -0.2151808738708496,
+          -0.0029329806566238403
+        ],
+        "longitudinal_m": 5.323329925537109,
+        "lateral_m": -0.2151808738708496,
+        "yaw_rad": -0.0029329806566238403,
+        "norm": 5.327678003311976,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.004252364406452506,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.23209186951245625
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0021214413352587036
+        },
+        "zero": {
+          "likelihood": 0.006668455634360705
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "longitudinal_m": 0.0,
+        "lateral_m": 0.0,
+        "yaw_rad": 0.0,
+        "norm": 0.0,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 1.0,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 1.0
+        },
+        "zero": {
+          "likelihood": 1.0
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          2.857597231864929,
+          -1.361436367034912,
+          -0.016334593296051025
+        ],
+        "longitudinal_m": 2.857597231864929,
+        "lateral_m": -1.361436367034912,
+        "yaw_rad": -0.016334593296051025,
+        "norm": 3.165381136606692,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.00013636634384778517,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7041990863016632
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.0001360156163803898
+        },
+        "zero": {
+          "likelihood": 0.0006589380258046145
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          0.3617210388183594,
+          0.00827634334564209,
+          -0.003248870372772217
+        ],
+        "longitudinal_m": 0.3617210388183594,
+        "lateral_m": 0.00827634334564209,
+        "yaw_rad": -0.003248870372772217,
+        "norm": 0.36183029577649667,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.2246145881641205,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5587925619244771
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 0.11876318363217822
+        },
+        "zero": {
+          "likelihood": 0.3431202990305618
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532",
+      "evidence_status": "unavailable",
+      "coverage": 0.5,
+      "model_id": "DriveWAM",
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "action_source": "native_action_head",
+      "action_delta": {
+        "endpoint_delta": [
+          4.738547325134277,
+          3.1509084701538086,
+          -0.0014439821243286133
+        ],
+        "longitudinal_m": 4.738547325134277,
+        "lateral_m": 3.1509084701538086,
+        "yaw_rad": -0.0014439821243286133,
+        "norm": 5.690523440326786,
+        "source": "raw_branch_trajectory_endpoint_difference"
+      },
+      "visual_delta": {
+        "likelihood": 0.0001798180388018169,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.34302948104789777
+      },
+      "controls": {
+        "reversed": {
+          "likelihood": 4.544421855177e-06
+        },
+        "zero": {
+          "likelihood": 1.232105012890769e-05
+        }
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    }
+  ],
+  "validation": {
+    "protocol": "iac-metric-evidence-contract-v1",
+    "metric_id": "RCS",
+    "rows": 86,
+    "status_counts": {
+      "valid": 63,
+      "unavailable": 23,
+      "invalid": 0
+    },
+    "valid": true,
+    "reports": [
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "RCS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Paired counterfactual visual response matching; not a single-branch action readout."
+      }
+    ],
+    "missing_value_policy": "unavailable_never_zero_fill"
+  },
+  "claim_boundary": "Source-level evidence completeness only; validation does not promote a pilot metric or establish causal mediation."
+}

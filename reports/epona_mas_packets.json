@@ -1,0 +1,2632 @@
+{
+  "protocol": "iac-metric-evidence-packet-builder-v1",
+  "metric_id": "MAS",
+  "model_id": "Epona",
+  "input": "/tmp/epona_se2.json",
+  "raw_root_used": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/forward_visual_epona_full_20260911",
+  "rows": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.4943632593741635e-10,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5197551573988151
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.101810384249104e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6389999286173174
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.393779749458261e-62,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6782782496966235
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0007588389337163225,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20336033978156898
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.5966677382198303e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.23455457206081806
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0012246617295758595,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3689503176529374
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.60027038561495e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.31063958883574844
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.459004643255129e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4540830894425013
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.04381432433632e-63,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3845295881219216
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.1871298478398484e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3026090370476122
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.01928920718007482,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5136965522164323
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0068190387803094415,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6464951102862445
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.016795831538537e-62,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6687308159040617
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "evidence_status": "weak",
+      "coverage": 0.25,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.341441037574287e-24,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.19763187950603184
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.806612412325091e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5811085730601756
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00020432932991410214,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.683783639089157
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.021397100148815244,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4413858947819259
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.02220972073959742,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5811621100720965
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.648840341808996e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2550146334499251
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.001062555907743612,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.33647119708758655
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.7563771226443377e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.30848026268827183
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.4524906869029967e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.45253943893211507
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.6623285252200765e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3678349632379185
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0008711055993427769,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5130630309087016
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.513163386331586e-61,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.55365300878007
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.1026768573384245e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.22150046398743667
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.041786514187249e-49,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8541651795274466
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 7.144310556505577e-26,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3247019773003069
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.05527669581815775,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7385787707902063
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.35841549459280575,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.8487668641587551
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00016468574495262186,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.34272610464701264
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.007463614494308594,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4931829538154044
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.711398427539891e-18,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20149546719965739
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.408680473667979e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3248179741594689
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0008338933361682341,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4083089442501249
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.023094563232586254,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5617103290741665
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.523588593299355e-19,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3001909486758512
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.09802340121932249,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4322399885787708
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.490984622387443e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.32027625098151186
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00013395128417052743,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4602666143193661
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.1166811688760115e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2721018630880149
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0014172009174538694,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.41203868941394817
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.389769889993859e-67,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5083428510243415
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.1274995480521862e-13,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.24251374116639302
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00182256902649695,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.37107395245913344
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.045738309006961644,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5228692269255479
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.0960497159872385e-79,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.35804661289171247
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "evidence_status": "weak",
+      "coverage": 0.25,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.450850471630336e-88,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.17495003212220717
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00509860290630598,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4045167392390606
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.019481952066096764,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.543811121421943
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.8702255983851742e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.22368655864087372
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0017269191665415344,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.35529837961310584
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.940603352587287e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.454306160325505
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0003994425088808493,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5939663787565137
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.01648586432790679,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6597009065600685
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.02619468174859919,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.750240916553644
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.2242783884868075e-60,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.55425083874652
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.18916410878720824
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.467840769566047e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.31538653722606896
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0016225713136895357,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.45478799343279325
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.5346073898438425e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.25767363837533014
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.593877728149868e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3906149618102648
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.38008394437709103,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.31367081879933234,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.348923595657713e-08,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2955332286387322
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.680360559431601e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.37967556570775934
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.1868208806387402e-55,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.38723320722392746
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.4131317225586118e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.277946320222714
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.834803647905475e-09,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.39103433507031193
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.3185676116834493e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5248679420372617
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 3.192015850738045e-69,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.35220215575701336
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.3436811216829394e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2985491469769434
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0033895381700850763,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5283746163180812
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.10363082856114592,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6759493896780641
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.006857284926596843,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6714790491826683
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.15469370733942064,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.7904204440002855
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.085821396124309e-60,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6526875579984295
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.9180019801998645e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2064030266257406
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.6243655937259709,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.5905674960338719,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.1019099815080747e-66,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.48787386679991435
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.071778888432188e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.24194267970590333
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": null,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.17246056106788493
+      },
+      "failure_reason": "visual_likelihood_missing"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 4.1817746914606065e-22,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.28566457277464485
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00029871175535904485,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3383360696694982
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0029574427684147834,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.4874098793632664
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0011457287137595375,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3459204796916268
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.018217967088156713,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.48272539082018706
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.635536194591538e-10,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2533817545863374
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.771473703539896e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.39101648939967165
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 8.325620152746476e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.27991826682846743
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.009996117367112766,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3061960168463131
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.3328546125904737e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2390784495681348
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00015326800489353355,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3767934898993504
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00033006513245108514,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.25070490399029194
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "evidence_status": "weak",
+      "coverage": 0.5,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.012716920057438266,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3498554500678136
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.013087369134570476,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.42670783068027696
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.07969209466619229,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.5581858091227068
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.015359068371517553,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.29191055749875083
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.04906768865376614,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.43596973374259407
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "evidence_status": "weak",
+      "coverage": 0.25,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.536004112203759e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.20890142051538296
+      },
+      "failure_reason": "interval_coverage_below_threshold"
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.97152380165247e-12,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3167606538653722
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 5.776568489491663e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.47018880719537437
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.4602394704609856e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.6041741023627668
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.6886725285869e-06,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.28012349204083087
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 9.710221125796138e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.33908558783639087
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 6.225361710676641e-63,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.37687379541723176
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 1.1689805880045856e-05,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.2728603040902277
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 2.660656840578598e-07,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.27930259119137696
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0001806082375839591,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.3247912056535085
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.001931992228863232,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.39653972446284524
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.08048995656282928,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.538029124134485
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0020652811884552306,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.27219109144121634
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.005867919953251009,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.33722963808979944
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.6734744011948616,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.7013417469648358,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 1.0
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "evidence_status": "scored",
+      "coverage": 0.75,
+      "model_id": "Epona",
+      "branch_id": "left",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.00046136861336189587,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.543159754443572
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "model_id": "Epona",
+      "branch_id": "right",
+      "action_source": "native_action_head",
+      "visual_evidence": {
+        "likelihood": 0.0046873201946697,
+        "support_fraction": 0.24429757254464285,
+        "projection_valid_fraction": 0.630014633449925
+      }
+    }
+  ],
+  "validation": {
+    "protocol": "iac-metric-evidence-contract-v1",
+    "metric_id": "MAS",
+    "rows": 118,
+    "status_counts": {
+      "valid": 116,
+      "unavailable": 2,
+      "invalid": 0
+    },
+    "valid": true,
+    "reports": [
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "weak",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "MAS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Visual compatibility with a supplied native action; not future-to-action causality."
+      }
+    ],
+    "missing_value_policy": "unavailable_never_zero_fill"
+  },
+  "claim_boundary": "Source-level evidence completeness only; validation does not promote a pilot metric or establish causal mediation."
+}
