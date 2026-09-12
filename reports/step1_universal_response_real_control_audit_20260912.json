@@ -1,0 +1,185 @@
+{
+  "protocol": "iac-step1-universal-response-real-control-audit-v1",
+  "input_type": "precomputed_twin_control_reports",
+  "raw_video_rerun": false,
+  "required_controls": [
+    "normal",
+    "reversed",
+    "identity_swap",
+    "zero"
+  ],
+  "minimum_architectures_for_promotion": 3,
+  "models": [
+    {
+      "model_id": "DriveVA",
+      "source_report": "reports\\forward_visual_driveva_twin_controls_20260911.json",
+      "available_controls": [
+        "normal",
+        "reversed",
+        "zero"
+      ],
+      "required_controls_present": {
+        "normal": true,
+        "reversed": true,
+        "identity_swap": false,
+        "zero": true
+      },
+      "normal": {
+        "rows": 10,
+        "coverage": 1.0,
+        "direction_accuracy": 0.8,
+        "direction_ci95": [
+          0.5,
+          1.0
+        ],
+        "median_temporal_persistence": 0.7857142857142857
+      },
+      "reversed": {
+        "rows": 10,
+        "direction_accuracy": 0.8
+      },
+      "zero": {
+        "rows": 10,
+        "false_direction_count": 0
+      },
+      "promotion_gates": {
+        "coverage": true,
+        "normal_direction_ci_lower": false,
+        "reversed_control": true,
+        "zero_control": true,
+        "identity_control": false
+      },
+      "promotion": false,
+      "status": "diagnostic_incomplete_or_failed"
+    },
+    {
+      "model_id": "DriveWAM",
+      "source_report": "reports\\forward_visual_drivewam_twin_controls_20260911.json",
+      "available_controls": [
+        "normal",
+        "reversed",
+        "zero"
+      ],
+      "required_controls_present": {
+        "normal": true,
+        "reversed": true,
+        "identity_swap": false,
+        "zero": true
+      },
+      "normal": {
+        "rows": 54,
+        "coverage": 0.627906976744186,
+        "direction_accuracy": 0.48148148148148145,
+        "direction_ci95": [
+          0.35185185185185186,
+          0.6111111111111112
+        ],
+        "median_temporal_persistence": 0.5
+      },
+      "reversed": {
+        "rows": 54,
+        "direction_accuracy": 0.48148148148148145
+      },
+      "zero": {
+        "rows": 86,
+        "false_direction_count": 0
+      },
+      "promotion_gates": {
+        "coverage": false,
+        "normal_direction_ci_lower": false,
+        "reversed_control": false,
+        "zero_control": true,
+        "identity_control": false
+      },
+      "promotion": false,
+      "status": "diagnostic_incomplete_or_failed"
+    },
+    {
+      "model_id": "Epona",
+      "source_report": "reports\\forward_visual_epona_twin_controls_20260911.json",
+      "available_controls": [
+        "normal",
+        "reversed",
+        "zero"
+      ],
+      "required_controls_present": {
+        "normal": true,
+        "reversed": true,
+        "identity_swap": false,
+        "zero": true
+      },
+      "normal": {
+        "rows": 28,
+        "coverage": 0.4745762711864407,
+        "direction_accuracy": 0.8571428571428571,
+        "direction_ci95": [
+          0.7142857142857143,
+          0.9642857142857143
+        ],
+        "median_temporal_persistence": 1.0
+      },
+      "reversed": {
+        "rows": 28,
+        "direction_accuracy": 0.8571428571428571
+      },
+      "zero": {
+        "rows": 59,
+        "false_direction_count": 0
+      },
+      "promotion_gates": {
+        "coverage": false,
+        "normal_direction_ci_lower": false,
+        "reversed_control": true,
+        "zero_control": true,
+        "identity_control": false
+      },
+      "promotion": false,
+      "status": "diagnostic_incomplete_or_failed"
+    },
+    {
+      "model_id": "WorldDrive",
+      "source_report": "reports\\forward_visual_worlddrive_combined_dedup_twin_controls_20260911.json",
+      "available_controls": [
+        "normal",
+        "reversed",
+        "zero"
+      ],
+      "required_controls_present": {
+        "normal": true,
+        "reversed": true,
+        "identity_swap": false,
+        "zero": true
+      },
+      "normal": {
+        "rows": 13,
+        "coverage": 1.0,
+        "direction_accuracy": 0.9230769230769231,
+        "direction_ci95": [
+          0.7692307692307693,
+          1.0
+        ],
+        "median_temporal_persistence": 1.0
+      },
+      "reversed": {
+        "rows": 13,
+        "direction_accuracy": 0.9230769230769231
+      },
+      "zero": {
+        "rows": 13,
+        "false_direction_count": 0
+      },
+      "promotion_gates": {
+        "coverage": true,
+        "normal_direction_ci_lower": true,
+        "reversed_control": true,
+        "zero_control": true,
+        "identity_control": false
+      },
+      "promotion": false,
+      "status": "diagnostic_incomplete_or_failed"
+    }
+  ],
+  "promoted_model_count": 0,
+  "universal_channel_promotion": false,
+  "claim_boundary": "This audit is a conservative bridge from existing control reports. Missing identity-swap controls block promotion; no missing control is imputed."
+}

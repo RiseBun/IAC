@@ -62,3 +62,10 @@ pathway 和 fixed-action control。
 方向 `0.0`、identity/zero 均为 `unavailable`，加性共同运动改变前后的有符号
 差分误差约为 `3e-15`。这只证明协议的代数不变量和 fail-closed 行为，不证明
 任何真实 WAM 有效；真实数据上的跨架构实验仍是下一步。
+
+对已有 Epona、DriveWAM、DriveVA、WorldDrive twin-control 产物的真实数据桥接审计
+已经完成，见 [`../reports/step1_universal_response_real_control_audit_20260912.json`](../reports/step1_universal_response_real_control_audit_20260912.json)。
+四个模型都缺少同口径的 `identity_swap` 控制，因此 `promoted_model_count=0`，
+新 Step1 尚未晋级。暂时忽略 identity 缺口时，WorldDrive 的小样本方向 CI 通过，
+Epona/DriveWAM 的有效方向覆盖或 CI 仍不足，DriveVA 也未通过 CI；这正是需要
+补原始 identity 控制和扩大 holdout 的证据，而不是可以发布的普适结果。

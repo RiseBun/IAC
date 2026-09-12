@@ -31,6 +31,8 @@
 | [`STEP1_IMPROVEMENT_PLAN_ZH.md`](STEP1_IMPROVEMENT_PLAN_ZH.md) | ZH | Step1.3 改进优先级、深度/光流 A/B 与验收门 |
 | [`STEP1_UNIVERSAL_RESPONSE_DESIGN_ZH.md`](STEP1_UNIVERSAL_RESPONSE_DESIGN_ZH.md) | ZH | 面向多数 WAM 的反事实视觉响应层实验契约 |
 | [`../tools/prove_step1_universal_response.py`](../tools/prove_step1_universal_response.py) | CLI | 合成 normal/reversed/identity/zero 最小证明（非 benchmark 证据） |
+| [`../tools/audit_universal_response_controls.py`](../tools/audit_universal_response_controls.py) | CLI | 四模型真实 twin-control 桥接审计与晋级门 |
+| [`../reports/step1_universal_response_real_control_audit_20260912.json`](../reports/step1_universal_response_real_control_audit_20260912.json) | JSON | 新 Step1 真实 control 审计（当前未晋级） |
 
 The formal two-model gate is intentionally not an architecture-universal
 claim: Epona and DriveWAM establish protocol validation only. A third distinct

@@ -431,6 +431,11 @@ coverage gate, the 0.75 bootstrap lower-bound gate, and confirmation on at least
 three architecture families. See
 [`docs/STEP1_UNIVERSAL_RESPONSE_DESIGN_ZH.md`](docs/STEP1_UNIVERSAL_RESPONSE_DESIGN_ZH.md)
 and [`configs/step1_universal_response_v1.json`](configs/step1_universal_response_v1.json).
+The first bridge audit over existing Epona, DriveWAM, DriveVA and WorldDrive
+twin-control artifacts is recorded in
+[`reports/step1_universal_response_real_control_audit_20260912.json`](reports/step1_universal_response_real_control_audit_20260912.json).
+All four currently lack a same-estimand `identity_swap` control, so the new
+channel has promoted zero architectures; this is an evidence gap, not a pass.
 
 **GS：现实几何保真度分数（旧 FAU 组件）**
 
