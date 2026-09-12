@@ -1,9 +1,10 @@
 """Capability-stratified IAC scorecard.
 
-Optional capabilities (CCFC, FAU and FCS) are reported as ``unavailable`` when a
-model does not expose the required interface.  ``missing`` is reserved for a
-claimed capability whose evidence is incomplete; ``ineligible`` is reserved for
-hard protocol violations.
+Optional capabilities (MAS, RCS, GS, future-to-action mediation, and the legacy
+CCFC/FAU/FCS aliases) are reported as ``unavailable`` when a model does not
+expose the required interface.  ``missing`` is reserved for a claimed capability
+whose evidence is incomplete; ``ineligible`` is reserved for hard protocol
+violations.
 """
 
 from __future__ import annotations
@@ -19,7 +20,13 @@ CAPABILITIES = (
     "action_only",
 )
 
-CELLS = ("l1", "a2f", "f2a", "cfac", "ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage")
+CELLS = (
+    "l1", "a2f", "f2a",
+    # Canonical metric ids.
+    "mas", "rcs", "gs", "future_to_action_mediation",
+    # Legacy aliases retained for compatibility with older scorecards.
+    "cfac", "ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage",
+)
 
 CLAIMED = {
     "native_action_conditioned": ("l1", "a2f", "f2a", "cfac"),
@@ -29,8 +36,13 @@ CLAIMED = {
 }
 
 STATUSES = ("pass", "fail", "pilot", "unavailable", "ineligible", "missing")
-OPTIONAL_CELLS = frozenset({"ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage"})
-PROJECTION_GATED_CELLS = frozenset({"cfac", "ccfc", "fau_f", "fau_a", "fau"})
+OPTIONAL_CELLS = frozenset({
+    "mas", "rcs", "gs", "future_to_action_mediation",
+    "ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage",
+})
+PROJECTION_GATED_CELLS = frozenset({
+    "mas", "rcs", "gs", "cfac", "ccfc", "fau_f", "fau_a", "fau",
+})
 
 
 def claimed_cells(capability: str) -> tuple[str, ...]:

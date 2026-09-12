@@ -33,6 +33,11 @@ def _row(**extra):
 
 
 class ScorecardTest(unittest.TestCase):
+    def test_canonical_metric_cells_are_present(self) -> None:
+        card = build_model_scorecard(model_id="x", capability="video_only")
+        for cell in ("mas", "rcs", "gs", "future_to_action_mediation"):
+            self.assertEqual(card["cells"][cell]["status"], "unavailable")
+
     def test_epona_does_not_claim_ccfc(self) -> None:
         self.assertEqual(claimed_cells("externally_controlled_video"), ("a2f",))
         card = build_model_scorecard(model_id="epona", capability="externally_controlled_video")
