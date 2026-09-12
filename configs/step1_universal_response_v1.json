@@ -66,6 +66,8 @@
     "direction_ci95_lower_min": 0.75,
     "minimum_architectures": 3,
     "control_gate_required": true,
+    "negative_control_false_positive_max": 0.25,
+    "zero_contrast_must_be_unavailable": true,
     "source_level_bootstrap": true,
     "natural_model_ranking": "not_claimed"
   },

@@ -33,6 +33,9 @@
 | [`../tools/prove_step1_universal_response.py`](../tools/prove_step1_universal_response.py) | CLI | 合成 normal/reversed/identity/zero 最小证明（非 benchmark 证据） |
 | [`../tools/audit_universal_response_controls.py`](../tools/audit_universal_response_controls.py) | CLI | 四模型真实 twin-control 桥接审计与晋级门 |
 | [`../reports/step1_universal_response_real_control_audit_20260912.json`](../reports/step1_universal_response_real_control_audit_20260912.json) | JSON | 新 Step1 真实 control 审计（当前未晋级） |
+| [`../tools/run_raw_universal_response_controls.py`](../tools/run_raw_universal_response_controls.py) | CLI | 从归档原始 flow 重算 normal/reversed/identity/zero |
+| [`../tools/audit_raw_universal_response_controls.py`](../tools/audit_raw_universal_response_controls.py) | CLI | 原始四控制的 coverage、方向 CI 和负控制门 |
+| [`../reports/step1_universal_response_raw_control_audit_20260912.json`](../reports/step1_universal_response_raw_control_audit_20260912.json) | JSON | 四架构原始流最小实验（仅 WorldDrive 通过 pilot 门） |
 
 The formal two-model gate is intentionally not an architecture-universal
 claim: Epona and DriveWAM establish protocol validation only. A third distinct

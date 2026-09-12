@@ -69,3 +69,24 @@ pathway 和 fixed-action control。
 新 Step1 尚未晋级。暂时忽略 identity 缺口时，WorldDrive 的小样本方向 CI 通过，
 Epona/DriveWAM 的有效方向覆盖或 CI 仍不足，DriveVA 也未通过 CI；这正是需要
 补原始 identity 控制和扩大 holdout 的证据，而不是可以发布的普适结果。
+
+## 原始流四控制最小实验（2026-09-12）
+
+随后对四个模型的归档原始 flow 数组重算了同一套控制，避免把旧报告中
+“reversed 的负余弦”误当成控制通过。`normal` 要求正向命中；`reversed_action`
+和 `identity_swap` 是负控制，要求正向假命中率不超过 0.25；`zero_contrast`
+把两支观测置为共同中点，方向估计必须是 `unavailable`，不能填 0 或伪造方向。
+结果见 [`../reports/step1_universal_response_raw_control_audit_20260912.json`](../reports/step1_universal_response_raw_control_audit_20260912.json)：
+
+| 模型 | twin 数 | normal coverage | normal direction | 95% CI | reversed/identity 假阳性 | 模型门 |
+|---|---:|---:|---:|---|---:|---|
+| Epona | 59 | 47.5% | 85.7% | [71.4%, 96.4%] | 14.3% / 14.3% | 未通过 coverage/CI |
+| DriveWAM | 86 | 62.8% | 48.1% | [35.2%, 61.1%] | 51.9% / 51.9% | 未通过 |
+| DriveVA | 10 | 100.0% | 80.0% | [50.0%, 100.0%] | 20.0% / 20.0% | 未通过 CI |
+| WorldDrive | 13 | 100.0% | 92.3% | [76.9%, 100.0%] | 7.7% / 7.7% | 仅 pilot 通过 |
+
+因此当前只有 1 个模型通过全部门槛，远未达到至少 3 个架构的正式晋级条件。
+这轮实验确认了原始数据和控制实现可统一重算，但没有证明新通道已经是普适
+MAS/RCS；Epona、DriveWAM 的 coverage/方向问题仍是真实限制，DriveVA 的样本量
+和 CI 仍不足。`zero_contrast` 的共同中点控制仅验证 fail-closed 行为，不把
+它解释为模型没有响应。

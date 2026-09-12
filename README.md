@@ -434,8 +434,16 @@ and [`configs/step1_universal_response_v1.json`](configs/step1_universal_respons
 The first bridge audit over existing Epona, DriveWAM, DriveVA and WorldDrive
 twin-control artifacts is recorded in
 [`reports/step1_universal_response_real_control_audit_20260912.json`](reports/step1_universal_response_real_control_audit_20260912.json).
-All four currently lack a same-estimand `identity_swap` control, so the new
-channel has promoted zero architectures; this is an evidence gap, not a pass.
+That bridge is not a raw rerun and is retained only for provenance. The raw-flow
+four-control rerun is recorded in
+[`reports/step1_universal_response_raw_control_audit_20260912.json`](reports/step1_universal_response_raw_control_audit_20260912.json)
+and its reproducible entry points are
+[`tools/run_raw_universal_response_controls.py`](tools/run_raw_universal_response_controls.py)
+and [`tools/audit_raw_universal_response_controls.py`](tools/audit_raw_universal_response_controls.py).
+Only WorldDrive passes all current pilot gates; Epona, DriveWAM and DriveVA fail
+coverage, direction-CI, or sample-size gates. The new channel therefore remains
+experimental with zero architecture-universal promotion, as required by the
+three-architecture gate.
 
 **GS：现实几何保真度分数（旧 FAU 组件）**
 

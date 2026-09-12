@@ -1,0 +1,178 @@
+{
+  "protocol": "iac-step1-universal-response-raw-control-audit-v1",
+  "raw_video_rerun": true,
+  "required_controls": [
+    "normal_action",
+    "reversed_action",
+    "identity_swap",
+    "zero_contrast"
+  ],
+  "gates": {
+    "coverage_min": 0.9,
+    "direction_ci95_lower_min": 0.75,
+    "negative_control_false_positive_max": 0.25,
+    "zero_contrast_must_be_unavailable": true,
+    "minimum_architectures": 3
+  },
+  "models": [
+    {
+      "model_id": "DriveVA",
+      "source_report": "reports\\step1_universal_response_raw_driveva_20260912.json",
+      "pair_count": 10,
+      "normal": {
+        "effective_pairs": 10,
+        "coverage": 1.0,
+        "direction_accuracy": 0.8,
+        "direction_ci95": [
+          0.5,
+          1.0
+        ],
+        "median_temporal_persistence": 0.7857142857142857
+      },
+      "controls": {
+        "reversed_action": {
+          "effective_pairs": 10,
+          "positive_false_positive_rate": 0.2
+        },
+        "identity_swap": {
+          "effective_pairs": 10,
+          "positive_false_positive_rate": 0.2
+        },
+        "zero_contrast": {
+          "effective_pairs": 10,
+          "directional_estimand": "unavailable",
+          "median_observed_delta_px": 0.0
+        }
+      },
+      "promotion_gates": {
+        "coverage": true,
+        "direction_ci95_lower": false,
+        "reversed_negative_control": true,
+        "identity_negative_control": true,
+        "zero_contrast_unavailable": true
+      },
+      "promotion": false,
+      "status": "diagnostic_incomplete_or_failed"
+    },
+    {
+      "model_id": "DriveWAM",
+      "source_report": "reports\\step1_universal_response_raw_drivewam_20260912.json",
+      "pair_count": 86,
+      "normal": {
+        "effective_pairs": 54,
+        "coverage": 0.627906976744186,
+        "direction_accuracy": 0.48148148148148145,
+        "direction_ci95": [
+          0.35185185185185186,
+          0.6111111111111112
+        ],
+        "median_temporal_persistence": 0.5
+      },
+      "controls": {
+        "reversed_action": {
+          "effective_pairs": 54,
+          "positive_false_positive_rate": 0.5185185185185185
+        },
+        "identity_swap": {
+          "effective_pairs": 54,
+          "positive_false_positive_rate": 0.5185185185185185
+        },
+        "zero_contrast": {
+          "effective_pairs": 86,
+          "directional_estimand": "unavailable",
+          "median_observed_delta_px": 0.0
+        }
+      },
+      "promotion_gates": {
+        "coverage": false,
+        "direction_ci95_lower": false,
+        "reversed_negative_control": false,
+        "identity_negative_control": false,
+        "zero_contrast_unavailable": true
+      },
+      "promotion": false,
+      "status": "diagnostic_incomplete_or_failed"
+    },
+    {
+      "model_id": "Epona",
+      "source_report": "reports\\step1_universal_response_raw_epona_20260912.json",
+      "pair_count": 59,
+      "normal": {
+        "effective_pairs": 28,
+        "coverage": 0.4745762711864407,
+        "direction_accuracy": 0.8571428571428571,
+        "direction_ci95": [
+          0.7142857142857143,
+          0.9642857142857143
+        ],
+        "median_temporal_persistence": 1.0
+      },
+      "controls": {
+        "reversed_action": {
+          "effective_pairs": 28,
+          "positive_false_positive_rate": 0.14285714285714285
+        },
+        "identity_swap": {
+          "effective_pairs": 28,
+          "positive_false_positive_rate": 0.14285714285714285
+        },
+        "zero_contrast": {
+          "effective_pairs": 59,
+          "directional_estimand": "unavailable",
+          "median_observed_delta_px": 0.0
+        }
+      },
+      "promotion_gates": {
+        "coverage": false,
+        "direction_ci95_lower": false,
+        "reversed_negative_control": true,
+        "identity_negative_control": true,
+        "zero_contrast_unavailable": true
+      },
+      "promotion": false,
+      "status": "diagnostic_incomplete_or_failed"
+    },
+    {
+      "model_id": "WorldDrive",
+      "source_report": "reports\\step1_universal_response_raw_worlddrive_20260912.json",
+      "pair_count": 13,
+      "normal": {
+        "effective_pairs": 13,
+        "coverage": 1.0,
+        "direction_accuracy": 0.9230769230769231,
+        "direction_ci95": [
+          0.7692307692307693,
+          1.0
+        ],
+        "median_temporal_persistence": 1.0
+      },
+      "controls": {
+        "reversed_action": {
+          "effective_pairs": 13,
+          "positive_false_positive_rate": 0.07692307692307693
+        },
+        "identity_swap": {
+          "effective_pairs": 13,
+          "positive_false_positive_rate": 0.07692307692307693
+        },
+        "zero_contrast": {
+          "effective_pairs": 13,
+          "directional_estimand": "unavailable",
+          "median_observed_delta_px": 0.0
+        }
+      },
+      "promotion_gates": {
+        "coverage": true,
+        "direction_ci95_lower": true,
+        "reversed_negative_control": true,
+        "identity_negative_control": true,
+        "zero_contrast_unavailable": true
+      },
+      "promotion": true,
+      "status": "pass_candidate"
+    }
+  ],
+  "promoted_model_count": 1,
+  "universal_channel_promotion": false,
+  "claim_boundary": "Raw same-source twin control rerun. The new channel remains experimental unless at least three architectures pass every gate on held-out data."
+}

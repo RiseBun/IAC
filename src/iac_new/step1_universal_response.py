@@ -105,6 +105,11 @@ def validate_universal_response_config(config: dict[str, Any]) -> dict[str, Any]
         raise ValueError("universal response requires at least three architectures")
     if gates.get("control_gate_required") is not True:
         raise ValueError("control gate is required")
+    negative_fp = float(gates.get("negative_control_false_positive_max", -1.0))
+    if not 0.0 <= negative_fp <= 0.5:
+        raise ValueError("negative-control false-positive gate must be in [0, 0.5]")
+    if gates.get("zero_contrast_must_be_unavailable") is not True:
+        raise ValueError("zero contrast must fail closed as unavailable")
 
     return {
         "status": "valid_experimental_contract",
