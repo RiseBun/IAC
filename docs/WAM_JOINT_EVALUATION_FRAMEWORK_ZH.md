@@ -169,7 +169,7 @@ WAM 生成视频。
 | CCFC-S 框架 | specified / pure-speed progress confirmation completed but not promoted |
 | pure-speed progress channel | cross-model confirmation completed; not promoted (no stable signal) |
 | CFAC-S calibration | not yet run |
-| future-to-action mediation | design only |
+| future-to-action mediation | scorer implemented / WAM confirmation not run |
 | metric SE(2) reconstruction | diagnostic only |
 | FAU | independent GT-compatible axis |
 | FCS | independent simulator axis |

@@ -63,6 +63,13 @@ source-disjoint 校准和身份置换控制。这些正式分数是结构/方向
 米制距离、绝对速度、曲率以及 future-to-action 因果中介不在冻结声明内，必须继续
 作为 diagnostic 或 `unavailable` 报告。
 
+可选的 future-to-action 中介通道现在已有冻结输入契约和评分器
+（[`configs/future_to_action_mediation_v1.json`](configs/future_to_action_mediation_v1.json)、
+[`tools/score_future_to_action_mediation.py`](tools/score_future_to_action_mediation.py)）。
+它要求只改变 future 的干预、以及屏蔽该路径后的复现，并严格保持 history、command、
+seed 和模型版本不变。在 source-disjoint 的 WAM 确认集通过预注册的路径抑制和特异性
+门槛之前，该通道记为 `unavailable`；MAS/RCS 不会被重新标注为因果证据。
+
 ## 三步流程
 
 ```mermaid

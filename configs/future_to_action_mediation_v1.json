@@ -1,0 +1,39 @@
+{
+  "protocol": "iac-future-to-action-mediation-v1",
+  "status": "design_defined_not_run",
+  "purpose": "Test whether a WAM native action changes when only its predicted future is perturbed, and whether blocking that pathway suppresses the change.",
+  "required_conditions": [
+    "baseline",
+    "future_perturbed",
+    "future_perturbed_pathway_blocked",
+    "future_fixed_action_pathway_control"
+  ],
+  "invariance_contract": [
+    "same_source_key",
+    "same_history",
+    "same_command",
+    "same_nuisance_seed",
+    "same_model_revision"
+  ],
+  "estimands": {
+    "future_effect_on_action": "distance(native_action_future_perturbed, native_action_baseline)",
+    "blocked_effect_on_action": "distance(native_action_future_perturbed_pathway_blocked, native_action_baseline)",
+    "pathway_suppression": "1 - blocked_effect_on_action / future_effect_on_action",
+    "specificity_control": "distance(native_action_future_fixed_action_pathway_control, native_action_baseline)"
+  },
+  "distance": {
+    "representation": "candidate-independent native action vector",
+    "normalization": "fit on calibration sources only, then freeze",
+    "minimum_future_effect": 0.05,
+    "minimum_sources": 30
+  },
+  "promotion_criteria": {
+    "minimum_sources": 30,
+    "future_effect_ci95_lower_min": 0.05,
+    "pathway_suppression_ci95_lower_min": 0.5,
+    "specificity_control_ci95_upper_max": 0.25,
+    "confirmation_must_be_source_disjoint": true
+  },
+  "missing_value_policy": "unavailable_never_zero_fill",
+  "claim_boundary": "A passed mediation test supports future-to-action dependence for the tested pathway and intervention; MAS/RCS consistency alone is not mediation evidence."
+}

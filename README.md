@@ -80,6 +80,14 @@ translation, metric distance, absolute speed, curvature and future-to-action
 mediation remain outside the frozen claims and must be reported as diagnostic or
 unavailable.
 
+The optional future-to-action mediation channel now has a frozen input contract
+and scorer ([`configs/future_to_action_mediation_v1.json`](configs/future_to_action_mediation_v1.json),
+[`tools/score_future_to_action_mediation.py`](tools/score_future_to_action_mediation.py)).
+It requires a future-only perturbation and a pathway-blocked replica with the
+same history, command, seed and model revision. Until a source-disjoint WAM
+confirmation passes its preregistered suppression and specificity gates, the
+channel is `unavailable`; MAS/RCS scores are not relabelled as causal evidence.
+
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
 audited flow component.
