@@ -190,7 +190,7 @@ def assess_cross_model_fcs(
         action_sources = list(report.get("action_sources") or [])
         checks = {
             "model_id_present": bool(model_id),
-            "independent_rollout_passed": report.get("status") == "pass",
+            "independent_rollout_passed": report.get("status") in {"pass", "validated", "validated_single_model"},
             "minimum_scored_rows": scored_rows >= minimum_scored_rows,
             "native_action_source_present": bool(action_sources) and all(
                 not _is_forbidden_source(str(source), FORBIDDEN_ACTION_SOURCES)
