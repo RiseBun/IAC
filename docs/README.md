@@ -19,6 +19,7 @@
 | [`../tools/score_structural_grounding.py`](../tools/score_structural_grounding.py) | CLI | Recompute GS from generated and user-supplied reference flow-structure JSONL |
 | [`../tools/validate_metric_comparability.py`](../tools/validate_metric_comparability.py) | CLI | Fail-closed MAS/RCS adapter comparability contract check |
 | [`../reports/release_readiness_20260912.json`](../reports/release_readiness_20260912.json) | JSON | Machine-readable release claims, boundaries and pending evidence |
+| [`../reports/release_validation_20260912.json`](../reports/release_validation_20260912.json) | JSON | Output of the fail-closed release boundary validator |
 | [`../tools/validate_release_readiness.py`](../tools/validate_release_readiness.py) | CLI | Fail-closed check separating conditional release from complete causal release |
 | [`RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md`](RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md) | ZH | Remaining evidence required for causal/cross-model claims |
 | [`STEP1_IMPROVEMENT_PLAN_ZH.md`](STEP1_IMPROVEMENT_PLAN_ZH.md) | ZH | Step1.3 改进优先级、深度/光流 A/B 与验收门 |

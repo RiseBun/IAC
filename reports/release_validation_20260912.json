@@ -1,0 +1,23 @@
+{
+  "protocol": "iac-wam-release-readiness-validator-v1",
+  "conditional_consistency_grounding_release": {
+    "ready": true,
+    "claim": "MAS/RCS/GS are independently reported where supported; unavailable channels are not zero-filled."
+  },
+  "complete_causal_future_driven_benchmark": {
+    "ready": false,
+    "claim": "future-to-action mediation plus cross-model FCS are required."
+  },
+  "errors": [],
+  "warnings": [
+    "fcs:cross_model_evidence_pending",
+    "future_to_action_mediation:confirmation_pending",
+    "gs:reference_data_private_public_score_recompute_unavailable"
+  ],
+  "evidence_boundary": {
+    "fcs_cross_model_complete": false,
+    "future_to_action_mediation_complete": false,
+    "gs_reference_publicly_recomputable": false
+  },
+  "status": "pass"
+}
