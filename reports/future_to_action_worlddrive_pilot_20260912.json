@@ -1,0 +1,43 @@
+{
+  "protocol": "iac-future-to-action-mediation-pilot-v1",
+  "model": "WorldDrive",
+  "model_id": "worlddrive_stage2_native_tadwm_1024",
+  "status": "pilot_unqualified",
+  "intervention": "internal_future_latent_permutation",
+  "held_fixed": [
+    "history",
+    "ego_status",
+    "topk_trajectories",
+    "topk_embeddings",
+    "visual_tokens",
+    "model_weights"
+  ],
+  "groups_attempted": 25,
+  "groups_with_rank_change": 11,
+  "rank_change_fraction": 0.44,
+  "trajectory_change_fraction": 0.44,
+  "material_lateral_yaw_groups": 1,
+  "material_lateral_yaw_fraction": 0.04,
+  "material_gate": {
+    "max_lateral_delta_m_min": 1.0,
+    "max_yaw_delta_rad_min": 0.1,
+    "selection_before_pixel_generation": true
+  },
+  "action_response_control": {
+    "paired_groups": 1,
+    "mean_future_image_l1": 0.1094837371040793,
+    "mean_normalized_action_distance": 1.6521581529087457,
+    "passed": true
+  },
+  "missing_for_formal_mediation": [
+    "future_perturbed_pathway_blocked",
+    "future_fixed_action_pathway_control",
+    "source_disjoint_confirmation_set",
+    "at_least_30_material_sources"
+  ],
+  "formal_promotion": {
+    "status": "unavailable",
+    "claim_enabled": false
+  },
+  "claim_boundary": "Internal future-latent permutation changed a WorldDrive action/trajectory in a small pilot. This is a candidate pathway-response result, not proof of future-to-action mediation; the required blocked-pathway and fixed-action controls were not run."
+}

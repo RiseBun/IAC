@@ -36,6 +36,12 @@ blocked 条件，然后才交给下方 scorer。
 否则即使有 30 个 source 也只是 `insufficient_evidence`。这样可以防止一条或
 少数几条干预样本，或与校准集重叠的 source，被误读成 mediation 证据。
 
+已有一个 WorldDrive 内部 future-latent permutation pilot：25 组中 11 组改变了
+选择或轨迹，但只有 1 组达到预注册的 lateral/yaw 实质门槛。它缺少
+pathway-blocked、fixed-action、source-disjoint 和至少 30 个实质 source，因此状态为
+`pilot_unqualified`，不能提升 mediation 状态，也不能把 MAS/RCS 改写为因果分数。
+记录见 [`reports/future_to_action_worlddrive_pilot_20260912.json`](../reports/future_to_action_worlddrive_pilot_20260912.json)。
+
 ### FCS 跨模型
 
 每个模型至少需要独立 simulator rollout、native action 注入证明、独立 realized

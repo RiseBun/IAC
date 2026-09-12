@@ -18,6 +18,8 @@ class ReleaseReadinessTest(unittest.TestCase):
         self.assertFalse(report["complete_causal_future_driven_benchmark"]["ready"])
         self.assertIn("fcs:cross_model_evidence_pending", report["warnings"])
         self.assertIn("future_to_action_mediation:confirmation_pending", report["warnings"])
+        self.assertIn("future_to_action_mediation:pilot_present_but_unqualified", report["warnings"])
+        self.assertTrue(report["evidence_boundary"]["future_to_action_mediation_pilot_present"])
         self.assertFalse(report["evidence_boundary"]["gs_reference_publicly_recomputable"])
 
     def test_missing_validated_metric_fails(self):

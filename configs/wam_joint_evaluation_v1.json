@@ -33,8 +33,9 @@
       "warning": "Frozen MAS scope is directional yaw alignment; metric distance/progress/lateral/curvature adapters remain diagnostic and do not replace metric CFAC"
     },
     "future_to_action": {
-      "status": "design_defined_not_run",
+      "status": "pilot_worlddrive_unqualified_confirmation_pending",
       "required_intervention": "hold history and command fixed while perturbing future or future latent",
+      "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
       "claim_boundary": "Delta S_F versus Delta P_A alone establishes consistency, not mediation; if the required future-only intervention is unavailable, this channel is unavailable rather than a zero score"
     },
     "fau": {

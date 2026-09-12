@@ -100,6 +100,13 @@ state，并满足预注册的 baseline/perturbed、blocked/control 关系；仅�
 因果声明。晋级还要求显式提供校准 source 清单并验证确认集不重叠；不提供清单时，
 即使有 30 个 source 也不能晋级。
 
+目前归档了一个 WorldDrive 的内部 future-latent permutation pilot（见
+[`reports/future_to_action_worlddrive_pilot_20260912.json`](reports/future_to_action_worlddrive_pilot_20260912.json)）。
+25 组中 11 组的 action/trajectory 发生变化，但只有 1 组达到预注册的横向/航向实质变化门槛。
+该 pilot 尚没有 pathway-blocked 复现、fixed-action control、source-disjoint 确认集，且
+实质样本远少于 30 组。因此它只能说明候选 future pathway 可能影响动作，不能写成
+future-to-action 因果证据；正式 mediation 通道仍记为 `unavailable`。
+
 ## 三步流程
 
 ```mermaid

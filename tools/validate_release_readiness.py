@@ -49,6 +49,8 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
     mediation_complete = mediation.get("status") == "validated"
     if not mediation_complete:
         warnings.append("future_to_action_mediation:confirmation_pending")
+    if "pilot" in str(mediation.get("status") or ""):
+        warnings.append("future_to_action_mediation:pilot_present_but_unqualified")
 
     gs = claims.get("gs") or {}
     if (gs.get("recompute") or "").endswith("private"):
@@ -80,6 +82,7 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
         "evidence_boundary": {
             "fcs_cross_model_complete": fcs_complete,
             "future_to_action_mediation_complete": mediation_complete,
+            "future_to_action_mediation_pilot_present": "pilot" in str(mediation.get("status") or ""),
             "gs_reference_publicly_recomputable": not any(
                 item == "gs:reference_data_private_public_score_recompute_unavailable"
                 for item in warnings

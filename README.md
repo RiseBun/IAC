@@ -110,6 +110,15 @@ cannot enable the causal claim. Promotion also requires an explicit calibration
 source manifest and source-disjoint confirmation; omitting that manifest keeps
 the result at `insufficient_evidence`.
 
+A WorldDrive internal future-latent permutation pilot is archived at
+[`reports/future_to_action_worlddrive_pilot_20260912.json`](reports/future_to_action_worlddrive_pilot_20260912.json).
+It changed the selected action/trajectory in 11/25 groups, but only 1/25
+passed the material lateral/yaw gate. Since the pilot has no blocked-pathway
+replica, fixed-action control, source-disjoint confirmation set, or 30 material
+sources, it is pathway-response evidence only—not a future-to-action causal
+result. The mediation channel therefore remains `unavailable` for formal
+scoring.
+
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
 audited flow component.

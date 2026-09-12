@@ -41,9 +41,12 @@
       "scope": "independent simulator execution and explicit task label"
     },
     "future_to_action_mediation": {
-      "status": "scorer_implemented_confirmation_pending",
+      "status": "pilot_worlddrive_unqualified_confirmation_pending",
       "scope": "future-only intervention or pathway ablation",
-      "required_for": "causal future_to_action claim"
+      "required_for": "causal future_to_action claim",
+      "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
+      "pilot_boundary": "WorldDrive internal future-latent permutation changed action/trajectory in 11/25 groups, but only 1/25 passed the material yaw/lateral gate; blocked-pathway, fixed-action, source-disjoint, and >=30-material-source confirmation requirements remain unmet.",
+      "claim_enabled": false
     }
   },
   "diagnostic_only": [

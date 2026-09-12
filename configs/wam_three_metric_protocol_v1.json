@@ -119,7 +119,9 @@
     "future_to_action_mediation": {
       "config": "configs/future_to_action_mediation_v1.json",
       "scorer": "tools/score_future_to_action_mediation.py",
-      "status": "scorer_implemented_wam_confirmation_pending"
+      "status": "pilot_worlddrive_unqualified_wam_confirmation_pending",
+      "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
+      "claim_enabled": false
     },
     "non_yaw_structure_channels": {
       "audit": "reports/structure_channel_audit_20260912.json",
