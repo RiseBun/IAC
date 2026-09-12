@@ -41,8 +41,9 @@ OPTIONAL_CELLS = frozenset({
     "ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage",
 })
 PROJECTION_GATED_CELLS = frozenset({
-    "mas", "rcs", "gs", "cfac", "ccfc", "fau_f", "fau_a", "fau",
+    "cfac", "ccfc", "fau_f", "fau_a", "fau",
 })
+CANONICAL_COVERAGE_CELLS = frozenset({"mas", "rcs", "gs", "future_to_action_mediation"})
 
 
 def claimed_cells(capability: str) -> tuple[str, ...]:
@@ -163,6 +164,20 @@ def _cell_from_measurement(
         if status not in STATUSES:
             raise ValueError(f"unknown status: {status}")
         result = {"status": status, **{k: v for k, v in measurement.items() if k != "status"}}
+        if cell_name in CANONICAL_COVERAGE_CELLS and status in {"pass", "fail", "pilot"}:
+            # Canonical structural reports use a semantic coverage name while
+            # legacy projection cells use post-projection n/total counts.
+            if "coverage" not in result:
+                for alias in ("pair_coverage", "branch_coverage", "source_coverage"):
+                    if result.get(alias) is not None:
+                        result["coverage"] = float(result[alias])
+                        result["coverage_basis"] = alias
+                        break
+            if "coverage" not in result:
+                return empty_cell("missing", reason="canonical_metric_coverage_required")
+            coverage = float(result["coverage"])
+            if not np.isfinite(coverage) or coverage < 0.0 or coverage > 1.0:
+                raise ValueError(f"invalid canonical metric coverage for {cell_name}")
         if cell_name in PROJECTION_GATED_CELLS or cell_name == "coverage":
             if status not in {"pass", "fail", "pilot"}:
                 return result

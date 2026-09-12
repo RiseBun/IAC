@@ -38,6 +38,18 @@ class ScorecardTest(unittest.TestCase):
         for cell in ("mas", "rcs", "gs", "future_to_action_mediation"):
             self.assertEqual(card["cells"][cell]["status"], "unavailable")
 
+    def test_canonical_metric_coverage_aliases_are_normalized(self) -> None:
+        card = build_model_scorecard(
+            model_id="x",
+            capability="video_only",
+            measurements={
+                "mas": {"status": "pass", "pair_coverage": 0.94, "score": 0.84},
+                "rcs": {"status": "pass", "pair_coverage": 1.0, "score": 0.86},
+            },
+        )
+        self.assertAlmostEqual(card["cells"]["mas"]["coverage"], 0.94)
+        self.assertAlmostEqual(card["cells"]["rcs"]["coverage"], 1.0)
+
     def test_epona_does_not_claim_ccfc(self) -> None:
         self.assertEqual(claimed_cells("externally_controlled_video"), ("a2f",))
         card = build_model_scorecard(model_id="epona", capability="externally_controlled_video")
