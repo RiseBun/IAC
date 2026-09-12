@@ -12,7 +12,7 @@
     "mas_yaw": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
     "rcs_yaw": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
     "gs": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
-    "fcs": {"models": ["DriveWAM"], "claim_enabled": false, "reason": "cross_model_confirmation_pending"},
+    "fcs": {"models": ["DriveWAM"], "claim_enabled": false, "reason": "cross_model_confirmation_pending", "cross_model_assessor": "tools/assess_fcs_cross_model.py", "rejected_staging_evidence": "closed_loop_recovered_20260829:missing_native_action_source_or_staging_provenance"},
     "future_to_action_mediation": {"models": [], "claim_enabled": false, "reason": "no formal four-condition confirmation"}
   },
   "diagnostic_models": {

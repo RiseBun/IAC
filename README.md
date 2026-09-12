@@ -166,6 +166,9 @@ logged-future reference used by the benchmark table.
 An evaluation server that wants to make real GS scores independently
 recomputable can export a descriptor-only reference release with
 [`tools/export_gs_reference_release.py`](tools/export_gs_reference_release.py).
+The published bundle can be checked without the HMAC salt using
+[`tools/verify_gs_reference_release.py`](tools/verify_gs_reference_release.py);
+the verifier rejects raw source keys, images, trajectories and unknown fields.
 The exporter HMAC-pseudonymizes source keys and drops images, calibration, ego
 states, trajectories and private paths. The current benchmark reference stays
 private; this is the safe publication path, not a claim that private GT is
