@@ -23,3 +23,7 @@ Step1 不是一个必须服务所有指标的单一运动读取器。MAS、RCS�
 每个指标独立返回：`scored`、`weak` 或 `unavailable`。`unavailable` 不是 0 分，也不影响同一模型报告其余具备证据的指标。
 
 契约实现见 [`src/iac_new/metric_evidence_contract.py`](../src/iac_new/metric_evidence_contract.py)，配置见 [`configs/metric_evidence_contract_v1.json`](../configs/metric_evidence_contract_v1.json)。
+
+## 对现有报告的回放
+
+对已有 Epona、DriveWAM 的 MAS/RCS/GS/FCS 汇总报告做回放，7 个候选全部被标为 `unavailable`。这不是说旧数字一定错误，而是旧报告没有携带足够的指标身份与干预证据：MAS 缺 native-action provenance，RCS 缺显式 counterfactual group/branch/action-delta，GS 缺 reference identity，FCS 缺成对 future intervention。完整结果见 [`reports/metric_first_readiness_20260912.json`](../reports/metric_first_readiness_20260912.json)。
