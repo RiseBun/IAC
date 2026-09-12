@@ -127,7 +127,8 @@
     },
     "fcs": {
       "report": "reports/fcs_drivewam_summary_20260912.json",
-      "status": "validated_single_model_cross_model_pending"
+      "status": "validated_single_model_cross_model_pending",
+      "scorer": "tools/score_fcs_rollout.py"
     }
   },
   "compatibility": {"preserve_legacy_output_keys": true}
