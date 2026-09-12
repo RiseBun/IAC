@@ -44,3 +44,5 @@ Step1 不是一个必须服务所有指标的单一运动读取器。MAS、RCS�
 GS 的逐分支证据包也已从同源 generated/logged descriptor 对照中重建，并保留了缺失分支：Epona 为 112 scored / 6 unavailable，DriveWAM 为 162 scored / 10 unavailable。该结果与现有候选 GS 覆盖率一致；它只是把 reference 身份和表征写入样本级协议，不改变 GS 分数定义。
 
 FCS 的 DriveWAM 独立 rollout 汇总（978 行、成功率 0.5143）经过 `tools/build_fcs_evidence_packet.py` 后仍为 `unavailable`，原因是缺少四条件 paired future-only intervention。这是预期的 fail-closed 结果：独立执行成功率被保留为 diagnostic，不能升级成 future-to-action 分数。
+
+可信度审计见 `tools/audit_metric_credibility.py` 和 `reports/metric_credibility_audit_20260913.json`：MAS-yaw/RCS-yaw 的四个模型-指标单元均通过当前的覆盖率与 source-bootstrap 方向下界门槛；GS 只有 Epona 通过 identity-specificity 检验。DriveWAM 的 GS 中位数 0.191 低于其 identity-shuffle 均值 0.234，因此 GS 仍可作为该模型的低 grounding 诊断，但不能宣称在两个模型上都具有同等的身份专一性。

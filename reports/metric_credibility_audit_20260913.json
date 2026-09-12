@@ -1,0 +1,86 @@
+{
+  "protocol": "iac-metric-credibility-audit-v1",
+  "rows": [
+    {
+      "metric": "MAS",
+      "model": "epona_20260912",
+      "coverage": 0.9482758620689655,
+      "direction_accuracy": 0.8363636363636363,
+      "direction_ci95": [
+        0.793939393939394,
+        0.8757575757575757
+      ],
+      "coverage_gate": true,
+      "direction_gate": true,
+      "credible_for_declared_yaw_scope": true
+    },
+    {
+      "metric": "MAS",
+      "model": "drivewam_20260912",
+      "coverage": 0.9597701149425287,
+      "direction_accuracy": 0.8143712574850299,
+      "direction_ci95": [
+        0.7664670658682635,
+        0.8622754491017964
+      ],
+      "coverage_gate": true,
+      "direction_gate": true,
+      "credible_for_declared_yaw_scope": true
+    },
+    {
+      "metric": "RCS",
+      "model": "epona_20260912",
+      "coverage": 0.9770114942528736,
+      "direction_accuracy": 0.9238095238095239,
+      "direction_ci95": [
+        0.8666666666666667,
+        0.9714285714285714
+      ],
+      "coverage_gate": true,
+      "direction_gate": true,
+      "credible_for_declared_yaw_scope": true
+    },
+    {
+      "metric": "RCS",
+      "model": "drivewam_20260912",
+      "coverage": 1.0,
+      "direction_accuracy": 0.8571428571428571,
+      "direction_ci95": [
+        0.7902380952380954,
+        0.9238095238095239
+      ],
+      "coverage_gate": true,
+      "direction_gate": true,
+      "credible_for_declared_yaw_scope": true
+    },
+    {
+      "metric": "GS",
+      "model": "drivewam",
+      "coverage": 0.9418604651162791,
+      "score_median": 0.1907535628429283,
+      "identity_shuffle_mean": 0.23404393519101782,
+      "identity_shuffle_q95_mean": 0.24020379581586618,
+      "coverage_gate": true,
+      "identity_specificity_gate": false,
+      "credible_for_grounding_scope": false
+    },
+    {
+      "metric": "GS",
+      "model": "epona",
+      "coverage": 0.9491525423728814,
+      "score_median": 0.5528983639137252,
+      "identity_shuffle_mean": 0.3032158222220855,
+      "identity_shuffle_q95_mean": 0.32720928682593337,
+      "coverage_gate": true,
+      "identity_specificity_gate": true,
+      "credible_for_grounding_scope": true
+    }
+  ],
+  "summary": {
+    "mas_rcs_yaw_models_passing": 4,
+    "mas_rcs_yaw_models_total": 4,
+    "gs_models_passing_identity_specificity": 1,
+    "gs_models_total": 2
+  },
+  "claim_boundary": "This is a credibility audit for declared scopes, not architecture-universal validation or future-to-action causality."
+}
