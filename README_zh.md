@@ -28,6 +28,11 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 > 逐样本 DriveWAM 输出、私有图像、GT 和 PDM cache 不公开，因此只依靠本仓库不能
 > 独立重算下方参考主表。
 
+记分板是**条件式**的：不假设每个 WAM 都用预测未来生成动作。MAS、RCS、GS、FCS
+以及可选的 future-to-action mediation 分开报告，各自带 coverage；不支持或无法测量
+的通道标记为 `unavailable` 并说明原因，只从该通道分母排除，绝不填 0，也不定义一个
+把不同能力强行合并的总分。
+
 ## 方法贡献
 
 1. **候选盲运动测量尺：** 当前选定的 S1.3 直接把冻结 RAFT-Large 流场读成

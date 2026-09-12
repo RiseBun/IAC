@@ -45,6 +45,18 @@ PROJECTION_GATED_CELLS = frozenset({
 })
 CANONICAL_COVERAGE_CELLS = frozenset({"mas", "rcs", "gs", "future_to_action_mediation"})
 
+# The benchmark is conditional by design: a WAM is not required to expose a
+# future-driven pathway in order to be evaluated on the channels it supports.
+# This metadata is emitted with every scorecard so consumers cannot mistake an
+# unavailable capability for a failed model or a zero score.
+CONDITIONAL_SCORING_POLICY = {
+    "future_driven_assumption": False,
+    "score_each_supported_channel_independently": True,
+    "unavailable_policy": "exclude_from_metric_denominator_and_report_reason",
+    "zero_fill_unavailable": False,
+    "aggregate_score": "not_defined",
+}
+
 
 def claimed_cells(capability: str) -> tuple[str, ...]:
     if capability not in CLAIMED:
@@ -220,6 +232,7 @@ def build_model_scorecard(
         for cell in CELLS
     }
     return {
+        "scoring_policy": dict(CONDITIONAL_SCORING_POLICY),
         "model_id": model_id,
         "capability": capability,
         "claimed_cells": list(claimed),

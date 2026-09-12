@@ -2,6 +2,13 @@
   "protocol": "iac-scorecard",
   "benchmark": "benchmark",
   "claim": "capability-stratified WAM measurement; S1.3 is a directional-yaw action-response metric, not full metric trajectory reconstruction",
+  "scoring_policy": {
+    "future_driven_assumption": false,
+    "score_each_supported_channel_independently": true,
+    "unavailable_policy": "exclude_from_metric_denominator_and_report_reason",
+    "zero_fill_unavailable": false,
+    "aggregate_score": "not_defined"
+  },
   "primary_score_policy": {
     "step1_version": "iac-flow-structure-yaw-v1.3",
     "included_motion_fields": ["horizontal_flow_center", "yaw_direction"],

@@ -38,6 +38,13 @@ class ScorecardTest(unittest.TestCase):
         for cell in ("mas", "rcs", "gs", "future_to_action_mediation"):
             self.assertEqual(card["cells"][cell]["status"], "unavailable")
 
+    def test_scorecard_is_explicitly_conditional(self) -> None:
+        card = build_model_scorecard(model_id="x", capability="action_only")
+        policy = card["scoring_policy"]
+        self.assertFalse(policy["future_driven_assumption"])
+        self.assertFalse(policy["zero_fill_unavailable"])
+        self.assertEqual(policy["aggregate_score"], "not_defined")
+
     def test_canonical_metric_coverage_aliases_are_normalized(self) -> None:
         card = build_model_scorecard(
             model_id="x",

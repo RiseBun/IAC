@@ -36,6 +36,13 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
 > redistributed, so the reference table cannot be independently recomputed
 > from this repository alone.
 
+The scorecard is deliberately conditional: it does not assume that every WAM
+uses its predicted future to produce its action. MAS, RCS, GS, FCS and the
+optional mediation channel are reported independently with their own coverage.
+An unsupported or unevaluable channel is `unavailable` with a reason; it is
+excluded from that channel's denominator, never converted to zero, and no
+overall aggregate score is defined.
+
 ## Contributions
 
 1. **Candidate-blind motion measurement.** The selected S1.3 path reads a frozen
