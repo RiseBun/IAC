@@ -38,6 +38,16 @@ class FcsTests(unittest.TestCase):
         }])
         self.assertEqual(report["status"], "pass")
 
+    def test_untrusted_state_source_is_unavailable(self) -> None:
+        report = score_fcs_rollout([{
+            "source_key": "a",
+            "task_success": True,
+            "realized_state_available": True,
+            "state_reference_source": "annotated_guess",
+            "action_injection_verified": True,
+        }])
+        self.assertEqual(report["status"], "unavailable")
+
     def test_duplicate_source_branch_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
             score_fcs_rollout([

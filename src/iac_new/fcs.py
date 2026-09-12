@@ -62,9 +62,14 @@ def score_fcs_rollout(
         independent_state = row.get("independent_realized_state")
         if independent_state is None:
             # Backward-compatible evidence form emitted by the NAVSIM runner:
-            # a realized-state flag plus a named closed-loop state source.
-            independent_state = bool(row.get("realized_state_available")) and bool(
-                str(row.get("state_reference_source") or "").strip()
+            # a realized-state flag plus a named closed-loop source (or an
+            # explicit lineage assertion that it is independent of WAM images).
+            lineage = row.get("rollout_lineage") or {}
+            source = str(row.get("state_reference_source") or "").strip().lower()
+            independent_state = bool(row.get("realized_state_available")) and bool(source) and (
+                bool(lineage.get("independent_from_wam_images"))
+                or "closed_loop" in source
+                or "simulator" in source
             )
         if independent_state is not True:
             item.update({"status": "unavailable", "reason": "independent_realized_state_evidence_required"})
