@@ -48,7 +48,30 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
    differences are exposed as an ordinal, decoder-free signal for the Response
    Consistency Score (RCS; legacy structural CCFC-S). Source-disjoint calibration,
    reversed/identity/zero controls and clustered bootstrap are now recorded;
-   formal release still requires the final protocol freeze.
+   The directional-yaw variant is now frozen for the release; metric-magnitude
+   and progress variants remain diagnostic.
+
+## Frozen scorecard (2026-09-12)
+
+These are the current validated reference results. Coverage and confidence
+intervals are part of every score; unavailable samples are never zero-filled.
+
+| Metric | Epona | DriveWAM | Interpretation |
+|---|---:|---:|---|
+| MAS-yaw pair coverage | 94.8% | 96.0% | visual yaw direction aligned with native action |
+| MAS-yaw direction accuracy | 83.6% | 81.4% | source-bootstrap 95% CI: [79.4%, 87.6%] / [76.6%, 86.2%] |
+| RCS-yaw pair coverage | 98.3% | 100.0% | same-source counterfactual pairs available |
+| RCS-yaw direction accuracy | 92.4% | 85.8% | source-bootstrap 95% CI: [86.7%, 97.1%] / [79.0%, 92.4%] |
+| GS coverage | 94.9% | 94.2% | external logged-future grounding |
+| GS median | 0.550 | 0.191 | paired Epona−DriveWAM difference: 0.314 [0.251, 0.340] |
+
+MAS-yaw and RCS-yaw pass the frozen gates (pair coverage ≥90% and the
+source-bootstrap direction lower bound ≥75%) on both models. GS is independently
+calibrated on logged future data and passes its source-disjoint calibration and
+identity-shuffle controls. These scores are structural/directional: lateral
+translation, metric distance, absolute speed, curvature and future-to-action
+mediation remain outside the frozen claims and must be reported as diagnostic or
+unavailable.
 
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
