@@ -282,6 +282,11 @@ FCS 将 native action 输入独立模拟器，依据模拟器产生的实际状�
 rollout 不读取 WAM 生成图像，WAM waypoint 也不能冒充实际状态。没有兼容 rollout 或
 任务标签时，FCS 为 `unavailable`。
 
+目前已有 DriveWAM 的独立 rollout 汇总审计：978 条可执行行、503 条成功，FCS 为
+`0.5143`，无 rollout 错误。模拟器使用实际 realized state，并验证了 action 注入，
+且不读取生成未来图像。这是单模型结果；跨模型 FCS 仍待补齐，该分数也不证明
+future-to-action 因果。详见 [`reports/fcs_drivewam_summary_20260912.json`](reports/fcs_drivewam_summary_20260912.json)。
+
 ## 数据集
 
 冻结主集为 [`datasets/benchmark_public.jsonl`](datasets/benchmark_public.jsonl)：

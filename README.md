@@ -393,6 +393,13 @@ state and task label. The rollout never reads generated future images, and a
 WAM waypoint is never treated as realized state. Without a compatible rollout
 or task label, FCS is `unavailable`.
 
+The independent DriveWAM rollout is available as a public aggregate audit:
+`978` executable rows, `503` successes, FCS `0.5143`, with zero rollout errors.
+The simulator used realized state and verified action injection without reading
+generated future images. This is a single-model result; cross-model FCS remains
+pending and the score does not establish future-to-action mediation. See
+[`reports/fcs_drivewam_summary_20260912.json`](reports/fcs_drivewam_summary_20260912.json).
+
 ## Benchmark dataset
 
 The frozen main split is [`datasets/benchmark_public.jsonl`](datasets/benchmark_public.jsonl):

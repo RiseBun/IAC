@@ -124,6 +124,10 @@
     "non_yaw_structure_channels": {
       "audit": "reports/structure_channel_audit_20260912.json",
       "status": "diagnostic_only"
+    },
+    "fcs": {
+      "report": "reports/fcs_drivewam_summary_20260912.json",
+      "status": "validated_single_model_cross_model_pending"
     }
   },
   "compatibility": {"preserve_legacy_output_keys": true}

@@ -1,0 +1,17 @@
+{
+  "protocol": "iac-fcs-independent-rollout-v1",
+  "model": "DriveWAM",
+  "status": "validated_single_model",
+  "input_rows": 978,
+  "output_rows": 978,
+  "error_rows": 0,
+  "task_success_rows": 503,
+  "task_success_rate": 0.5143149284,
+  "success_threshold": 0.5,
+  "state_reference_source": "navsim_pdm_kinematic_bicycle_closed_loop",
+  "traffic_policy": "static_cached_objects_compat",
+  "independent_realized_state": true,
+  "action_injection_verified": true,
+  "generated_future_images_used": false,
+  "claim_boundary": "FCS is an independent execution score for this model and split; it does not establish future-to-action mediation or cross-model significance."
+}

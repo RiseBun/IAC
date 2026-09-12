@@ -43,8 +43,9 @@
       "not_substituted_by": "structural ordinal channels"
     },
     "fcs": {
-      "status": "independent_metric",
-      "requirement": "native action evaluated by an independent simulator and task labels"
+      "status": "validated_single_model_cross_model_pending",
+      "requirement": "native action evaluated by an independent simulator and task labels",
+      "evidence": "reports/fcs_drivewam_summary_20260912.json"
     }
   },
   "report_contract": {
