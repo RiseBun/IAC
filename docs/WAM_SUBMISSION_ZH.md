@@ -34,6 +34,8 @@ decoder 和重建协议生成与模型原生时间轴对应的 RGB 文件（至�
 ## 1. 作者提交什么
 
 一行一个样本，JSONL。必须能对上公开 split 的 `sample_id`。
+一个提交文件只能包含一个 `wam_model_id`、一个 `capability`，且每个
+`sample_id` 只能出现一次；混入多个模型或重复样本会被校验器拒绝。
 
 ```json
 {
