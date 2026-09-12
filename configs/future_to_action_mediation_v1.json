@@ -15,6 +15,20 @@
     "same_nuisance_seed",
     "same_model_revision"
   ],
+  "intervention_identity_contract": {
+    "required_fields": ["future_fingerprint", "pathway_state"],
+    "future_fingerprint_relationship": {
+      "baseline_equals_future_fixed_action_pathway_control": true,
+      "future_perturbed_equals_future_perturbed_pathway_blocked": true,
+      "baseline_differs_from_future_perturbed": true
+    },
+    "pathway_state_by_condition": {
+      "baseline": "normal",
+      "future_perturbed": "normal",
+      "future_perturbed_pathway_blocked": "blocked",
+      "future_fixed_action_pathway_control": "fixed_action"
+    }
+  },
   "estimands": {
     "future_effect_on_action": "distance(native_action_future_perturbed, native_action_baseline)",
     "blocked_effect_on_action": "distance(native_action_future_perturbed_pathway_blocked, native_action_baseline)",

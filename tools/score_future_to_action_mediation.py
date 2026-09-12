@@ -26,6 +26,13 @@ CONDITIONS = (
     "future_fixed_action_pathway_control",
 )
 
+EXPECTED_PATHWAY_STATE = {
+    "baseline": "normal",
+    "future_perturbed": "normal",
+    "future_perturbed_pathway_blocked": "blocked",
+    "future_fixed_action_pathway_control": "fixed_action",
+}
+
 
 def _vector(value: Any, field: str) -> np.ndarray:
     array = np.asarray(value, dtype=np.float64)
@@ -77,6 +84,10 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
                 "nuisance_seed": row.get("nuisance_seed"),
                 "model_revision": row.get("model_revision"),
             }
+            if any(value is None or value == "" for value in current.values()):
+                pair.update({"status": "unavailable", "reason": "invariance_metadata_required"})
+                pairs.append(pair)
+                break
             if not metadata:
                 metadata = current
             elif current != metadata:
@@ -84,6 +95,31 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
                 pairs.append(pair)
                 break
         if pair["status"] != "scored":
+            continue
+        future_fingerprints = {
+            condition: group[condition].get("future_fingerprint")
+            for condition in CONDITIONS
+        }
+        if any(value is None or value == "" for value in future_fingerprints.values()):
+            pair.update({"status": "unavailable", "reason": "future_fingerprint_required"})
+            pairs.append(pair)
+            continue
+        if future_fingerprints["baseline"] == future_fingerprints["future_perturbed"]:
+            pair.update({"status": "unavailable", "reason": "future_perturbation_not_verified"})
+            pairs.append(pair)
+            continue
+        if future_fingerprints["future_perturbed"] != future_fingerprints["future_perturbed_pathway_blocked"]:
+            pair.update({"status": "unavailable", "reason": "blocked_condition_future_mismatch"})
+            pairs.append(pair)
+            continue
+        if future_fingerprints["baseline"] != future_fingerprints["future_fixed_action_pathway_control"]:
+            pair.update({"status": "unavailable", "reason": "fixed_action_control_future_mismatch"})
+            pairs.append(pair)
+            continue
+        pathway_states = {condition: group[condition].get("pathway_state") for condition in CONDITIONS}
+        if pathway_states != EXPECTED_PATHWAY_STATE:
+            pair.update({"status": "unavailable", "reason": "pathway_state_contract_mismatch", "pathway_states": pathway_states})
+            pairs.append(pair)
             continue
         try:
             baseline = _vector(group["baseline"].get("native_action"), "native_action")
@@ -106,6 +142,8 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
             "specificity_control_effect": control_effect,
             "pathway_suppression": suppression,
             "invariance": metadata,
+            "future_fingerprints": future_fingerprints,
+            "pathway_states": pathway_states,
         })
         future_effects.append(future_effect)
         blocked_effects.append(blocked_effect)

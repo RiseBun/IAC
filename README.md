@@ -87,6 +87,10 @@ It requires a future-only perturbation and a pathway-blocked replica with the
 same history, command, seed and model revision. Until a source-disjoint WAM
 confirmation passes its preregistered suppression and specificity gates, the
 channel is `unavailable`; MAS/RCS scores are not relabelled as causal evidence.
+The scorer also verifies intervention identity: every condition must carry a
+future fingerprint and pathway state satisfying the pre-registered
+baseline/perturbed and blocked/control relationships. A row label alone cannot
+create causal evidence.
 
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
