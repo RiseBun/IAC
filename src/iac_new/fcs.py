@@ -131,6 +131,12 @@ def score_fcs_rollout(
     if len(model_ids) > 1:
         raise ValueError(f"FCS input mixes WAM models: {sorted(model_ids)}")
     successes = sum(bool(item["task_success"]) for item in scored)
+    coverage = len(scored) / len(rows) if rows else None
+    unavailable_reasons = dict(Counter(
+        str(item.get("reason") or "unspecified")
+        for item in normalized
+        if item["status"] == "unavailable"
+    ))
     strata: dict[str, dict[str, Any]] = {}
     for stratum in sorted({item["stratum"] for item in scored}):
         group = [item for item in scored if item["stratum"] == stratum]
@@ -153,13 +159,16 @@ def score_fcs_rollout(
         "action_sources": sorted(action_sources),
         "scored_rows": len(scored),
         "unavailable_rows": len(normalized) - len(scored),
-        "coverage": len(scored) / len(rows) if rows else None,
+        "coverage": coverage,
+        "conditional_score": successes / len(scored) if scored else None,
+        "score_coverage": coverage,
         "successes": successes,
         "success_rate": successes / len(scored) if scored else None,
         "success_rate_ci95": _wilson(successes, len(scored)),
         "strata": strata,
         "evidence": evidence_values,
         "status_counts": dict(Counter(item["status"] for item in normalized)),
+        "unavailable_reasons": unavailable_reasons,
         "rows_detail": normalized,
         "claim_boundary": "FCS is independent task execution evidence; it does not establish image grounding or future-to-action mediation.",
     }

@@ -13,6 +13,8 @@ class FcsTests(unittest.TestCase):
         self.assertEqual(report["successes"], 1)
         self.assertEqual(report["scored_rows"], 2)
         self.assertEqual(report["success_rate"], 0.5)
+        self.assertEqual(report["conditional_score"], 0.5)
+        self.assertEqual(report["score_coverage"], 1.0)
 
     def test_missing_or_non_independent_rows_are_unavailable(self) -> None:
         report = score_fcs_rollout([
@@ -22,6 +24,8 @@ class FcsTests(unittest.TestCase):
         self.assertEqual(report["status"], "unavailable")
         self.assertEqual(report["scored_rows"], 0)
         self.assertEqual(report["unavailable_rows"], 2)
+        self.assertEqual(report["score_coverage"], 0.0)
+        self.assertTrue(report["unavailable_reasons"])
 
     def test_missing_positive_evidence_is_fail_closed(self) -> None:
         report = score_fcs_rollout([{"source_key": "a", "task_success": True}])
