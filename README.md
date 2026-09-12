@@ -100,7 +100,9 @@ baseline/perturbed and blocked/control relationships. A row label alone cannot
 create causal evidence. It additionally requires a calibration-only, frozen
 action normalization fingerprint and scale shared by all four conditions; a
 small scored pilot is reported as `promotion.status=insufficient_evidence` and
-cannot enable the causal claim.
+cannot enable the causal claim. Promotion also requires an explicit calibration
+source manifest and source-disjoint confirmation; omitting that manifest keeps
+the result at `insufficient_evidence`.
 
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,

@@ -35,6 +35,7 @@ PROMOTION_CRITERIA = {
     "future_effect_ci95_lower_min": 0.05,
     "pathway_suppression_ci95_lower_min": 0.5,
     "specificity_control_ci95_upper_max": 0.25,
+    "source_disjoint_confirmation": True,
 }
 
 EXPECTED_PATHWAY_STATE = {
@@ -78,7 +79,13 @@ def _percentile_ci(values: np.ndarray, draws: int, seed: int) -> list[float] | N
     return [float(np.quantile(means, 0.025)), float(np.quantile(means, 0.975))]
 
 
-def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any]:
+def score(
+    rows: list[dict[str, Any]],
+    *,
+    draws: int,
+    seed: int,
+    calibration_source_keys: set[str] | None = None,
+) -> dict[str, Any]:
     grouped: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
     for row in rows:
         source = str(row.get("source_key") or "")
@@ -94,10 +101,15 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
     blocked_effects: list[float] = []
     suppressions: list[float] = []
     specificity: list[float] = []
+    calibration_source_keys = None if calibration_source_keys is None else set(calibration_source_keys)
     for source in sorted(grouped):
         group = grouped[source]
         missing = [condition for condition in CONDITIONS if condition not in group]
         pair: dict[str, Any] = {"source_key": source, "status": "scored"}
+        if calibration_source_keys is not None and source in calibration_source_keys:
+            pair.update({"status": "unavailable", "reason": "source_in_calibration_split"})
+            pairs.append(pair)
+            continue
         if missing:
             pair.update({"status": "unavailable", "reason": "missing_conditions", "missing": missing})
             pairs.append(pair)
@@ -223,12 +235,13 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
             specificity_ci is not None
             and specificity_ci[1] <= PROMOTION_CRITERIA["specificity_control_ci95_upper_max"]
         ),
+        "source_disjoint_confirmation": calibration_source_keys is not None,
     }
     promotion_status = (
         "passed"
         if all(promotion_checks.values())
         else "insufficient_evidence"
-        if len(scored) < PROMOTION_CRITERIA["minimum_sources"]
+        if len(scored) < PROMOTION_CRITERIA["minimum_sources"] or calibration_source_keys is None
         else "failed"
     )
     return {
@@ -263,6 +276,16 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
             "checks": promotion_checks,
             "claim_enabled": promotion_status == "passed",
         },
+        "source_disjoint_confirmation": {
+            "verified": calibration_source_keys is not None,
+            "calibration_source_count": (
+                len(calibration_source_keys) if calibration_source_keys is not None else None
+            ),
+            "overlap_count": (
+                len(set(grouped).intersection(calibration_source_keys))
+                if calibration_source_keys is not None else None
+            ),
+        },
         "pairs": pairs,
         "missing_value_policy": "unavailable_never_zero_fill",
         "claim_boundary": "This is a pathway intervention result, not a replacement for MAS, RCS or GS; passing requires the preregistered thresholds and source-disjoint confirmation.",
@@ -275,9 +298,26 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--bootstrap-draws", type=int, default=20000)
     parser.add_argument("--bootstrap-seed", type=int, default=20260912)
+    parser.add_argument(
+        "--calibration-sources",
+        type=Path,
+        help="one source_key per line; supplying this is required for promotion evidence",
+    )
     args = parser.parse_args()
     rows = [json.loads(line) for line in args.input.read_text(encoding="utf-8").splitlines() if line.strip()]
-    result = score(rows, draws=args.bootstrap_draws, seed=args.bootstrap_seed)
+    calibration_sources = None
+    if args.calibration_sources:
+        calibration_sources = {
+            line.strip()
+            for line in args.calibration_sources.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        }
+    result = score(
+        rows,
+        draws=args.bootstrap_draws,
+        seed=args.bootstrap_seed,
+        calibration_source_keys=calibration_sources,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(json.dumps({"status": result["status"], "coverage": result["coverage"], "output": str(args.output)}))

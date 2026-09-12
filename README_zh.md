@@ -95,7 +95,8 @@ state，并满足预注册的 baseline/perturbed、blocked/control 关系；仅�
 标签不能产生因果证据。每个 condition 还必须携带只在 calibration sources 上拟合、
 在确认前冻结、且四个 condition 共享的 action normalization fingerprint 和 scale。
 少量 pilot 即使可计算，也只会是 `promotion.status=insufficient_evidence`，不能开启
-因果声明。
+因果声明。晋级还要求显式提供校准 source 清单并验证确认集不重叠；不提供清单时，
+即使有 30 个 source 也不能晋级。
 
 ## 三步流程
 

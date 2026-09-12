@@ -90,9 +90,25 @@ class FutureToActionMediationTest(unittest.TestCase):
                 copied = dict(row)
                 copied["source_key"] = f"s{index}"
                 rows.append(copied)
-        result = score(rows, draws=500, seed=7)
+        result = score(rows, draws=500, seed=7, calibration_source_keys=set())
         self.assertEqual(result["promotion"]["status"], "passed")
         self.assertTrue(result["promotion"]["claim_enabled"])
+
+    def test_promotion_requires_explicit_source_disjoint_evidence(self):
+        rows = []
+        for index in range(30):
+            for row in _rows():
+                copied = dict(row)
+                copied["source_key"] = f"s{index}"
+                rows.append(copied)
+        result = score(rows, draws=100, seed=7)
+        self.assertEqual(result["promotion"]["status"], "insufficient_evidence")
+        self.assertFalse(result["promotion"]["checks"]["source_disjoint_confirmation"])
+
+    def test_calibration_overlap_is_excluded(self):
+        result = score(_rows(), draws=20, seed=7, calibration_source_keys={"s0"})
+        self.assertEqual(result["scored_source_count"], 0)
+        self.assertEqual(result["pairs"][0]["reason"], "source_in_calibration_split")
 
 
 if __name__ == "__main__":

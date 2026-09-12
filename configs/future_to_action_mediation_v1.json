@@ -52,6 +52,11 @@
     "minimum_future_effect": 0.05,
     "minimum_sources": 30
   },
+  "confirmation_split_contract": {
+    "calibration_source_manifest_required_for_promotion": true,
+    "confirmation_source_keys_must_be_disjoint": true,
+    "missing_manifest_policy": "insufficient_evidence"
+  },
   "promotion_criteria": {
     "minimum_sources": 30,
     "future_effect_ci95_lower_min": 0.05,

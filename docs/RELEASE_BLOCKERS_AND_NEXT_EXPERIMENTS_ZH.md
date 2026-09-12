@@ -25,8 +25,9 @@ model revision 不变，并携带 future fingerprint 与 pathway state。通过�
 当前 scorer 还会强制每个条件携带同一个、只用 calibration sources 拟合并在确认
 前冻结的 `action_normalization_fingerprint`/`action_normalization_scale`。只有
 “可计算”不等于“可晋级”：少于 30 个 source 时报告仍可用于调试，但
-`promotion.claim_enabled=false`，不能写入因果结论。这样可以防止一条或少数几条
-干预样本被误读成 mediation 证据。
+`promotion.claim_enabled=false`；CLI 还必须显式提供 calibration source 清单，
+否则即使有 30 个 source 也只是 `insufficient_evidence`。这样可以防止一条或
+少数几条干预样本，或与校准集重叠的 source，被误读成 mediation 证据。
 
 ### FCS 跨模型
 
