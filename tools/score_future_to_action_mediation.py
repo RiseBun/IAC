@@ -303,6 +303,11 @@ def main() -> None:
         type=Path,
         help="one source_key per line; supplying this is required for promotion evidence",
     )
+    parser.add_argument(
+        "--require-promotion",
+        action="store_true",
+        help="return non-zero unless the preregistered mediation gates pass",
+    )
     args = parser.parse_args()
     rows = [json.loads(line) for line in args.input.read_text(encoding="utf-8").splitlines() if line.strip()]
     calibration_sources = None
@@ -320,7 +325,16 @@ def main() -> None:
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2), encoding="utf-8")
-    print(json.dumps({"status": result["status"], "coverage": result["coverage"], "output": str(args.output)}))
+    print(json.dumps({
+        "status": result["status"],
+        "coverage": result["coverage"],
+        "promotion": result["promotion"]["status"],
+        "output": str(args.output),
+    }))
+    if result["status"] == "unavailable" or (
+        args.require_promotion and not result["promotion"]["claim_enabled"]
+    ):
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":
