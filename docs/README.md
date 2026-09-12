@@ -17,6 +17,7 @@
 | [`../reports/progress_structure_pure_speed_audit_20260912.json`](../reports/progress_structure_pure_speed_audit_20260912.json) | JSON | Non-yaw progress descriptor audit and promotion boundary |
 | [`../tools/score_fcs_rollout.py`](../tools/score_fcs_rollout.py) | CLI | Fail-closed independent rollout scorer for FCS |
 | [`../tools/score_structural_grounding.py`](../tools/score_structural_grounding.py) | CLI | Recompute GS from generated and user-supplied reference flow-structure JSONL |
+| [`../tools/validate_metric_comparability.py`](../tools/validate_metric_comparability.py) | CLI | Fail-closed MAS/RCS adapter comparability contract check |
 | [`../reports/release_readiness_20260912.json`](../reports/release_readiness_20260912.json) | JSON | Machine-readable release claims, boundaries and pending evidence |
 | [`STEP1_IMPROVEMENT_PLAN_ZH.md`](STEP1_IMPROVEMENT_PLAN_ZH.md) | ZH | Step1.3 改进优先级、深度/光流 A/B 与验收门 |
 

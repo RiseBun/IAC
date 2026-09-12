@@ -404,6 +404,8 @@ Model adapters may calibrate coordinate orientation only. The descriptor,
 deadbands, coverage gates and aggregation are shared across models and must be
 frozen before the source-disjoint confirmation split, preventing model-specific
 adapter tuning from becoming a hidden optimization channel.
+The machine-checkable contract can be checked with
+`python tools/validate_metric_comparability.py configs/mas_yaw_v1.json configs/rcs_yaw_v1.json`.
 
 An independent, candidate-blind action-to-structure calibration was also
 run using logged real future flow only, then applied once to untouched pure-

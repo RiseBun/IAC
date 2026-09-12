@@ -48,6 +48,10 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 本发布版不宣称提出新的光流网络。创新点是围绕冻结、审计过的光流组件建立了防
 泄漏的测量和评分协议。
 
+模型 adapter 只允许处理坐标方向/图像几何，不能改变 descriptor、deadband、聚合
+或晋级门槛；可用 [`tools/validate_metric_comparability.py`](tools/validate_metric_comparability.py)
+在挂载私有数据前做失败关闭检查。
+
 机器可读的发布边界见 [`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json)：
 当前版本可以作为条件式一致性/保真度标准发布，但在 mediation 和跨架构 FCS
 证据补齐前，不宣称 future-to-action 因果或跨架构普适性。
