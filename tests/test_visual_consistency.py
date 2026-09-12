@@ -6,6 +6,7 @@ import numpy as np
 
 from iac_new.visual_consistency import (
     score_structural_grounding,
+    score_trajectory_conditioned_likelihood,
     score_trajectory_visual_consistency,
     score_twin_differential_consistency,
     trajectory_conditioned_flow,
@@ -85,6 +86,58 @@ class VisualConsistencyTest(unittest.TestCase):
         self.assertAlmostEqual(report["median_residual_px"], 0.0)
         self.assertAlmostEqual(report["median_direction_cosine"], 1.0)
         self.assertEqual(report["metric_id"], "MAS")
+
+    def test_fixed_support_keeps_candidate_projection_out_of_denominator(self) -> None:
+        observed = np.zeros((1, 4, 4, 2), dtype=np.float64)
+        expected = np.zeros_like(observed)
+        observed[..., 0] = 1.0
+        expected[..., 0] = 1.0
+        fixed = np.ones((1, 4, 4), dtype=bool)
+        candidate_valid = fixed.copy()
+        candidate_valid[:, :2] = False
+        report = score_trajectory_conditioned_likelihood(
+            observed,
+            expected,
+            fixed_support_mask=fixed,
+            expected_valid_mask=candidate_valid,
+            min_projection_valid_fraction=0.2,
+        )
+        self.assertEqual(report["status_counts"]["scored"], 1)
+        self.assertAlmostEqual(report["fixed_support_fraction"], 1.0)
+        self.assertAlmostEqual(report["projection_valid_fraction"], 0.5)
+        self.assertAlmostEqual(report["score"], 1.0)
+
+    def test_fixed_support_fails_closed_when_candidate_projection_is_too_small(self) -> None:
+        observed = np.zeros((1, 4, 4, 2), dtype=np.float64)
+        expected = np.zeros_like(observed)
+        fixed = np.ones((1, 4, 4), dtype=bool)
+        candidate_valid = np.zeros_like(fixed)
+        report = score_trajectory_conditioned_likelihood(
+            observed,
+            expected,
+            fixed_support_mask=fixed,
+            expected_valid_mask=candidate_valid,
+            min_projection_valid_fraction=0.2,
+        )
+        self.assertEqual(report["status_counts"], {"scored": 0, "weak": 0, "unavailable": 1})
+        self.assertIsNone(report["score"])
+        self.assertEqual(report["intervals"][0]["reason"], "insufficient_candidate_projection")
+
+    def test_weak_control_retains_continuous_score(self) -> None:
+        observed = np.zeros((1, 4, 4, 2), dtype=np.float64)
+        expected = np.zeros_like(observed)
+        observed[..., 0] = 1.0
+        expected[..., 0] = -1.0
+        fixed = np.ones((1, 4, 4), dtype=bool)
+        report = score_trajectory_conditioned_likelihood(
+            observed,
+            expected,
+            fixed_support_mask=fixed,
+            min_direction_cosine=0.0,
+        )
+        self.assertEqual(report["status_counts"]["weak"], 1)
+        self.assertIsNotNone(report["score"])
+        self.assertIsNone(report["reliable_score"])
 
     def test_twin_score_reports_signed_temporal_persistence(self) -> None:
         observed_left = np.zeros((2, 4, 4, 2), dtype=np.float64)

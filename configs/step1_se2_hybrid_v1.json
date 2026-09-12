@@ -1,0 +1,29 @@
+{
+  "protocol": "iac-step1-se2-hybrid-fixed-support-v1",
+  "status": "experimental_pilot",
+  "purpose": "trajectory-conditioned visual likelihood for MAS and RCS",
+  "support": {
+    "candidate_blind": true,
+    "source": "observed_flow_validity_intersected_with_frozen_roi",
+    "min_fixed_support_fraction": 0.2,
+    "min_projection_valid_fraction": 0.2
+  },
+  "model": {
+    "primary": "ground_plane",
+    "depth_adapter": "optional",
+    "free_trajectory_optimization": false
+  },
+  "score": {
+    "likelihood_scale_px": 2.0,
+    "residual_inlier_threshold_px": 2.0,
+    "min_direction_cosine": 0.0
+  },
+  "missing_value_policy": "unavailable_never_zero_fill",
+  "promotion_gates": {
+    "real_video_calibration_required": true,
+    "normal_beats_reversed_control": true,
+    "zero_contrast_is_unavailable": true,
+    "independent_architecture_validation_required": true
+  },
+  "claim_boundary": "This channel tests a supplied trajectory as an image-space hypothesis. It is not a metric trajectory reconstruction and does not by itself establish future-to-action causality."
+}

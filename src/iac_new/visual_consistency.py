@@ -176,6 +176,151 @@ def score_trajectory_visual_consistency(
     }
 
 
+def score_trajectory_conditioned_likelihood(
+    observed_flows: np.ndarray,
+    expected_flows: np.ndarray,
+    *,
+    fixed_support_mask: np.ndarray,
+    expected_valid_mask: np.ndarray | None = None,
+    observed_valid_mask: np.ndarray | None = None,
+    min_fixed_support_fraction: float = 0.20,
+    min_projection_valid_fraction: float = 0.20,
+    likelihood_scale_px: float = 2.0,
+    residual_inlier_threshold_px: float = 2.0,
+    min_direction_cosine: float = 0.0,
+) -> dict[str, Any]:
+    """Score a supplied trajectory with a fixed, candidate-blind support set.
+
+    This is the production-facing SE(2) primitive.  ``fixed_support_mask`` is
+    chosen before a candidate trajectory is evaluated (for example ROI and
+    observed-flow validity).  The candidate's projection validity is reported
+    separately and never changes the input denominator.  A candidate that
+    projects too few of the fixed points is ``unavailable``; it is not given a
+    robust-loss value and cannot win by collapsing to a zero trajectory.
+
+    The returned ``likelihood`` is an image-space ordering score, not a metric
+    reconstruction.  It is deliberately monotone in residual and direction
+    agreement so it can be used for MAS/RCS controls while retaining the raw
+    diagnostics needed for audit.
+    """
+    observed = np.asarray(observed_flows, dtype=np.float64)
+    expected = np.asarray(expected_flows, dtype=np.float64)
+    if observed.shape != expected.shape or observed.ndim != 4 or observed.shape[-1] != 2:
+        raise ValueError("observed_flows and expected_flows must match [T,H,W,2]")
+    intervals, height, width = observed.shape[:3]
+    fixed = np.asarray(fixed_support_mask, dtype=bool)
+    if fixed.shape != (intervals, height, width):
+        raise ValueError("fixed_support_mask must match [T,H,W]")
+    observed_valid = (
+        np.ones_like(fixed, dtype=bool)
+        if observed_valid_mask is None
+        else np.asarray(observed_valid_mask, dtype=bool)
+    )
+    if observed_valid.shape != fixed.shape:
+        raise ValueError("observed_valid_mask must match [T,H,W]")
+    expected_valid = (
+        np.isfinite(expected).all(axis=-1)
+        if expected_valid_mask is None
+        else np.asarray(expected_valid_mask, dtype=bool)
+    )
+    if expected_valid.shape != fixed.shape:
+        raise ValueError("expected_valid_mask must match [T,H,W]")
+    if likelihood_scale_px <= 0.0:
+        raise ValueError("likelihood_scale_px must be positive")
+
+    rows: list[dict[str, Any]] = []
+    for index in range(intervals):
+        input_mask = fixed[index] & observed_valid[index]
+        input_mask &= np.isfinite(observed[index]).all(axis=-1)
+        input_count = int(input_mask.sum())
+        input_fraction = float(input_count / max(height * width, 1))
+        row: dict[str, Any] = {
+            "interval_index": index,
+            "fixed_support_pixels": input_count,
+            "fixed_support_fraction": input_fraction,
+        }
+        if input_count == 0 or input_fraction < float(min_fixed_support_fraction):
+            row.update({"status": "unavailable", "reason": "insufficient_fixed_support"})
+            rows.append(row)
+            continue
+        projected = input_mask & expected_valid[index] & np.isfinite(expected[index]).all(axis=-1)
+        projected_count = int(projected.sum())
+        projection_fraction = float(projected_count / max(input_count, 1))
+        row.update({
+            "projected_support_pixels": projected_count,
+            "projection_valid_fraction": projection_fraction,
+        })
+        if projected_count == 0 or projection_fraction < float(min_projection_valid_fraction):
+            row.update({"status": "unavailable", "reason": "insufficient_candidate_projection"})
+            rows.append(row)
+            continue
+        residual = observed[index] - expected[index]
+        residual_norm = np.linalg.norm(residual, axis=-1)[projected]
+        observed_norm = np.linalg.norm(observed[index], axis=-1)[projected]
+        expected_norm = np.linalg.norm(expected[index], axis=-1)[projected]
+        dot = np.sum(observed[index][projected] * expected[index][projected], axis=-1)
+        vector_valid = (observed_norm > 1e-6) & (expected_norm > 1e-6)
+        cosine = dot[vector_valid] / np.maximum(
+            observed_norm[vector_valid] * expected_norm[vector_valid], 1e-8
+        )
+        direction = float(np.mean(cosine)) if len(cosine) else None
+        residual_median = float(np.median(residual_norm))
+        likelihood = float(np.exp(-residual_median / float(likelihood_scale_px)))
+        if direction is not None:
+            likelihood *= float(np.clip((direction + 1.0) / 2.0, 0.0, 1.0))
+        row.update({
+            "status": "scored",
+            "median_residual_px": residual_median,
+            "residual_inlier_fraction": float(np.mean(residual_norm <= float(residual_inlier_threshold_px))),
+            "direction_cosine": direction,
+            "likelihood": likelihood,
+            "observed_flow_median_px": float(np.median(observed_norm)),
+            "expected_flow_median_px": float(np.median(expected_norm)),
+        })
+        if direction is not None and direction < float(min_direction_cosine):
+            row["status"] = "weak"
+            row["reason"] = "direction_below_threshold"
+        rows.append(row)
+
+    scored = [row for row in rows if row["status"] == "scored"]
+    usable = [row for row in rows if row["status"] in {"scored", "weak"}]
+    return {
+        "protocol": "iac-trajectory-conditioned-likelihood-v1",
+        "metric_id": "MAS",
+        "metric": "Motion Alignment Score",
+        "legacy_metric": "CFAC-S",
+        "metric_definition": "fixed_support_trajectory_conditioned_visual_likelihood",
+        "candidate_blind_support": True,
+        "metric_reconstruction_used": False,
+        "interval_count": intervals,
+        "status_counts": {
+            status: sum(row["status"] == status for row in rows)
+            for status in ("scored", "weak", "unavailable")
+        },
+        "fixed_support_fraction": float(np.mean([row["fixed_support_fraction"] for row in rows])) if rows else None,
+        "projection_valid_fraction": float(np.mean([row.get("projection_valid_fraction", 0.0) for row in rows])) if rows else None,
+        "interval_coverage": len(usable) / intervals if intervals else None,
+        "reliable_interval_fraction": len(scored) / intervals if intervals else None,
+        # Keep the continuous ordering score on weak rows as well.  A reversed
+        # control is expected to be weak by the direction gate, but dropping
+        # its likelihood would make the negative control look unavailable.
+        "score": float(np.median([row["likelihood"] for row in usable])) if usable else None,
+        "reliable_score": float(np.median([row["likelihood"] for row in scored])) if scored else None,
+        "median_residual_px": float(np.median([row["median_residual_px"] for row in usable])) if usable else None,
+        "median_direction_cosine": float(np.median([row["direction_cosine"] for row in usable if row.get("direction_cosine") is not None])) if any(row.get("direction_cosine") is not None for row in usable) else None,
+        "thresholds": {
+            "min_fixed_support_fraction": float(min_fixed_support_fraction),
+            "min_projection_valid_fraction": float(min_projection_valid_fraction),
+            "likelihood_scale_px": float(likelihood_scale_px),
+            "residual_inlier_threshold_px": float(residual_inlier_threshold_px),
+            "min_direction_cosine": float(min_direction_cosine),
+        },
+        "missing_value_policy": "unavailable_never_zero_fill",
+        "warning": "Projection validity is reported separately from fixed input support; this score is not a metric trajectory reconstruction.",
+        "intervals": rows,
+    }
+
+
 def score_twin_differential_consistency(
     observed_left: np.ndarray,
     observed_right: np.ndarray,

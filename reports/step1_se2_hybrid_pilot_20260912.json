@@ -1,0 +1,39 @@
+{
+  "protocol": "iac-step1-se2-hybrid-fixed-support-v1",
+  "date": "2026-09-12",
+  "status": "pilot_not_promoted",
+  "thresholds": {
+    "min_projection_valid_fraction": 0.2,
+    "likelihood_scale_px": 2.0,
+    "pair_effective_interval_coverage": 0.75
+  },
+  "models": {
+    "Epona": {
+      "pairs": 59,
+      "MAS": {"coverage": 0.8983, "direction_accuracy": 0.7642},
+      "RCS": {"coverage": 0.6271, "direction_accuracy": 0.8378, "normal_beats_reversed": 0.8108, "normal_beats_zero": 0.5946}
+    },
+    "DriveWAM": {
+      "pairs": 86,
+      "MAS": {"coverage": 0.8605, "direction_accuracy": 0.6554},
+      "RCS": {"coverage": 0.7326, "direction_accuracy": 0.5556, "normal_beats_reversed": 0.6032, "normal_beats_zero": 0.0159}
+    },
+    "DriveVA": {
+      "pairs": 10,
+      "MAS": {"coverage": 1.0, "direction_accuracy": 0.8},
+      "RCS": {"coverage": 1.0, "direction_accuracy": 0.9, "normal_beats_reversed": 0.8, "normal_beats_zero": 0.2}
+    },
+    "WorldDrive": {
+      "pairs": 13,
+      "MAS": {"coverage": 1.0, "direction_accuracy": 1.0},
+      "RCS": {"coverage": 1.0, "direction_accuracy": 0.9231, "normal_beats_reversed": 0.9231, "normal_beats_zero": 0.4615}
+    }
+  },
+  "interpretation": [
+    "Fixed-support scoring removes the candidate-dependent denominator bug and makes normal/reversed controls comparable.",
+    "The estimand is now the intended one: does the supplied action trajectory explain the observed image flow?",
+    "The pilot is heterogeneous: RCS is strong on WorldDrive and Epona, borderline on DriveVA, and weak on DriveWAM.",
+    "No formal MAS/RCS promotion is justified until thresholds and calibration are frozen on held-out real video and controls are reported with confidence intervals."
+  ],
+  "claim_boundary": "Pilot evidence only; not a published benchmark score and not a causal future-to-action claim."
+}
