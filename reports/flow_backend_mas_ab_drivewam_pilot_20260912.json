@@ -1,0 +1,37 @@
+{
+  "protocol": "iac-flow-backend-mas-ab-v1",
+  "date": "2026-09-12",
+  "dataset": "DriveWAM native_pilot5_scale50",
+  "sample_count": 5,
+  "alignment_fix": "source current frame was prepended to the four generated future frames so flow intervals share the action trajectory origin",
+  "primary_support": "finite flow support without FB hard gate",
+  "strict_fb_diagnostic": "both backends had zero effective samples after the strict generated-video FB mask",
+  "backends": {
+    "raft_large": {
+      "effective_samples": 4,
+      "coverage": 0.8,
+      "median_mas_likelihood": 5.345052227086365e-09,
+      "median_direction_cosine": 0.2550,
+      "median_residual_px": 59.26
+    },
+    "sea_raft": {
+      "effective_samples": 4,
+      "coverage": 0.8,
+      "median_mas_likelihood": 3.732101890973765e-09,
+      "median_direction_cosine": 0.3209,
+      "median_residual_px": 66.08
+    }
+  },
+  "paired_comparison": {
+    "n": 5,
+    "sea_raft_beats_raft_likelihood": 0.0,
+    "sea_raft_beats_raft_direction": 0.4,
+    "sea_raft_beats_raft_residual": 0.2
+  },
+  "interpretation": [
+    "SEA-RAFT changes the flow measurement but does not consistently improve the trajectory-conditioned MAS result on this pilot.",
+    "The strict FB gate is itself a generated-domain availability problem and must not be conflated with backend accuracy.",
+    "No backend is promoted; a larger same-source multi-model A/B is required."
+  ],
+  "claim_boundary": "Five-sample DriveWAM pilot only; not a cross-model or publication result."
+}

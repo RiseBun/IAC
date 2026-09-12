@@ -33,3 +33,9 @@ Step1 的任务不是预测一个视频统计量，而是回答一个条件问�
 我们把 Step1.3 的 `structure_confidence` 作为候选无关的时间权重叠加到 SE(2) 似然上。结果并不具有跨模型一致性：Epona 的正常/反转分离提高 2.7 个百分点，DriveWAM 下降 4.8 个百分点，DriveVA 下降 10 个百分点，WorldDrive 基本不变。详见 [`reports/step1_se2_hybrid_structure_fusion_pilot_20260912.json`](../reports/step1_se2_hybrid_structure_fusion_pilot_20260912.json)。
 
 因此，结构量目前只进入诊断和弃权解释，不作为 MAS/RCS 的默认主权重。它反映“流场看起来是否结构化”，不等价于“流场是否符合给定动作”。
+
+## 光流后端 A/B
+
+在同一批 DriveWAM 生成序列上，使用同一固定支持 SE(2) scorer 比较 RAFT-Large 和 SEA-RAFT。5 条 pilot 中两者 coverage 都为 80%；SEA-RAFT 的方向余弦中位数略高（0.321 vs 0.255），但残差更大（66.1 px vs 59.3 px），逐样本 likelihood 胜出为 0/5。严格 FB 门在这批生成序列上会把两种后端都筛到几乎不可用，因此只作为诊断，不作为本轮主结果。详见 [`reports/flow_backend_mas_ab_drivewam_pilot_20260912.json`](../reports/flow_backend_mas_ab_drivewam_pilot_20260912.json)。
+
+这说明“换一个 RAFT”目前不是已证实的根因修复；下一步必须在更多 source、更多架构和真实校准集上做同条件 A/B，不能由这个 5 条 pilot 推广结论。

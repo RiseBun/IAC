@@ -1,0 +1,24 @@
+{
+  "protocol": "iac-flow-backend-mas-ab-v1",
+  "status": "diagnostic_pilot",
+  "backends": ["raft_large", "sea_raft"],
+  "scorer": "iac-trajectory-conditioned-likelihood-v1",
+  "same_conditions": [
+    "same generated image sequence",
+    "same source-pickle action trajectory",
+    "same intrinsics and camera_to_ego",
+    "same fixed ROI and candidate-blind support",
+    "same projection and MAS thresholds"
+  ],
+  "primary_pilot": {
+    "forward_backward": false,
+    "reason": "the strict FB mask is reported separately because it removes nearly all support on this generated pilot"
+  },
+  "promotion": {
+    "minimum_samples": 100,
+    "minimum_architectures": 3,
+    "held_out_real_calibration_required": true,
+    "no_backend_promotion_from_single_model_pilot": true
+  },
+  "claim_boundary": "Flow-estimator A/B only; no MAS/RCS protocol change and no claim of causal future-to-action mediation."
+}
