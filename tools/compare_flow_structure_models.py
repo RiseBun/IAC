@@ -10,7 +10,14 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from scipy.stats import ConstantInputWarning, spearmanr
+try:
+    from scipy.stats import ConstantInputWarning, spearmanr
+except ImportError:  # SciPy < 1.11 does not re-export the warning at top level.
+    from scipy.stats import spearmanr
+    try:
+        from scipy.stats._stats_py import ConstantInputWarning
+    except ImportError:  # pragma: no cover - only very old SciPy releases.
+        ConstantInputWarning = RuntimeWarning
 
 
 def _rho(action: np.ndarray, response: np.ndarray) -> float:
