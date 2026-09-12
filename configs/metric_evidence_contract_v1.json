@@ -1,0 +1,33 @@
+{
+  "protocol": "iac-metric-evidence-contract-v1",
+  "principle": "metric_first_each_metric_consumes_only_its_own_evidence",
+  "missing_value_policy": "unavailable_never_zero_fill",
+  "metrics": {
+    "MAS": {
+      "question": "Does one future video visually support its native action trajectory?",
+      "required": ["source_key", "branch_id", "native_action_source", "visual_evidence.likelihood", "visual_evidence.support_fraction"],
+      "primary_observer": "trajectory_conditioned_visual_likelihood",
+      "causal_claim": false
+    },
+    "RCS": {
+      "question": "Does a same-source action intervention produce the expected paired visual response?",
+      "required": ["source_key", "counterfactual_group_id", "branches>=2", "action_delta", "visual_delta", "controls.reversed", "controls.zero"],
+      "primary_observer": "paired_differential_trajectory_likelihood",
+      "causal_claim": false
+    },
+    "GS": {
+      "question": "Is the generated future visually grounded in an external future reference?",
+      "required": ["source_key", "reference_source", "generated_representation", "reference_representation", "comparison.score"],
+      "primary_observer": "reference_conditioned_grounding",
+      "causal_claim": false
+    },
+    "FCS": {
+      "question": "Does native action under an explicit future intervention change independent realized task success?",
+      "required": ["source_key", "native_action_source", "independent_rollout", "intervention.paired", "task_success"],
+      "primary_observer": "independent_rollout_intervention",
+      "causal_claim": true
+    }
+  },
+  "cross_metric_rule": "no_metric_may_fill_another_metrics_missing_evidence",
+  "claim_boundary": "MAS/RCS/GS are consistency or grounding evidence; only an independent intervention-backed FCS path may support future-to-action mediation."
+}
