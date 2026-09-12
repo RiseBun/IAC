@@ -32,6 +32,8 @@ class MetricContractTest(unittest.TestCase):
         result = validate_directional_yaw_config_set([self.mas, self.rcs])
         self.assertEqual(result["status"], "valid")
         self.assertEqual(result["calibration_contract_id"], "iac-yaw-real-only-v1")
+        self.assertEqual(result["measurement_dimensions"]["yaw_direction"], "validated")
+        self.assertEqual(result["measurement_dimensions"]["metric_trajectory"], "unavailable")
 
     def test_config_set_rejects_promotion_gate_drift(self) -> None:
         changed = copy.deepcopy(self.rcs)
@@ -42,5 +44,11 @@ class MetricContractTest(unittest.TestCase):
     def test_missing_calibration_contract_id_is_rejected(self) -> None:
         changed = copy.deepcopy(self.mas)
         changed["adapter"].pop("calibration_contract_id")
+        with self.assertRaises(ValueError):
+            validate_directional_yaw_config(changed)
+
+    def test_metric_dimensions_cannot_be_promoted_in_place(self) -> None:
+        changed = copy.deepcopy(self.mas)
+        changed["measurement_dimensions"]["speed"] = "validated"
         with self.assertRaises(ValueError):
             validate_directional_yaw_config(changed)

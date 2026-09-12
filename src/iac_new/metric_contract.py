@@ -6,6 +6,16 @@ import json
 from typing import Any
 
 
+EXPECTED_MEASUREMENT_DIMENSIONS = {
+    "yaw_direction": "validated",
+    "speed": "diagnostic_only",
+    "longitudinal_distance": "diagnostic_only",
+    "lateral_displacement": "diagnostic_only",
+    "curvature": "diagnostic_only",
+    "metric_trajectory": "unavailable",
+}
+
+
 def validate_directional_yaw_config(config: dict[str, Any]) -> dict[str, Any]:
     """Validate the frozen, model-comparable contract of MAS/RCS yaw configs.
 
@@ -30,6 +40,8 @@ def validate_directional_yaw_config(config: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("directional-yaw metric cannot use metric reconstruction")
     if representation.get("output_domain") != "ordinal_direction_only":
         raise ValueError("directional-yaw output_domain must be ordinal_direction_only")
+    if config.get("measurement_dimensions") != EXPECTED_MEASUREMENT_DIMENSIONS:
+        raise ValueError("directional-yaw measurement dimensions must keep non-yaw domains diagnostic or unavailable")
     if adapter.get("orientation") not in (-1, 1):
         raise ValueError("adapter orientation must be -1 or 1")
     if adapter.get("frozen_before_confirmation") is not True:
@@ -98,6 +110,7 @@ def validate_directional_yaw_config_set(configs: list[dict[str, Any]]) -> dict[s
         "config_count": len(configs),
         "shared_descriptor": reports[0]["shared_descriptor"],
         "calibration_contract_id": reports[0]["calibration_contract_id"],
+        "measurement_dimensions": dict(EXPECTED_MEASUREMENT_DIMENSIONS),
         "bootstrap": bootstrap[0],
         "promotion_criteria": promotion[0],
     }
