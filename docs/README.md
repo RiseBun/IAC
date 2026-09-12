@@ -14,6 +14,8 @@
 | [`CCFC_S_VALIDATION_PLAN_ZH.md`](CCFC_S_VALIDATION_PLAN_ZH.md) | ZH | CCFC-S controls and cross-model validation matrix |
 | [`../configs/cfac_structure_calibration_v1.json`](../configs/cfac_structure_calibration_v1.json) | JSON | CFAC-S calibration contract and claim boundary |
 | [`../reports/pure_speed_confirmation_20260911.json`](../reports/pure_speed_confirmation_20260911.json) | JSON | Cross-model pure-speed confirmation result and promotion decision |
+| [`../reports/progress_structure_pure_speed_audit_20260912.json`](../reports/progress_structure_pure_speed_audit_20260912.json) | JSON | Non-yaw progress descriptor audit and promotion boundary |
+| [`../tools/score_fcs_rollout.py`](../tools/score_fcs_rollout.py) | CLI | Fail-closed independent rollout scorer for FCS |
 | [`STEP1_IMPROVEMENT_PLAN_ZH.md`](STEP1_IMPROVEMENT_PLAN_ZH.md) | ZH | Step1.3 改进优先级、深度/光流 A/B 与验收门 |
 
 ## Benchmark
