@@ -48,7 +48,8 @@
     "unit": "same_source_twin",
     "candidate_blind": true,
     "formula": "ordinal_agreement(Delta_visual_response, Delta_native_action)",
-    "common_mode_normalization": "within_source_robust_scale",
+    "common_mode_normalization": "signed_difference_common_mode_cancellation",
+    "magnitude_normalization": "diagnostic_only_until_additive_invariance_is_validated",
     "temporal_requirement": "signed_persistence_across_intervals",
     "unavailable_if": ["missing_symmetric_branch", "identity_or_zero_contrast", "channel_not_validated"]
   },

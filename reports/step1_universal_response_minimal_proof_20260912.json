@@ -1,0 +1,61 @@
+{
+  "protocol": "iac-step1-universal-response-minimal-proof-v1",
+  "synthetic_only": true,
+  "controls": [
+    {
+      "control": "normal",
+      "pair_count": 8,
+      "coverage": 1.0,
+      "comparable_pairs": 8,
+      "direction_accuracy": 1.0,
+      "median_temporal_persistence": 1.0,
+      "raw_delta_median": 0.7,
+      "normalized_delta_median_diagnostic": 700000.0,
+      "status": "scored"
+    },
+    {
+      "control": "reversed",
+      "pair_count": 8,
+      "coverage": 1.0,
+      "comparable_pairs": 8,
+      "direction_accuracy": 0.0,
+      "median_temporal_persistence": 1.0,
+      "raw_delta_median": 0.7,
+      "normalized_delta_median_diagnostic": 700000.0,
+      "status": "scored"
+    },
+    {
+      "control": "identity_swap",
+      "pair_count": 8,
+      "coverage": 0.0,
+      "comparable_pairs": 0,
+      "direction_accuracy": null,
+      "median_temporal_persistence": null,
+      "status": "unavailable"
+    },
+    {
+      "control": "zero_contrast",
+      "pair_count": 8,
+      "coverage": 0.0,
+      "comparable_pairs": 0,
+      "direction_accuracy": null,
+      "median_temporal_persistence": null,
+      "status": "unavailable"
+    }
+  ],
+  "common_mode_invariance": {
+    "baseline_raw_delta": 0.7,
+    "shifted_raw_delta": 0.7000000000000028,
+    "raw_delta_difference": 2.886579864025407e-15,
+    "normalized_magnitude_is_diagnostic": true
+  },
+  "decision": {
+    "normal_direction_passes": true,
+    "reversed_direction_fails": true,
+    "identity_is_unavailable": true,
+    "zero_contrast_is_unavailable": true,
+    "common_mode_signed_difference_is_stable": true,
+    "benchmark_promotion": false
+  },
+  "claim_boundary": "Synthetic invariant proof only; no claim about any WAM or real/generated video."
+}

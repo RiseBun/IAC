@@ -76,8 +76,8 @@ def validate_universal_response_config(config: dict[str, Any]) -> dict[str, Any]
         raise ValueError("MAS must be branch-level and RCS must be twin-level")
     if mas.get("candidate_blind") is not True or rcs.get("candidate_blind") is not True:
         raise ValueError("MAS/RCS must be candidate blind")
-    if rcs.get("common_mode_normalization") != "within_source_robust_scale":
-        raise ValueError("RCS requires within-source common-mode normalization")
+    if rcs.get("common_mode_normalization") != "signed_difference_common_mode_cancellation":
+        raise ValueError("RCS requires signed differences after common-mode cancellation")
     if rcs.get("temporal_requirement") != "signed_persistence_across_intervals":
         raise ValueError("RCS requires signed temporal persistence")
 

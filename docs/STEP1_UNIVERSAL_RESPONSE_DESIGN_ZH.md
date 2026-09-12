@@ -17,12 +17,14 @@ yaw 方向，但它不是完整运动测量器，也没有证明对多数架构�
 
 ```text
 Delta F = F_left - F_right
-Delta F_normalized = Delta F / robust_scale(common_source_motion)
-RCS = ordinal_agreement(Delta F_normalized, Delta native_action)
+RCS = ordinal_agreement(Delta F, Delta native_action)
 ```
 
-这种参数化保留反事实问题本身，并尽量抵消场景外观、绝对深度和共同运动。
-它不输出米、速度或曲率；这些只有在独立通道通过晋级门后才能进入正式协议。
+有符号差分本身会抵消同一 source 的加性共同运动；幅度归一化在证明对加性
+共同运动不变之前只能作 diagnostic，不能进入正式分数。这个限制是最小证明中
+主动发现并写入协议的，而不是隐藏在实现里。该参数化保留反事实问题本身，并尽量
+抵消场景外观、绝对深度和共同运动。它不输出米、速度或曲率；这些只有在独立通道
+通过晋级门后才能进入正式协议。
 
 ## 通道与晋级
 
@@ -52,3 +54,11 @@ pathway 和 fixed-action control。
 
 实验契约见 [`../configs/step1_universal_response_v1.json`](../configs/step1_universal_response_v1.json)，
 其状态固定为 `experimental_contract_not_promoted`。
+
+## 最小证明
+
+[`../tools/prove_step1_universal_response.py`](../tools/prove_step1_universal_response.py)
+在同一 pair scorer 上运行四类合成控制。当前证明结果是：正常方向 `1.0`、反转
+方向 `0.0`、identity/zero 均为 `unavailable`，加性共同运动改变前后的有符号
+差分误差约为 `3e-15`。这只证明协议的代数不变量和 fail-closed 行为，不证明
+任何真实 WAM 有效；真实数据上的跨架构实验仍是下一步。

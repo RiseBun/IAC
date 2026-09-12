@@ -30,6 +30,7 @@
 | [`RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md`](RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md) | ZH | Remaining evidence required for causal/cross-model claims |
 | [`STEP1_IMPROVEMENT_PLAN_ZH.md`](STEP1_IMPROVEMENT_PLAN_ZH.md) | ZH | Step1.3 改进优先级、深度/光流 A/B 与验收门 |
 | [`STEP1_UNIVERSAL_RESPONSE_DESIGN_ZH.md`](STEP1_UNIVERSAL_RESPONSE_DESIGN_ZH.md) | ZH | 面向多数 WAM 的反事实视觉响应层实验契约 |
+| [`../tools/prove_step1_universal_response.py`](../tools/prove_step1_universal_response.py) | CLI | 合成 normal/reversed/identity/zero 最小证明（非 benchmark 证据） |
 
 The formal two-model gate is intentionally not an architecture-universal
 claim: Epona and DriveWAM establish protocol validation only. A third distinct
