@@ -1,6 +1,6 @@
 {
   "protocol": "iac-wam-three-metric-v1",
-  "status": "implemented_pilot_validation_pending",
+  "status": "conditional_release_validated_optional_evidence_pending",
   "canonical_metrics": {
     "motion_alignment_score": {
       "id": "MAS",

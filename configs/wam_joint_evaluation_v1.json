@@ -1,6 +1,6 @@
 {
   "protocol": "iac-wam-joint-evaluation-v1",
-  "status": "framework_complete_validation_pending",
+  "status": "conditional_framework_validated_causal_and_cross_model_evidence_pending",
   "objective": "Provide conditional, capability-stratified measurements of whether a WAM's native action and predicted future are compatible, without assuming that every WAM is future-driven or conflating visual quality with action consistency.",
   "unit_of_analysis": {
     "single_branch": "source_key + branch_role",
