@@ -92,6 +92,14 @@ The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
 audited flow component.
 
+An independent same-source channel audit tested five decoder-free descriptors on
+174 matched intervention sources. Only `horizontal_flow_center` passed the
+two-model direction gate; flow magnitude, vertical center, divergence and curl
+did not. The negative result is part of the release boundary, not an omitted
+experiment: those channels remain diagnostic until a new intervention and
+calibration demonstrate otherwise. See
+[`reports/structure_channel_audit_20260912.json`](reports/structure_channel_audit_20260912.json).
+
 ## Three-step protocol
 
 ```mermaid
