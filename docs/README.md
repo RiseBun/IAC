@@ -24,6 +24,7 @@
 | [`../datasets/public_gs_fixture_reference.jsonl`](../datasets/public_gs_fixture_reference.jsonl) | JSONL | Public GS scorer replay reference (synthetic, not logged GT) |
 | [`../reports/gs_public_fixture_expected_20260912.json`](../reports/gs_public_fixture_expected_20260912.json) | JSON | Expected public replay result and privacy boundary |
 | [`../reports/release_validation_20260912.json`](../reports/release_validation_20260912.json) | JSON | Output of the fail-closed release boundary validator |
+| [`../reports/model_capability_matrix_20260912.json`](../reports/model_capability_matrix_20260912.json) | JSON | Formal vs diagnostic model evidence; prevents cross-architecture overclaim |
 | [`../tools/validate_release_readiness.py`](../tools/validate_release_readiness.py) | CLI | Fail-closed check separating conditional release from complete causal release |
 | [`RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md`](RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md) | ZH | Remaining evidence required for causal/cross-model claims |
 | [`STEP1_IMPROVEMENT_PLAN_ZH.md`](STEP1_IMPROVEMENT_PLAN_ZH.md) | ZH | Step1.3 改进优先级、深度/光流 A/B 与验收门 |

@@ -77,6 +77,10 @@ salt 伪匿名化 source key，并主动丢弃图像、相机标定、自车状�
 机器可读的发布边界见 [`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json)：
 当前版本可以作为条件式一致性/保真度标准发布，但在 mediation 和跨架构 FCS
 证据补齐前，不宣称 future-to-action 因果或跨架构普适性。
+模型级正式/诊断证据矩阵见
+[`reports/model_capability_matrix_20260912.json`](reports/model_capability_matrix_20260912.json)：
+Epona 与 DriveWAM 通过当前两模型门槛；DriveVA、WorldDrive 的结果保留为诊断，
+不能被读成跨架构普适性或自然质量排名。
 剩余证据、输入契约和实验顺序见
 [`docs/RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md`](docs/RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md)。
 

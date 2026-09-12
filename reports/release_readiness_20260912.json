@@ -71,5 +71,6 @@
     "scope": "implementation_and_missing_value_semantics_only",
     "does_not_reproduce_private_benchmark_reference": true
   },
+  "model_capability_matrix": "reports/model_capability_matrix_20260912.json",
   "release_boundary": "The package is publishable as a conditional consistency-and-grounding standard. It is not a complete causal future-driven benchmark until mediation confirmation and cross-model FCS are supplied."
 }

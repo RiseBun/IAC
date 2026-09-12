@@ -1,0 +1,40 @@
+{
+  "protocol": "iac-model-capability-evidence-matrix-v1",
+  "as_of": "2026-09-12",
+  "promotion_gate": {
+    "minimum_models": 2,
+    "minimum_pair_coverage": 0.90,
+    "direction_ci95_lower": 0.75,
+    "source_disjoint_confirmation": true
+  },
+  "formal_models": ["Epona", "DriveWAM"],
+  "formal_claims": {
+    "mas_yaw": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
+    "rcs_yaw": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
+    "gs": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
+    "fcs": {"models": ["DriveWAM"], "claim_enabled": false, "reason": "cross_model_confirmation_pending"},
+    "future_to_action_mediation": {"models": [], "claim_enabled": false, "reason": "no formal four-condition confirmation"}
+  },
+  "diagnostic_models": {
+    "DriveVA": {
+      "channel": "RCS-yaw",
+      "pair_coverage": 0.92,
+      "direction_accuracy": 0.526,
+      "direction_ci95": [0.373, 0.675],
+      "claim_enabled": false,
+      "reason": "direction_gate_failed_on_scene_disjoint_holdout",
+      "source_report": "docs/CCFC_S_VALIDATION_PLAN_ZH.md"
+    },
+    "WorldDrive": {
+      "channel": "RCS-structure-pilot",
+      "scene_clusters": 11,
+      "direction_accuracy": 0.9090909091,
+      "direction_ci95": [0.7272727273, 1.0],
+      "claim_enabled": false,
+      "reason": "pilot_below_confirmation_sample_requirement",
+      "source_report": "reports/forward_visual_worlddrive_combined_scene_bootstrap_20260911.json"
+    }
+  },
+  "interpretation": "The two-model gate validates the measurement protocol on Epona and DriveWAM; it does not establish architecture-universal performance. Diagnostic models are retained to expose adapter and model-specific failures, not to form a natural quality ranking.",
+  "ranking_policy": "not_supported"
+}
