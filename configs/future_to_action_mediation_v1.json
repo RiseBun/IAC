@@ -1,6 +1,7 @@
 {
   "protocol": "iac-future-to-action-mediation-v1",
-  "status": "design_defined_not_run",
+  "status": "pilot_worlddrive_unqualified_confirmation_pending",
+  "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
   "purpose": "Test whether a WAM native action changes when only its predicted future is perturbed, and whether blocking that pathway suppresses the change.",
   "required_conditions": [
     "baseline",
