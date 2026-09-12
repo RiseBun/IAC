@@ -7,7 +7,10 @@
     "supported_channel_scored_independently": true,
     "missing_or_unsupported": "unavailable_with_reason",
     "unavailable_is_zero": false,
-    "overall_aggregate": "not_defined"
+    "overall_aggregate": "not_defined",
+    "score_denominator": "units_with_evidence_and_quality_gate_passed",
+    "coverage_denominator": "all_declared_units_in_the_split",
+    "abstention_is_not_failure": true
   },
   "ranking_policy": {
     "natural_model_quality_ranking": "not_supported",

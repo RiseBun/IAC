@@ -66,6 +66,23 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
     if ranking.get("aggregate_across_capabilities") != "not_defined":
         errors.append("protocol:aggregate_policy_missing")
 
+    report_contract = protocol.get("report_contract") or {}
+    conditional = report_contract.get("conditional_evaluation") or {}
+    if conditional.get("score_denominator") != "units_with_evidence_and_quality_gate_passed":
+        errors.append("protocol:conditional_score_denominator_missing")
+    if conditional.get("coverage_denominator") != "all_declared_units_in_the_split":
+        errors.append("protocol:conditional_coverage_denominator_missing")
+    if conditional.get("abstention_is_not_failure") is not True:
+        errors.append("protocol:abstention_policy_missing")
+    if conditional.get("unavailable_is_not_zero") is not True:
+        errors.append("protocol:unavailable_policy_missing")
+    required_fields = {
+        "status", "conditional_score", "score_coverage", "confidence_interval",
+        "status_counts", "abstention_reasons",
+    }
+    if not required_fields.issubset(set(report_contract.get("must_report") or [])):
+        errors.append("protocol:conditional_report_fields_missing")
+
     complete_causal = not errors and fcs_complete and mediation_complete
     return {
         "protocol": "iac-wam-release-readiness-validator-v1",

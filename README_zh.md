@@ -30,8 +30,17 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 
 记分板是**条件式**的：不假设每个 WAM 都用预测未来生成动作。MAS、RCS、GS、FCS
 以及可选的 future-to-action mediation 分开报告，各自带 coverage；不支持或无法测量
-的通道标记为 `unavailable` 并说明原因，只从该通道分母排除，绝不填 0，也不定义一个
+的通道标记为 `unavailable` 并说明原因，只从该通道的分数分母排除，绝不填 0，也不定义一个
 把不同能力强行合并的总分。
+
+每个指标现在必须同时给出两个量：`conditional_score`（只在通过证据和质量门的
+单位上聚合）和 `score_coverage`（通过单位数除以提交 split 中的全部声明单位数）。
+`abstain`/`weak` 表示尝试过但证据不足，`unavailable` 表示该能力或外部参考本身
+不可观测；二者都保留在 coverage 分母中，但都不被当作失败分数。这样，对于并非所有
+生成图像都由未来驱动的 WAM，高分低 coverage 只能解释为“窄子集上的条件证据”，
+不能外推成全模型因果结论；低分高 coverage 才是“能力可观测但不一致”的证据。
+旧字段 `pair_coverage`/`branch_coverage` 仍保留作输入支持率；若死区或质量门继续
+筛掉单位，它们不能替代 `score_coverage`，两者需并列报告。
 协议也不定义自然模型质量排序；只能在同一指标内、使用 source-disjoint 或配对
 不确定性进行比较，不能把不同能力列相加成总榜。
 

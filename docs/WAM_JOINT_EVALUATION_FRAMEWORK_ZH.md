@@ -28,6 +28,36 @@ IAC 不把视频质量或任务成功率单独当作 WAM 正确性的证据，�
 因此 IAC 是“能够测到什么就报告什么”的评测标准，而不是要求所有 WAM
 必须通过某个预设的 future-driven 假设。
 
+### 1.2 条件分数的分母和解释
+
+“条件性”不是把不可测样本偷偷删掉，而是把两个分母同时公开：
+
+```text
+conditional_score = metric aggregation over scored units only
+score_coverage    = scored units / all declared units
+```
+
+每个指标必须逐单位保留以下状态：
+
+| 状态 | 含义 | 是否进入分数 | 是否进入 coverage 分母 |
+|---|---|---:|---:|
+| `scored` | 输入、探针和质量门均通过 | 是 | 是 |
+| `abstain` / `weak` | 尝试测量，但证据不足以安全读出 | 否 | 是 |
+| `unavailable` | 模型没有该通道，或外部参考/干预不存在 | 否 | 是 |
+| `missing` | 提交声称有该通道，但材料不完整 | 否 | 是 |
+| `ineligible` | 违反硬准入或泄漏契约 | 不进入该提交 | 不进入 |
+
+因此四种结果必须分开解释：高分高 coverage 表示广泛的条件证据；高分低
+coverage 只表示一个狭窄可测子集；低分高 coverage 表示通道可观测但不一致；
+`unavailable` 只表示“对此能力没有结论”，不是零分，也不是模型失败。报告至少
+要包含 `conditional_score`、`score_coverage`、`status_counts`、逐层
+`abstention_reasons` 和置信区间。任何指标都不得用插值、零填充或把 abstain
+重命名为 fail 来提高表面覆盖率。
+
+历史字段如 `pair_coverage`、`branch_coverage` 或 `source_coverage` 继续保留，
+但它们只描述输入/配对是否存在；当方向死区、共同 interval 或质量门进一步筛掉
+单位时，不能把它们冒充 `score_coverage`。两者必须并列报告。
+
 ## 2. 总体结构
 
 ```text

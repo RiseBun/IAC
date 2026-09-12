@@ -82,10 +82,29 @@ CLAIM_BOUNDARIES = {
 # This metadata is emitted with every scorecard so consumers cannot mistake an
 # unavailable capability for a failed model or a zero score.
 CONDITIONAL_SCORING_POLICY = {
+    "mode": "conditional_evaluation",
     "future_driven_assumption": False,
     "score_each_supported_channel_independently": True,
     "unavailable_policy": "exclude_from_metric_denominator_and_report_reason",
     "zero_fill_unavailable": False,
+    "score_denominator": "units_with_evidence_and_quality_gate_passed",
+    "coverage_denominator": "all_declared_units_in_the_split",
+    "abstention_is_not_failure": True,
+    "unit_statuses": {
+        "scored": "required evidence is present and the frozen quality gate passed; contributes to the conditional score",
+        "abstain": "the channel was attempted but the unit did not meet the quality gate; excluded from the score and counted in coverage",
+        "weak": "the channel was attempted but the unit did not meet the quality gate; equivalent to abstain at unit level",
+        "unavailable": "the channel or required reference is not supplied or cannot be observed; no score is reported",
+        "missing": "the submission claims the channel but its evidence is incomplete",
+        "ineligible": "a hard submission contract was violated; the submission is not benchmark-eligible",
+    },
+    "required_report_fields": [
+        "conditional_score",
+        "score_coverage",
+        "status_counts",
+        "abstention_reasons",
+        "confidence_interval",
+    ],
     "aggregate_score": "not_defined",
 }
 
@@ -111,6 +130,58 @@ def empty_cell(status: str, *, reason: str | None = None, **extra: Any) -> dict[
         row["reason"] = reason
     row.update(extra)
     return row
+
+
+def summarize_conditional_units(
+    units: list[dict[str, Any]],
+    *,
+    score_key: str = "score",
+    scored_statuses: tuple[str, ...] = ("scored",),
+) -> dict[str, Any]:
+    """Summarize a metric without turning non-evaluable units into failures.
+
+    ``units`` is deliberately metric-agnostic: MAS may use branches, RCS may
+    use twins, and GS may use sources.  The caller must choose the status that
+    means "quality gate passed" for that metric.  The returned score is
+    conditional on those units only; coverage always uses all declared units.
+    """
+    if not isinstance(scored_statuses, tuple) or not scored_statuses:
+        raise ValueError("scored_statuses must be a non-empty tuple")
+    known = set(CONDITIONAL_SCORING_POLICY["unit_statuses"])
+    counts = {status: 0 for status in known}
+    values: list[float] = []
+    for unit in units:
+        status = str(unit.get("status") or "unavailable")
+        if status not in known:
+            raise ValueError(f"unknown conditional unit status: {status}")
+        counts[status] += 1
+        if status in scored_statuses and unit.get(score_key) is not None:
+            value = float(unit[score_key])
+            if not np.isfinite(value):
+                raise ValueError(f"non-finite {score_key} on a scored unit")
+            values.append(value)
+    total = len(units)
+    scored = sum(counts.get(status, 0) for status in scored_statuses)
+    if scored != len(values):
+        raise ValueError("every scored unit must provide exactly one finite score")
+    abstention_reasons: dict[str, int] = {}
+    for unit in units:
+        status = str(unit.get("status") or "unavailable")
+        if status not in {"abstain", "weak"}:
+            continue
+        reason = str(unit.get("reason") or "unspecified")
+        abstention_reasons[reason] = abstention_reasons.get(reason, 0) + 1
+    return {
+        "conditional_score": float(np.mean(values)) if values else None,
+        "score_coverage": float(scored / total) if total else None,
+        "declared_units": total,
+        "scored_units": scored,
+        "status_counts": counts,
+        "abstention_reasons": abstention_reasons,
+        "score_scope": "scored_units_only",
+        "coverage_scope": "all_declared_units",
+        "zero_fill_unavailable": False,
+    }
 
 
 def validate_submission_row(
@@ -299,6 +370,14 @@ def build_model_scorecard(
         cell: _cell_from_measurement(measurements.get(cell), cell in claimed, cell)
         for cell in CELLS
     }
+    cell_policy = {
+        "score_scope": CONDITIONAL_SCORING_POLICY["score_denominator"],
+        "coverage_scope": CONDITIONAL_SCORING_POLICY["coverage_denominator"],
+        "abstention_is_not_failure": True,
+        "zero_fill_unavailable": False,
+    }
+    for cell in cells.values():
+        cell["conditional_evaluation"] = dict(cell_policy)
     for cell, boundary in CLAIM_BOUNDARIES.items():
         cells[cell].update(boundary)
     return {

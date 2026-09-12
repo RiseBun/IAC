@@ -3,6 +3,7 @@ import unittest
 from iac_new.scorecard import (
     build_model_scorecard,
     claimed_cells,
+    summarize_conditional_units,
     validate_submission,
 )
 
@@ -46,6 +47,9 @@ class ScorecardTest(unittest.TestCase):
         self.assertEqual(policy["aggregate_score"], "not_defined")
         self.assertEqual(card["ranking_policy"]["natural_model_quality_ranking"], "not_supported")
         self.assertEqual(card["ranking_policy"]["aggregate_across_capabilities"], "not_defined")
+        self.assertEqual(policy["mode"], "conditional_evaluation")
+        self.assertEqual(policy["score_denominator"], "units_with_evidence_and_quality_gate_passed")
+        self.assertTrue(policy["abstention_is_not_failure"])
 
     def test_canonical_cells_expose_claim_boundaries(self) -> None:
         card = build_model_scorecard(model_id="x", capability="native_action_conditioned")
@@ -56,6 +60,24 @@ class ScorecardTest(unittest.TestCase):
             card["cells"]["future_to_action_mediation"]["causal_status"],
             "causal_only_if_promotion_passed",
         )
+        self.assertEqual(
+            card["cells"]["mas"]["conditional_evaluation"]["score_scope"],
+            "units_with_evidence_and_quality_gate_passed",
+        )
+
+    def test_conditional_summary_excludes_abstention_from_score_but_not_coverage(self) -> None:
+        report = summarize_conditional_units([
+            {"status": "scored", "score": 1.0},
+            {"status": "scored", "score": 0.5},
+            {"status": "abstain", "reason": "insufficient_flow"},
+            {"status": "unavailable", "reason": "reference_private"},
+        ])
+        self.assertAlmostEqual(report["conditional_score"], 0.75)
+        self.assertAlmostEqual(report["score_coverage"], 0.5)
+        self.assertEqual(report["status_counts"]["abstain"], 1)
+        self.assertEqual(report["status_counts"]["unavailable"], 1)
+        self.assertFalse(report["zero_fill_unavailable"])
+        self.assertEqual(report["abstention_reasons"], {"insufficient_flow": 1})
 
     def test_canonical_metric_coverage_aliases_are_normalized(self) -> None:
         card = build_model_scorecard(

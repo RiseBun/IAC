@@ -109,6 +109,21 @@ python scripts/score_iac_submission.py \
 干预的模型仍可报告 MAS/RCS/GS/FCS 中实际支持的通道，不会因缺少 mediation 被
 判零分；但 `unavailable` 不能当作可比的低分。
 
+### 3.1 条件式分数的固定口径
+
+每个通道的提交结果还必须公开 `conditional_score`、`score_coverage`、
+`status_counts` 和 `abstention_reasons`：
+
+- `conditional_score` 只在通过该通道证据与质量门的 `scored` 单位上计算；
+- `score_coverage = scored / all declared units`，不能只报告有效子集的 n；
+- `abstain`/`weak` 表示探针尝试过但不安全，计入 coverage 分母而不计入分数；
+- `unavailable` 表示 WAM 没有该能力或所需外部参考不可用，不是零分；
+- `missing` 是声称有能力但材料不全，`ineligible` 是硬契约违规。
+
+因此，“高分”必须和 coverage 一起读：高分低 coverage 只能证明一个条件子集，
+不能说明整个 WAM 是 future-driven；低分高 coverage 才说明该能力在大多数可观测
+样本上不一致。不同通道仍不合成总分。
+
 当前冻结主通道只使用 candidate-blind 的 ordinal yaw 结构；米制 SE(2) 重建、
 lateral/纵向距离、速度和曲率仍为 diagnostic。任何通道未达到独立可靠性门槛时，
 必须标记为 `diagnostic_only` 或 `unavailable`，不能用降权掩盖不可靠性。
@@ -124,7 +139,7 @@ MAS/RCS/GS/FCS 都不是所有模型的硬性准入条件；按能力列和 cove
 不对缺失列做零填充或未经校准的总平均。future-to-action mediation 是额外的
 因果证据列，缺少 future-only/pathway intervention 时为 `unavailable`。
 
-### 3.1 兼容的 RCS 干预
+### 3.2 兼容的 RCS 干预
 
 不要求 semantic clear/risk。只要可重复、可审计，以下任一种都可以：
 `left/right`、`slow/fast`、command 变化、future-latent swap。semantic 干预只是一种

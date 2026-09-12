@@ -103,6 +103,18 @@ def score(
         })
     scored = [row for row in source_reports if row["status"] == "ok" and row["score"] is not None]
     values = np.asarray([row["score"] for row in scored], dtype=np.float64)
+    source_coverage = len(scored) / len(source_reports) if source_reports else None
+    status_counts = {
+        "scored": len(scored),
+        "abstain": 0,
+        "unavailable": len(source_reports) - len(scored),
+    }
+    unavailable_reasons: dict[str, int] = {}
+    for row in source_reports:
+        if row["status"] == "ok":
+            continue
+        reason = "insufficient_common_intervals_or_descriptors"
+        unavailable_reasons[reason] = unavailable_reasons.get(reason, 0) + 1
     return {
         "protocol": "iac-structural-grounding-score-v1",
         "metric_id": "GS",
@@ -110,7 +122,11 @@ def score(
         "source_count": len(source_reports),
         "reference_only_source_count": len(reference_only_sources),
         "scored_source_count": len(scored),
-        "source_coverage": len(scored) / len(source_reports) if source_reports else None,
+        "source_coverage": source_coverage,
+        "conditional_score": float(np.median(values)) if len(values) else None,
+        "score_coverage": source_coverage,
+        "status_counts": status_counts,
+        "abstention_reasons": unavailable_reasons,
         "score_median": float(np.median(values)) if len(values) else None,
         "score_mean": float(np.mean(values)) if len(values) else None,
         "score_bootstrap_ci95": _bootstrap_median(values, draws=bootstrap_draws, seed=bootstrap_seed),

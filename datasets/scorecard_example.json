@@ -3,10 +3,15 @@
   "benchmark": "benchmark",
   "claim": "capability-stratified WAM measurement; S1.3 is a directional-yaw action-response metric, not full metric trajectory reconstruction",
   "scoring_policy": {
+    "mode": "conditional_evaluation",
     "future_driven_assumption": false,
     "score_each_supported_channel_independently": true,
     "unavailable_policy": "exclude_from_metric_denominator_and_report_reason",
     "zero_fill_unavailable": false,
+    "score_denominator": "units_with_evidence_and_quality_gate_passed",
+    "coverage_denominator": "all_declared_units_in_the_split",
+    "abstention_is_not_failure": true,
+    "required_report_fields": ["conditional_score", "score_coverage", "status_counts", "abstention_reasons", "confidence_interval"],
     "aggregate_score": "not_defined"
   },
   "primary_score_policy": {
@@ -41,6 +46,13 @@
       }
     }
   ],
+  "conditional_report_example": {
+    "status_counts": {"scored": 2, "abstain": 1, "unavailable": 1},
+    "conditional_score": 0.75,
+    "score_coverage": 0.5,
+    "abstention_reasons": {"insufficient_flow": 1},
+    "note": "Synthetic illustration only; the frozen reference rows above retain their metric-specific coverage fields."
+  },
   "missing_value_policy": "unavailable_never_zero_fill",
   "reference_recompute_note": "GS requires private logged future data; public users can verify the protocol and signed aggregate, but cannot recompute the private reference score from the repository alone.",
   "natural_ranking_note": "MAS/RCS validate controlled response direction. They do not guarantee that naturally generated WAM scores form a statistically significant quality ranking."

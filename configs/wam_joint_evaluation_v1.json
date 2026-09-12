@@ -52,8 +52,22 @@
     }
   },
   "report_contract": {
-    "must_report": ["status", "coverage", "accuracy_or_alignment", "confidence_interval", "stratum_breakdown", "abstention_reasons", "controls"],
+    "must_report": ["status", "conditional_score", "score_coverage", "accuracy_or_alignment", "confidence_interval", "stratum_breakdown", "status_counts", "abstention_reasons", "controls"],
     "missing_value_policy": "unavailable_or_abstain; never zero-fill",
+    "conditional_evaluation": {
+      "score_denominator": "units_with_evidence_and_quality_gate_passed",
+      "coverage_denominator": "all_declared_units_in_the_split",
+      "abstention_is_not_failure": true,
+      "unavailable_is_not_zero": true,
+      "score_scope": "scored_units_only",
+      "required_statuses": ["scored", "abstain", "weak", "unavailable", "missing", "ineligible"],
+      "interpretation": {
+        "high_score_high_coverage": "broad conditional evidence of the declared capability",
+        "high_score_low_coverage": "narrow evidence; do not generalize beyond scored units",
+        "low_score_high_coverage": "the capability was observable but inconsistent",
+        "unavailable": "no conclusion about that capability; not a zero or a failure"
+      }
+    },
     "composite_policy": "report metric vector before considering any aggregate score"
   },
   "ranking_policy": {

@@ -34,6 +34,9 @@ class StructuralGroundingCliTest(unittest.TestCase):
         report = score(rows, rows, scales=scales, bootstrap_draws=20)
         self.assertEqual(report["status"], "ok")
         self.assertEqual(report["source_coverage"], 1.0)
+        self.assertAlmostEqual(report["conditional_score"], 1.0)
+        self.assertEqual(report["score_coverage"], 1.0)
+        self.assertEqual(report["status_counts"], {"scored": 1, "abstain": 0, "unavailable": 0})
         self.assertAlmostEqual(report["score_median"], 1.0)
 
     def test_missing_reference_interval_is_not_zero_filled(self) -> None:
@@ -43,6 +46,8 @@ class StructuralGroundingCliTest(unittest.TestCase):
         report = score(generated, reference, scales=scales, bootstrap_draws=20)
         self.assertEqual(report["status"], "unavailable")
         self.assertEqual(report["scored_source_count"], 0)
+        self.assertIsNone(report["conditional_score"])
+        self.assertEqual(report["status_counts"]["unavailable"], 1)
 
     def test_reference_only_sources_do_not_dilute_generated_coverage(self) -> None:
         scales = {key: 1.0 for key in ("median_flow_magnitude_px", "horizontal_flow_center", "vertical_flow_center", "divergence", "curl")}

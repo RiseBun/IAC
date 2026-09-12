@@ -106,6 +106,14 @@
     }
   },
   "missing_value_policy": "unavailable_or_abstain_never_zero_fill",
+  "conditional_evaluation": {
+    "score_denominator": "units_with_evidence_and_quality_gate_passed",
+    "coverage_denominator": "all_declared_units_in_the_split",
+    "abstention_is_not_failure": true,
+    "unavailable_is_not_zero": true,
+    "required_report_fields": ["conditional_score", "score_coverage", "status_counts", "abstention_reasons", "confidence_interval"],
+    "no_future_driven_assumption": true
+  },
   "reference_identity_contract": {
     "logged_gt_candidate_id": {
       "allowed": true,

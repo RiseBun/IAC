@@ -40,8 +40,22 @@ The scorecard is deliberately conditional: it does not assume that every WAM
 uses its predicted future to produce its action. MAS, RCS, GS, FCS and the
 optional mediation channel are reported independently with their own coverage.
 An unsupported or unevaluable channel is `unavailable` with a reason; it is
-excluded from that channel's denominator, never converted to zero, and no
+excluded from that channel's score denominator, never converted to zero, and no
 overall aggregate score is defined.
+
+Every metric report exposes two separate quantities:
+`conditional_score` (aggregation over units that pass the frozen evidence and
+quality gates) and `score_coverage` (those scored units divided by all declared
+units). `abstain`/`weak` means the probe was attempted but the unit was not safe
+to score; `unavailable` means the capability or required reference was not
+observable. Both remain in the coverage denominator and neither is a failure
+score. This is essential for WAMs whose generated images are not consistently
+future-driven: a high score on a narrow measurable subset must not be read as a
+model-wide causal claim, while a low score with broad coverage is evidence of
+observable inconsistency.
+Legacy `pair_coverage`/`branch_coverage` fields remain useful as input-support
+rates, but they are not a substitute for `score_coverage` when deadbands or
+quality gates remove additional units; both must be reported.
 The release also does not define a natural model-quality ranking: comparisons
 are allowed only within the same metric with source-disjoint or paired
 uncertainty, not by adding capability columns.
