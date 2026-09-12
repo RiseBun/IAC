@@ -67,15 +67,15 @@ CFAC-S 需要单独的 action-to-structure 校准集，把 native action 映射�
 
 ### C. Future-to-action mediation（最后）
 
-CCFC-S 只能证明同一干预下的响应一致，不能证明 action 读取了 predicted future。
+RCS-yaw（旧 CCFC-S）只能证明同一干预下的响应一致，不能证明 action 读取了 predicted future。
 要做因果声明，必须固定 history 和 command，只干预 future/latent，或者做 future
 pathway ablation，并观察 action 是否改变。该通道目前仍是 design-only。
 
 ## 决策规则
 
 在 deadband 与时序诊断完成前，不修改 S1.3 的冻结分数，不把 DriveVA 的近随机
-结果解释成全局协议失败；在 pure-speed 双模型确认完成前，不把 progress 或
-CCFC-S 升级为正式 primary；在 CFAC-S 校准完成前，不报告结构域的正式 CFAC。
+结果解释成全局协议失败；progress 保持 diagnostic；结构域的正式 MAS 只采用已经
+通过独立门槛的 yaw 方向适配器。
 
 ## 执行状态（2026-09-11）
 
@@ -87,12 +87,11 @@ CCFC-S 升级为正式 primary；在 CFAC-S 校准完成前，不报告结构域
   信号，继续保持 `diagnostic_only`。正式输入仍必须显式声明
   `intervention_type=pure_speed`、快慢身份、模型 ID、calibration/confirmation
   split 和 twin 原子 ID。
-- **CFAC-S calibration：未完成。** 现有 `evaluate_cfac_fau.py` 只实现米制
-  SE(2) CFAC/FAU join，不是结构域的 action→structure 校准。CFAC-S 在独立校准集
-  拟合映射、冻结版本和 SHA 之前保持 `unavailable`。
-- **当前对外状态：** S1.3 yaw action-response 可报告；progress 已完成跨模型
-  confirmation 但未通过晋级门，仍为 `diagnostic_only`；CCFC-S 的 progress
-  版本不作为正式 primary；CFAC-S 为校准待完成。
+- **结构域 MAS 的旧标量校准：已作为 negative control 封存。** 它在纯速度确认
+  集低于零动作基线，不能替代当前冻结的 MAS-yaw。
+- **当前对外状态：** S1.3 yaw action-response 以 MAS-yaw 可报告；progress、
+  米制 SE(2)、lateral/纵向距离、速度和曲率仍为 `diagnostic_only`；RCS-yaw
+  （旧 CCFC-S）单独报告反事实响应。
 
 ## 已准备的 pure-speed action roots
 

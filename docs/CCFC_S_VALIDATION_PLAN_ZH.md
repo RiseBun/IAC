@@ -1,8 +1,8 @@
-# CCFC-S 验证计划（v1）
+# RCS-yaw 验证计划（v1，旧名 CCFC-S）
 
 ## 目标
 
-验证结构版反事实指标 `CCFC-S` 是否能在不恢复米制轨迹的前提下，可靠识别同一
+验证结构版反事实指标 `RCS-yaw`（旧名 `CCFC-S`）是否能在不恢复米制轨迹的前提下，可靠识别同一
 干预造成的“未来结构变化 ↔ native action 变化”。本计划验证的是 action–future
 structural consistency，不直接声称 future-to-action 因果，也不用于 logged-GT
 几何保真度排名。
@@ -64,7 +64,7 @@ coverage 和准确率必须并列报告，并按 stratum、模型和弃权原因
 
 ## 解释边界
 
-即使 CCFC-S 通过，也只能得出：
+即使 RCS-yaw 通过，也只能得出：
 
 > 在同一反事实干预下，WAM 预测未来的结构响应与 native action 响应一致。
 
@@ -122,6 +122,6 @@ WAM 质量排名，也不能替代尚未完成的独立 pure-speed twin 确认�
 结果，说明 adapter 能解决输入尺寸和运行契约，但不能凭空产生稳定的动作响应。
 pure-speed confirmation 进一步表明 progress 结构量在 Epona 上有方向性但在
 DriveWAM 上接近随机，且两者的 Spearman 分别为 `-0.037` 与 `0.077`，因此不能
-把 progress 晋级为正式 primary，也不能据此宣称 CCFC-S 已经成为跨模型质量排名
+把 progress 晋级为正式 primary，也不能据此宣称 RCS-yaw 已经成为跨模型质量排名
 指标。当前可以冻结的是候选盲的 S1.3 **动作—视觉响应测量器**；progress 保持
-diagnostic，CFAC-S 仍需独立 action-to-structure 校准。
+diagnostic，米制 MAS/CFAC 仍需独立 action-to-structure 校准。
