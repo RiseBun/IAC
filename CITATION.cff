@@ -13,7 +13,10 @@ abstract: >-
   IAC is a capability-stratified evaluation protocol for world action models.
   It measures whether a model's native action is consistent with the future
   visual state it imagines, using a frozen candidate-blind optical-flow probe
-  and separate CFAC, CCFC, FAU and FCS evidence columns.
+  and separate MAS, RCS, GS and FCS evidence columns. The protocol is
+  conditional: consistency does not by itself establish future-to-action
+  mediation, and unsupported channels are reported as unavailable rather than
+  zero-filled.
 keywords:
   - world action model
   - foresight consistency
