@@ -18,6 +18,14 @@
     "calibration_source": "configs/mas_yaw_v1.json",
     "frozen_before_confirmation": true
   },
+  "comparability_contract": {
+    "shared_descriptor": "horizontal_flow_center",
+    "shared_action_threshold": true,
+    "shared_flow_threshold": true,
+    "model_specific_fields_allowed": ["orientation"],
+    "model_specific_fields_forbidden": ["promotion_criteria", "aggregation", "deadband"],
+    "calibration_must_be_source_disjoint_from_confirmation": true
+  },
   "aggregation": {
     "common_interval_minimum": 2,
     "statistical_unit": "source_key/twin",

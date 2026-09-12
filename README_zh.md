@@ -267,6 +267,9 @@ calibration 分支的 coverage 为 `98.3%`，GS 中位数 `0.503`，随机身份
 [`reports/mas_yaw_drivewam_20260912.json`](reports/mas_yaw_drivewam_20260912.json)
 和 [`tools/score_mas_yaw_direction.py`](tools/score_mas_yaw_direction.py)。
 
+模型 adapter 只允许校准坐标方向；描述子、死区、覆盖门槛和聚合方式在模型之间共享，
+并且必须在 source-disjoint 的确认集之前冻结，避免把 adapter 调参变成模型专属优化。
+
 同一 pure-speed twin 上的 NeuFlow-only 光流 A/B 也未改善结果：Epona 的 fast>slow
 顺序准确率为 `69.5%`，DriveWAM 为 `43.0%`。因此更换光流 backbone 不是当前缺口的
 直接修复。结果见

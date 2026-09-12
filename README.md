@@ -357,6 +357,11 @@ trajectory alignment remain diagnostic-only.  Full artifacts are
 [`reports/mas_yaw_drivewam_20260912.json`](reports/mas_yaw_drivewam_20260912.json),
 and [`tools/score_mas_yaw_direction.py`](tools/score_mas_yaw_direction.py).
 
+Model adapters may calibrate coordinate orientation only. The descriptor,
+deadbands, coverage gates and aggregation are shared across models and must be
+frozen before the source-disjoint confirmation split, preventing model-specific
+adapter tuning from becoming a hidden optimization channel.
+
 An independent, candidate-blind action-to-structure calibration was also
 run using logged real future flow only, then applied once to untouched pure-
 speed generated confirmations.  It is an audit of the MAS interface, not a
