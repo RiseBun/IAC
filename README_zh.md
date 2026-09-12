@@ -295,6 +295,8 @@ rollout 不读取 WAM 生成图像，WAM waypoint 也不能冒充实际状态。
 `0.5143`，无 rollout 错误。模拟器使用实际 realized state，并验证了 action 注入，
 且不读取生成未来图像。这是单模型结果；跨模型 FCS 仍待补齐，该分数也不证明
 future-to-action 因果。详见 [`reports/fcs_drivewam_summary_20260912.json`](reports/fcs_drivewam_summary_20260912.json)。
+fail-closed 评分器得到 coverage `1.000`，成功率 Wilson 95% CI 为
+`[0.4830, 0.5455]`。
 通用的 fail-closed 评分器位于 [`tools/score_fcs_rollout.py`](tools/score_fcs_rollout.py)：
 它要求显式任务标签、稳定 source key、已验证的 native-action 注入和独立 realized state；
 缺失记录报告为 `unavailable`，绝不当成失败。

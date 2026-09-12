@@ -59,12 +59,19 @@ def score_fcs_rollout(
         if key in seen:
             raise ValueError(f"duplicate FCS rollout row: {key}")
         seen.add(key)
-        if row.get("independent_realized_state") is False:
-            item.update({"status": "unavailable", "reason": "realized_state_not_independent"})
+        independent_state = row.get("independent_realized_state")
+        if independent_state is None:
+            # Backward-compatible evidence form emitted by the NAVSIM runner:
+            # a realized-state flag plus a named closed-loop state source.
+            independent_state = bool(row.get("realized_state_available")) and bool(
+                str(row.get("state_reference_source") or "").strip()
+            )
+        if independent_state is not True:
+            item.update({"status": "unavailable", "reason": "independent_realized_state_evidence_required"})
             normalized.append(item)
             continue
-        if row.get("action_injection_verified") is False:
-            item.update({"status": "unavailable", "reason": "action_injection_not_verified"})
+        if row.get("action_injection_verified") is not True:
+            item.update({"status": "unavailable", "reason": "action_injection_verified_required"})
             normalized.append(item)
             continue
         try:

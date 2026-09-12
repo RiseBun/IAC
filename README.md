@@ -406,6 +406,8 @@ or task label, FCS is `unavailable`.
 
 The independent DriveWAM rollout is available as a public aggregate audit:
 `978` executable rows, `503` successes, FCS `0.5143`, with zero rollout errors.
+The fail-closed scorer gives coverage `1.000` and a Wilson 95% CI of
+`[0.4830, 0.5455]` for the success rate.
 The simulator used realized state and verified action injection without reading
 generated future images. This is a single-model result; cross-model FCS remains
 pending and the score does not establish future-to-action mediation. See

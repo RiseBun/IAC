@@ -23,6 +23,21 @@ class FcsTests(unittest.TestCase):
         self.assertEqual(report["scored_rows"], 0)
         self.assertEqual(report["unavailable_rows"], 2)
 
+    def test_missing_positive_evidence_is_fail_closed(self) -> None:
+        report = score_fcs_rollout([{"source_key": "a", "task_success": True}])
+        self.assertEqual(report["status"], "unavailable")
+        self.assertEqual(report["unavailable_rows"], 1)
+
+    def test_navsim_compatibility_evidence_form_is_accepted(self) -> None:
+        report = score_fcs_rollout([{
+            "source_key": "a",
+            "task_success": True,
+            "realized_state_available": True,
+            "state_reference_source": "navsim_pdm_kinematic_bicycle_closed_loop",
+            "action_injection_verified": True,
+        }])
+        self.assertEqual(report["status"], "pass")
+
     def test_duplicate_source_branch_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
             score_fcs_rollout([
