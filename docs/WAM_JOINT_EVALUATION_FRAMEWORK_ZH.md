@@ -172,7 +172,7 @@ WAM 生成视频。
 | future-to-action mediation | scorer implemented / WAM confirmation not run |
 | metric SE(2) reconstruction | diagnostic only |
 | FAU | independent GT-compatible axis |
-| FCS | independent simulator axis |
+| FCS | validated on DriveWAM / cross-model confirmation pending |
 
 ## 8. 最终报告形式
 
