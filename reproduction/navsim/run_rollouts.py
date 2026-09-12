@@ -131,7 +131,8 @@ def run(rows: list[dict[str, Any]], cache_root: Path, *, horizon_s: float, inter
     except ModuleNotFoundError as error:
         missing = error.name or "NAVSIM/PDM dependency"
         raise RuntimeError(
-            "FCS requires the separately installed NAVSIM/PDM runtime; "
+            "FCS requires the official NAVSIM/PDM runtime checkout (not the "
+            "unrelated PyPI package named 'navsim'); "
             f"missing import {missing!r}. Install the licensed dependency and "
             "rerun this command. Do not convert this environment failure into a score."
         ) from error

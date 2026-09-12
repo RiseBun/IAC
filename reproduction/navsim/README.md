@@ -13,6 +13,10 @@ python reproduction/navsim/run_rollouts.py \
   --summary <fcs_summary.json>
 ```
 
-NAVSIM and its metric cache must be installed separately under their licenses.
+The runner expects the official NAVSIM/nuplan-devkit checkout used by the
+benchmark, including `navsim.evaluate.pdm_score` and the PDM simulator APIs.
+Do **not** satisfy this requirement with the unrelated package named `navsim`
+from PyPI; that package has a different module layout. NAVSIM and its metric
+cache must be installed separately under their licenses.
 If the runtime is absent, the command fails with an explicit dependency error;
 that condition is `unavailable`, not an FCS failure or zero score.
