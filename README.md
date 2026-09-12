@@ -18,6 +18,13 @@ with the future visual state the model predicts? IAC separates measurement,
 intervention consistency, and execution instead of collapsing them into a
 single video-quality or task-success number.
 
+This is a conditional evaluation standard, not a claim that every WAM is
+future-driven. Each model and intervention is scored only in the evidence
+channels it supports: a measurable inconsistency is a low score, while missing
+or unsupported evidence is `unavailable` with a reason and is never converted
+to zero. The protocol therefore remains meaningful for WAMs whose actions are
+not generated from their predicted future.
+
 This repository is the reproducible release package. It contains no raw
 NAVSIM/Waymo frames, private ground truth, WAM checkpoints, or generated video.
 Those inputs are attached by the evaluation server through the manifest

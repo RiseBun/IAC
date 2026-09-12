@@ -10,6 +10,11 @@ IAC 是面向世界动作模型（WAM）的评测协议，回答一个明确问�
 native action，是否与模型预测的未来视觉状态一致？IAC 将图像测量、干预一致性和
 独立执行分开报告，不把视频质量或任务成功率误当成同一个指标。
 
+这是一套**条件性评测标准**，不预设所有 WAM 的动作都由预测未来驱动。每个模型、
+每种干预只在它实际提供且探针能够测量的证据通道上评分：可测但不一致时给低分；
+缺少图像、干预或必要信息时记为 `unavailable` 并说明原因，绝不把缺失转换成零分。
+因此，即使某个 WAM 并非 future-driven，协议仍能诚实报告其可测的一致性和缺口。
+
 完整的联合评测方法、数据契约、指标边界和待验收扩展见
 [`docs/WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md`](docs/WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md)。
 机器可读的阶段、输入禁止项和 promotion gate 见

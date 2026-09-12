@@ -4,6 +4,10 @@
 
 > **提交的 WAM 必须同时提供 native action 和 future visual state。**
 
+这里的准入不等于行为假设：协议不要求、也不预设每个 WAM 的 native action
+都由 predicted future 生成。IAC 只对实际提供且可测的证据通道评分；一致性不足
+报告低分，证据缺失报告 `unavailable`，不把缺失当作失败分数或“已被未来驱动”。
+
 future visual state 可以是直接生成的未来 RGB 帧，也可以是能够用固定 decoder
 稳定重建为 RGB 的未来 latent。我们不要求视频与动作由同一个 head 联合生成，
 也不要求模型提供 semantic clear/risk 或在部署时默认生成视频。
