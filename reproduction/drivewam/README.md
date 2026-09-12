@@ -17,6 +17,25 @@ reference row. Run the files in this order:
 for resuming an interrupted reference run. External DriveWAM and LingBot-VA
 code and weights are intentionally not redistributed.
 
+## Future-to-action mediation boundary
+
+`adapter.py::rollout_external_action` is an **action-to-video** intervention:
+it writes an external action condition before the video rollout. It must not be
+reported as future-to-action mediation. The native DriveWAM execution order is
+the useful hook for a real mediation probe: future frames are generated first,
+their transformer cache is retained, and the native action chunk is sampled
+afterwards. A valid probe must therefore (a) keep history, command, nuisance
+seed and model revision fixed, (b) perturb only the retained future pathway,
+(c) run the same perturbation with that pathway blocked before the action
+chunk, and (d) record future fingerprints, pathway state, and the frozen action
+normalization fields required by
+`configs/future_to_action_mediation_v1.json`.
+
+Changing `condition_chunk`, denoise seed, or native action input alone is not a
+future-only intervention. Until a DriveWAM adapter exposes the four required
+conditions and a source-disjoint confirmation set, mediation remains
+`unavailable` even though the execution graph has a plausible pathway hook.
+
 ## Temporal input contract
 
 DriveWAM's `NavSimEpisodeDataset` requires the serialized `images` array to be

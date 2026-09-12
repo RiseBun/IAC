@@ -22,6 +22,13 @@ blocked、fixed-action control。四个条件必须保持 history、command、se
 model revision 不变，并携带 future fingerprint 与 pathway state。通过后才能
 使用“动作由预测未来产生”的因果措辞；MAS/RCS 不能替代它。
 
+对 DriveWAM 的代码检查已经定位了可行入口：其执行顺序是先生成未来帧、保留
+共享 transformer cache，再生成 native action。但当前 `rollout_external_action`
+暴露的是 **action→video** 条件干预，不是 future-only 干预；改变
+`condition_chunk`、denoise seed 或 native action 不能直接当作 mediation。真正的
+DriveWAM probe 必须只改 retained future pathway，并在相同干预下再运行 pathway
+blocked 条件，然后才交给下方 scorer。
+
 当前 scorer 还会强制每个条件携带同一个、只用 calibration sources 拟合并在确认
 前冻结的 `action_normalization_fingerprint`/`action_normalization_scale`。只有
 “可计算”不等于“可晋级”：少于 30 个 source 时报告仍可用于调试，但
