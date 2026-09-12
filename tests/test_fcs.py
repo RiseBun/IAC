@@ -72,3 +72,15 @@ class FcsTests(unittest.TestCase):
             "action_injection_verified": True,
         }])
         self.assertEqual(report["status"], "unavailable")
+
+    def test_embedded_forbidden_provenance_is_unavailable(self) -> None:
+        report = score_fcs_rollout([{
+            "source_key": "a",
+            "task_success": True,
+            "task_success_source": "image_derived_posthoc",
+            "wam_model_id": "m",
+            "action_trajectory_source": "native_action_head",
+            "independent_realized_state": True,
+            "action_injection_verified": True,
+        }])
+        self.assertEqual(report["status"], "unavailable")

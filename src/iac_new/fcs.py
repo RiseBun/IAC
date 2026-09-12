@@ -18,6 +18,11 @@ FORBIDDEN_ACTION_SOURCES = {"logged", "oracle", "proxy", "candidate", "gt", "gro
 FORBIDDEN_SUCCESS_SOURCES = {"image", "visual", "manual", "inferred", "guess", "human_guess"}
 
 
+def _is_forbidden_source(value: str, forbidden: set[str]) -> bool:
+    normalized = value.strip().lower().replace("-", "_")
+    return any(token == normalized or token in normalized.split("_") for token in forbidden)
+
+
 def _wilson(successes: int, total: int, z: float = 1.959963984540054) -> list[float] | None:
     if total <= 0:
         return None
@@ -75,7 +80,7 @@ def score_fcs_rollout(
             item.update({"status": "unavailable", "reason": "missing_native_action_source"})
             normalized.append(item)
             continue
-        if action_source.lower() in FORBIDDEN_ACTION_SOURCES:
+        if _is_forbidden_source(action_source, FORBIDDEN_ACTION_SOURCES):
             item.update({"status": "unavailable", "reason": "action_source_is_not_native"})
             normalized.append(item)
             continue
@@ -85,7 +90,7 @@ def score_fcs_rollout(
             item.update({"status": "unavailable", "reason": "missing_task_success_source"})
             normalized.append(item)
             continue
-        if success_source.lower() in FORBIDDEN_SUCCESS_SOURCES:
+        if _is_forbidden_source(success_source, FORBIDDEN_SUCCESS_SOURCES):
             item.update({"status": "unavailable", "reason": "task_success_source_is_not_independent"})
             normalized.append(item)
             continue
