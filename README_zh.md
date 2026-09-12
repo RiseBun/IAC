@@ -129,15 +129,12 @@ flowchart LR
 未来 RGB（或固定且有 checksum 的 latent decoder）
   → RAFT-Large 前后向光流
   → 前后向一致性 + 道路中远场空间分层取点
-  → candidate-blind 连续 SE(2) 拟合
-  → 输出投影支持 + 相对零流改善
-  → explained / weak / abstain
-  → primary yaw 方向与成对序响应
+  → candidate-blind flow-structure descriptors
+  → yaw ordinal response + coverage/abstention
 ```
 
-`measurement_available` 要求四个未来 interval 均有足够的输出投影支持；
-`explained` 还要求拟合能量比零流基线至少改善 `0.05`。单分支只有 `explained`
-才能计分，CCFC 还要求左右两支都 `explained`。lateral、curvature、纵向距离和速度
+连续 SE(2) 的 `measurement_available`/`explained` 仍保留作历史诊断；当前正式
+primary 不再把米制投影拟合当作图像侧必要步骤。lateral、curvature、纵向距离和速度
 继续输出，但只作 diagnostic。沿每条样本的 `lineage.source_sample` 读取 NAVSIM
 pickle，并核对 `future_trajectory` 与 `realized_future_ego_state` 后，真实 RGB 的
 logged-GT 审计得到 yaw 末点读出比例中位数 `0.916`；lateral/longitudinal 为
@@ -191,7 +188,8 @@ bootstrap 下界 `≥75%`）。单模型最高是 Epona 的流幅度 `76.8%`（�
 [`configs/flow_structure_counterfactual_delta_v1.json`](configs/flow_structure_counterfactual_delta_v1.json)。
 它只在同一 `source_key` 的左右分支上计算
 `Delta S_F = S_F(left) - S_F(right)`，报告原始差分、共同运动归一化差分、方向和跨
-interval 持续性，不恢复米制轨迹。该通道可以支撑结构版 `CCFC-S`，但不能替代旧版
+interval 持续性，不恢复米制轨迹。该通道是 RCS-yaw（旧名 `CCFC-S`）的结构响应基础，
+但不能替代旧版
 米制 `CFAC`/`FAU`；progress 通道在独立 speed-swap twin 验证前只作 diagnostic。
 
 ### Step 2：MAS 与 RCS（旧 CFAC / CCFC）
