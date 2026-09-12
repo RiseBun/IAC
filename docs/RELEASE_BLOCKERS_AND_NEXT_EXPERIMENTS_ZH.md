@@ -22,6 +22,12 @@ blocked、fixed-action control。四个条件必须保持 history、command、se
 model revision 不变，并携带 future fingerprint 与 pathway state。通过后才能
 使用“动作由预测未来产生”的因果措辞；MAS/RCS 不能替代它。
 
+当前 scorer 还会强制每个条件携带同一个、只用 calibration sources 拟合并在确认
+前冻结的 `action_normalization_fingerprint`/`action_normalization_scale`。只有
+“可计算”不等于“可晋级”：少于 30 个 source 时报告仍可用于调试，但
+`promotion.claim_enabled=false`，不能写入因果结论。这样可以防止一条或少数几条
+干预样本被误读成 mediation 证据。
+
 ### FCS 跨模型
 
 每个模型至少需要独立 simulator rollout、native action 注入证明、独立 realized

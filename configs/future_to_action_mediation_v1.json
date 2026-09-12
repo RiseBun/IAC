@@ -15,6 +15,17 @@
     "same_nuisance_seed",
     "same_model_revision"
   ],
+  "action_normalization_contract": {
+    "required_fields": [
+      "action_normalization_fingerprint",
+      "action_normalization_scale"
+    ],
+    "source": "calibration_sources_only",
+    "freeze_before_confirmation": true,
+    "same_across_conditions": true,
+    "positive_finite_scale_per_action_dimension": true,
+    "reason": "Raw action-coordinate norms are not comparable across interventions or model adapters."
+  },
   "intervention_identity_contract": {
     "required_fields": ["future_fingerprint", "pathway_state"],
     "future_fingerprint_relationship": {

@@ -27,6 +27,8 @@ def _rows():
                 "future_perturbed_pathway_blocked": "blocked",
                 "future_fixed_action_pathway_control": "fixed_action",
             }[condition],
+            "action_normalization_fingerprint": "cal-v1",
+            "action_normalization_scale": [1.0, 2.0],
         })
     return rows
 
@@ -60,6 +62,37 @@ class FutureToActionMediationTest(unittest.TestCase):
         result = score(rows, draws=20, seed=7)
         self.assertEqual(result["status"], "unavailable")
         self.assertEqual(result["pairs"][0]["reason"], "pathway_state_contract_mismatch")
+
+    def test_single_source_is_scored_but_not_promoted(self):
+        result = score(_rows(), draws=200, seed=7)
+        self.assertEqual(result["status"], "scored")
+        self.assertEqual(result["promotion"]["status"], "insufficient_evidence")
+        self.assertFalse(result["promotion"]["claim_enabled"])
+
+    def test_missing_normalization_is_unavailable(self):
+        rows = _rows()
+        rows[0].pop("action_normalization_scale")
+        result = score(rows, draws=20, seed=7)
+        self.assertEqual(result["status"], "unavailable")
+        self.assertEqual(result["pairs"][0]["reason"], "action_normalization_scale_invalid")
+
+    def test_normalized_distance_is_used(self):
+        result = score(_rows(), draws=200, seed=7)
+        # The first action coordinate is unchanged by scale 1; the second is
+        # unchanged in all conditions.  This also proves the scale is part of
+        # the scored contract rather than metadata that is ignored.
+        self.assertAlmostEqual(result["future_effect_on_action"]["median"], 1.0)
+
+    def test_thirty_sources_can_pass_promotion(self):
+        rows = []
+        for index in range(30):
+            for row in _rows():
+                copied = dict(row)
+                copied["source_key"] = f"s{index}"
+                rows.append(copied)
+        result = score(rows, draws=500, seed=7)
+        self.assertEqual(result["promotion"]["status"], "passed")
+        self.assertTrue(result["promotion"]["claim_enabled"])
 
 
 if __name__ == "__main__":

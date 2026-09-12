@@ -26,6 +26,17 @@ CONDITIONS = (
     "future_fixed_action_pathway_control",
 )
 
+# These are the preregistered promotion gates in
+# configs/future_to_action_mediation_v1.json.  Keeping the values here makes
+# the command-line report self-contained; the report still records the config
+# path and the exact values used.
+PROMOTION_CRITERIA = {
+    "minimum_sources": 30,
+    "future_effect_ci95_lower_min": 0.05,
+    "pathway_suppression_ci95_lower_min": 0.5,
+    "specificity_control_ci95_upper_max": 0.25,
+}
+
 EXPECTED_PATHWAY_STATE = {
     "baseline": "normal",
     "future_perturbed": "normal",
@@ -39,6 +50,22 @@ def _vector(value: Any, field: str) -> np.ndarray:
     if array.ndim != 1 or not len(array) or not np.all(np.isfinite(array)):
         raise ValueError(f"{field} must be a non-empty finite vector")
     return array
+
+
+def _normalization(row: dict[str, Any]) -> tuple[str, np.ndarray]:
+    """Read the frozen, calibration-only action normalization contract.
+
+    The scorer must not silently compare raw action coordinates when the
+    protocol declares a calibration-fitted normalization.  Every condition
+    therefore carries the same positive scale vector and fingerprint.
+    """
+    fingerprint = str(row.get("action_normalization_fingerprint") or "")
+    if not fingerprint:
+        raise ValueError("action_normalization_fingerprint_required")
+    scale = np.asarray(row.get("action_normalization_scale"), dtype=np.float64)
+    if scale.ndim != 1 or not len(scale) or not np.all(np.isfinite(scale)) or np.any(scale <= 0.0):
+        raise ValueError("action_normalization_scale_invalid")
+    return fingerprint, scale
 
 
 def _percentile_ci(values: np.ndarray, draws: int, seed: int) -> list[float] | None:
@@ -122,12 +149,30 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
             pairs.append(pair)
             continue
         try:
+            normalizations = {
+                condition: _normalization(group[condition]) for condition in CONDITIONS
+            }
+            normalization_fingerprints = {
+                value[0] for value in normalizations.values()
+            }
+            if len(normalization_fingerprints) != 1:
+                raise ValueError("action_normalization_mismatch")
+            scales = [value[1] for value in normalizations.values()]
+            if any(not np.array_equal(scales[0], scale) for scale in scales[1:]):
+                raise ValueError("action_normalization_mismatch")
+            scale = scales[0]
             baseline = _vector(group["baseline"].get("native_action"), "native_action")
             future = _vector(group["future_perturbed"].get("native_action"), "native_action")
             blocked = _vector(group["future_perturbed_pathway_blocked"].get("native_action"), "native_action")
             control = _vector(group["future_fixed_action_pathway_control"].get("native_action"), "native_action")
             if not (len(baseline) == len(future) == len(blocked) == len(control)):
                 raise ValueError("native_action vector lengths differ")
+            if len(scale) != len(baseline):
+                raise ValueError("action_normalization_scale_length_mismatch")
+            baseline = baseline / scale
+            future = future / scale
+            blocked = blocked / scale
+            control = control / scale
         except ValueError as error:
             pair.update({"status": "unavailable", "reason": str(error)})
             pairs.append(pair)
@@ -144,6 +189,10 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
             "invariance": metadata,
             "future_fingerprints": future_fingerprints,
             "pathway_states": pathway_states,
+            "action_normalization": {
+                "fingerprint": next(iter(normalization_fingerprints)),
+                "scale": [float(value) for value in scale],
+            },
         })
         future_effects.append(future_effect)
         blocked_effects.append(blocked_effect)
@@ -157,6 +206,31 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
     blocked_array = np.asarray(blocked_effects, dtype=np.float64)
     suppression_array = np.asarray(suppressions, dtype=np.float64)
     specificity_array = np.asarray(specificity, dtype=np.float64)
+    future_ci = _percentile_ci(future_array, draws, seed)
+    suppression_ci = _percentile_ci(suppression_array, draws, seed + 2)
+    specificity_ci = _percentile_ci(specificity_array, draws, seed + 3)
+    promotion_checks = {
+        "minimum_sources": len(scored) >= PROMOTION_CRITERIA["minimum_sources"],
+        "future_effect_ci95_lower": (
+            future_ci is not None
+            and future_ci[0] >= PROMOTION_CRITERIA["future_effect_ci95_lower_min"]
+        ),
+        "pathway_suppression_ci95_lower": (
+            suppression_ci is not None
+            and suppression_ci[0] >= PROMOTION_CRITERIA["pathway_suppression_ci95_lower_min"]
+        ),
+        "specificity_control_ci95_upper": (
+            specificity_ci is not None
+            and specificity_ci[1] <= PROMOTION_CRITERIA["specificity_control_ci95_upper_max"]
+        ),
+    }
+    promotion_status = (
+        "passed"
+        if all(promotion_checks.values())
+        else "insufficient_evidence"
+        if len(scored) < PROMOTION_CRITERIA["minimum_sources"]
+        else "failed"
+    )
     return {
         "protocol": "iac-future-to-action-mediation-v1",
         "status": "scored" if scored else "unavailable",
@@ -166,7 +240,7 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
         "future_effect_on_action": {
             "median": float(np.median(future_array)) if len(future_array) else None,
             "mean": float(np.mean(future_array)) if len(future_array) else None,
-            "bootstrap_ci95": _percentile_ci(future_array, draws, seed),
+            "bootstrap_ci95": future_ci,
         },
         "blocked_effect_on_action": {
             "median": float(np.median(blocked_array)) if len(blocked_array) else None,
@@ -176,12 +250,18 @@ def score(rows: list[dict[str, Any]], *, draws: int, seed: int) -> dict[str, Any
         "pathway_suppression": {
             "median": float(np.median(suppression_array)) if len(suppression_array) else None,
             "mean": float(np.mean(suppression_array)) if len(suppression_array) else None,
-            "bootstrap_ci95": _percentile_ci(suppression_array, draws, seed + 2),
+            "bootstrap_ci95": suppression_ci,
         },
         "specificity_control_effect": {
             "median": float(np.median(specificity_array)) if len(specificity_array) else None,
             "mean": float(np.mean(specificity_array)) if len(specificity_array) else None,
-            "bootstrap_ci95": _percentile_ci(specificity_array, draws, seed + 3),
+            "bootstrap_ci95": specificity_ci,
+        },
+        "promotion": {
+            "status": promotion_status,
+            "criteria": dict(PROMOTION_CRITERIA),
+            "checks": promotion_checks,
+            "claim_enabled": promotion_status == "passed",
         },
         "pairs": pairs,
         "missing_value_policy": "unavailable_never_zero_fill",

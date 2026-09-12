@@ -92,7 +92,10 @@ seed 和模型版本不变。在 source-disjoint 的 WAM 确认集通过预注�
 门槛之前，该通道记为 `unavailable`；MAS/RCS 不会被重新标注为因果证据。
 评分器还会核验干预身份：每个 condition 必须提供 future fingerprint 和 pathway
 state，并满足预注册的 baseline/perturbed、blocked/control 关系；仅修改 condition
-标签不能产生因果证据。
+标签不能产生因果证据。每个 condition 还必须携带只在 calibration sources 上拟合、
+在确认前冻结、且四个 condition 共享的 action normalization fingerprint 和 scale。
+少量 pilot 即使可计算，也只会是 `promotion.status=insufficient_evidence`，不能开启
+因果声明。
 
 ## 三步流程
 
