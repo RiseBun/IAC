@@ -69,5 +69,5 @@
     "holdout_required": true,
     "calibration_before_confirmation": true
   },
-  "current_claim": "The framework is a conditional evaluation standard: it does not assume that every WAM is future-driven. Directional-yaw MAS and RCS variants are validated on Epona and DriveWAM with source-level bootstrap gates passed, while metric magnitude/progress channels remain diagnostic. GS is formally frozen for external-future grounding. Future-to-action mediation is an optional evidence channel and remains unavailable until its intervention is supplied; its absence does not invalidate the other scores."
+  "current_claim": "The framework is a conditional evaluation standard: it does not assume that every WAM is future-driven. Directional-yaw MAS and RCS variants are validated on Epona and DriveWAM with source-level bootstrap gates passed, while metric magnitude/progress channels remain diagnostic. GS is formally frozen for external-future grounding. Future-to-action mediation is an optional evidence channel and remains unavailable until a four-condition, source-disjoint promotion passes; an unqualified pilot or its absence does not invalidate the other scores."
 }

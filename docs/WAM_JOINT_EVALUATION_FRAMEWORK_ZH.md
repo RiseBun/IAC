@@ -170,7 +170,7 @@ WAM 生成视频。
 | RCS-yaw（旧 CCFC-S） | frozen / validated on two WAMs |
 | pure-speed progress channel | cross-model confirmation completed; not promoted (no stable signal) |
 | MAS-yaw（旧 CFAC-S） | frozen / validated on two WAMs |
-| future-to-action mediation | scorer implemented / WAM confirmation not run |
+| future-to-action mediation | WorldDrive pilot unqualified / formal four-condition confirmation pending |
 | metric SE(2) reconstruction | diagnostic only |
 | FAU | independent GT-compatible axis |
 | FCS | validated on DriveWAM / cross-model confirmation pending |
