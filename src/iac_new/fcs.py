@@ -163,3 +163,71 @@ def score_fcs_rollout(
         "rows_detail": normalized,
         "claim_boundary": "FCS is independent task execution evidence; it does not establish image grounding or future-to-action mediation.",
     }
+
+
+def assess_cross_model_fcs(
+    reports: list[dict[str, Any]],
+    *,
+    minimum_models: int = 2,
+    minimum_scored_rows: int = 30,
+) -> dict[str, Any]:
+    """Assess whether independent FCS reports support a cross-model claim.
+
+    This function intentionally does not combine success rates into a model
+    ranking.  It only checks whether each report is an independently scored
+    native-action rollout from a distinct model and has enough rows for the
+    preregistered confirmation gate.  Missing or staging evidence keeps the
+    result ``pending`` rather than becoming a zero-performing model.
+    """
+    if minimum_models < 2 or minimum_scored_rows < 1:
+        raise ValueError("cross-model FCS gates are invalid")
+    model_ids: list[str] = []
+    per_model: list[dict[str, Any]] = []
+    errors: list[str] = []
+    for index, report in enumerate(reports):
+        model_id = str(report.get("model_id") or "").strip()
+        scored_rows = int(report.get("scored_rows") or 0)
+        action_sources = list(report.get("action_sources") or [])
+        checks = {
+            "model_id_present": bool(model_id),
+            "independent_rollout_passed": report.get("status") == "pass",
+            "minimum_scored_rows": scored_rows >= minimum_scored_rows,
+            "native_action_source_present": bool(action_sources) and all(
+                not _is_forbidden_source(str(source), FORBIDDEN_ACTION_SOURCES)
+                for source in action_sources
+            ),
+        }
+        if not checks["model_id_present"]:
+            errors.append(f"report_{index}:missing_model_id")
+        if not checks["independent_rollout_passed"]:
+            errors.append(f"report_{index}:fcs_not_passed")
+        if not checks["minimum_scored_rows"]:
+            errors.append(f"report_{index}:fewer_than_{minimum_scored_rows}_scored_rows")
+        if not checks["native_action_source_present"]:
+            errors.append(f"report_{index}:native_action_source_missing")
+        if model_id:
+            model_ids.append(model_id)
+        per_model.append({
+            "model_id": model_id or None,
+            "scored_rows": scored_rows,
+            "checks": checks,
+        })
+    duplicates = sorted({model for model in model_ids if model_ids.count(model) > 1})
+    if duplicates:
+        errors.append("duplicate_model_reports:" + ",".join(duplicates))
+    if len(set(model_ids)) < minimum_models:
+        errors.append(f"fewer_than_{minimum_models}_distinct_models")
+    claim_enabled = not errors
+    return {
+        "protocol": "iac-fcs-cross-model-assessment-v1",
+        "status": "validated" if claim_enabled else "pending",
+        "claim_enabled": claim_enabled,
+        "model_count": len(set(model_ids)),
+        "models": sorted(set(model_ids)),
+        "minimum_models": minimum_models,
+        "minimum_scored_rows_per_model": minimum_scored_rows,
+        "per_model": per_model,
+        "errors": errors,
+        "ranking_policy": "cross-model presence gate only; no natural quality ranking",
+        "claim_boundary": "Cross-model FCS confirms independent execution evidence exists for each listed model; it does not establish future-to-action mediation or rank models by success rate.",
+    }

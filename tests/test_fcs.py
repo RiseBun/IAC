@@ -1,6 +1,6 @@
 import unittest
 
-from iac_new.fcs import score_fcs_rollout
+from iac_new.fcs import assess_cross_model_fcs, score_fcs_rollout
 
 
 class FcsTests(unittest.TestCase):
@@ -84,3 +84,28 @@ class FcsTests(unittest.TestCase):
             "action_injection_verified": True,
         }])
         self.assertEqual(report["status"], "unavailable")
+
+    def test_cross_model_assessment_requires_two_independent_reports(self) -> None:
+        one = {
+            "model_id": "model_a",
+            "status": "pass",
+            "scored_rows": 30,
+            "action_sources": ["model_a_native"],
+        }
+        pending = assess_cross_model_fcs([one])
+        self.assertEqual(pending["status"], "pending")
+        self.assertIn("fewer_than_2_distinct_models", pending["errors"])
+        validated = assess_cross_model_fcs([
+            one,
+            {"model_id": "model_b", "status": "pass", "scored_rows": 30, "action_sources": ["model_b_native"]},
+        ])
+        self.assertEqual(validated["status"], "validated")
+        self.assertTrue(validated["claim_enabled"])
+
+    def test_cross_model_assessment_rejects_staging_like_report(self) -> None:
+        report = assess_cross_model_fcs([
+            {"model_id": "model_a", "status": "pass", "scored_rows": 30, "action_sources": ["staging_candidate"]},
+            {"model_id": "model_b", "status": "pass", "scored_rows": 30, "action_sources": ["model_b_native"]},
+        ])
+        self.assertEqual(report["status"], "pending")
+        self.assertIn("report_0:native_action_source_missing", report["errors"])

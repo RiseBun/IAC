@@ -48,7 +48,8 @@
       "requirement": "native action evaluated by an independent simulator with explicit task labels and task-label provenance",
       "evidence": "reports/fcs_drivewam_summary_20260912.json",
       "scorer": "tools/score_fcs_rollout.py",
-      "implementation_status": "generic_fail_closed_scorer_available"
+      "cross_model_assessor": "tools/assess_fcs_cross_model.py",
+      "implementation_status": "generic_fail_closed_scorer_and_cross_model_assessor_available"
     }
   },
   "report_contract": {

@@ -44,6 +44,11 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 协议也不定义自然模型质量排序；只能在同一指标内、使用 source-disjoint 或配对
 不确定性进行比较，不能把不同能力列相加成总榜。
 
+FCS 先按模型独立验证；跨模型 FCS 另有审核器
+[`tools/assess_fcs_cross_model.py`](tools/assess_fcs_cross_model.py)，要求至少两个
+不同模型身份，且每个模型都有通过 native-action provenance 检查的独立 rollout。
+staging rollout 或缺少动作来源的报告不会打开跨架构声明。
+
 ## 方法贡献
 
 1. **候选盲运动测量尺：** 当前选定的 S1.3 直接把冻结 RAFT-Large 流场读成

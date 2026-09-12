@@ -41,7 +41,8 @@
       "status": "single_model_validated",
       "models": ["DriveWAM"],
       "cross_model_status": "pending",
-      "scope": "independent simulator execution and explicit task label"
+      "scope": "independent simulator execution and explicit task label",
+      "cross_model_assessor": "tools/assess_fcs_cross_model.py"
     },
     "future_to_action_mediation": {
       "status": "pilot_worlddrive_unqualified_confirmation_pending",

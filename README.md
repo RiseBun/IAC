@@ -60,6 +60,12 @@ The release also does not define a natural model-quality ranking: comparisons
 are allowed only within the same metric with source-disjoint or paired
 uncertainty, not by adding capability columns.
 
+FCS is validated per model. Cross-model FCS is a separate gate implemented by
+[`tools/assess_fcs_cross_model.py`](tools/assess_fcs_cross_model.py): it requires
+two distinct model identities and independently passed native-action rollout
+reports. A staging rollout or a report without native-action provenance cannot
+open that claim.
+
 ## Contributions
 
 1. **Candidate-blind motion measurement.** The selected S1.3 path reads a frozen

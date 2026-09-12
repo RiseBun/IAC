@@ -47,6 +47,11 @@ pathway-blocked、fixed-action、source-disjoint 和至少 30 个实质 source�
 每个模型至少需要独立 simulator rollout、native action 注入证明、独立 realized
 state 和明确的 task-label provenance。当前 DriveWAM 已有一份合规汇总，第二个
 模型仍需单独提交，不能从 MAS/RCS 推断。
+仓库提供 [`tools/assess_fcs_cross_model.py`](../tools/assess_fcs_cross_model.py) 做
+第二道审核：至少两个不同 `wam_model_id`、每个模型达到最小 scored rows，且每个
+报告已经通过 native-action provenance 检查，才开启跨模型 FCS 声明。现有
+`closed_loop_recovered_20260829` 中缺少 action source 或标为 staging 的记录会被
+明确拒绝，不会被计作第二模型。
 
 ### 非 yaw 运动量
 
