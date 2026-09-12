@@ -17,6 +17,7 @@
 | [`../reports/progress_structure_pure_speed_audit_20260912.json`](../reports/progress_structure_pure_speed_audit_20260912.json) | JSON | Non-yaw progress descriptor audit and promotion boundary |
 | [`../tools/score_fcs_rollout.py`](../tools/score_fcs_rollout.py) | CLI | Fail-closed independent rollout scorer for FCS |
 | [`../tools/score_structural_grounding.py`](../tools/score_structural_grounding.py) | CLI | Recompute GS from generated and user-supplied reference flow-structure JSONL |
+| [`../tools/export_gs_reference_release.py`](../tools/export_gs_reference_release.py) | CLI | HMAC-pseudonymized descriptor-only reference export for public GS replay |
 | [`../tools/validate_metric_comparability.py`](../tools/validate_metric_comparability.py) | CLI | Fail-closed MAS/RCS adapter comparability contract check |
 | [`../reports/release_readiness_20260912.json`](../reports/release_readiness_20260912.json) | JSON | Machine-readable release claims, boundaries and pending evidence |
 | [`../datasets/public_gs_fixture_generated.jsonl`](../datasets/public_gs_fixture_generated.jsonl) | JSONL | Public GS scorer replay input (synthetic, not benchmark data) |

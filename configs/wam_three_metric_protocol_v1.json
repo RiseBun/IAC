@@ -96,6 +96,12 @@
           "reports/grounding_score_identity_shuffle_20260911.json"
         ],
         "claim_boundary": "GS measures external future grounding; it does not establish future-to-action causality."
+      },
+      "public_reference_release": {
+        "exporter": "tools/export_gs_reference_release.py",
+        "schema": "descriptor-only, HMAC-pseudonymized source keys",
+        "status": "available_for_evaluation_server_release",
+        "current_benchmark_reference": "private"
       }
     }
   },

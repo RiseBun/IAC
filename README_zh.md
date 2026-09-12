@@ -64,6 +64,12 @@ python tools/score_structural_grounding.py \
 `1.0`。这只能验证公开实现、缺失值和分母语义，不是私有 logged future，也不能替代
 公开榜单的参考分数。
 
+若评测服务器需要开放真实参考分数的独立重算，可使用
+[`tools/export_gs_reference_release.py`](tools/export_gs_reference_release.py) 导出
+仅含五个结构 descriptor 的去标识化 reference JSONL。该工具用运营方持有的 HMAC
+salt 伪匿名化 source key，并主动丢弃图像、相机标定、自车状态、轨迹和私有路径。
+当前 benchmark 参考仍保持私有；这是可部署的发布出口，不是假装已经公开了 GT。
+
 模型 adapter 只允许处理坐标方向/图像几何，不能改变 descriptor、deadband、聚合
 或晋级门槛；可用 [`tools/validate_metric_comparability.py`](tools/validate_metric_comparability.py)
 在挂载私有数据前做失败关闭检查。

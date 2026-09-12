@@ -139,6 +139,14 @@ It should report one evaluated source, one reference-only source, coverage
 missing-value semantics; it is deliberately not a substitute for the private
 logged-future reference used by the benchmark table.
 
+An evaluation server that wants to make real GS scores independently
+recomputable can export a descriptor-only reference release with
+[`tools/export_gs_reference_release.py`](tools/export_gs_reference_release.py).
+The exporter HMAC-pseudonymizes source keys and drops images, calibration, ego
+states, trajectories and private paths. The current benchmark reference stays
+private; this is the safe publication path, not a claim that private GT is
+already public.
+
 The machine-readable release boundary is recorded in
 [`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json):
 the package is publishable as a conditional consistency/grounding standard, but
