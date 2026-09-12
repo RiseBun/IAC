@@ -65,6 +65,8 @@ def run(root: Path) -> dict[str, Any]:
             "yaw_direction": float(left_action[-1, 2] - right_action[-1, 2]),
             "lateral_direction": float(left_action[-1, 1] - right_action[-1, 1]),
             "longitudinal_order": float(left_action[-1, 0] - right_action[-1, 0]),
+            "expansion_response": float(left_action[-1, 0] - right_action[-1, 0]),
+            "rotation_response": float(left_action[-1, 2] - right_action[-1, 2]),
         }
         response = response_channel_evidence(profiles["left"], profiles["right"], action_deltas)
         pair_responses.append(response)
@@ -92,7 +94,7 @@ def run(root: Path) -> dict[str, Any]:
         "response_scored_fraction": {
             channel: float(np.mean([row[channel]["status"] == "scored" for row in response]))
             if response else None
-            for channel in ("yaw_direction", "lateral_direction", "longitudinal_order")
+            for channel in ("yaw_direction", "lateral_direction", "longitudinal_order", "expansion_response", "rotation_response")
         },
         "grounding_status": "unavailable_without_external_reference_profile",
         "depth_status": "not_provided_optional_adapter",

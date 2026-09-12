@@ -12,12 +12,19 @@
     "counterfactual_response": {
       "required_for_rcs": true,
       "output": "same_source_signed_response",
+      "candidate_channels": ["yaw_direction", "lateral_direction", "longitudinal_order", "expansion_response", "rotation_response"],
       "minimum_intervals": 2
     },
     "grounding": {
       "required_for_gs": true,
       "output": "descriptor_grounding",
       "reference": "same_source_external_future"
+    },
+    "structure_quality": {
+      "required": true,
+      "output": "rigidity_and_foe_observability",
+      "role": "reliability_only",
+      "not_an_action_alignment_score": true
     },
     "reliability": {
       "required": true,

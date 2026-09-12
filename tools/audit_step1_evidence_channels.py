@@ -11,7 +11,13 @@ from typing import Any
 import numpy as np
 
 
-CHANNELS = ("yaw_direction", "lateral_direction", "longitudinal_order")
+CHANNELS = (
+    "yaw_direction",
+    "lateral_direction",
+    "longitudinal_order",
+    "expansion_response",
+    "rotation_response",
+)
 
 
 def _bootstrap(values: np.ndarray, draws: int, seed: int) -> list[float] | None:

@@ -57,6 +57,39 @@
             "unavailable": 3
           },
           "formal_gate_candidate": false
+        },
+        "expansion_response": {
+          "pairs_total": 59,
+          "pairs_evaluable": 56,
+          "coverage": 0.9491525423728814,
+          "direction_accuracy": 0.5,
+          "direction_ci95": [
+            0.375,
+            0.625
+          ],
+          "median_interval_direction_accuracy": 0.625,
+          "status_counts": {
+            "scored": 0,
+            "weak": 47,
+            "inverted": 9,
+            "unavailable": 3
+          },
+          "formal_gate_candidate": false
+        },
+        "rotation_response": {
+          "pairs_total": 59,
+          "pairs_evaluable": 0,
+          "coverage": 0.0,
+          "direction_accuracy": null,
+          "direction_ci95": null,
+          "median_interval_direction_accuracy": null,
+          "status_counts": {
+            "scored": 0,
+            "weak": 0,
+            "inverted": 0,
+            "unavailable": 59
+          },
+          "formal_gate_candidate": false
         }
       },
       "claim_boundary": "Source/twin aggregation of the shared evidence layer. It is not a cross-architecture promotion result and does not establish future-to-action causality."
@@ -120,6 +153,42 @@
             "unavailable": 4
           },
           "formal_gate_candidate": false
+        },
+        "expansion_response": {
+          "pairs_total": 86,
+          "pairs_evaluable": 82,
+          "coverage": 0.9534883720930233,
+          "direction_accuracy": 0.4024390243902439,
+          "direction_ci95": [
+            0.2926829268292683,
+            0.5121951219512195
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 0,
+            "weak": 51,
+            "inverted": 31,
+            "unavailable": 4
+          },
+          "formal_gate_candidate": false
+        },
+        "rotation_response": {
+          "pairs_total": 86,
+          "pairs_evaluable": 82,
+          "coverage": 0.9534883720930233,
+          "direction_accuracy": 0.34146341463414637,
+          "direction_ci95": [
+            0.24390243902439024,
+            0.45121951219512196
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 0,
+            "weak": 45,
+            "inverted": 37,
+            "unavailable": 4
+          },
+          "formal_gate_candidate": false
         }
       },
       "claim_boundary": "Source/twin aggregation of the shared evidence layer. It is not a cross-architecture promotion result and does not establish future-to-action causality."
@@ -178,6 +247,39 @@
             "weak": 0,
             "inverted": 0,
             "unavailable": 10
+          },
+          "formal_gate_candidate": false
+        },
+        "expansion_response": {
+          "pairs_total": 10,
+          "pairs_evaluable": 0,
+          "coverage": 0.0,
+          "direction_accuracy": null,
+          "direction_ci95": null,
+          "median_interval_direction_accuracy": null,
+          "status_counts": {
+            "scored": 0,
+            "weak": 0,
+            "inverted": 0,
+            "unavailable": 10
+          },
+          "formal_gate_candidate": false
+        },
+        "rotation_response": {
+          "pairs_total": 10,
+          "pairs_evaluable": 10,
+          "coverage": 1.0,
+          "direction_accuracy": 0.4,
+          "direction_ci95": [
+            0.1,
+            0.7
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 1,
+            "weak": 5,
+            "inverted": 4,
+            "unavailable": 0
           },
           "formal_gate_candidate": false
         }
@@ -241,6 +343,42 @@
             "weak": 3,
             "inverted": 5,
             "unavailable": 2
+          },
+          "formal_gate_candidate": false
+        },
+        "expansion_response": {
+          "pairs_total": 13,
+          "pairs_evaluable": 11,
+          "coverage": 0.8461538461538461,
+          "direction_accuracy": 0.36363636363636365,
+          "direction_ci95": [
+            0.09090909090909091,
+            0.6363636363636364
+          ],
+          "median_interval_direction_accuracy": 0.5,
+          "status_counts": {
+            "scored": 3,
+            "weak": 3,
+            "inverted": 5,
+            "unavailable": 2
+          },
+          "formal_gate_candidate": false
+        },
+        "rotation_response": {
+          "pairs_total": 13,
+          "pairs_evaluable": 13,
+          "coverage": 1.0,
+          "direction_accuracy": 0.07692307692307693,
+          "direction_ci95": [
+            0.0,
+            0.23076923076923078
+          ],
+          "median_interval_direction_accuracy": 0.0,
+          "status_counts": {
+            "scored": 0,
+            "weak": 2,
+            "inverted": 11,
+            "unavailable": 0
           },
           "formal_gate_candidate": false
         }

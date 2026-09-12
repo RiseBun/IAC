@@ -27,6 +27,7 @@ EVIDENCE_CHANNELS = (
     "temporal_motion",
     "counterfactual_response",
     "grounding",
+    "structure_quality",
     "reliability",
 )
 
@@ -34,7 +35,16 @@ RESPONSE_DESCRIPTORS = {
     "yaw_direction": "horizontal_flow_center",
     "lateral_direction": "left_right_horizontal_contrast",
     "longitudinal_order": "median_flow_magnitude_px",
+    "expansion_response": "divergence",
+    "rotation_response": "curl",
 }
+
+STRUCTURE_QUALITY_FIELDS = (
+    "affine_explained_fraction",
+    "affine_robust_weight_fraction",
+    "structure_confidence",
+    "spatial_coverage",
+)
 
 
 def _finite(value: Any) -> bool:
@@ -286,6 +296,40 @@ def response_channel_evidence(
     return output
 
 
+def structure_quality_evidence(profile: dict[str, Any]) -> dict[str, Any]:
+    """Summarize whether a flow profile has coherent spatial structure.
+
+    These quantities are reliability evidence only.  A high affine fit or FOE
+    confidence is not evidence that the generated motion follows the action.
+    """
+    rows = [row for row in _rows(profile) if bool(row.get("input_available"))]
+    summary: dict[str, Any] = {
+        "status": "scored" if rows else "unavailable",
+        "evidence_type": "flow_structure_quality",
+        "interval_count": len(_rows(profile)),
+        "available_intervals": len(rows),
+        "coverage": len(rows) / max(len(_rows(profile)), 1),
+        "metric_reconstruction_used": False,
+        "candidate_selection_used": False,
+    }
+    for field in STRUCTURE_QUALITY_FIELDS:
+        values = [float(row[field]) for row in rows if _finite(row.get(field))]
+        summary[field] = float(np.median(values)) if values else None
+    foe_confidence = []
+    foe_valid = 0
+    for row in rows:
+        foe = row.get("foe")
+        if isinstance(foe, dict):
+            if bool(foe.get("valid")):
+                foe_valid += 1
+            if _finite(foe.get("confidence")):
+                foe_confidence.append(float(foe["confidence"]))
+    summary["foe_valid_fraction"] = foe_valid / max(len(rows), 1)
+    summary["foe_confidence_median"] = float(np.median(foe_confidence)) if foe_confidence else None
+    summary["claim_boundary"] = "quality and observability evidence only; not action alignment or causal mediation"
+    return summary
+
+
 def grounding_evidence(
     generated_profile: dict[str, Any],
     reference_profile: dict[str, Any],
@@ -407,6 +451,7 @@ def assemble_step1_evidence(
             "temporal_motion": temporal_motion_evidence(branch_profile),
             "counterfactual_response": {"status": "unavailable", "reason": "missing_twin"},
             "grounding": {"status": "unavailable", "reason": "missing_reference"},
+            "structure_quality": structure_quality_evidence(branch_profile),
             "reliability": reliability_evidence(flow_support_fraction=flow_support_fraction, depth_valid_mask=depth_valid_mask, depth_confidence=depth_confidence),
         },
         "metric_reconstruction_used": False,

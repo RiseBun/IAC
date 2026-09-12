@@ -129,6 +129,13 @@ interval 当成四个独立样本。结果见
 | DriveVA | yaw | 100% | 60.0% | [30.0%, 90.0%] | 样本太小 |
 | WorldDrive | yaw | 100% | 92.3% | [76.9%, 100%] | 仅此通道达到 pilot gate |
 
+新增结构通道也已计算：Epona 的 expansion 命中率 50.0%（CI [37.5%, 62.5%]），
+DriveWAM 40.2%（[29.3%, 51.2%]），WorldDrive 36.4%（[9.1%, 63.6%]）；
+rotation 在 DriveWAM 为 34.1%（[24.4%, 45.1%]），WorldDrive 为 7.7%
+（[0%, 23.1%]）。它们不能进入正式 MAS/RCS。`affine_explained_fraction`、
+FOE confidence、spatial coverage 等只作为 structure-quality evidence，不能
+因为数值高就解释成动作响应正确。
+
 这轮结果说明“增加 lateral/纵向字段”本身不会自动解决 Step1；描述子必须和
 动作分量建立独立的 real-only 映射，并通过负控制。当前只有 WorldDrive 的 yaw
 通道达到 pilot 门，仍不能升级为普适 MAS/RCS。GS 的 grounding 通道尚未在这轮

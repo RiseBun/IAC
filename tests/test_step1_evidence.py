@@ -6,6 +6,7 @@ from iac_new.step1_evidence import (
     assemble_step1_evidence,
     counterfactual_response_evidence,
     response_channel_evidence,
+    structure_quality_evidence,
     temporal_motion_evidence,
 )
 
@@ -66,6 +67,21 @@ class Step1EvidenceTest(unittest.TestCase):
         self.assertIn(result["yaw_direction"]["status"], {"scored", "weak"})
         self.assertIn(result["lateral_direction"]["status"], {"scored", "weak"})
         self.assertEqual(result["longitudinal_order"]["status"], "unavailable")
+
+    def test_structure_quality_is_not_action_alignment(self) -> None:
+        profile = _profile([0.2, 0.3])
+        for row in profile["rows"]:
+            row.update({
+                "affine_explained_fraction": 0.9,
+                "affine_robust_weight_fraction": 0.8,
+                "structure_confidence": 0.7,
+                "spatial_coverage": 0.9,
+                "foe": {"valid": True, "confidence": 0.8},
+            })
+        result = structure_quality_evidence(profile)
+        self.assertEqual(result["status"], "scored")
+        self.assertEqual(result["affine_explained_fraction"], 0.9)
+        self.assertIn("not action alignment", result["claim_boundary"])
 
 
 if __name__ == "__main__":

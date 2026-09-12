@@ -87,6 +87,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.022757073907806957,
+          "affine_robust_weight_fraction": 0.7827041870696901,
+          "structure_confidence": 0.22103589460589568,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7737561774612491,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -102,7 +118,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 1,
+      "available_channel_count": 2,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
       "branch_role": "left",
@@ -198,6 +214,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.003273732982248534,
+            -0.01247094924118863,
+            0.07050211056633515,
+            0.07714467284537996,
+            0.08145766103613691,
+            0.09077407647073005,
+            0.04596442356195309,
+            -0.01987823599347546
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.75,
+          "direction_hits": 6,
+          "direction_misses": 2,
+          "chance_p_value": 0.14453125,
+          "median_abs_visual_delta": 0.058233267064144126,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.75,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -275,6 +343,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.22046462198011968,
+          "affine_robust_weight_fraction": 0.7841740638182584,
+          "structure_confidence": 0.265102315448817,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.8352730528200537,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -290,7 +374,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 1,
+      "available_channel_count": 2,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
       "branch_role": "right",
@@ -386,6 +470,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.003273732982248534,
+            -0.01247094924118863,
+            0.07050211056633515,
+            0.07714467284537996,
+            0.08145766103613691,
+            0.09077407647073005,
+            0.04596442356195309,
+            -0.01987823599347546
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.75,
+          "direction_hits": 6,
+          "direction_misses": 2,
+          "chance_p_value": 0.14453125,
+          "median_abs_visual_delta": 0.058233267064144126,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.75,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -462,6 +598,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.16784994374505569,
+          "affine_robust_weight_fraction": 0.8144896607764837,
+          "structure_confidence": 0.264287383851931,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7914976500557824,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -477,7 +629,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 3,
+      "available_channel_count": 4,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0018:2c757b2eaf465d16",
       "branch_role": "left",
@@ -573,6 +725,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.00805991902745739,
+            -0.0637010496654751,
+            -0.08378753370130981,
+            0.049779752888937955,
+            -0.009204525691434734,
+            0.004687073150347845,
+            0.025691377680365085,
+            0.006950908450312515
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.625,
+          "direction_hits": 5,
+          "direction_misses": 3,
+          "chance_p_value": 0.36328125,
+          "median_abs_visual_delta": 0.01744795168589991,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.625,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -649,6 +853,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.16801810489238017,
+          "affine_robust_weight_fraction": 0.8232764530347596,
+          "structure_confidence": 0.2634267801482886,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7353804998044187,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -664,7 +884,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 3,
+      "available_channel_count": 4,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0018:2c757b2eaf465d16",
       "branch_role": "right",
@@ -760,6 +980,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.00805991902745739,
+            -0.0637010496654751,
+            -0.08378753370130981,
+            0.049779752888937955,
+            -0.009204525691434734,
+            0.004687073150347845,
+            0.025691377680365085,
+            0.006950908450312515
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.625,
+          "direction_hits": 5,
+          "direction_misses": 3,
+          "chance_p_value": 0.36328125,
+          "median_abs_visual_delta": 0.01744795168589991,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.625,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -837,6 +1109,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.38224009469932446,
+          "affine_robust_weight_fraction": 0.7720696129233372,
+          "structure_confidence": 0.2882203974795917,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7538048343777977,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -852,7 +1140,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 2,
+      "available_channel_count": 3,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0022:3c650e5df6555a95",
       "branch_role": "left",
@@ -949,6 +1237,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.01078551203563436,
+            0.0018387182570828282,
+            -0.0004517572034301691,
+            0.002479090473199866,
+            -0.0007812389665687635,
+            -0.0014464205582118556,
+            0.1446138522699187,
+            -0.11723902527924188
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.375,
+          "direction_hits": 3,
+          "direction_misses": 5,
+          "chance_p_value": 0.36328125,
+          "median_abs_visual_delta": 0.0021589043651413474,
+          "status": "inverted",
+          "reason": "response_consistently_opposite_to_action",
+          "temporal_persistence": 0.375,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -1026,6 +1366,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.3099078682844207,
+          "affine_robust_weight_fraction": 0.7835596331158365,
+          "structure_confidence": 0.28468761301868595,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7563501757154423,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -1041,7 +1397,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 2,
+      "available_channel_count": 3,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0022:3c650e5df6555a95",
       "branch_role": "right",
@@ -1138,6 +1494,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.01078551203563436,
+            0.0018387182570828282,
+            -0.0004517572034301691,
+            0.002479090473199866,
+            -0.0007812389665687635,
+            -0.0014464205582118556,
+            0.1446138522699187,
+            -0.11723902527924188
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.375,
+          "direction_hits": 3,
+          "direction_misses": 5,
+          "chance_p_value": 0.36328125,
+          "median_abs_visual_delta": 0.0021589043651413474,
+          "status": "inverted",
+          "reason": "response_consistently_opposite_to_action",
+          "temporal_persistence": 0.375,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -1214,6 +1622,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.27420807309418516,
+          "affine_robust_weight_fraction": 0.8569459866487482,
+          "structure_confidence": 0.2994520978852031,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7936868989855174,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -1229,7 +1653,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 3,
+      "available_channel_count": 4,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0010:5a2838c61b395dba",
       "branch_role": "left",
@@ -1325,6 +1749,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.008817492899928864,
+            -0.0026686676708963988,
+            0.010362475829689046,
+            -0.0006493997437731144,
+            -0.0031520892994552963,
+            0.009514238601393752,
+            0.018372107892919192,
+            0.016869627104398308
+          ],
+          "action_delta_sequence": [
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.5,
+          "direction_hits": 4,
+          "direction_misses": 4,
+          "chance_p_value": 0.63671875,
+          "median_abs_visual_delta": 0.009165865750661308,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.5,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -1401,6 +1877,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.16892582757105762,
+          "affine_robust_weight_fraction": 0.837818777692729,
+          "structure_confidence": 0.2723881519576089,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.838253740647856,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -1416,7 +1908,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 3,
+      "available_channel_count": 4,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0010:5a2838c61b395dba",
       "branch_role": "right",
@@ -1512,6 +2004,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.008817492899928864,
+            -0.0026686676708963988,
+            0.010362475829689046,
+            -0.0006493997437731144,
+            -0.0031520892994552963,
+            0.009514238601393752,
+            0.018372107892919192,
+            0.016869627104398308
+          ],
+          "action_delta_sequence": [
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.5,
+          "direction_hits": 4,
+          "direction_misses": 4,
+          "chance_p_value": 0.63671875,
+          "median_abs_visual_delta": 0.009165865750661308,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.5,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -1589,6 +2133,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.4873967531841444,
+          "affine_robust_weight_fraction": 0.786524613147844,
+          "structure_confidence": 0.2619190395552927,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.8042681574383999,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -1604,7 +2164,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 1,
+      "available_channel_count": 2,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
       "branch_role": "left",
@@ -1701,6 +2261,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.10815893137247784,
+            -0.00640921386282012,
+            -0.0021597981929759695,
+            0.003459980072298344,
+            -0.01082903131831533,
+            -0.0060797400349878825,
+            0.07498265310335397,
+            0.19314896186415692
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.5,
+          "direction_hits": 4,
+          "direction_misses": 4,
+          "chance_p_value": 0.63671875,
+          "median_abs_visual_delta": 0.008619122590567725,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.5,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -1778,6 +2390,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.29099568204908804,
+          "affine_robust_weight_fraction": 0.788106943885611,
+          "structure_confidence": 0.26561779138255925,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7512472495415232,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -1793,7 +2421,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 1,
+      "available_channel_count": 2,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
       "branch_role": "right",
@@ -1890,6 +2518,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.10815893137247784,
+            -0.00640921386282012,
+            -0.0021597981929759695,
+            0.003459980072298344,
+            -0.01082903131831533,
+            -0.0060797400349878825,
+            0.07498265310335397,
+            0.19314896186415692
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.5,
+          "direction_hits": 4,
+          "direction_misses": 4,
+          "chance_p_value": 0.63671875,
+          "median_abs_visual_delta": 0.008619122590567725,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.5,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -1966,6 +2646,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.6569019448658513,
+          "affine_robust_weight_fraction": 0.7889422787046776,
+          "structure_confidence": 0.36816121529097645,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.8487018800358102,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -1981,7 +2677,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 3,
+      "available_channel_count": 4,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0003:6b18222236ea5ad4",
       "branch_role": "left",
@@ -2077,6 +2773,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.0028943199968949227,
+            -0.014194669112708561,
+            -0.01106025501807497,
+            -0.0005681662738161153,
+            -0.003313861100079862,
+            0.005412553408391954,
+            -0.0027818438462507747,
+            0.01713885358624838
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.25,
+          "direction_hits": 2,
+          "direction_misses": 6,
+          "chance_p_value": 0.14453125,
+          "median_abs_visual_delta": 0.0043632072542359075,
+          "status": "inverted",
+          "reason": "response_consistently_opposite_to_action",
+          "temporal_persistence": 0.25,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -2153,6 +2901,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.721138040300596,
+          "affine_robust_weight_fraction": 0.7884591852548994,
+          "structure_confidence": 0.3769456016828133,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.8452645531213749,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -2168,7 +2932,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 2,
+      "available_channel_count": 3,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0003:6b18222236ea5ad4",
       "branch_role": "right",
@@ -2264,6 +3028,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.0028943199968949227,
+            -0.014194669112708561,
+            -0.01106025501807497,
+            -0.0005681662738161153,
+            -0.003313861100079862,
+            0.005412553408391954,
+            -0.0027818438462507747,
+            0.01713885358624838
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.25,
+          "direction_hits": 2,
+          "direction_misses": 6,
+          "chance_p_value": 0.14453125,
+          "median_abs_visual_delta": 0.0043632072542359075,
+          "status": "inverted",
+          "reason": "response_consistently_opposite_to_action",
+          "temporal_persistence": 0.25,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -2340,6 +3156,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.9268034667478489,
+          "affine_robust_weight_fraction": 0.7717241448937229,
+          "structure_confidence": 0.4080108074884987,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7251566696508505,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -2355,7 +3187,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 2,
+      "available_channel_count": 3,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0007:df570b3785a95295",
       "branch_role": "left",
@@ -2450,6 +3282,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.03527630375745325,
+            -0.09712855715975638,
+            -0.12477811257934113,
+            -0.2506002351027242,
+            -0.09865156361209876,
+            0.046688346728736424,
+            0.012954041140256181,
+            0.3496210332019998
+          ],
+          "action_delta_sequence": [
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.375,
+          "direction_hits": 3,
+          "direction_misses": 5,
+          "chance_p_value": 0.36328125,
+          "median_abs_visual_delta": 0.09789006038592757,
+          "status": "inverted",
+          "reason": "response_consistently_opposite_to_action",
+          "temporal_persistence": 0.375,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -2526,6 +3410,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.9779004721199924,
+          "affine_robust_weight_fraction": 0.7939205970761238,
+          "structure_confidence": 0.43556770979031273,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7609668755595345,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -2541,7 +3441,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 3,
+      "available_channel_count": 4,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0007:df570b3785a95295",
       "branch_role": "right",
@@ -2636,6 +3536,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.03527630375745325,
+            -0.09712855715975638,
+            -0.12477811257934113,
+            -0.2506002351027242,
+            -0.09865156361209876,
+            0.046688346728736424,
+            0.012954041140256181,
+            0.3496210332019998
+          ],
+          "action_delta_sequence": [
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316,
+            0.24000000953674316
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.375,
+          "direction_hits": 3,
+          "direction_misses": 5,
+          "chance_p_value": 0.36328125,
+          "median_abs_visual_delta": 0.09789006038592757,
+          "status": "inverted",
+          "reason": "response_consistently_opposite_to_action",
+          "temporal_persistence": 0.375,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -2712,6 +3664,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.6382782727085373,
+          "affine_robust_weight_fraction": 0.7448636640063986,
+          "structure_confidence": 0.33734307101725125,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.8536257833482543,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -2727,7 +3695,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 2,
+      "available_channel_count": 3,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
       "branch_role": "left",
@@ -2823,6 +3791,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.007665136488100376,
+            0.012084015954235146,
+            0.01355919971905967,
+            0.00499781938239317,
+            -0.04810577677455247,
+            0.005324733049467661,
+            0.020491813569868893,
+            -0.010028816277261557
+          ],
+          "action_delta_sequence": [
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.75,
+          "direction_hits": 6,
+          "direction_misses": 2,
+          "chance_p_value": 0.14453125,
+          "median_abs_visual_delta": 0.011056416115748351,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.75,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -2899,6 +3919,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.5703090710677815,
+          "affine_robust_weight_fraction": 0.7604999993596333,
+          "structure_confidence": 0.3238133805923353,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7671281722997148,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -2914,7 +3950,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 2,
+      "available_channel_count": 3,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
       "branch_role": "right",
@@ -3010,6 +4046,58 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.007665136488100376,
+            0.012084015954235146,
+            0.01355919971905967,
+            0.00499781938239317,
+            -0.04810577677455247,
+            0.005324733049467661,
+            0.020491813569868893,
+            -0.010028816277261557
+          ],
+          "action_delta_sequence": [
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167,
+            0.23999999091029167
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.75,
+          "direction_hits": 6,
+          "direction_misses": 2,
+          "chance_p_value": 0.14453125,
+          "median_abs_visual_delta": 0.011056416115748351,
+          "status": "weak",
+          "reason": "aligned_run_does_not_beat_chance",
+          "temporal_persistence": 0.75,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -3081,6 +4169,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.7306040025948958,
+          "affine_robust_weight_fraction": 0.8304261002739066,
+          "structure_confidence": 0.39404795607473275,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7520485323405708,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -3096,7 +4200,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 2,
+      "available_channel_count": 3,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0020:2df4305ff6ca5247",
       "branch_role": "left",
@@ -3181,6 +4285,52 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 5,
+          "coverage": 0.625,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 5,
+          "coverage": 0.625,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.0008699744342340419,
+            -3.548551247669479e-05,
+            0.00022231184307510386,
+            0.004958937315648688,
+            -0.00037627178218815785
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 5,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.4,
+          "direction_hits": 2,
+          "direction_misses": 3,
+          "chance_p_value": 0.5,
+          "median_abs_visual_delta": 0.00037627178218815785,
+          "status": "inverted",
+          "reason": "response_consistently_opposite_to_action",
+          "temporal_persistence": 0.4,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -3249,6 +4399,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 5,
+          "coverage": 0.625,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.9315835555982275,
+          "affine_robust_weight_fraction": 0.7879872204166439,
+          "structure_confidence": 0.300797583688515,
+          "spatial_coverage": 0.3888888888888889,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.827922077922078,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -3264,7 +4430,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 1,
+      "available_channel_count": 2,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0020:2df4305ff6ca5247",
       "branch_role": "right",
@@ -3349,6 +4515,52 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 5,
+          "coverage": 0.625,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 5,
+          "coverage": 0.625,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            -0.0008699744342340419,
+            -3.548551247669479e-05,
+            0.00022231184307510386,
+            0.004958937315648688,
+            -0.00037627178218815785
+          ],
+          "action_delta_sequence": [
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257,
+            0.24000000208616257
+          ],
+          "usable_intervals": 5,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.4,
+          "direction_hits": 2,
+          "direction_misses": 3,
+          "chance_p_value": 0.5,
+          "median_abs_visual_delta": 0.00037627178218815785,
+          "status": "inverted",
+          "reason": "response_consistently_opposite_to_action",
+          "temporal_persistence": 0.4,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -3426,6 +4638,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.61644502052846,
+          "affine_robust_weight_fraction": 0.7812172507281168,
+          "structure_confidence": 0.2355079306519851,
+          "spatial_coverage": 0.4444444444444444,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.7834461874921141,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -3441,7 +4669,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 1,
+      "available_channel_count": 2,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_02035_02387:log-0005-scene-0014:c9d8511d674d598f",
       "branch_role": "left",
@@ -3538,6 +4766,57 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.0003209944143183832,
+            0.032782024236743555,
+            0.026732362461635302,
+            -0.0033732807359997687,
+            0.001160257701357286,
+            0.01948962974803157,
+            0.005770174127835065,
+            0.006268472711420196
+          ],
+          "action_delta_sequence": [
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.875,
+          "direction_hits": 7,
+          "direction_misses": 1,
+          "chance_p_value": 0.03515625,
+          "median_abs_visual_delta": 0.00601932341962763,
+          "status": "scored",
+          "temporal_persistence": 0.875,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     },
@@ -3615,6 +4894,22 @@
           "status": "unavailable",
           "reason": "missing_reference"
         },
+        "structure_quality": {
+          "status": "scored",
+          "evidence_type": "flow_structure_quality",
+          "interval_count": 8,
+          "available_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "affine_explained_fraction": 0.32598537405679706,
+          "affine_robust_weight_fraction": 0.7296855089782821,
+          "structure_confidence": 0.25048002416552717,
+          "spatial_coverage": 0.5555555555555556,
+          "foe_valid_fraction": 1.0,
+          "foe_confidence_median": 0.8334031565869242,
+          "claim_boundary": "quality and observability evidence only; not action alignment or causal mediation"
+        },
         "reliability": {
           "status": "scored",
           "flow_support_fraction": 1.0,
@@ -3630,7 +4925,7 @@
       "metric_reconstruction_used": false,
       "candidate_selection_used": false,
       "depth_policy": "optional_adapter_not_required_for_MAS_RCS_GS",
-      "available_channel_count": 1,
+      "available_channel_count": 2,
       "claim_boundary": "Evidence products support MAS/RCS/GS-specific scoring; they do not establish future-to-action causality or a full metric trajectory.",
       "source_key": "navsim:2021.05.12.23.36.44_veh-35_02035_02387:log-0005-scene-0014:c9d8511d674d598f",
       "branch_role": "right",
@@ -3727,6 +5022,57 @@
           "reason": "zero_or_missing_action_contrast",
           "descriptor": "median_flow_magnitude_px",
           "action_channel": "longitudinal_order"
+        },
+        "expansion_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "status": "unavailable",
+          "reason": "zero_or_missing_action_contrast",
+          "descriptor": "divergence",
+          "action_channel": "expansion_response"
+        },
+        "rotation_response": {
+          "evidence_type": "same_source_signed_response",
+          "common_intervals": 8,
+          "coverage": 1.0,
+          "metric_reconstruction_used": false,
+          "candidate_selection_used": false,
+          "visual_delta_sequence": [
+            0.0003209944143183832,
+            0.032782024236743555,
+            0.026732362461635302,
+            -0.0033732807359997687,
+            0.001160257701357286,
+            0.01948962974803157,
+            0.005770174127835065,
+            0.006268472711420196
+          ],
+          "action_delta_sequence": [
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197,
+            0.23999999463558197
+          ],
+          "usable_intervals": 8,
+          "below_response_deadband": 0,
+          "response_deadband": 1e-06,
+          "response_deadband_calibrated": false,
+          "direction_accuracy": 0.875,
+          "direction_hits": 7,
+          "direction_misses": 1,
+          "chance_p_value": 0.03515625,
+          "median_abs_visual_delta": 0.00601932341962763,
+          "status": "scored",
+          "temporal_persistence": 0.875,
+          "descriptor": "curl",
+          "action_channel": "rotation_response"
         }
       }
     }
