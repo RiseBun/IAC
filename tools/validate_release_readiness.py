@@ -22,6 +22,9 @@ from pathlib import Path
 from typing import Any
 
 
+FORMAL_CLAIM_SCOPE = "two_model_protocol_validation_only"
+
+
 def _read(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -38,6 +41,28 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
             errors.append(f"{metric}:status_not_validated")
         if len(models) < 2:
             errors.append(f"{metric}:fewer_than_two_models")
+        if claim.get("claim_scope") != FORMAL_CLAIM_SCOPE:
+            errors.append(f"{metric}:architecture_claim_scope_missing_or_overbroad")
+        if claim.get("architecture_universal") is not False:
+            errors.append(f"{metric}:architecture_universal_claim_not_disabled")
+
+    architecture_policy = protocol.get("architecture_claim_policy") or {}
+    if architecture_policy.get("formal_claim_scope") != FORMAL_CLAIM_SCOPE:
+        errors.append("protocol:architecture_claim_scope_missing_or_overbroad")
+    if architecture_policy.get("architecture_universal_claim") is not False:
+        errors.append("protocol:architecture_universal_claim_not_disabled")
+    minimum_architectures = int(
+        architecture_policy.get(
+            "minimum_distinct_architectures_for_universal_claim", 3
+        )
+    )
+    declared_families = architecture_policy.get("formal_architecture_families") or {}
+    if architecture_policy.get("architecture_universal_claim") is True:
+        families = {declared_families.get(model) for metric in ("mas_yaw", "rcs_yaw", "gs")
+                    for model in (claims.get(metric) or {}).get("models", [])}
+        families.discard(None)
+        if len(families) < minimum_architectures:
+            errors.append("protocol:universal_architecture_gate_not_met")
 
     fcs = claims.get("fcs") or {}
     fcs_cross_model = fcs.get("cross_model_status")

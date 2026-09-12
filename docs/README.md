@@ -30,6 +30,11 @@
 | [`RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md`](RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md) | ZH | Remaining evidence required for causal/cross-model claims |
 | [`STEP1_IMPROVEMENT_PLAN_ZH.md`](STEP1_IMPROVEMENT_PLAN_ZH.md) | ZH | Step1.3 改进优先级、深度/光流 A/B 与验收门 |
 
+The formal two-model gate is intentionally not an architecture-universal
+claim: Epona and DriveWAM establish protocol validation only. A third distinct
+architecture family, with the same source-disjoint controls, is required before
+that broader claim can be enabled. The release validator enforces this scope.
+
 ## Benchmark
 
 | Doc | Content |

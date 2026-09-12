@@ -21,18 +21,24 @@
     "mas_yaw": {
       "status": "validated",
       "models": ["Epona", "DriveWAM"],
+      "claim_scope": "two_model_protocol_validation_only",
+      "architecture_universal": false,
       "scope": "candidate_blind directional yaw alignment",
       "not_claimed": ["metric distance", "speed", "lateral amplitude", "curvature", "future_to_action causality"]
     },
     "rcs_yaw": {
       "status": "validated",
       "models": ["Epona", "DriveWAM"],
+      "claim_scope": "two_model_protocol_validation_only",
+      "architecture_universal": false,
       "scope": "same-source counterfactual yaw response",
       "not_claimed": ["future_to_action causality", "natural model quality ranking"]
     },
     "gs": {
       "status": "validated",
       "models": ["Epona", "DriveWAM"],
+      "claim_scope": "two_model_protocol_validation_only",
+      "architecture_universal": false,
       "scope": "generated flow structure against external logged future",
       "recompute": "protocol_and_cli_public_reference_data_private",
       "not_claimed": ["native action was caused by predicted future"]
@@ -67,6 +73,15 @@
     "frozen_before_confirmation": true,
     "model_specific_metric_tuning": false,
     "validator": "tools/validate_metric_comparability.py"
+  },
+  "architecture_claim_policy": {
+    "formal_claim_scope": "two_model_protocol_validation_only",
+    "architecture_universal": false,
+    "minimum_distinct_architectures_for_universal_claim": 3,
+    "formal_architecture_families": {
+      "Epona": "epona_nuplan_world_model",
+      "DriveWAM": "drivewam_navsim_world_model"
+    }
   },
   "public_replay": {
     "gs_fixture": "datasets/public_gs_fixture_generated.jsonl",

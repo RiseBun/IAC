@@ -37,6 +37,25 @@ class ReleaseReadinessTest(unittest.TestCase):
         self.assertEqual(report["status"], "fail")
         self.assertIn("mas_yaw:status_not_validated", report["errors"])
 
+    def test_two_model_claim_cannot_be_relabelled_architecture_universal(self):
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
+        readiness["claims"]["mas_yaw"]["claim_scope"] = "architecture_universal"
+        readiness["claims"]["mas_yaw"]["architecture_universal"] = True
+        report = validate(readiness, protocol)
+        self.assertEqual(report["status"], "fail")
+        self.assertIn("mas_yaw:architecture_claim_scope_missing_or_overbroad", report["errors"])
+        self.assertIn("mas_yaw:architecture_universal_claim_not_disabled", report["errors"])
+
+    def test_protocol_universal_claim_requires_three_architectures(self):
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
+        protocol["architecture_claim_policy"]["architecture_universal_claim"] = True
+        report = validate(readiness, protocol)
+        self.assertEqual(report["status"], "fail")
+        self.assertIn("protocol:architecture_universal_claim_not_disabled", report["errors"])
+        self.assertIn("protocol:universal_architecture_gate_not_met", report["errors"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -182,6 +182,14 @@ separate evidence channels are supplied.
 Run [`tools/validate_release_readiness.py`](tools/validate_release_readiness.py)
 before publishing a new scorecard; it fails closed if these boundaries drift.
 
+The current two-model result has a deliberately narrow scope. Epona and
+DriveWAM validate the protocol on two declared model families; they do **not**
+justify an architecture-universal claim. The machine-readable claim scope is
+`two_model_protocol_validation_only`. A universal architecture claim is disabled
+until at least three distinct architecture families pass the pre-registered
+gate. DriveVA and WorldDrive remain diagnostic/pilot evidence and cannot be
+silently promoted by adding their names to a report.
+
 An independent same-source channel audit tested five decoder-free descriptors on
 174 matched intervention sources. Only `horizontal_flow_center` passed the
 two-model direction gate; flow magnitude, vertical center, divergence and curl

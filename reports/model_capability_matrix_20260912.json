@@ -3,11 +3,20 @@
   "as_of": "2026-09-12",
   "promotion_gate": {
     "minimum_models": 2,
+    "minimum_distinct_architectures_for_universal_claim": 3,
     "minimum_pair_coverage": 0.90,
     "direction_ci95_lower": 0.75,
     "source_disjoint_confirmation": true
   },
   "formal_models": ["Epona", "DriveWAM"],
+  "architecture_families": {
+    "Epona": "epona_nuplan_world_model",
+    "DriveWAM": "drivewam_navsim_world_model",
+    "DriveVA": "driveva",
+    "WorldDrive": "worlddrive"
+  },
+  "claim_scope": "two_model_protocol_validation_only",
+  "architecture_universal_claim": false,
   "formal_claims": {
     "mas_yaw": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
     "rcs_yaw": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
