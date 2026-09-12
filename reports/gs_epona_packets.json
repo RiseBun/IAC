@@ -1,0 +1,3452 @@
+{
+  "protocol": "iac-metric-evidence-packet-builder-v1",
+  "metric_id": "GS",
+  "input": "grounding_score_epona_confirmation_20260911.json",
+  "rows": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6668010500288089,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.664814878278156,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.37708562118926087,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5178935242734392,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5345377658728631,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.33241952284429355,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7580051993617458,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7916632368211692,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.502110194725233,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.38541739674531417,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5596815256471386,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.8401155052841703,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4439380820351567,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.11171133263816277,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4724793475526783,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4999574918108039,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5397796579667643,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.8164705637818619,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7513096023585584,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6866248240981563,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6327812000529851,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.8349554934419303,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7087903896851975,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5734412375325186,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.430594634718344,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.552441302989609,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.40992298882279005,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.42690097148780193,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.9521937710361035,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.9176639591827405,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7519971846563251,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5378131656509313,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.06592000010693452,
+        "common_interval_count": 3,
+        "interval_count": 3,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.08749771712469634,
+        "common_interval_count": 3,
+        "interval_count": 3,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7220972203994376,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.607954044094557,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.10058249131163219,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6701525708377113,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5338533132517846,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6784152094481443,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.31170027527924044,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4139988631796092,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4487925291973472,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.21554070406178716,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7746283243678057,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6335054698154723,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.10524285321943945,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.0032274995618295633,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7386824847872036,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7147669085789801,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.32798255789781505,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6458892039028048,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4503274130958915,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4078326920998723,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6036636751488693,
+        "common_interval_count": 3,
+        "interval_count": 3,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5533554248378413,
+        "common_interval_count": 3,
+        "interval_count": 3,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.2189245201984822,
+        "common_interval_count": 3,
+        "interval_count": 3,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.1326536078464153,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5674075039038722,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.48512625545851795,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7494008638123478,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7269295635138109,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e::left",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": null,
+        "common_interval_count": 0,
+        "interval_count": 0,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      },
+      "failure_reason": "missing_generated_or_reference_descriptor"
+    },
+    {
+      "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e::right",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": null,
+        "common_interval_count": 0,
+        "interval_count": 0,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      },
+      "failure_reason": "missing_generated_or_reference_descriptor"
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6410116664806607,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5101157390404507,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4928809845785787,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6159251509440942,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6544005547939791,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7332910960280963,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.2165050178202385,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5677228879882726,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.651544186873241,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6567452436142389,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.8633310075344883,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.8218004085885372,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.582650059018964,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6508531858185753,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf::left",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": null,
+        "common_interval_count": 0,
+        "interval_count": 0,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      },
+      "failure_reason": "missing_generated_or_reference_descriptor"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf::right",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": null,
+        "common_interval_count": 0,
+        "interval_count": 0,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      },
+      "failure_reason": "missing_generated_or_reference_descriptor"
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.3608350924558845,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.46733494208731674,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.11279046720943488,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.11486360162666642,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7514648501013304,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5172532645762171,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.49008074348943675,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5809318771547225,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7688899660442851,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7823613607418545,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5772728528177731,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6953669625207755,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.2980316298927938,
+        "common_interval_count": 3,
+        "interval_count": 3,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.3322894999953695,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.17714256303354045,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.40730110793865665,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5782440225164709,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.700671887434823,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.749836616275334,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.795435544897204,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.250628298562922,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4042832656316342,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5497273078542542,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.544479985106543,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.44933993698889485,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4394023027909455,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.33126813511533604,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4710147325290281,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.403585627648955,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.6605613547680813,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.844100350191819,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.7841025268703208,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5999405929641348,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5043737715362206,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16::left",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": null,
+        "common_interval_count": 0,
+        "interval_count": 0,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      },
+      "failure_reason": "missing_generated_or_reference_descriptor"
+    },
+    {
+      "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16::right",
+      "evidence_status": "unavailable",
+      "coverage": 0.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": null,
+        "common_interval_count": 0,
+        "interval_count": 0,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      },
+      "failure_reason": "missing_generated_or_reference_descriptor"
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436::left",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.5712290303466208,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    },
+    {
+      "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436::right",
+      "evidence_status": "scored",
+      "coverage": 1.0,
+      "reference_source": "logged_navsim_future",
+      "generated_representation": "generated_flow_structure_manifest",
+      "reference_representation": "logged_future_flow_structure_manifest",
+      "comparison": {
+        "score": 0.4989702004884933,
+        "common_interval_count": 4,
+        "interval_count": 4,
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        }
+      }
+    }
+  ],
+  "observed_branch_count": 112,
+  "expected_branch_count": 118,
+  "validation": {
+    "protocol": "iac-metric-evidence-contract-v1",
+    "metric_id": "GS",
+    "rows": 118,
+    "status_counts": {
+      "valid": 112,
+      "unavailable": 6,
+      "invalid": 0
+    },
+    "valid": true,
+    "reports": [
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "unavailable",
+        "evidence_status": "unavailable",
+        "missing": [],
+        "score_allowed": false,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      },
+      {
+        "protocol": "iac-metric-evidence-contract-v1",
+        "metric_id": "GS",
+        "status": "valid",
+        "evidence_status": "scored",
+        "missing": [],
+        "score_allowed": true,
+        "claim_boundary": "Generated future grounding against an external reference; not action mediation."
+      }
+    ],
+    "missing_value_policy": "unavailable_never_zero_fill"
+  },
+  "claim_boundary": "External-future grounding only; not native action mediation or future-to-action causality."
+}
