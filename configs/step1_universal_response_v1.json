@@ -1,0 +1,73 @@
+{
+  "protocol": "iac-step1-universal-response-v1",
+  "version": "1.0-experimental",
+  "status": "experimental_contract_not_promoted",
+  "objective": "Measure whether a generated future exhibits a reproducible visual response to an action intervention without recovering metric trajectory units.",
+  "inputs": [
+    "shared_history",
+    "generated_future_video",
+    "native_action",
+    "same_source_counterfactual_pair",
+    "camera_geometry"
+  ],
+  "representation": {
+    "candidate_blind": true,
+    "metric_reconstruction_used": false,
+    "output_domain": "ordinal_response_signature",
+    "channels": {
+      "yaw_direction": {
+        "descriptor": "horizontal_flow_center",
+        "validation_status": "validated",
+        "unit": "signed_ordinal"
+      },
+      "longitudinal_order": {
+        "descriptor": "temporal_expansion_or_motion_energy_rank",
+        "validation_status": "candidate",
+        "unit": "pairwise_order"
+      },
+      "lateral_direction": {
+        "descriptor": "within_source_horizontal_response_residual",
+        "validation_status": "unvalidated",
+        "unit": "signed_ordinal"
+      },
+      "temporal_persistence": {
+        "descriptor": "signed_interval_consistency",
+        "validation_status": "candidate",
+        "unit": "fraction_of_common_intervals"
+      }
+    }
+  },
+  "mas": {
+    "unit": "branch",
+    "candidate_blind": true,
+    "formula": "ordinal_agreement(action_signature, visual_response_signature)",
+    "requires": "a validated channel plus a real-only frozen action mapping",
+    "unavailable_if": ["no_native_action", "no_generated_future_video", "channel_not_validated"]
+  },
+  "rcs": {
+    "unit": "same_source_twin",
+    "candidate_blind": true,
+    "formula": "ordinal_agreement(Delta_visual_response, Delta_native_action)",
+    "common_mode_normalization": "within_source_robust_scale",
+    "temporal_requirement": "signed_persistence_across_intervals",
+    "unavailable_if": ["missing_symmetric_branch", "identity_or_zero_contrast", "channel_not_validated"]
+  },
+  "controls": ["normal_action", "reversed_action", "identity_swap", "zero_contrast"],
+  "adapter_policy": {
+    "model_specific_fields_allowed": ["orientation", "image_geometry", "flow_backend_fingerprint"],
+    "calibration_source": "logged_real_only",
+    "calibration_source_disjoint": true,
+    "frozen_before_confirmation": true,
+    "no_model_specific_thresholds": true
+  },
+  "promotion_gates": {
+    "coverage_min": 0.9,
+    "direction_ci95_lower_min": 0.75,
+    "minimum_architectures": 3,
+    "control_gate_required": true,
+    "source_level_bootstrap": true,
+    "natural_model_ranking": "not_claimed"
+  },
+  "missing_value_policy": "unavailable_never_zero_fill",
+  "claim_boundary": "This is an experimental response-signature contract. A channel becomes formal only after its own controls, calibration, and cross-architecture promotion pass. It does not prove future-to-action mediation."
+}

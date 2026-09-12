@@ -422,6 +422,16 @@ metric trajectory is `unavailable`. A downstream score must not treat those
 diagnostic fields as hidden components of MAS/RCS or infer a full-trajectory
 claim from a yaw score.
 
+To broaden Step 1 beyond the current yaw adapter, the repository now contains
+an experimental `Step1 Universal Response` contract. It uses same-source
+action contrasts, robust common-mode normalization, temporal persistence, and
+normal/reversed/identity/zero controls. It is deliberately not promoted yet:
+each channel must independently pass source-disjoint calibration, the 0.90
+coverage gate, the 0.75 bootstrap lower-bound gate, and confirmation on at least
+three architecture families. See
+[`docs/STEP1_UNIVERSAL_RESPONSE_DESIGN_ZH.md`](docs/STEP1_UNIVERSAL_RESPONSE_DESIGN_ZH.md)
+and [`configs/step1_universal_response_v1.json`](configs/step1_universal_response_v1.json).
+
 **GS：现实几何保真度分数（旧 FAU 组件）**
 
 GS 使用同源 logged future 作为外部参考，尺度只由 real-only calibration 冻结，
