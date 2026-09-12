@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -45,6 +45,23 @@ EXPECTED_PATHWAY_STATE = {
     "future_fixed_action_pathway_control": "fixed_action",
 }
 
+# Mediation is only meaningful for the model's own action pathway.  A logged
+# trajectory, oracle, candidate, or staging output is an evaluation reference
+# or an intermediate artifact, not a native action.  Reject these tokens even
+# when they are embedded in a longer source name (for example
+# ``staging_candidate``).
+FORBIDDEN_ACTION_SOURCE_TOKENS = (
+    "logged",
+    "oracle",
+    "proxy",
+    "candidate",
+    "staging",
+    "ground_truth",
+    "groundtruth",
+    "gt_",
+    "_gt",
+)
+
 
 def _vector(value: Any, field: str) -> np.ndarray:
     array = np.asarray(value, dtype=np.float64)
@@ -67,6 +84,26 @@ def _normalization(row: dict[str, Any]) -> tuple[str, np.ndarray]:
     if scale.ndim != 1 or not len(scale) or not np.all(np.isfinite(scale)) or np.any(scale <= 0.0):
         raise ValueError("action_normalization_scale_invalid")
     return fingerprint, scale
+
+
+def _native_provenance(row: dict[str, Any]) -> tuple[str, str]:
+    """Require explicit model identity and native action provenance."""
+    model_id = str(row.get("wam_model_id") or "").strip()
+    if not model_id:
+        raise ValueError("wam_model_id_required")
+    action_source = str(row.get("action_source") or "").strip()
+    native_action_source = str(row.get("native_action_source") or "").strip()
+    if action_source and native_action_source and action_source != native_action_source:
+        raise ValueError("native_action_source_mismatch")
+    source = action_source or native_action_source
+    if not source:
+        raise ValueError("native_action_source_required")
+    normalized = source.lower().replace("-", "_").replace(" ", "_")
+    if any(token in normalized for token in FORBIDDEN_ACTION_SOURCE_TOKENS):
+        raise ValueError("action_source_is_not_native")
+    if row.get("action_is_native") is False:
+        raise ValueError("action_is_native_required")
+    return model_id, source
 
 
 def _percentile_ci(values: np.ndarray, draws: int, seed: int) -> list[float] | None:
@@ -112,6 +149,24 @@ def score(
             continue
         if missing:
             pair.update({"status": "unavailable", "reason": "missing_conditions", "missing": missing})
+            pairs.append(pair)
+            continue
+        provenance: dict[str, tuple[str, str]] = {}
+        try:
+            for condition in CONDITIONS:
+                provenance[condition] = _native_provenance(group[condition])
+        except ValueError as error:
+            pair.update({"status": "unavailable", "reason": str(error)})
+            pairs.append(pair)
+            continue
+        model_ids = {item[0] for item in provenance.values()}
+        action_sources = {item[1] for item in provenance.values()}
+        if len(model_ids) != 1:
+            pair.update({"status": "unavailable", "reason": "wam_model_id_mismatch"})
+            pairs.append(pair)
+            continue
+        if len(action_sources) != 1:
+            pair.update({"status": "unavailable", "reason": "native_action_source_mismatch"})
             pairs.append(pair)
             continue
         metadata = {}
@@ -201,6 +256,8 @@ def score(
             "invariance": metadata,
             "future_fingerprints": future_fingerprints,
             "pathway_states": pathway_states,
+            "wam_model_id": next(iter(model_ids)),
+            "native_action_source": next(iter(action_sources)),
             "action_normalization": {
                 "fingerprint": next(iter(normalization_fingerprints)),
                 "scale": [float(value) for value in scale],
@@ -218,6 +275,7 @@ def score(
     blocked_array = np.asarray(blocked_effects, dtype=np.float64)
     suppression_array = np.asarray(suppressions, dtype=np.float64)
     specificity_array = np.asarray(specificity, dtype=np.float64)
+    status_counts = Counter(pair["status"] for pair in pairs)
     future_ci = _percentile_ci(future_array, draws, seed)
     suppression_ci = _percentile_ci(suppression_array, draws, seed + 2)
     specificity_ci = _percentile_ci(specificity_array, draws, seed + 3)
@@ -250,6 +308,19 @@ def score(
         "source_count": len(pairs),
         "scored_source_count": len(scored),
         "coverage": len(scored) / len(pairs) if pairs else None,
+        "status_counts": dict(status_counts),
+        "abstention_reasons": dict(Counter(
+            str(pair.get("reason") or "unspecified")
+            for pair in pairs
+            if pair["status"] in {"abstain", "weak"}
+        )),
+        "unavailable_reasons": dict(Counter(
+            str(pair.get("reason") or "unspecified")
+            for pair in pairs
+            if pair["status"] == "unavailable"
+        )),
+        "model_ids": sorted({pair["wam_model_id"] for pair in scored if pair.get("wam_model_id")}),
+        "native_action_sources": sorted({pair["native_action_source"] for pair in scored if pair.get("native_action_source")}),
         "future_effect_on_action": {
             "median": float(np.median(future_array)) if len(future_array) else None,
             "mean": float(np.mean(future_array)) if len(future_array) else None,

@@ -16,6 +16,8 @@ def _rows():
             "source_key": "s0",
             "condition": condition,
             "native_action": action,
+            "wam_model_id": "toy_wam",
+            "action_source": "native_action_head",
             "history_fingerprint": "h",
             "command_fingerprint": "c",
             "nuisance_seed": 1,
@@ -109,6 +111,27 @@ class FutureToActionMediationTest(unittest.TestCase):
         result = score(_rows(), draws=20, seed=7, calibration_source_keys={"s0"})
         self.assertEqual(result["scored_source_count"], 0)
         self.assertEqual(result["pairs"][0]["reason"], "source_in_calibration_split")
+
+    def test_model_identity_is_required(self):
+        rows = _rows()
+        rows[0].pop("wam_model_id")
+        result = score(rows, draws=20, seed=7)
+        self.assertEqual(result["status"], "unavailable")
+        self.assertEqual(result["pairs"][0]["reason"], "wam_model_id_required")
+
+    def test_mixed_model_identity_is_unavailable(self):
+        rows = _rows()
+        rows[2]["wam_model_id"] = "other_wam"
+        result = score(rows, draws=20, seed=7)
+        self.assertEqual(result["status"], "unavailable")
+        self.assertEqual(result["pairs"][0]["reason"], "wam_model_id_mismatch")
+
+    def test_non_native_action_provenance_is_unavailable(self):
+        rows = _rows()
+        rows[1]["action_source"] = "staging_candidate"
+        result = score(rows, draws=20, seed=7)
+        self.assertEqual(result["status"], "unavailable")
+        self.assertEqual(result["pairs"][0]["reason"], "action_source_is_not_native")
 
 
 if __name__ == "__main__":

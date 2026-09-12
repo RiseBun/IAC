@@ -125,6 +125,9 @@ source-disjoint 校准和身份置换控制。这些正式分数是结构/方向
 它要求只改变 future 的干预、以及屏蔽该路径后的复现，并严格保持 history、command、
 seed 和模型版本不变。在 source-disjoint 的 WAM 确认集通过预注册的路径抑制和特异性
 门槛之前，该通道记为 `unavailable`；MAS/RCS 不会被重新标注为因果证据。
+四个 condition 还必须声明相同的 `wam_model_id` 和明确的 native
+`action_source`；logged、oracle、proxy、candidate、staging 等轨迹会被拒绝。
+这样评测端提供的轨迹不能冒充“WAM 自己的动作路径响应了未来”。
 评分器还会核验干预身份：每个 condition 必须提供 future fingerprint 和 pathway
 state，并满足预注册的 baseline/perturbed、blocked/control 关系；仅修改 condition
 标签不能产生因果证据。每个 condition 还必须携带只在 calibration sources 上拟合、

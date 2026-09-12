@@ -14,8 +14,17 @@
     "same_history",
     "same_command",
     "same_nuisance_seed",
-    "same_model_revision"
+    "same_model_revision",
+    "same_wam_model_id",
+    "same_native_action_source"
   ],
+  "native_action_provenance_contract": {
+    "required_fields": ["wam_model_id", "action_source"],
+    "accepted_action_source_semantics": "native_action_head_or_equivalent_model_owned_action_path",
+    "forbidden_action_source_tokens": ["logged", "oracle", "proxy", "candidate", "staging", "ground_truth", "gt"],
+    "same_across_conditions": true,
+    "reason": "A trajectory supplied by an evaluator or staging pipeline cannot establish that the WAM action changed through its own future pathway."
+  },
   "action_normalization_contract": {
     "required_fields": [
       "action_normalization_fingerprint",

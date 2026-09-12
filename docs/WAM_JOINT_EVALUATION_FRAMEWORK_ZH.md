@@ -170,6 +170,12 @@ MAS-yaw = alignment(S_F, yaw_direction(P_A))
 没有这一步，论文措辞只能使用“action-state consistency”，不能使用“future-caused
 action generation”。
 
+另外，四个 intervention condition 必须来自同一个明确的 `wam_model_id` 和同一个
+native `action_source`。logged、oracle、proxy、candidate、staging 或评测端注入的
+轨迹都不是 mediation 证据；缺少这些 provenance 时，该 source 直接
+`unavailable`。这条门把“动作向量发生了变化”和“WAM 自己的 future-to-action
+路径发生了变化”严格区分开。
+
 ### 5.4 GS 与 FCS
 
 GS 继续使用 logged-GT-compatible 图像侧表示，衡量生成视觉未来是否接近外部

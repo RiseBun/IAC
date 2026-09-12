@@ -114,6 +114,10 @@ It requires a future-only perturbation and a pathway-blocked replica with the
 same history, command, seed and model revision. Until a source-disjoint WAM
 confirmation passes its preregistered suppression and specificity gates, the
 channel is `unavailable`; MAS/RCS scores are not relabelled as causal evidence.
+Every condition must also declare the same `wam_model_id` and explicit native
+`action_source`; logged, oracle, proxy, candidate and staging trajectories are
+rejected. This prevents an evaluator-supplied trajectory from being counted as
+evidence that the WAM's own action pathway responded to the future.
 The scorer also verifies intervention identity: every condition must carry a
 future fingerprint and pathway state satisfying the pre-registered
 baseline/perturbed and blocked/control relationships. A row label alone cannot
