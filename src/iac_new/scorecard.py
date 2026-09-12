@@ -141,14 +141,43 @@ def validate_submission(
     }
     public_ids.discard("")
     issues = []
+    sample_ids: dict[str, int] = {}
+    model_ids: set[str] = set()
+    capabilities: set[str] = set()
     for index, row in enumerate(rows):
         row_issues = validate_submission_row(row, public_ids=public_ids)
+        sample_id = str(row.get("sample_id") or row.get("source_key") or "")
+        if sample_id:
+            if sample_id in sample_ids:
+                row_issues.append(f"duplicate_sample_id:first_row_{sample_ids[sample_id]}")
+            else:
+                sample_ids[sample_id] = index
+        model_id = str(row.get("wam_model_id") or "")
+        capability = str(row.get("capability") or "")
+        if model_id:
+            model_ids.add(model_id)
+        if capability:
+            capabilities.add(capability)
         if row_issues:
             issues.append({
                 "row": index,
                 "sample_id": row.get("sample_id") or row.get("source_key"),
                 "issues": row_issues,
             })
+    if len(model_ids) > 1:
+        issues.append({
+            "row": -1,
+            "sample_id": None,
+            "issues": ["submission_mixes_multiple_wam_model_ids"],
+            "model_ids": sorted(model_ids),
+        })
+    if len(capabilities) > 1:
+        issues.append({
+            "row": -1,
+            "sample_id": None,
+            "issues": ["submission_mixes_multiple_capabilities"],
+            "capabilities": sorted(capabilities),
+        })
     pair_ids = {}
     for row in rows:
         group = str(row.get("counterfactual_group_id") or "")

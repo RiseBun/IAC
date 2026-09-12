@@ -75,6 +75,19 @@ class ScorecardTest(unittest.TestCase):
         self.assertFalse(bad["ready"])
         self.assertIn("sample_id_not_in_public_split", bad["issues"][0]["issues"])
 
+    def test_submission_rejects_duplicate_sample_ids(self) -> None:
+        report = validate_submission([_row(), _row()], [_public()])
+        self.assertFalse(report["ready"])
+        self.assertTrue(any("duplicate_sample_id" in issue for item in report["issues"] for issue in item["issues"]))
+
+    def test_submission_rejects_mixed_model_or_capability(self) -> None:
+        mixed_model = validate_submission([_row(), _row(wam_model_id="other")], [_public(), {**_public(), "sample_id": "navsim:demo:scene:2"}])
+        self.assertFalse(mixed_model["ready"])
+        self.assertTrue(any("submission_mixes_multiple_wam_model_ids" in issue for item in mixed_model["issues"] for issue in item["issues"]))
+        mixed_capability = validate_submission([_row(), _row(capability="action_only", sample_id="navsim:demo:scene:2")], [_public(), {**_public(), "sample_id": "navsim:demo:scene:2"}])
+        self.assertFalse(mixed_capability["ready"])
+        self.assertTrue(any("submission_mixes_multiple_capabilities" in issue for item in mixed_capability["issues"] for issue in item["issues"]))
+
     def test_logged_action_is_rejected_for_native_models(self) -> None:
         report = validate_submission([_row(action_source="logged")], [_public()])
         self.assertFalse(report["ready"])
