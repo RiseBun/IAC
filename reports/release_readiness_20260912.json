@@ -63,5 +63,13 @@
     "model_specific_metric_tuning": false,
     "validator": "tools/validate_metric_comparability.py"
   },
+  "public_replay": {
+    "gs_fixture": "datasets/public_gs_fixture_generated.jsonl",
+    "gs_reference_fixture": "datasets/public_gs_fixture_reference.jsonl",
+    "expected_report": "reports/gs_public_fixture_expected_20260912.json",
+    "status": "verified",
+    "scope": "implementation_and_missing_value_semantics_only",
+    "does_not_reproduce_private_benchmark_reference": true
+  },
   "release_boundary": "The package is publishable as a conditional consistency-and-grounding standard. It is not a complete causal future-driven benchmark until mediation confirmation and cross-model FCS are supplied."
 }

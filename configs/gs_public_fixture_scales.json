@@ -1,0 +1,7 @@
+{
+  "median_flow_magnitude_px": 1.0,
+  "horizontal_flow_center": 1.0,
+  "vertical_flow_center": 1.0,
+  "divergence": 1.0,
+  "curl": 1.0
+}

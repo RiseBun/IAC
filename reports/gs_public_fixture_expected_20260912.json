@@ -1,0 +1,15 @@
+{
+  "protocol": "iac-structural-grounding-score-v1",
+  "fixture": "datasets/public_gs_fixture_generated.jsonl",
+  "reference_fixture": "datasets/public_gs_fixture_reference.jsonl",
+  "expected": {
+    "status": "ok",
+    "source_count": 1,
+    "reference_only_source_count": 1,
+    "scored_source_count": 1,
+    "source_coverage": 1.0,
+    "score_median": 1.0
+  },
+  "purpose": "Public scorer replay fixture only; it is not a private benchmark reference or a leaderboard result.",
+  "missing_value_policy": "unavailable_never_zero_fill"
+}

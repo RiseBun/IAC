@@ -19,6 +19,9 @@
 | [`../tools/score_structural_grounding.py`](../tools/score_structural_grounding.py) | CLI | Recompute GS from generated and user-supplied reference flow-structure JSONL |
 | [`../tools/validate_metric_comparability.py`](../tools/validate_metric_comparability.py) | CLI | Fail-closed MAS/RCS adapter comparability contract check |
 | [`../reports/release_readiness_20260912.json`](../reports/release_readiness_20260912.json) | JSON | Machine-readable release claims, boundaries and pending evidence |
+| [`../datasets/public_gs_fixture_generated.jsonl`](../datasets/public_gs_fixture_generated.jsonl) | JSONL | Public GS scorer replay input (synthetic, not benchmark data) |
+| [`../datasets/public_gs_fixture_reference.jsonl`](../datasets/public_gs_fixture_reference.jsonl) | JSONL | Public GS scorer replay reference (synthetic, not logged GT) |
+| [`../reports/gs_public_fixture_expected_20260912.json`](../reports/gs_public_fixture_expected_20260912.json) | JSON | Expected public replay result and privacy boundary |
 | [`../reports/release_validation_20260912.json`](../reports/release_validation_20260912.json) | JSON | Output of the fail-closed release boundary validator |
 | [`../tools/validate_release_readiness.py`](../tools/validate_release_readiness.py) | CLI | Fail-closed check separating conditional release from complete causal release |
 | [`RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md`](RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md) | ZH | Remaining evidence required for causal/cross-model claims |

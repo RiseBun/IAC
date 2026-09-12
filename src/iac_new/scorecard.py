@@ -45,6 +45,38 @@ PROJECTION_GATED_CELLS = frozenset({
 })
 CANONICAL_COVERAGE_CELLS = frozenset({"mas", "rcs", "gs", "future_to_action_mediation"})
 
+# These boundaries are part of the output contract rather than documentation
+# only.  Downstream consumers must be able to distinguish an observed visual
+#/action relationship from a causal future-to-action claim without consulting
+# a second file or guessing from the cell name.
+CLAIM_BOUNDARIES = {
+    "mas": {
+        "evidence_type": "visual_action_consistency",
+        "causal_status": "not_mediation",
+        "scope": "directional_yaw_alignment_only",
+    },
+    "rcs": {
+        "evidence_type": "counterfactual_visual_action_response",
+        "causal_status": "not_mediation",
+        "scope": "directional_yaw_response_only",
+    },
+    "gs": {
+        "evidence_type": "external_future_grounding",
+        "causal_status": "not_mediation",
+        "scope": "generated_structure_vs_external_future",
+    },
+    "future_to_action_mediation": {
+        "evidence_type": "future_pathway_intervention",
+        "causal_status": "causal_only_if_promotion_passed",
+        "scope": "future_to_action_pathway_dependence",
+    },
+    "fcs": {
+        "evidence_type": "independent_execution",
+        "causal_status": "not_mediation",
+        "scope": "task_success_under_external_rollout",
+    },
+}
+
 # The benchmark is conditional by design: a WAM is not required to expose a
 # future-driven pathway in order to be evaluated on the channels it supports.
 # This metadata is emitted with every scorecard so consumers cannot mistake an
@@ -267,6 +299,8 @@ def build_model_scorecard(
         cell: _cell_from_measurement(measurements.get(cell), cell in claimed, cell)
         for cell in CELLS
     }
+    for cell, boundary in CLAIM_BOUNDARIES.items():
+        cells[cell].update(boundary)
     return {
         "scoring_policy": dict(CONDITIONAL_SCORING_POLICY),
         "ranking_policy": dict(RANKING_POLICY),

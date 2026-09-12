@@ -123,6 +123,22 @@ The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
 audited flow component.
 
+To verify the public scorer without private benchmark data, run the synthetic
+replay fixture:
+
+```bash
+python tools/score_structural_grounding.py \
+  --generated datasets/public_gs_fixture_generated.jsonl \
+  --reference datasets/public_gs_fixture_reference.jsonl \
+  --scales configs/gs_public_fixture_scales.json \
+  --output /tmp/gs_public_fixture.json
+```
+
+It should report one evaluated source, one reference-only source, coverage
+`1.0`, and median `1.0`. This verifies the public implementation and its
+missing-value semantics; it is deliberately not a substitute for the private
+logged-future reference used by the benchmark table.
+
 The machine-readable release boundary is recorded in
 [`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json):
 the package is publishable as a conditional consistency/grounding standard, but

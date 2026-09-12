@@ -50,6 +50,20 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 本发布版不宣称提出新的光流网络。创新点是围绕冻结、审计过的光流组件建立了防
 泄漏的测量和评分协议。
 
+为了让第三方不依赖私有数据也能复核 GS 评分器，仓库新增了一个合成回放 fixture：
+
+```bash
+python tools/score_structural_grounding.py \
+  --generated datasets/public_gs_fixture_generated.jsonl \
+  --reference datasets/public_gs_fixture_reference.jsonl \
+  --scales configs/gs_public_fixture_scales.json \
+  --output /tmp/gs_public_fixture.json
+```
+
+预期结果是 1 个待评估 source、1 个 reference-only source、coverage `1.0`、中位数
+`1.0`。这只能验证公开实现、缺失值和分母语义，不是私有 logged future，也不能替代
+公开榜单的参考分数。
+
 模型 adapter 只允许处理坐标方向/图像几何，不能改变 descriptor、deadband、聚合
 或晋级门槛；可用 [`tools/validate_metric_comparability.py`](tools/validate_metric_comparability.py)
 在挂载私有数据前做失败关闭检查。

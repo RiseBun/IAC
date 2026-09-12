@@ -47,6 +47,16 @@ class ScorecardTest(unittest.TestCase):
         self.assertEqual(card["ranking_policy"]["natural_model_quality_ranking"], "not_supported")
         self.assertEqual(card["ranking_policy"]["aggregate_across_capabilities"], "not_defined")
 
+    def test_canonical_cells_expose_claim_boundaries(self) -> None:
+        card = build_model_scorecard(model_id="x", capability="native_action_conditioned")
+        self.assertEqual(card["cells"]["mas"]["causal_status"], "not_mediation")
+        self.assertEqual(card["cells"]["rcs"]["causal_status"], "not_mediation")
+        self.assertEqual(card["cells"]["gs"]["causal_status"], "not_mediation")
+        self.assertEqual(
+            card["cells"]["future_to_action_mediation"]["causal_status"],
+            "causal_only_if_promotion_passed",
+        )
+
     def test_canonical_metric_coverage_aliases_are_normalized(self) -> None:
         card = build_model_scorecard(
             model_id="x",
