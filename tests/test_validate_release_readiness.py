@@ -56,6 +56,14 @@ class ReleaseReadinessTest(unittest.TestCase):
         self.assertIn("protocol:architecture_universal_claim_not_disabled", report["errors"])
         self.assertIn("protocol:universal_architecture_gate_not_met", report["errors"])
 
+    def test_yaw_claim_cannot_silently_add_metric_dimensions(self):
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
+        readiness["claims"]["rcs_yaw"]["measurement_dimensions"]["speed"] = "validated"
+        report = validate(readiness, protocol)
+        self.assertEqual(report["status"], "fail")
+        self.assertIn("rcs_yaw:measurement_dimension_boundary_missing_or_drifted", report["errors"])
+
 
 if __name__ == "__main__":
     unittest.main()

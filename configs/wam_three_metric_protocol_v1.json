@@ -29,6 +29,14 @@
         ],
         "models_passed": ["Epona", "DriveWAM"],
         "claim_boundary": "directional yaw alignment only; no metric speed, distance, lateral, or curvature claim"
+      },
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
       }
     },
     "response_consistency_score": {
@@ -49,6 +57,14 @@
         },
         "status": "passed",
         "claim_boundary": "directional yaw response only; pure-speed progress RCS remains diagnostic"
+      },
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
       }
     },
     "grounding_score": {

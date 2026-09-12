@@ -23,6 +23,14 @@ from typing import Any
 
 
 FORMAL_CLAIM_SCOPE = "two_model_protocol_validation_only"
+EXPECTED_YAW_DIMENSIONS = {
+    "yaw_direction": "validated",
+    "speed": "diagnostic_only",
+    "longitudinal_distance": "diagnostic_only",
+    "lateral_displacement": "diagnostic_only",
+    "curvature": "diagnostic_only",
+    "metric_trajectory": "unavailable",
+}
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -45,6 +53,8 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
             errors.append(f"{metric}:architecture_claim_scope_missing_or_overbroad")
         if claim.get("architecture_universal") is not False:
             errors.append(f"{metric}:architecture_universal_claim_not_disabled")
+        if metric in {"mas_yaw", "rcs_yaw"} and claim.get("measurement_dimensions") != EXPECTED_YAW_DIMENSIONS:
+            errors.append(f"{metric}:measurement_dimension_boundary_missing_or_drifted")
 
     architecture_policy = protocol.get("architecture_claim_policy") or {}
     if architecture_policy.get("formal_claim_scope") != FORMAL_CLAIM_SCOPE:

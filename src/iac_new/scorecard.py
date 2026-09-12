@@ -54,11 +54,27 @@ CLAIM_BOUNDARIES = {
         "evidence_type": "visual_action_consistency",
         "causal_status": "not_mediation",
         "scope": "directional_yaw_alignment_only",
+        "measurement_dimensions": {
+            "yaw_direction": "validated",
+            "speed": "diagnostic_only",
+            "longitudinal_distance": "diagnostic_only",
+            "lateral_displacement": "diagnostic_only",
+            "curvature": "diagnostic_only",
+            "metric_trajectory": "unavailable",
+        },
     },
     "rcs": {
         "evidence_type": "counterfactual_visual_action_response",
         "causal_status": "not_mediation",
         "scope": "directional_yaw_response_only",
+        "measurement_dimensions": {
+            "yaw_direction": "validated",
+            "speed": "diagnostic_only",
+            "longitudinal_distance": "diagnostic_only",
+            "lateral_displacement": "diagnostic_only",
+            "curvature": "diagnostic_only",
+            "metric_trajectory": "unavailable",
+        },
     },
     "gs": {
         "evidence_type": "external_future_grounding",

@@ -23,6 +23,14 @@
       "models": ["Epona", "DriveWAM"],
       "claim_scope": "two_model_protocol_validation_only",
       "architecture_universal": false,
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
+      },
       "scope": "candidate_blind directional yaw alignment",
       "not_claimed": ["metric distance", "speed", "lateral amplitude", "curvature", "future_to_action causality"]
     },
@@ -31,6 +39,14 @@
       "models": ["Epona", "DriveWAM"],
       "claim_scope": "two_model_protocol_validation_only",
       "architecture_universal": false,
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
+      },
       "scope": "same-source counterfactual yaw response",
       "not_claimed": ["future_to_action causality", "natural model quality ranking"]
     },

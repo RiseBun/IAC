@@ -415,6 +415,13 @@ Both models pass the frozen RCS-yaw gates.  Pure-speed progress RCS remains a
 separate diagnostic because its DriveWAM result is near chance; it is not
 silently folded into the yaw score.
 
+The dimension contract is explicit: the frozen MAS/RCS cells validate only
+ordinal yaw direction/response. Speed, longitudinal distance, lateral
+displacement, and curvature are still `diagnostic_only`, while a complete
+metric trajectory is `unavailable`. A downstream score must not treat those
+diagnostic fields as hidden components of MAS/RCS or infer a full-trajectory
+claim from a yaw score.
+
 **GS：现实几何保真度分数（旧 FAU 组件）**
 
 GS 使用同源 logged future 作为外部参考，尺度只由 real-only calibration 冻结，

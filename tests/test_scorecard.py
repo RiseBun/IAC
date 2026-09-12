@@ -65,6 +65,20 @@ class ScorecardTest(unittest.TestCase):
             "units_with_evidence_and_quality_gate_passed",
         )
 
+    def test_motion_dimension_boundary_is_explicit(self) -> None:
+        card = build_model_scorecard(
+            model_id="demo",
+            capability="externally_controlled_video",
+            measurements={"rcs": {"status": "pass", "coverage": 1.0, "score": 0.8}},
+        )
+        dimensions = card["cells"]["rcs"]["measurement_dimensions"]
+        self.assertEqual(dimensions["yaw_direction"], "validated")
+        self.assertEqual(dimensions["speed"], "diagnostic_only")
+        self.assertEqual(dimensions["longitudinal_distance"], "diagnostic_only")
+        self.assertEqual(dimensions["lateral_displacement"], "diagnostic_only")
+        self.assertEqual(dimensions["curvature"], "diagnostic_only")
+        self.assertEqual(dimensions["metric_trajectory"], "unavailable")
+
     def test_conditional_summary_excludes_abstention_from_score_but_not_coverage(self) -> None:
         report = summarize_conditional_units([
             {"status": "scored", "score": 1.0},

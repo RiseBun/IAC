@@ -18,8 +18,30 @@
   "claim_scope": "two_model_protocol_validation_only",
   "architecture_universal_claim": false,
   "formal_claims": {
-    "mas_yaw": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
-    "rcs_yaw": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
+    "mas_yaw": {
+      "models": ["Epona", "DriveWAM"],
+      "claim_enabled": true,
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
+      }
+    },
+    "rcs_yaw": {
+      "models": ["Epona", "DriveWAM"],
+      "claim_enabled": true,
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
+      }
+    },
     "gs": {"models": ["Epona", "DriveWAM"], "claim_enabled": true},
     "fcs": {"models": ["DriveWAM"], "claim_enabled": false, "reason": "cross_model_confirmation_pending", "cross_model_assessor": "tools/assess_fcs_cross_model.py", "readiness_report": "reports/fcs_cross_model_readiness_20260912.json", "rejected_staging_evidence": "closed_loop_recovered_20260829:missing_native_action_source_or_staging_provenance"},
     "future_to_action_mediation": {"models": [], "claim_enabled": false, "reason": "no formal four-condition confirmation"}
