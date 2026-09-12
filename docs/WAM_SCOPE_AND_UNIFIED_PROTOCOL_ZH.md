@@ -96,11 +96,11 @@ RCS     = ordinal_consistency(ΔP_F, ΔP_A)
 
 两条硬规则：
 
-1. `stop` 样本只用于停车识别与 coverage，不进入 CFAC 的运动平均值；转弯、制动、
+1. `stop` 样本只用于停车识别与 coverage，不进入 MAS 的运动平均值；转弯、制动、
    加速和巡航分别报告后再做分层汇总。
 2. 干预必须改变 WAM 的条件或输入，并重新生成 future visual 与 native action。
    评测端直接注入、覆盖或替换 action 的实验只能记为 action-response 诊断，不能
-   记为 CCFC。
+   记为 RCS（旧名 CCFC）。
 
 * 两侧 future 与 action 都随干预改变：报告 `RCS`（旧名 `CCFC`）；
 * 只有 future 表征改变 native action：报告 `F2A mechanism`；
