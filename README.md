@@ -200,6 +200,17 @@ logged-GT fidelity metric. The frozen protocol hash is unchanged; aggregate
 validation is recorded in `configs/flow_structure_yaw_v1_3_validation.json`.
 The off-the-shelf SEA-RAFT A/B is rejected.
 
+An independent pure-speed twin audit tested five candidate non-yaw descriptors
+(`horizontal_flow_center`, `vertical_flow_center`, `median_flow_magnitude_px`,
+`divergence`, and `curl`) against trajectory path-length swaps. Coverage was
+adequate (`94.9%` Epona, `100%` DriveWAM), but no descriptor passed the frozen
+promotion gate (two models, bootstrap direction lower bound `≥75%`). The best
+single-model result was Epona flow magnitude (`76.8%`, CI lower `64.2%`), while
+DriveWAM was near chance (`51.3%`). Progress/speed therefore remains diagnostic;
+this is evidence against the current representations, not proof that no
+decoder-free progress signal can ever be constructed. Details are in
+[`reports/progress_structure_pure_speed_audit_20260912.json`](reports/progress_structure_pure_speed_audit_20260912.json).
+
 An additional exploratory structural channel is defined in
 [`configs/flow_structure_counterfactual_delta_v1.json`](configs/flow_structure_counterfactual_delta_v1.json).
 

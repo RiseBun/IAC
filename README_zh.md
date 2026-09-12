@@ -160,6 +160,15 @@ S1.3 已被验证为跨 WAM 的 **action-response 测量器**，但不宣称能�
 质量排名或 logged-GT 保真度评分。冻结协议 SHA 不改写，聚合验证记录在
 `configs/flow_structure_yaw_v1_3_validation.json`；SEA-RAFT A/B 已否决。
 
+另做了独立 pure-speed twin 审计，比较五个非 yaw 结构量
+（`horizontal_flow_center`、`vertical_flow_center`、`median_flow_magnitude_px`、
+`divergence`、`curl`）能否识别快慢轨迹。覆盖率本身足够（Epona `94.9%`、
+DriveWAM `100%`），但没有任何量通过冻结的晋级门（至少两个模型，方向准确率
+bootstrap 下界 `≥75%`）。单模型最高是 Epona 的流幅度 `76.8%`（下界 `64.2%`），
+而 DriveWAM 只有 `51.3%`，接近随机。因此 progress/速度目前仍只能作 diagnostic；
+这是否定当前表示法的证据，不是否定一切无 decoder progress 信号的可能性。详见
+[`reports/progress_structure_pure_speed_audit_20260912.json`](reports/progress_structure_pure_speed_audit_20260912.json)。
+
 在此基础上，仓库另行提供实验性的结构反事实通道
 [`configs/flow_structure_counterfactual_delta_v1.json`](configs/flow_structure_counterfactual_delta_v1.json)。
 它只在同一 `source_key` 的左右分支上计算

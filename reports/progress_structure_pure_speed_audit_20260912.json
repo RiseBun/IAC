@@ -1,0 +1,43 @@
+{
+  "protocol": "iac-progress-structure-pure-speed-audit-v1",
+  "status": "completed_diagnostic",
+  "purpose": "Independent candidate-blind audit of non-yaw flow descriptors on pure-speed counterfactual twins.",
+  "dataset": {
+    "statistical_unit": "same-source speed twin",
+    "action_reference": "trajectory_path_length",
+    "minimum_action_delta_m": 0.5,
+    "models": {
+      "Epona": {
+        "source_pairs": 59,
+        "flow_artifact": "pure_speed_epona_confirmation_20260911"
+      },
+      "DriveWAM": {
+        "source_pairs": 86,
+        "flow_artifact": "pure_speed_drivewam_confirmation_20260911"
+      }
+    }
+  },
+  "promotion_gate": {
+    "pair_coverage_min": 0.9,
+    "direction_accuracy_ci95_lower_min": 0.75,
+    "minimum_models": 2
+  },
+  "results": {
+    "Epona": {
+      "horizontal_flow_center": {"coverage": 0.9492, "direction_accuracy": 0.5714, "ci95": [0.4414, 0.6923], "spearman": 0.0381, "promotion": "fail"},
+      "vertical_flow_center": {"coverage": 0.9492, "direction_accuracy": 0.6607, "ci95": [0.5300, 0.7708], "spearman": -0.2357, "promotion": "fail"},
+      "median_flow_magnitude_px": {"coverage": 0.9492, "direction_accuracy": 0.7679, "ci95": [0.6423, 0.8590], "spearman": -0.0373, "promotion": "fail"},
+      "divergence": {"coverage": 0.9492, "direction_accuracy": 0.6786, "ci95": [0.5482, 0.7860], "spearman": -0.1837, "promotion": "fail"},
+      "curl": {"coverage": 0.9492, "direction_accuracy": 0.5000, "ci95": [0.3733, 0.6267], "spearman": -0.2187, "promotion": "fail"}
+    },
+    "DriveWAM": {
+      "horizontal_flow_center": {"coverage": 1.0, "direction_accuracy": 0.4359, "ci95": [0.3314, 0.5464], "spearman": -0.0906, "promotion": "fail"},
+      "vertical_flow_center": {"coverage": 1.0, "direction_accuracy": 0.5641, "ci95": [0.4536, 0.6686], "spearman": -0.1226, "promotion": "fail"},
+      "median_flow_magnitude_px": {"coverage": 1.0, "direction_accuracy": 0.5128, "ci95": [0.4039, 0.6205], "spearman": 0.0984, "promotion": "fail"},
+      "divergence": {"coverage": 1.0, "direction_accuracy": 0.5385, "ci95": [0.4286, 0.6447], "spearman": 0.0358, "promotion": "fail"},
+      "curl": {"coverage": 1.0, "direction_accuracy": 0.4615, "ci95": [0.3553, 0.5714], "spearman": 0.0333, "promotion": "fail"}
+    }
+  },
+  "decision": "No non-yaw flow descriptor passes the preregistered independent pure-speed promotion gate. Coverage is adequate, but ordering is model-dependent and confidence intervals do not establish a robust cross-model progress signal.",
+  "claim_boundary": "This is evidence against promoting the current descriptors to primary progress or speed scoring; it does not prove that no visual progress signal exists with a different representation or backbone. MAS/RCS remain directional-yaw structural metrics, while progress and metric trajectory reconstruction remain diagnostic."
+}
