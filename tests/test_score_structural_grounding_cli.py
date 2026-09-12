@@ -1,9 +1,15 @@
+import json
 import unittest
+from pathlib import Path
 
 from tools.score_structural_grounding import score
 
 
 class StructuralGroundingCliTest(unittest.TestCase):
+    def test_public_scales_use_log1p_domain_for_flow_magnitude(self) -> None:
+        scales = json.loads((Path(__file__).parents[1] / "configs" / "gs_descriptor_scales.json").read_text(encoding="utf-8"))
+        self.assertAlmostEqual(scales["median_flow_magnitude_px"], 0.6025444157006848)
+
     def test_scores_and_bootstraps_user_supplied_reference(self) -> None:
         scales = {
             "median_flow_magnitude_px": 1.0,

@@ -349,7 +349,8 @@ GS 的 source-disjoint generated calibration 为 `230` 个分支，coverage `98.
 
 GS 的重算入口是
 [`tools/score_structural_grounding.py`](tools/score_structural_grounding.py)。它接收
-生成流结构 JSONL、外部参考未来 JSONL 和冻结的 descriptor scales；参考未来可以由
+生成流结构 JSONL、外部参考未来 JSONL 和冻结的 descriptor scales（流幅度尺度在
+`log1p` 域）；参考未来可以由
 评测方保留在私有环境，缺失 interval 会记为 `unavailable`，绝不会用零填充。因而
 协议和代码可独立复现，公开仓库仍不泄露 NAVSIM/Waymo 图像或 GT。
 
