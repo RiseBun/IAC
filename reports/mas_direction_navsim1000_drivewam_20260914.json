@@ -1,0 +1,413 @@
+{
+  "protocol": "iac-whole-clip-yaw-confidence-audit-v1",
+  "visual_backend": "raft_large_full_benchmark_v3_moving_only",
+  "confidence_definition": "abs(abs(oriented_endpoint_yaw)-real_fitted_deadband)/real_fitted_deadband",
+  "confidence_is_action_blind": true,
+  "logged_real": {
+    "records": 950,
+    "declared_records_before_motion_eligibility": 1000,
+    "available": 924,
+    "base": {
+      "scored": 924,
+      "absolute_coverage": 0.9726315789473684,
+      "accuracy": 0.7943722943722944,
+      "macro_accuracy": 0.7880590420404451,
+      "per_class": {
+        "left": {
+          "n": 414,
+          "accuracy": 0.8285024154589372
+        },
+        "right": {
+          "n": 248,
+          "accuracy": 0.8104838709677419
+        },
+        "straight": {
+          "n": 262,
+          "accuracy": 0.7251908396946565
+        }
+      },
+      "wilson_ci95": [
+        0.7671195562767671,
+        0.8191875060218236
+      ],
+      "minimum_confidence": 0.006388778743613274
+    },
+    "selective_curve": [
+      {
+        "scored": 924,
+        "absolute_coverage": 0.9726315789473684,
+        "accuracy": 0.7943722943722944,
+        "macro_accuracy": 0.7880590420404451,
+        "per_class": {
+          "left": {
+            "n": 414,
+            "accuracy": 0.8285024154589372
+          },
+          "right": {
+            "n": 248,
+            "accuracy": 0.8104838709677419
+          },
+          "straight": {
+            "n": 262,
+            "accuracy": 0.7251908396946565
+          }
+        },
+        "wilson_ci95": [
+          0.7671195562767671,
+          0.8191875060218236
+        ],
+        "minimum_confidence": 0.006388778743613274,
+        "retained_fraction_of_available": 1.0
+      },
+      {
+        "scored": 831,
+        "absolute_coverage": 0.8747368421052631,
+        "accuracy": 0.8303249097472925,
+        "macro_accuracy": 0.8211276716865911,
+        "per_class": {
+          "left": {
+            "n": 380,
+            "accuracy": 0.8710526315789474
+          },
+          "right": {
+            "n": 225,
+            "accuracy": 0.8666666666666667
+          },
+          "straight": {
+            "n": 226,
+            "accuracy": 0.7256637168141593
+          }
+        },
+        "wilson_ci95": [
+          0.8032983991707296,
+          0.8543114909460396
+        ],
+        "minimum_confidence": 0.361854437053498,
+        "retained_fraction_of_available": 0.8993506493506493
+      },
+      {
+        "scored": 739,
+        "absolute_coverage": 0.7778947368421053,
+        "accuracy": 0.8538565629228687,
+        "macro_accuracy": 0.8320756605474425,
+        "per_class": {
+          "left": {
+            "n": 364,
+            "accuracy": 0.8956043956043956
+          },
+          "right": {
+            "n": 209,
+            "accuracy": 0.9138755980861244
+          },
+          "straight": {
+            "n": 166,
+            "accuracy": 0.6867469879518072
+          }
+        },
+        "wilson_ci95": [
+          0.8265580073749255,
+          0.8774953189301171
+        ],
+        "minimum_confidence": 0.6089582647977256,
+        "retained_fraction_of_available": 0.7997835497835498
+      },
+      {
+        "scored": 646,
+        "absolute_coverage": 0.68,
+        "accuracy": 0.8761609907120743,
+        "macro_accuracy": 0.80728645680102,
+        "per_class": {
+          "left": {
+            "n": 345,
+            "accuracy": 0.9333333333333333
+          },
+          "right": {
+            "n": 198,
+            "accuracy": 0.9545454545454546
+          },
+          "straight": {
+            "n": 103,
+            "accuracy": 0.5339805825242718
+          }
+        },
+        "wilson_ci95": [
+          0.848514019225065,
+          0.8993607022215676
+        ],
+        "minimum_confidence": 0.8392709549665539,
+        "retained_fraction_of_available": 0.6991341991341992
+      },
+      {
+        "scored": 554,
+        "absolute_coverage": 0.5831578947368421,
+        "accuracy": 0.9097472924187726,
+        "macro_accuracy": 0.6524545287326474,
+        "per_class": {
+          "left": {
+            "n": 326,
+            "accuracy": 0.9785276073619632
+          },
+          "right": {
+            "n": 189,
+            "accuracy": 0.9788359788359788
+          },
+          "straight": {
+            "n": 39,
+            "accuracy": 0.0
+          }
+        },
+        "wilson_ci95": [
+          0.8829803937343377,
+          0.9308709126203023
+        ],
+        "minimum_confidence": 1.161038351290161,
+        "retained_fraction_of_available": 0.5995670995670995
+      },
+      {
+        "scored": 462,
+        "absolute_coverage": 0.4863157894736842,
+        "accuracy": 0.9696969696969697,
+        "macro_accuracy": 0.6622923825887743,
+        "per_class": {
+          "left": {
+            "n": 291,
+            "accuracy": 0.993127147766323
+          },
+          "right": {
+            "n": 160,
+            "accuracy": 0.99375
+          },
+          "straight": {
+            "n": 11,
+            "accuracy": 0.0
+          }
+        },
+        "wilson_ci95": [
+          0.9497826138759781,
+          0.9818648206368222
+        ],
+        "minimum_confidence": 3.6401298219256097,
+        "retained_fraction_of_available": 0.5
+      },
+      {
+        "scored": 369,
+        "absolute_coverage": 0.38842105263157894,
+        "accuracy": 0.983739837398374,
+        "macro_accuracy": 0.6666666666666666,
+        "per_class": {
+          "left": {
+            "n": 239,
+            "accuracy": 1.0
+          },
+          "right": {
+            "n": 124,
+            "accuracy": 1.0
+          },
+          "straight": {
+            "n": 6,
+            "accuracy": 0.0
+          }
+        },
+        "wilson_ci95": [
+          0.9649844789548415,
+          0.9925270626242496
+        ],
+        "minimum_confidence": 7.927000986587909,
+        "retained_fraction_of_available": 0.39935064935064934
+      },
+      {
+        "scored": 277,
+        "absolute_coverage": 0.29157894736842105,
+        "accuracy": 1.0,
+        "macro_accuracy": 1.0,
+        "per_class": {
+          "left": {
+            "n": 191,
+            "accuracy": 1.0
+          },
+          "right": {
+            "n": 86,
+            "accuracy": 1.0
+          },
+          "straight": {
+            "n": 0,
+            "accuracy": null
+          }
+        },
+        "wilson_ci95": [
+          0.9863216106452903,
+          1.0
+        ],
+        "minimum_confidence": 14.466043031520783,
+        "retained_fraction_of_available": 0.29978354978354976
+      },
+      {
+        "scored": 184,
+        "absolute_coverage": 0.1936842105263158,
+        "accuracy": 1.0,
+        "macro_accuracy": 1.0,
+        "per_class": {
+          "left": {
+            "n": 125,
+            "accuracy": 1.0
+          },
+          "right": {
+            "n": 59,
+            "accuracy": 1.0
+          },
+          "straight": {
+            "n": 0,
+            "accuracy": null
+          }
+        },
+        "wilson_ci95": [
+          0.9795494623774134,
+          0.9999999999999999
+        ],
+        "minimum_confidence": 22.587205680644665,
+        "retained_fraction_of_available": 0.19913419913419914
+      }
+    ],
+    "largest_gate_with_wilson_lower_at_least_0_75": {
+      "scored": 924,
+      "absolute_coverage": 0.9726315789473684,
+      "accuracy": 0.7943722943722944,
+      "macro_accuracy": 0.7880590420404451,
+      "per_class": {
+        "left": {
+          "n": 414,
+          "accuracy": 0.8285024154589372
+        },
+        "right": {
+          "n": 248,
+          "accuracy": 0.8104838709677419
+        },
+        "straight": {
+          "n": 262,
+          "accuracy": 0.7251908396946565
+        }
+      },
+      "wilson_ci95": [
+        0.7671195562767671,
+        0.8191875060218236
+      ],
+      "minimum_confidence": 0.006388778743613274
+    },
+    "nested_selective_validation": {
+      "scored": 922,
+      "absolute_coverage": 0.9705263157894737,
+      "accuracy": 0.7960954446854663,
+      "macro_accuracy": 0.7898214988190541,
+      "per_class": {
+        "left": {
+          "n": 413,
+          "accuracy": 0.8305084745762712
+        },
+        "right": {
+          "n": 247,
+          "accuracy": 0.8137651821862348
+        },
+        "straight": {
+          "n": 262,
+          "accuracy": 0.7251908396946565
+        }
+      },
+      "wilson_ci95": [
+        0.7688855389528035,
+        0.820848259202527
+      ],
+      "minimum_confidence": 0.021882109294167545
+    },
+    "split_sensitivity": {
+      "repeats": 30,
+      "base_accuracy_q025_q50_q975": [
+        0.7916125541125542,
+        0.8003246753246753,
+        0.8087391774891775
+      ],
+      "nested_coverage_q025_q50_q975": [
+        0.9681315789473685,
+        0.9715789473684211,
+        0.9726315789473684
+      ],
+      "nested_gate_success_fraction": 1.0,
+      "nested_accuracy_q025_q50_q975": [
+        0.7921458822867273,
+        0.8008658008658008,
+        0.8085887117577258
+      ]
+    }
+  },
+  "frozen_adapter": {
+    "orientation": 1,
+    "visual_deadband": 0.0043629014940233905,
+    "action_deadband": 0.012,
+    "fit_macro_accuracy": 0.8015225539983845,
+    "fit_accuracy": 0.8095238095238095
+  },
+  "drivewam_generated": {
+    "records": 510,
+    "declared_records_before_motion_eligibility": 510,
+    "available": 494,
+    "base": {
+      "scored": 494,
+      "absolute_coverage": 0.9686274509803922,
+      "accuracy": 0.7793522267206477,
+      "macro_accuracy": 0.787739688683085,
+      "per_class": {
+        "left": {
+          "n": 212,
+          "accuracy": 0.7594339622641509
+        },
+        "right": {
+          "n": 126,
+          "accuracy": 0.873015873015873
+        },
+        "straight": {
+          "n": 156,
+          "accuracy": 0.7307692307692307
+        }
+      },
+      "wilson_ci95": [
+        0.7407063100768023,
+        0.8136870517251644
+      ],
+      "minimum_confidence": 0.004342833416573073
+    },
+    "base_source_bootstrap_ci95": [
+      0.7333333333333333,
+      0.8215686274509804
+    ],
+    "at_real_frozen_confidence_gate": {
+      "scored": 493,
+      "absolute_coverage": 0.9666666666666667,
+      "accuracy": 0.7789046653144016,
+      "macro_accuracy": 0.7874010643444606,
+      "per_class": {
+        "left": {
+          "n": 212,
+          "accuracy": 0.7594339622641509
+        },
+        "right": {
+          "n": 125,
+          "accuracy": 0.872
+        },
+        "straight": {
+          "n": 156,
+          "accuracy": 0.7307692307692307
+        }
+      },
+      "wilson_ci95": [
+        0.7401948088390591,
+        0.8133016740284167
+      ],
+      "minimum_confidence": 0.009854072790327231
+    },
+    "at_gate_source_bootstrap_ci95": [
+      0.7333333333333333,
+      0.8215686274509804
+    ],
+    "interpretation": "visual/native-action alignment, not visual ground-truth accuracy"
+  },
+  "claim_boundary": "diagnostic selective semantic-yaw reader; stop and complete trajectory remain unavailable"
+}

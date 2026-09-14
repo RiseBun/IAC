@@ -1,0 +1,96 @@
+{
+  "protocol": "iac-flow-token-mas-rcs-v1",
+  "date": "2026-09-14",
+  "reader": {
+    "backend": "torchvision-RAFT-Large",
+    "calibration_domain": "NAVSIM logged-real only",
+    "candidate_blind": true,
+    "metric_reconstruction_used": false,
+    "tokens": ["stop", "left", "right", "straight"]
+  },
+  "navsim_logged_real_validation": {
+    "sources": 1000,
+    "coverage": 0.974,
+    "accuracy": 0.8049281314168378,
+    "accuracy_ci95": [0.7788648837259597, 0.8285955533845528],
+    "macro_accuracy": 0.841044281530334,
+    "per_class_recall": {
+      "stop": {"n": 50, "recall": 1.0},
+      "left": {"n": 414, "recall": 0.8285024154589372},
+      "right": {"n": 248, "recall": 0.8104838709677419},
+      "straight": {"n": 262, "recall": 0.7251908396946565}
+    },
+    "source_report": "reports/mas_direction_stop_navsim1000_drivewam_20260914.json"
+  },
+  "wam_generated_confirmation": {
+    "DriveWAM": {
+      "branches": 510,
+      "declared_pairs": 255,
+      "mas_direction_coverage": 0.9686274509803922,
+      "mas_direction_alignment": 0.7793522267206477,
+      "rcs_measurement_pair_coverage": 0.9372549019607843,
+      "rcs_material_pairs": 150,
+      "rcs_scored_pairs": 138,
+      "rcs_direction": 0.8623188405797102,
+      "rcs_source_bootstrap_ci95": [0.8043478260869565, 0.9130434782608695],
+      "rcs_reversed_action_control": 0.13768115942028986,
+      "status": "directional_rcs_pass",
+      "source_report": "reports/flow_token_drivewam_pair_20260914.json"
+    },
+    "Epona": {
+      "branches": 348,
+      "declared_pairs": 174,
+      "mas_direction_coverage": 0.9540229885057471,
+      "mas_direction_alignment": 0.7771084337349398,
+      "rcs_measurement_pair_coverage": 0.9425287356321839,
+      "rcs_material_pairs": 106,
+      "rcs_scored_pairs": 99,
+      "rcs_direction": 0.9191919191919192,
+      "rcs_source_bootstrap_ci95": [0.8585858585858586, 0.9696969696969697],
+      "rcs_reversed_action_control": 0.08080808080808081,
+      "status": "directional_rcs_pass",
+      "source_report": "reports/flow_token_epona_pair_20260914.json"
+    },
+    "DriveVA": {
+      "branches": 100,
+      "declared_pairs": 50,
+      "generation_seed_contract": "verified_same_actual_seed_within_each_pair",
+      "mas_direction_coverage": 0.88,
+      "mas_direction_alignment": 0.6022727272727273,
+      "rcs_measurement_pair_coverage": 0.82,
+      "rcs_material_pairs": 37,
+      "rcs_scored_pairs": 31,
+      "rcs_direction": 0.8387096774193549,
+      "rcs_source_bootstrap_ci95": [0.7096774193548387, 0.967741935483871],
+      "rcs_reversed_action_control": 0.16129032258064516,
+      "status": "third_architecture_signal_but_promotion_failed_ci_and_coverage",
+      "source_report": "reports/flow_token_driveva_pair_seedfixed_20260914.json"
+    },
+    "WorldDrive": {
+      "branches": 20,
+      "declared_pairs": 10,
+      "mas_direction_coverage": 1.0,
+      "mas_direction_alignment": 1.0,
+      "rcs_measurement_pair_coverage": 1.0,
+      "rcs_material_pairs": 10,
+      "rcs_scored_pairs": 10,
+      "rcs_direction": 1.0,
+      "rcs_wilson_ci95": [0.7224672001371107, 0.9999999999999999],
+      "rcs_reversed_action_control": 0.0,
+      "status": "smoke_only_selected_strong_turn_pairs_insufficient_n",
+      "source_report": "reports/flow_token_worlddrive_pair_smoke10_20260914.json"
+    }
+  },
+  "wam_stop_status": {
+    "status": "unavailable",
+    "reason": "The evaluated WAM pair sets contain no valid stop-versus-moving intervention pairs. Moving-only agreement is not a balanced stop score."
+  },
+  "comparability": {
+    "warning": "Model rows are protocol-comparable but not all source-pool matched. Do not use point estimates as a strict model leaderboard.",
+    "DriveWAM_Epona_common_sources": 174,
+    "DriveWAM_DriveVA_common_sources": 22,
+    "Epona_DriveVA_common_sources": 18,
+    "WorldDrive": "selected 10-pair smoke set"
+  },
+  "claim_boundary": "NAVSIM values are visual-reader accuracy. WAM MAS values are single-branch visual/native-action alignment. WAM RCS values are same-source differential response consistency. None proves future-to-action causal mediation."
+}

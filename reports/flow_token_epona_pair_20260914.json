@@ -1,0 +1,141 @@
+{
+  "protocol": "iac-flow-token-mas-rcs-v1",
+  "model_id": "Epona",
+  "candidate_blind": true,
+  "records": 348,
+  "MAS": {
+    "direction": {
+      "scored": 332,
+      "declared": 348,
+      "coverage": 0.9540229885057471,
+      "score": 0.7771084337349398,
+      "wilson_ci95": [
+        0.7293149436690559,
+        0.8185626192920962
+      ],
+      "source_bootstrap_ci95": [
+        0.7232142857142857,
+        0.8273809523809523
+      ]
+    },
+    "stop": {
+      "scored": 344,
+      "declared": 348,
+      "coverage": 0.9885057471264368,
+      "score": 0.9796511627906976,
+      "wilson_ci95": [
+        0.9585992529291837,
+        0.9901088197623723
+      ],
+      "source_bootstrap_ci95": [
+        0.9568965517241379,
+        0.9971264367816092
+      ],
+      "action_class_counts": {
+        "moving": 348
+      },
+      "balanced_accuracy": null,
+      "per_class": {
+        "stop": {
+          "n": 0,
+          "recall": null,
+          "wilson_ci95": null
+        },
+        "moving": {
+          "n": 344,
+          "recall": 0.9796511627906976,
+          "wilson_ci95": [
+            0.9585992529291837,
+            0.9901088197623723
+          ]
+        }
+      },
+      "status": "diagnostic_insufficient_action_class_diversity"
+    },
+    "joint": {
+      "scored": 339,
+      "declared": 348,
+      "coverage": 0.9741379310344828,
+      "score": 0.7610619469026548,
+      "wilson_ci95": [
+        0.7129029055967613,
+        0.8033707113947324
+      ],
+      "source_bootstrap_ci95": [
+        0.7034883720930233,
+        0.811046511627907
+      ],
+      "macro_accuracy": null,
+      "per_class": {
+        "stop": {
+          "n": 0,
+          "recall": null,
+          "wilson_ci95": null
+        },
+        "left": {
+          "n": 134,
+          "recall": 0.7611940298507462,
+          "wilson_ci95": [
+            0.6823684881170146,
+            0.8254613085122918
+          ]
+        },
+        "right": {
+          "n": 94,
+          "recall": 0.8723404255319149,
+          "wilson_ci95": [
+            0.790001273429011,
+            0.9254418612474983
+          ]
+        },
+        "straight": {
+          "n": 111,
+          "recall": 0.6666666666666666,
+          "wilson_ci95": [
+            0.5746946734715813,
+            0.7474886249639546
+          ]
+        }
+      },
+      "status": "diagnostic_incomplete_class_support"
+    }
+  },
+  "RCS": {
+    "declared_pairs": 174,
+    "direction": {
+      "scored": 99,
+      "declared": 174,
+      "coverage": 0.5689655172413793,
+      "score": 0.9191919191919192,
+      "wilson_ci95": [
+        0.8485819115773596,
+        0.9584855974970883
+      ],
+      "source_bootstrap_ci95": [
+        0.8585858585858586,
+        0.9696969696969697
+      ],
+      "measurement_pair_coverage": 0.9425287356321839,
+      "material_action_pairs": 106,
+      "score_coverage_within_material_pairs": 0.9339622641509434,
+      "effective_score_coverage_over_declared_pairs": 0.5689655172413793,
+      "reversed_action_score": 0.08080808080808081,
+      "constructed_self_pair_zero_control_false_response_rate": 0.0
+    },
+    "stop": {
+      "scored": 0,
+      "declared": 174,
+      "coverage": 0.0,
+      "score": null,
+      "wilson_ci95": null,
+      "source_bootstrap_ci95": null,
+      "eligible_stop_move_pairs": 0,
+      "status": "unavailable_insufficient_stop_move_pairs"
+    },
+    "pair_exclusion_reasons": {
+      "nonmaterial_action_yaw_delta": 68
+    },
+    "claim_boundary": "same-source action/visual response consistency; not future-to-action mediation"
+  },
+  "frozen_config": "mas_direction_stop_pilot_v1.json"
+}

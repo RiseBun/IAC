@@ -1,0 +1,993 @@
+{
+  "protocol": "iac-mas-stop-token-pilot-v1",
+  "definition": "stop iff the supplied trajectory remains within stop_radius_m of the origin over the four-second future",
+  "stop_radius_m": 0.25,
+  "candidate_blind": true,
+  "metric_reconstruction_used": false,
+  "logged_real": {
+    "records": 1000,
+    "label_counts": {
+      "moving": 950,
+      "stop": 50
+    },
+    "nested_source_disjoint": {
+      "scored": 994,
+      "coverage": 0.994,
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "classes": {
+        "stop": {
+          "n": 50,
+          "recall": 1.0,
+          "wilson_ci95": [
+            0.9286524008666414,
+            1.0
+          ]
+        },
+        "moving": {
+          "n": 944,
+          "recall": 1.0,
+          "wilson_ci95": [
+            0.9959471504596628,
+            1.0
+          ]
+        }
+      },
+      "wilson_ci95": [
+        0.9961502312950253,
+        0.9999999999999999
+      ]
+    },
+    "controls": {
+      "always_moving_balanced_accuracy": 0.5,
+      "always_stop_balanced_accuracy": 0.5,
+      "identity_shuffle_balanced_accuracy_mean": 0.5000659099576271,
+      "identity_shuffle_q95": 0.5261652542372881
+    },
+    "selective_curve_exploratory": [
+      {
+        "scored": 994,
+        "coverage": 0.994,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "classes": {
+          "stop": {
+            "n": 50,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9286524008666414,
+              1.0
+            ]
+          },
+          "moving": {
+            "n": 944,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9959471504596628,
+              1.0
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9961502312950253,
+          0.9999999999999999
+        ],
+        "minimum_confidence": 0.24329917988137112
+      },
+      {
+        "scored": 894,
+        "coverage": 0.894,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "classes": {
+          "stop": {
+            "n": 13,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.7719046276458016,
+              0.9999999999999999
+            ]
+          },
+          "moving": {
+            "n": 881,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.995658590832968,
+              1.0
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9957214508386147,
+          1.0
+        ],
+        "minimum_confidence": 3.2333701887922626
+      },
+      {
+        "scored": 795,
+        "coverage": 0.795,
+        "accuracy": 1.0,
+        "balanced_accuracy": null,
+        "classes": {
+          "stop": {
+            "n": 0,
+            "recall": null,
+            "wilson_ci95": null
+          },
+          "moving": {
+            "n": 795,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9951912125012075,
+              1.0
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9951912125012075,
+          1.0
+        ],
+        "minimum_confidence": 3.8991008936532867
+      },
+      {
+        "scored": 695,
+        "coverage": 0.695,
+        "accuracy": 1.0,
+        "balanced_accuracy": null,
+        "classes": {
+          "stop": {
+            "n": 0,
+            "recall": null,
+            "wilson_ci95": null
+          },
+          "moving": {
+            "n": 695,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.994503103998471,
+              0.9999999999999999
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.994503103998471,
+          0.9999999999999999
+        ],
+        "minimum_confidence": 4.270027081075466
+      },
+      {
+        "scored": 596,
+        "coverage": 0.596,
+        "accuracy": 1.0,
+        "balanced_accuracy": null,
+        "classes": {
+          "stop": {
+            "n": 0,
+            "recall": null,
+            "wilson_ci95": null
+          },
+          "moving": {
+            "n": 596,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9935958764366729,
+              1.0
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9935958764366729,
+          1.0
+        ],
+        "minimum_confidence": 4.503753791259202
+      },
+      {
+        "scored": 497,
+        "coverage": 0.497,
+        "accuracy": 1.0,
+        "balanced_accuracy": null,
+        "classes": {
+          "stop": {
+            "n": 0,
+            "recall": null,
+            "wilson_ci95": null
+          },
+          "moving": {
+            "n": 497,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9923299903531562,
+              1.0000000000000002
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9923299903531562,
+          1.0000000000000002
+        ],
+        "minimum_confidence": 4.714940716916367
+      }
+    ],
+    "outer_choices": [
+      {
+        "outer_fold": 0,
+        "feature": "median_q25",
+        "adapter": {
+          "feature": "median_q25",
+          "threshold": 0.3415493436041298,
+          "balanced_accuracy": 1.0,
+          "accuracy": 1.0
+        },
+        "inner_reports": {
+          "max_q25": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 0.9962264150943396,
+            "balanced_accuracy": 0.9861754966887417,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 0.975,
+                "wilson_ci95": [
+                  0.8711863103652591,
+                  0.9955731684973186
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 0.9973509933774835,
+                "wilson_ci95": [
+                  0.9903932927382404,
+                  0.9992732459971625
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9889645069755377,
+              0.9987158284501889
+            ]
+          },
+          "median_q25": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9949377320176155,
+                  1.0000000000000002
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9951912125012075,
+              1.0
+            ]
+          },
+          "max_median": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 0.9924528301886792,
+            "balanced_accuracy": 0.9841887417218542,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 0.975,
+                "wilson_ci95": [
+                  0.8711863103652591,
+                  0.9955731684973186
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 0.9933774834437086,
+                "wilson_ci95": [
+                  0.9845917121251376,
+                  0.9971680366869463
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9836328510911811,
+              0.9965366072590647
+            ]
+          },
+          "median_median": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9949377320176155,
+                  1.0000000000000002
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9951912125012075,
+              1.0
+            ]
+          }
+        }
+      },
+      {
+        "outer_fold": 1,
+        "feature": "median_q25",
+        "adapter": {
+          "feature": "median_q25",
+          "threshold": 0.3499685357208374,
+          "balanced_accuracy": 1.0,
+          "accuracy": 1.0
+        },
+        "inner_reports": {
+          "max_q25": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 0.9962264150943396,
+            "balanced_accuracy": 0.9861754966887417,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 0.975,
+                "wilson_ci95": [
+                  0.8711863103652591,
+                  0.9955731684973186
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 0.9973509933774835,
+                "wilson_ci95": [
+                  0.9903932927382404,
+                  0.9992732459971625
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9889645069755377,
+              0.9987158284501889
+            ]
+          },
+          "median_q25": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9949377320176155,
+                  1.0000000000000002
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9951912125012075,
+              1.0
+            ]
+          },
+          "max_median": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 0.9849056603773585,
+            "balanced_accuracy": 0.9802152317880795,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 0.975,
+                "wilson_ci95": [
+                  0.8711863103652591,
+                  0.9955731684973186
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 0.9854304635761589,
+                "wilson_ci95": [
+                  0.9741007096542935,
+                  0.991845459311153
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9738030384679026,
+              0.9913446657313816
+            ]
+          },
+          "median_median": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9949377320176155,
+                  1.0000000000000002
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9951912125012075,
+              1.0
+            ]
+          }
+        }
+      },
+      {
+        "outer_fold": 2,
+        "feature": "median_q25",
+        "adapter": {
+          "feature": "median_q25",
+          "threshold": 0.37648879538756014,
+          "balanced_accuracy": 1.0,
+          "accuracy": 1.0
+        },
+        "inner_reports": {
+          "max_q25": {
+            "scored": 797,
+            "coverage": 0.99625,
+            "accuracy": 0.9949811794228356,
+            "balanced_accuracy": 0.9855184940554822,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 0.975,
+                "wilson_ci95": [
+                  0.8711863103652591,
+                  0.9955731684973186
+                ]
+              },
+              "moving": {
+                "n": 757,
+                "recall": 0.9960369881109643,
+                "wilson_ci95": [
+                  0.9884137109105928,
+                  0.9986513225380991
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9871671295625043,
+              0.9980465994593025
+            ]
+          },
+          "median_q25": {
+            "scored": 797,
+            "coverage": 0.99625,
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 757,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9949510390421568,
+                  1.0
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.995203221838251,
+              0.9999999999999999
+            ]
+          },
+          "max_median": {
+            "scored": 797,
+            "coverage": 0.99625,
+            "accuracy": 0.9874529485570891,
+            "balanced_accuracy": 0.9815554821664465,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 0.975,
+                "wilson_ci95": [
+                  0.8711863103652591,
+                  0.9955731684973186
+                ]
+              },
+              "moving": {
+                "n": 757,
+                "recall": 0.988110964332893,
+                "wilson_ci95": [
+                  0.9775602796193328,
+                  0.9937327426424294
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9770588483554169,
+              0.993170641441724
+            ]
+          },
+          "median_median": {
+            "scored": 797,
+            "coverage": 0.99625,
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 757,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9949510390421568,
+                  1.0
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.995203221838251,
+              0.9999999999999999
+            ]
+          }
+        }
+      },
+      {
+        "outer_fold": 3,
+        "feature": "median_q25",
+        "adapter": {
+          "feature": "median_q25",
+          "threshold": 0.33071623223368185,
+          "balanced_accuracy": 1.0,
+          "accuracy": 1.0
+        },
+        "inner_reports": {
+          "max_q25": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 0.9987421383647799,
+            "balanced_accuracy": 0.9993377483443708,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 0.9986754966887417,
+                "wilson_ci95": [
+                  0.9925359810086222,
+                  0.999766154367887
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9929096647940765,
+              0.999777922015304
+            ]
+          },
+          "median_q25": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9949377320176155,
+                  1.0000000000000002
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9951912125012075,
+              1.0
+            ]
+          },
+          "max_median": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 0.9987421383647799,
+            "balanced_accuracy": 0.9993377483443708,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 0.9986754966887417,
+                "wilson_ci95": [
+                  0.9925359810086222,
+                  0.999766154367887
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9929096647940765,
+              0.999777922015304
+            ]
+          },
+          "median_median": {
+            "scored": 795,
+            "coverage": 0.99375,
+            "accuracy": 1.0,
+            "balanced_accuracy": 1.0,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 755,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9949377320176155,
+                  1.0000000000000002
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9951912125012075,
+              1.0
+            ]
+          }
+        }
+      },
+      {
+        "outer_fold": 4,
+        "feature": "median_q25",
+        "adapter": {
+          "feature": "median_q25",
+          "threshold": 0.3240796177124159,
+          "balanced_accuracy": 1.0,
+          "accuracy": 1.0
+        },
+        "inner_reports": {
+          "max_q25": {
+            "scored": 794,
+            "coverage": 0.9925,
+            "accuracy": 0.9974811083123426,
+            "balanced_accuracy": 0.9868368700265252,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 0.975,
+                "wilson_ci95": [
+                  0.8711863103652591,
+                  0.9955731684973186
+                ]
+              },
+              "moving": {
+                "n": 754,
+                "recall": 0.9986737400530504,
+                "wilson_ci95": [
+                  0.9925261335807987,
+                  0.999765844176945
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9908627008279706,
+              0.999308957044654
+            ]
+          },
+          "median_q25": {
+            "scored": 794,
+            "coverage": 0.9925,
+            "accuracy": 0.9987405541561712,
+            "balanced_accuracy": 0.9993368700265253,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 754,
+                "recall": 0.9986737400530504,
+                "wilson_ci95": [
+                  0.9925261335807987,
+                  0.999765844176945
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9929007792868757,
+              0.9997776422765653
+            ]
+          },
+          "max_median": {
+            "scored": 794,
+            "coverage": 0.9925,
+            "accuracy": 0.9861460957178841,
+            "balanced_accuracy": 0.980868700265252,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 0.975,
+                "wilson_ci95": [
+                  0.8711863103652591,
+                  0.9955731684973186
+                ]
+              },
+              "moving": {
+                "n": 754,
+                "recall": 0.986737400530504,
+                "wilson_ci95": [
+                  0.9757599766205894,
+                  0.9927803314567826
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9753639016776248,
+              0.9922468829776487
+            ]
+          },
+          "median_median": {
+            "scored": 794,
+            "coverage": 0.9925,
+            "accuracy": 0.9987405541561712,
+            "balanced_accuracy": 0.9993368700265253,
+            "classes": {
+              "stop": {
+                "n": 40,
+                "recall": 1.0,
+                "wilson_ci95": [
+                  0.9123783988027135,
+                  1.0000000000000002
+                ]
+              },
+              "moving": {
+                "n": 754,
+                "recall": 0.9986737400530504,
+                "wilson_ci95": [
+                  0.9925261335807987,
+                  0.999765844176945
+                ]
+              }
+            },
+            "wilson_ci95": [
+              0.9929007792868757,
+              0.9997776422765653
+            ]
+          }
+        }
+      }
+    ],
+    "feature_oof_reports": {
+      "max_q25": {
+        "scored": 994,
+        "coverage": 0.994,
+        "accuracy": 0.9949698189134809,
+        "balanced_accuracy": 0.9878813559322034,
+        "classes": {
+          "stop": {
+            "n": 50,
+            "recall": 0.98,
+            "wilson_ci95": [
+              0.8950455641036219,
+              0.9964607407283539
+            ]
+          },
+          "moving": {
+            "n": 944,
+            "recall": 0.9957627118644068,
+            "wilson_ci95": [
+              0.9891559155967263,
+              0.9983510047742953
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9882790485067412,
+          0.9978495506827003
+        ]
+      },
+      "median_q25": {
+        "scored": 994,
+        "coverage": 0.994,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "classes": {
+          "stop": {
+            "n": 50,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9286524008666414,
+              1.0
+            ]
+          },
+          "moving": {
+            "n": 944,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9959471504596628,
+              1.0
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9961502312950253,
+          0.9999999999999999
+        ]
+      },
+      "max_median": {
+        "scored": 994,
+        "coverage": 0.994,
+        "accuracy": 0.9859154929577465,
+        "balanced_accuracy": 0.983114406779661,
+        "classes": {
+          "stop": {
+            "n": 50,
+            "recall": 0.98,
+            "wilson_ci95": [
+              0.8950455641036219,
+              0.9964607407283539
+            ]
+          },
+          "moving": {
+            "n": 944,
+            "recall": 0.986228813559322,
+            "wilson_ci95": [
+              0.9765817923976149,
+              0.9919346102739638
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9764977928536908,
+          0.9915918685457
+        ]
+      },
+      "median_median": {
+        "scored": 994,
+        "coverage": 0.994,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "classes": {
+          "stop": {
+            "n": 50,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9286524008666414,
+              1.0
+            ]
+          },
+          "moving": {
+            "n": 944,
+            "recall": 1.0,
+            "wilson_ci95": [
+              0.9959471504596628,
+              1.0
+            ]
+          }
+        },
+        "wilson_ci95": [
+          0.9961502312950253,
+          0.9999999999999999
+        ]
+      }
+    }
+  },
+  "frozen_adapter": {
+    "feature": "median_q25",
+    "threshold": 0.3240796177124159,
+    "balanced_accuracy": 1.0,
+    "accuracy": 1.0
+  },
+  "drivewam_generated": {
+    "records": 1000,
+    "action_label_counts": {
+      "moving": 999,
+      "stop": 1
+    },
+    "alignment": {
+      "scored": 948,
+      "coverage": 0.948,
+      "accuracy": 0.9989451476793249,
+      "balanced_accuracy": null,
+      "classes": {
+        "stop": {
+          "n": 0,
+          "recall": null,
+          "wilson_ci95": null
+        },
+        "moving": {
+          "n": 948,
+          "recall": 0.9989451476793249,
+          "wilson_ci95": [
+            0.994049223429434,
+            0.9998137683886241
+          ]
+        }
+      },
+      "wilson_ci95": [
+        0.994049223429434,
+        0.9998137683886241
+      ]
+    },
+    "score_status": "diagnostic_one_action_class_missing",
+    "source_bootstrap_ci95": [
+      0.9968354430379747,
+      1.0
+    ],
+    "interpretation": "visual/native-action stop alignment; not visual ground-truth accuracy"
+  },
+  "claim_boundary": "whole-horizon stationary-vs-moving token only; braking-to-terminal-stop and absolute speed remain unavailable"
+}

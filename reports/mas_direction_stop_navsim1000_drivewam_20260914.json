@@ -1,0 +1,129 @@
+{
+  "protocol": "iac-mas-direction-stop-pilot-v1",
+  "token_space": [
+    "stop",
+    "left",
+    "right",
+    "straight"
+  ],
+  "candidate_blind": true,
+  "calibration_domain": "NAVSIM logged-real only",
+  "logged_real_source_disjoint": {
+    "scored": 974,
+    "coverage": 0.974,
+    "accuracy": 0.8049281314168378,
+    "macro_accuracy": 0.841044281530334,
+    "per_class": {
+      "stop": {
+        "n": 50,
+        "recall": 1.0,
+        "wilson_ci95": [
+          0.9286524008666414,
+          1.0
+        ]
+      },
+      "left": {
+        "n": 414,
+        "recall": 0.8285024154589372,
+        "wilson_ci95": [
+          0.7892138370311007,
+          0.8617507675049988
+        ]
+      },
+      "right": {
+        "n": 248,
+        "recall": 0.8104838709677419,
+        "wilson_ci95": [
+          0.7571129405780712,
+          0.8543828819173218
+        ]
+      },
+      "straight": {
+        "n": 262,
+        "recall": 0.7251908396946565,
+        "wilson_ci95": [
+          0.6681747827386407,
+          0.775698797114038
+        ]
+      }
+    },
+    "wilson_ci95": [
+      0.7788648837259597,
+      0.8285955533845528
+    ]
+  },
+  "frozen_adapters": {
+    "direction": {
+      "orientation": 1,
+      "visual_deadband": 0.0043629014940233905,
+      "action_deadband": 0.012,
+      "fit_macro_accuracy": 0.8015225539983845,
+      "fit_accuracy": 0.8095238095238095
+    },
+    "motion": {
+      "feature": "median_q25",
+      "threshold": 0.3240796177124159,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0
+    }
+  },
+  "drivewam_native": {
+    "action_class_counts": {
+      "left": 437,
+      "straight": 332,
+      "right": 230,
+      "stop": 1
+    },
+    "alignment": {
+      "scored": 939,
+      "coverage": 0.939,
+      "accuracy": 0.7561235356762513,
+      "macro_accuracy": null,
+      "per_class": {
+        "stop": {
+          "n": 0,
+          "recall": null,
+          "wilson_ci95": null
+        },
+        "left": {
+          "n": 414,
+          "recall": 0.7222222222222222,
+          "wilson_ci95": [
+            0.6771842635764348,
+            0.7631741453744559
+          ]
+        },
+        "right": {
+          "n": 217,
+          "recall": 0.8248847926267281,
+          "wilson_ci95": [
+            0.7687895981993261,
+            0.8696774756596674
+          ]
+        },
+        "straight": {
+          "n": 308,
+          "recall": 0.7532467532467533,
+          "wilson_ci95": [
+            0.7021755910068054,
+            0.7980786105671377
+          ]
+        }
+      },
+      "wilson_ci95": [
+        0.7276500777498731,
+        0.7825099237010971
+      ]
+    },
+    "score_status": "diagnostic_insufficient_native_stop_actions",
+    "interpretation": "visual/native-action coarse-token alignment; not reality grounding or causality"
+  },
+  "motion_feature_choices_by_outer_fold": [
+    "median_q25",
+    "median_q25",
+    "median_q25",
+    "median_q25",
+    "median_q25"
+  ],
+  "claim_boundary": "coarse stop/left/right/straight compatibility only; no metric trajectory, speed, lateral distance, curvature, or causal mediation claim"
+}

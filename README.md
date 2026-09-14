@@ -12,6 +12,38 @@
 The machine-readable stages, input prohibitions and promotion gates are in
 [`configs/wam_joint_evaluation_v1.json`](configs/wam_joint_evaluation_v1.json).
 
+## Current frozen flow-token readout (2026-09-14)
+
+The current coarse readout is deliberately limited to
+`stop / left / right / straight`. A candidate-blind RAFT-Large reader consumes
+whole-clip visual motion; all thresholds and reliability rules are calibrated
+on NAVSIM logged-real video only, never on generated video.
+
+On 1,000 source-disjoint NAVSIM logged-real clips, coverage is `97.4%`, four-way
+accuracy is `80.5%` (95% CI `[77.9%, 82.9%]`), and macro accuracy is `84.1%`.
+Per-class recall is stop `100%`, left `82.9%`, right `81.0%`, and straight
+`72.5%`. These are visual-reader accuracy measurements.
+
+Generated video has no directly observed image-motion ground truth, so the WAM
+rows below are alignment/response scores, not visual accuracy. MAS compares one
+branch's visual token with its native action; RCS compares same-source left/right
+visual and native-action differences.
+
+| Model | MAS.direction coverage / alignment | RCS measurement coverage | RCS.direction | 95% source CI | Status |
+|---|---:|---:|---:|---:|---|
+| DriveWAM (255 pairs) | `96.9% / 77.9%` | `93.7%` | `86.2%` | `[80.4%, 91.3%]` | directional RCS pass |
+| Epona (174 pairs) | `95.4% / 77.7%` | `94.3%` | `91.9%` | `[85.9%, 97.0%]` | directional RCS pass |
+| DriveVA (50 pairs, verified shared actual seed) | `88.0% / 60.2%` | `82.0%` | `83.9%` | `[71.0%, 96.8%]` | signal present; CI/coverage gates fail |
+| WorldDrive (10 selected strong-turn smoke pairs) | `100% / 100%` | `100%` | `100%` | Wilson `[72.2%, 100%]` | insufficient n; not a formal score |
+
+The WAM rows are not all source-pool matched and therefore are not a strict
+model leaderboard. The available counterfactual sets also contain no valid
+stop-versus-moving twins, so `RCS.stop` is honestly `unavailable`; moving-only
+agreement is not reported as stop recognition. The unified machine-readable
+result is [`reports/flow_token_scorecard_20260914.json`](reports/flow_token_scorecard_20260914.json),
+with the method and claim boundary documented in
+[`docs/MAS_DIRECTION_STOP_AUDIT_ZH.md`](docs/MAS_DIRECTION_STOP_AUDIT_ZH.md).
+
 IAC is an evaluation protocol for world action models (WAMs). It asks a
 specific question: when a model emits a native action, is that action aligned
 with the future visual state the model predicts? IAC separates measurement,
@@ -91,10 +123,52 @@ open that claim.
    The directional-yaw variant is now frozen for the release; metric-magnitude
    and progress variants remain diagnostic.
 
-## Frozen scorecard (2026-09-12)
+## Visual Evidence Layer v2 (implementation candidate)
 
-These are the current validated reference results. Coverage and confidence
-intervals are part of every score; unavailable samples are never zero-filled.
+The next protocol revision is defined by the evidence required by each metric,
+not by a forced SE(2) trajectory. [`src/iac_new/visual_evidence_v2.py`](src/iac_new/visual_evidence_v2.py)
+emits versioned, candidate-blind packets with interval descriptors, support,
+backend agreement, uncertainty and explicit `scored`/`weak`/`unavailable`
+states. [`src/iac_new/backend_adapters.py`](src/iac_new/backend_adapters.py)
+freezes interfaces for RAFT/SEA-RAFT flow, CoTracker/TAPIR tracking and
+optional UniDepth depth; the flow-chain tracker is an auditable archive
+fallback, not a learned-tracker claim.
+
+The v2 packet carries ordinal/structural evidence (`yaw_direction`,
+`progress_order`, `lateral_direction`, relative magnitude, FOE, divergence,
+curl, affine components and temporal persistence). MAS and RCS consume this
+vector evidence independently; GS consumes generated/reference evidence with
+identity and temporal controls; FCS remains unavailable unless paired,
+independent intervention rollouts exist. Metric distance, absolute speed,
+curvature and a free fitted trajectory remain diagnostic.
+
+Archived flow profiles can be bridged without rerunning perception:
+
+```text
+python tools/build_visual_evidence_v2.py --manifest <flow_manifest.jsonl> --output <visual_evidence_v2.jsonl>
+```
+
+The frozen configuration is [`configs/visual_evidence_v2.json`](configs/visual_evidence_v2.json).
+This channel is **not promoted** until source-disjoint confirmation on at least
+three architectures clears the coverage, confidence-interval, reversed/zero
+control and uncertainty gates. Legacy Step1/CFAC/CCFC outputs are retained
+for compatibility and are diagnostic/deprecated only.
+
+**Metric-first v4 output layer.** The current reconstruction adds
+[`src/iac_new/visual_evidence_v4.py`](src/iac_new/visual_evidence_v4.py) and
+[`configs/visual_evidence_v4.json`](configs/visual_evidence_v4.json). v4 does
+not treat generic flow/appearance descriptors as action semantics: MAS requires
+a frozen real-video calibration before emitting an action-aligned vector, RCS
+requires normal/reversed/zero/identity controls before emitting a paired
+response, and the FCS-facing output exposes pathway evidence without inferring
+causality. Missing evidence remains `unavailable` rather than zero.
+
+## Archived legacy scorecard (2026-09-12)
+
+These are archived legacy Step1/CFAC/CCFC reference results, retained for
+comparison only. They are not the acceptance result for the v4 evidence layer.
+Coverage and confidence intervals are part of every score; unavailable samples
+are never zero-filled.
 
 | Metric | Epona | DriveWAM | Interpretation |
 |---|---:|---:|---|
@@ -105,13 +179,13 @@ intervals are part of every score; unavailable samples are never zero-filled.
 | GS coverage | 94.9% | 94.2% | external logged-future grounding |
 | GS median | 0.550 | 0.191 | paired Epona−DriveWAM difference: 0.314 [0.251, 0.340] |
 
-MAS-yaw and RCS-yaw pass the frozen gates (pair coverage ≥90% and the
-source-bootstrap direction lower bound ≥75%) on both models. GS is independently
-calibrated on logged future data and passes its source-disjoint calibration and
-identity-shuffle controls. These scores are structural/directional: lateral
-translation, metric distance, absolute speed, curvature and future-to-action
-mediation remain outside the frozen claims and must be reported as diagnostic or
-unavailable.
+The archived MAS-yaw/RCS-yaw rows are structural/directional pilot claims, not
+formal v4 promotion. The v4 promotion audit is currently blocked because the
+required frozen real-video calibration, source-level controls (including zero
+and identity controls), and external same-source GS references are incomplete.
+Lateral translation, metric distance, absolute speed, curvature and
+future-to-action mediation remain diagnostic or unavailable until their own
+evidence gates pass.
 
 The optional future-to-action mediation channel now has a frozen input contract
 and scorer ([`configs/future_to_action_mediation_v1.json`](configs/future_to_action_mediation_v1.json),
@@ -120,6 +194,16 @@ It requires a future-only perturbation and a pathway-blocked replica with the
 same history, command, seed and model revision. Until a source-disjoint WAM
 confirmation passes its preregistered suppression and specificity gates, the
 channel is `unavailable`; MAS/RCS scores are not relabelled as causal evidence.
+
+**Metric-first evidence packets.**  The score is only admissible when its
+sample-level provenance is present.  `tools/build_metric_evidence_packets.py`
+records model identity, native-action source, branch identity, same-source
+counterfactual pairing, action deltas, and reversed/zero controls.  A
+2026-09-12 replay produced MAS scored/weak/unavailable counts of 106/10/2 for
+Epona and 148/20/4 for DriveWAM; RCS counts were 37/0/22 and 63/0/23.
+Weak and unavailable rows remain explicit rather than being zero-filled.
+These are evidence-completeness results, not new quality scores or causal
+claims.
 Every condition must also declare the same `wam_model_id` and explicit native
 `action_source`; logged, oracle, proxy, candidate and staging trajectories are
 rejected. This prevents an evaluator-supplied trajectory from being counted as
@@ -142,6 +226,28 @@ replica, fixed-action control, source-disjoint confirmation set, or 30 material
 sources, it is pathway-response evidence only—not a future-to-action causal
 result. The mediation channel therefore remains `unavailable` for formal
 scoring.
+
+The same four conditions now also have an **outcome** scorer. The marginal FCS
+rate cannot distinguish a model that acts on its predicted future from one that
+ignores it, because both the baseline and the perturbed arm are averaged
+together. [`tools/score_conditional_foresight.py`](tools/score_conditional_foresight.py)
+instead reports the paired same-source contrast
+`success(future_perturbed) − success(baseline)` together with the blocked-pathway
+attribution arm and the fixed-action specificity arm, plus a **dose-response**
+monitor that separates "the model ignores its future" from "the probe barely
+moved the action." Status is `implemented_evidence_pending`: no rollout data for
+these four conditions exists yet, so no causal claim is enabled.
+
+Two source-level questions can be answered without any new model runs, from
+tables the frozen reports already contain.
+[`tools/analyse_joint_source_table.py`](tools/analyse_joint_source_table.py)
+joins per-source consistency scores (MAS/RCS) with per-source independent
+execution outcomes and reports a source-level bootstrap Spearman, a
+deterministically shuffled null control, and the distance of the consistency
+score from its chance level (0.5 for the ordinal direction scores). This is the
+cheapest falsification the protocol has: if the consistency channels carry no
+information about task success, that is visible before any further investment.
+A null result is reported as `no_association_detected`, not as a zero score.
 
 The release does **not** claim a new optical-flow architecture. The novelty is
 the leakage-resistant measurement and scoring protocol built around a frozen,
@@ -445,6 +551,16 @@ coverage, direction-CI, or sample-size gates. The new channel therefore remains
 experimental with zero architecture-universal promotion, as required by the
 three-architecture gate.
 
+Step1 is now being refactored as a shared evidence layer rather than a single
+yaw or metric-trajectory decoder. The experimental interface exposes temporal
+motion, same-source counterfactual response, generated/reference grounding, and
+reliability/abstention evidence independently. MAS, RCS and GS consume the
+relevant evidence product; FCS still requires a separate future-only pathway
+intervention. Metric depth is optional and may improve validity or grounding
+diagnostics, but it is not required and cannot fill missing visual evidence.
+See [`src/iac_new/step1_evidence.py`](src/iac_new/step1_evidence.py) and
+[`configs/step1_evidence_layer_v1.json`](configs/step1_evidence_layer_v1.json).
+
 **GS：现实几何保真度分数（旧 FAU 组件）**
 
 GS 使用同源 logged future 作为外部参考，尺度只由 real-only calibration 冻结，
@@ -561,6 +677,25 @@ The reusable fail-closed scorer is [`tools/score_fcs_rollout.py`](tools/score_fc
 it requires explicit task labels and their simulator provenance, stable source
 keys, verified native-action injection, and independent realized state, and reports missing rows as
 `unavailable` rather than failures.
+
+That number is marginal, not conditional. To condition success on the model's
+own predicted future, run the same simulator over the four conditions of
+[`configs/future_to_action_mediation_v1.json`](configs/future_to_action_mediation_v1.json)
+and score them with [`tools/score_conditional_foresight.py`](tools/score_conditional_foresight.py):
+
+```bash
+python tools/score_conditional_foresight.py <four_condition_rollouts.jsonl> \
+  --require-dose-response --output reports/conditional_foresight.json
+```
+
+```bash
+# Source-level join: do high-consistency sources also succeed more often?
+python tools/analyse_joint_source_table.py \
+  --rcs <per_source_rcs.jsonl> \
+  --fcs <per_source_rollout.jsonl> \
+  --primary rcs --outcome fcs \
+  --output reports/joint_source_analysis.json
+```
 
 ## Benchmark dataset
 

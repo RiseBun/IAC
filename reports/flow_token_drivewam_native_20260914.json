@@ -1,0 +1,136 @@
+{
+  "protocol": "iac-flow-token-mas-rcs-v1",
+  "model_id": "DriveWAM",
+  "candidate_blind": true,
+  "records": 1000,
+  "MAS": {
+    "direction": {
+      "scored": 939,
+      "declared": 999,
+      "coverage": 0.93993993993994,
+      "score": 0.7561235356762513,
+      "wilson_ci95": [
+        0.7276500777498731,
+        0.7825099237010971
+      ],
+      "source_bootstrap_ci95": [
+        0.7284345047923323,
+        0.7838125665601704
+      ]
+    },
+    "stop": {
+      "scored": 948,
+      "declared": 1000,
+      "coverage": 0.948,
+      "score": 0.9989451476793249,
+      "wilson_ci95": [
+        0.994049223429434,
+        0.9998137683886241
+      ],
+      "source_bootstrap_ci95": [
+        0.9968354430379747,
+        1.0
+      ],
+      "action_class_counts": {
+        "moving": 999,
+        "stop": 1
+      },
+      "balanced_accuracy": null,
+      "per_class": {
+        "stop": {
+          "n": 0,
+          "recall": null,
+          "wilson_ci95": null
+        },
+        "moving": {
+          "n": 948,
+          "recall": 0.9989451476793249,
+          "wilson_ci95": [
+            0.994049223429434,
+            0.9998137683886241
+          ]
+        }
+      },
+      "status": "diagnostic_insufficient_action_class_diversity"
+    },
+    "joint": {
+      "scored": 939,
+      "declared": 1000,
+      "coverage": 0.939,
+      "score": 0.7561235356762513,
+      "wilson_ci95": [
+        0.7276500777498731,
+        0.7825099237010971
+      ],
+      "source_bootstrap_ci95": [
+        0.7284345047923323,
+        0.7838125665601704
+      ],
+      "macro_accuracy": null,
+      "per_class": {
+        "stop": {
+          "n": 0,
+          "recall": null,
+          "wilson_ci95": null
+        },
+        "left": {
+          "n": 414,
+          "recall": 0.7222222222222222,
+          "wilson_ci95": [
+            0.6771842635764348,
+            0.7631741453744559
+          ]
+        },
+        "right": {
+          "n": 217,
+          "recall": 0.8248847926267281,
+          "wilson_ci95": [
+            0.7687895981993261,
+            0.8696774756596674
+          ]
+        },
+        "straight": {
+          "n": 308,
+          "recall": 0.7532467532467533,
+          "wilson_ci95": [
+            0.7021755910068054,
+            0.7980786105671377
+          ]
+        }
+      },
+      "status": "diagnostic_incomplete_class_support"
+    }
+  },
+  "RCS": {
+    "declared_pairs": 0,
+    "direction": {
+      "scored": 0,
+      "declared": 0,
+      "coverage": 0.0,
+      "score": null,
+      "wilson_ci95": null,
+      "source_bootstrap_ci95": null,
+      "measurement_pair_coverage": 0.0,
+      "material_action_pairs": 0,
+      "score_coverage_within_material_pairs": 0.0,
+      "effective_score_coverage_over_declared_pairs": 0.0,
+      "reversed_action_score": null,
+      "constructed_self_pair_zero_control_false_response_rate": 0.0
+    },
+    "stop": {
+      "scored": 0,
+      "declared": 0,
+      "coverage": 0.0,
+      "score": null,
+      "wilson_ci95": null,
+      "source_bootstrap_ci95": null,
+      "eligible_stop_move_pairs": 0,
+      "status": "unavailable_insufficient_stop_move_pairs"
+    },
+    "pair_exclusion_reasons": {
+      "missing_left_or_right": 1000
+    },
+    "claim_boundary": "same-source action/visual response consistency; not future-to-action mediation"
+  },
+  "frozen_config": "mas_direction_stop_pilot_v1.json"
+}

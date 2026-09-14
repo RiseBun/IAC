@@ -1,0 +1,95 @@
+{
+  "protocol": "iac-mas-direction-stop-pilot-v1",
+  "status": "direction-confirmed-on-two-models; third-model-and-generated-stop-confirmation-pending",
+  "token_space": ["stop", "left", "right", "straight"],
+  "measurement": {
+    "candidate_blind": true,
+    "backend": "torchvision-RAFT-Large",
+    "input_clip": "last history frame plus future frames nearest 1,2,3,4 seconds",
+    "inference_size": [512, 288],
+    "metric_reconstruction_used": false,
+    "missing_policy": "unavailable_never_zero_fill"
+  },
+  "direction": {
+    "applies_when": "action path extent > 0.25 m",
+    "visual_feature": "median normalized horizontal flow over four intervals",
+    "visual_orientation": 1,
+    "visual_deadband": 0.0043629014940233905,
+    "action_yaw_deadband_rad": 0.012
+  },
+  "stop": {
+    "definition": "action path remains within 0.25 m of the origin over four seconds",
+    "visual_feature": "median across intervals of the road-ROI q25 flow magnitude",
+    "visual_threshold_px": 0.3240796177124159,
+    "minimum_motion_support_fraction_per_interval": 0.9
+  },
+  "logged_real_validation": {
+    "sources": 1000,
+    "source_disjoint": true,
+    "coverage": 0.974,
+    "accuracy": 0.8049281314168378,
+    "macro_accuracy": 0.841044281530334,
+    "accuracy_ci95": [0.7788648837259597, 0.8285955533845528],
+    "per_class_recall": {
+      "stop": 1.0,
+      "left": 0.8285024154589372,
+      "right": 0.8104838709677419,
+      "straight": 0.7251908396946565
+    }
+  },
+  "drivewam_native_confirmation": {
+    "sources": 1000,
+    "direction_or_stop_coverage": 0.939,
+    "conditional_alignment": 0.7561235356762513,
+    "conditional_alignment_ci95": [0.7276500777498731, 0.7825099237010971],
+    "native_action_class_counts": {
+      "stop": 1,
+      "left": 437,
+      "right": 230,
+      "straight": 332
+    },
+    "status": "diagnostic_insufficient_native_stop_actions",
+    "warning": "The moving-only agreement cannot be reported as a balanced MAS.stop score."
+  },
+  "cross_model_direction_confirmation": {
+    "scope": "same-source left/right branch sets; thresholds frozen on NAVSIM logged-real",
+    "DriveWAM": {
+      "branches": 510,
+      "mas_direction_coverage": 0.9686274509803922,
+      "mas_direction": 0.7793522267206477,
+      "mas_source_bootstrap_ci95": [0.7333333333333333, 0.8215686274509804],
+      "rcs_declared_pairs": 255,
+      "rcs_measurement_pair_coverage": 0.9372549019607843,
+      "rcs_material_pairs_scored": 138,
+      "rcs_direction": 0.8623188405797102,
+      "rcs_source_bootstrap_ci95": [0.8043478260869565, 0.9130434782608695]
+    },
+    "Epona": {
+      "branches": 348,
+      "mas_direction_coverage": 0.9540229885057471,
+      "mas_direction": 0.7771084337349398,
+      "mas_source_bootstrap_ci95": [0.7232142857142857, 0.8273809523809523],
+      "rcs_declared_pairs": 174,
+      "rcs_measurement_pair_coverage": 0.9425287356321839,
+      "rcs_material_pairs_scored": 99,
+      "rcs_direction": 0.9191919191919192,
+      "rcs_source_bootstrap_ci95": [0.8585858585858586, 0.9696969696969697]
+    },
+    "DriveVA": {
+      "branches": 100,
+      "mas_direction_coverage": 0.88,
+      "mas_direction": 0.6022727272727273,
+      "mas_source_bootstrap_ci95": [0.48936170212765956, 0.723404255319149],
+      "rcs_declared_pairs": 50,
+      "rcs_measurement_pair_coverage": 0.82,
+      "rcs_material_pairs_scored": 31,
+      "rcs_direction": 0.8387096774193549,
+      "rcs_source_bootstrap_ci95": [0.7096774193548387, 0.967741935483871],
+      "reversed_action_score": 0.16129032258064516,
+      "status": "third_architecture_pilot_signal; promotion_failed_ci_and_coverage",
+      "generation_seed_contract": "left/right actual generation seed verified identical"
+    },
+    "interpretation": "DriveWAM and Epona pass the frozen directional response check, but their source-bootstrap intervals overlap. Shared-seed DriveVA provides a third-architecture RCS signal at 83.9%, but does not pass the preregistered CI-lower-bound or measurement-coverage gates. Its MAS is only 60.2%, showing why single-branch alignment and same-source differential response must remain separate metrics."
+  },
+  "claim_boundary": "Coarse visual/native-action compatibility only. No metric trajectory, absolute speed, lateral distance, curvature, reality grounding, or causal future-to-action claim."
+}

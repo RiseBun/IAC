@@ -1,0 +1,56 @@
+{
+  "protocol": "iac-whole-clip-yaw-backend-ab-v1",
+  "data": {
+    "logged_real_navsim": 255,
+    "drivewam_generated_branches": 510,
+    "clip": "last history frame plus four 1-second future frames",
+    "labels": "left/right/straight with 0.012 rad action-yaw deadband",
+    "validation": "five-fold source-disjoint with nested confidence-gate selection"
+  },
+  "backends": {
+    "corrected_se2_yaw": {
+      "logged_real_base": {"coverage": 0.8509803922, "accuracy": 0.7465437788, "ci95": [0.6847249005, 0.7997855740]},
+      "logged_real_nested_gate": {"coverage": 0.7176470588, "accuracy": 0.8087431694, "ci95": [0.7456462687, 0.8591445561]},
+      "drivewam_base": {"coverage": 0.8607843137, "alignment": 0.7790432802, "source_bootstrap_ci95": [0.7257383966, 0.8164556962]},
+      "drivewam_real_frozen_gate": {"coverage": 0.8176470588, "alignment": 0.7961630695, "source_bootstrap_ci95": [0.7393162393, 0.8333333333]}
+    },
+    "raft_large_flow": {
+      "configuration": "32 updates, 512x288 inference, camera undistortion, 3x6 spatial sampling, logged-real-frozen refinement uncertainty",
+      "logged_real_base": {"coverage": 0.9647058824, "accuracy": 0.7439024390, "ci95": [0.6859001897, 0.7944044026]},
+      "logged_real_nested_gate": {"coverage": 0.7098039216, "accuracy": 0.8342541436, "ci95": [0.7732526262, 0.8813624194]},
+      "drivewam_base": {"coverage": 0.9745098039, "alignment": 0.6820925553, "source_bootstrap_ci95": [0.6333333333, 0.7313725490]},
+      "drivewam_real_frozen_gate": {"coverage": 0.8392156863, "alignment": 0.7289719626, "source_bootstrap_ci95": [0.6610169492, 0.7669491525]}
+    },
+    "u2flow_kitti_uncertainty_weighted": {
+      "repository_revision": "152bb38d90621c34902943763c00a77ecef8725f",
+      "checkpoint_sha256": "f767ecbfcedfcb03e346546598749d98058be178829cc5662342b2bbb21838ad",
+      "logged_real_base": {"coverage": 0.9686274510, "accuracy": 0.7165991903, "ci95": [0.6574153013, 0.7691489537]},
+      "logged_real_nested_gate": {"coverage": 0.5098039216, "accuracy": 0.8307692308, "ci95": [0.7570469051, 0.8855043698]},
+      "drivewam_base": {"coverage": 0.9941176471, "alignment": 0.7021696252, "source_bootstrap_ci95": [0.6568627451, 0.7509803922]},
+      "drivewam_real_frozen_gate": {"coverage": 0.5568627451, "alignment": 0.8697183099, "source_bootstrap_ci95": [0.8083333333, 0.9000000000]}
+    },
+    "cotracker3_offline": {
+      "repository_revision": "82e02e8029753ad4ef13cf06be7f4fc5facdda4d",
+      "checkpoint_sha256": "2670d4562ed69326dda775a26e54883925cd11b6fc9b24cb7aa9f8078bce7834",
+      "strict_requirement": "all four intervals valid",
+      "affine_rotation": {
+        "logged_real_base": {"coverage": 0.3803921569, "accuracy": 0.2474226804, "ci95": [0.1722748805, 0.3418138626]},
+        "drivewam_base": {"coverage": 0.4921568627, "alignment": 0.2709163347, "source_bootstrap_ci95": [0.2275862069, 0.3551724138]},
+        "valid_confidence_gate": false
+      },
+      "median_horizontal_motion": {
+        "logged_real_base": {"coverage": 0.3803921569, "accuracy": 0.4020618557, "ci95": [0.3100219660, 0.5015634650]},
+        "drivewam_base": {"coverage": 0.4921568627, "alignment": 0.3625498008, "source_bootstrap_ci95": [0.3034482759, 0.4482758621]},
+        "valid_confidence_gate": false
+      }
+    }
+  },
+  "conclusion": {
+    "best_high_coverage_logged_real": "RAFT-Large flow; 96.5% coverage at 74.4% accuracy",
+    "best_selective_logged_real": "RAFT-Large flow; 71.0% coverage at 83.4% accuracy",
+    "u2flow_status": "does not dominate RAFT; similar selective accuracy requires substantially lower coverage",
+    "cotracker_status": "rejected as a standalone yaw reader under both tested readouts",
+    "generated_alignment_boundary": "generated scores are visual/native-action alignment, not visual ground-truth accuracy",
+    "promotion": "none of the standalone readers satisfies both 90% coverage and CI-lower-bound >= 75%"
+  }
+}

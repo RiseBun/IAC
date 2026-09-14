@@ -20,6 +20,58 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 机器可读的阶段、输入禁止项和 promotion gate 见
 [`configs/wam_joint_evaluation_v1.json`](configs/wam_joint_evaluation_v1.json)。
 
+## 当前冻结流场读数（2026-09-14）
+
+为避免把未经验证的米制轨迹混入 MAS/RCS，当前粗粒度读数固定为
+`stop / left / right / straight`。候选盲 RAFT-Large 只读取整段视觉运动；阈值和
+可靠性仅在 NAVSIM logged-real 上校准，生成视频不参与调参。
+
+NAVSIM source-disjoint 真实视频验证（n=1000）：coverage `97.4%`，四类准确率
+`80.5%`，95% CI `[77.9%, 82.9%]`，macro accuracy `84.1%`。逐类 recall 为
+stop `100%`、left `82.9%`、right `81.0%`、straight `72.5%`。这组数回答视觉
+读数器“准不准”。
+
+生成视频没有可直接观察的“图像方向真值”，因此下表报告的是动作一致性，不称为
+视觉准确率。MAS 是单支视觉/native-action 对齐；RCS 是同一 source 左右分支的
+视觉差分与 action 差分一致性。
+
+| 模型 | MAS.direction coverage / alignment | RCS measurement coverage | RCS.direction | 95% source CI | 状态 |
+|---|---:|---:|---:|---:|---|
+| DriveWAM（255 对） | `96.9% / 77.9%` | `93.7%` | `86.2%` | `[80.4%, 91.3%]` | 方向 RCS 通过 |
+| Epona（174 对） | `95.4% / 77.7%` | `94.3%` | `91.9%` | `[85.9%, 97.0%]` | 方向 RCS 通过 |
+| DriveVA（50 对，共享实际 seed） | `88.0% / 60.2%` | `82.0%` | `83.9%` | `[71.0%, 96.8%]` | 有信号，CI/coverage 未过门 |
+| WorldDrive（10 对强转向 smoke） | `100% / 100%` | `100%` | `100%` | Wilson `[72.2%, 100%]` | 样本不足，不作正式分数 |
+
+WAM 样本池并非全部 source-matched，因此本表不能作为严格模型排行榜。三组正式
+候选数据也没有 stop/move twin，`RCS.stop` 诚实标记为 `unavailable`；moving-only
+一致率不能冒充停止识别分数。统一机器可读结果见
+[`reports/flow_token_scorecard_20260914.json`](reports/flow_token_scorecard_20260914.json)，
+方法和失败边界见
+[`docs/MAS_DIRECTION_STOP_AUDIT_ZH.md`](docs/MAS_DIRECTION_STOP_AUDIT_ZH.md)。
+
+## Visual Evidence Layer v2（实现候选，尚未升级为正式通道）
+
+新版 Step1 按 MAS、RCS、GS、FCS 各自需要的证据输出，而不是强行拟合一条米制
+SE(2) 轨迹。`src/iac_new/visual_evidence_v2.py` 输出带版本、来源、区间级描述量、
+支持率、后端一致性、不确定性以及 `scored/weak/unavailable` 状态的候选无关证据包。
+`src/iac_new/backend_adapters.py` 冻结 RAFT/SEA-RAFT、CoTracker/TAPIR 和可选
+UniDepth 的统一接口；流链跟踪器只用于可审计归档回放，不代表学习型跟踪器。
+
+证据包优先提供方向、序关系、相对幅度和时间持续性，并保留 FOE、散度、旋度及
+仿射分量。MAS/RCS 分别消费这些向量证据；GS 必须保留身份打乱和时间反转对照；
+FCS 仍要求独立的成对干预 rollout，不能从视觉证据推导。米制距离、绝对速度、曲率
+和自由轨迹拟合继续属于 diagnostic。
+
+已有 flow archive 可以直接转换为 v2：
+
+```text
+python tools/build_visual_evidence_v2.py --manifest <flow_manifest.jsonl> --output <visual_evidence_v2.jsonl>
+```
+
+配置见 `configs/visual_evidence_v2.json`。至少三个不同架构在 source-disjoint 确认集
+上同时通过覆盖率、bootstrap CI、reversed/zero 控制和不确定性门槛前，v2 不会成为正式
+benchmark 通道。旧 Step1/CFAC/CCFC 接口保留，但标记为 deprecated/diagnostic-only。
+
 本仓库是可复现发布包，不包含 NAVSIM/Waymo 原始图像、私有真值、WAM 权重或生成
 视频。评测服务器通过 manifest 接口挂载这些输入。Waymo 只作为外部域泛化协议，
 不进入主榜分母。
@@ -106,10 +158,11 @@ Epona 与 DriveWAM 通过当前两模型门槛；DriveVA、WorldDrive 的结果�
 干预和校准通过前继续作为 diagnostic。详见
 [`reports/structure_channel_audit_20260912.json`](reports/structure_channel_audit_20260912.json)。
 
-## 当前冻结分数表（2026-09-12）
+## 归档的旧版分数表（2026-09-12）
 
-以下是目前通过验证、可以对外报告的参考结果。每个分数必须同时报告覆盖率和
-置信区间；不可测样本统一记为 `unavailable`，不填零。
+以下是旧版 Step1/CFAC/CCFC 的归档参考结果，只用于历史比较，**不是当前
+Visual Evidence v4 的正式晋级结果**。每个分数必须同时报告覆盖率和置信区间；
+不可测样本统一记为 `unavailable`，不填零。
 
 | 指标 | Epona | DriveWAM | 含义 |
 |---|---:|---:|---|
@@ -120,11 +173,15 @@ Epona 与 DriveWAM 通过当前两模型门槛；DriveVA、WorldDrive 的结果�
 | GS 覆盖率 | 94.9% | 94.2% | 与外部 logged future 的 grounding |
 | GS 中位数 | 0.550 | 0.191 | Epona−DriveWAM 配对差：`0.314 [0.251, 0.340]` |
 
-MAS-yaw 与 RCS-yaw 均在两个模型上通过冻结门槛（成对覆盖率 ≥90%，source
-bootstrap 方向准确率下界 ≥75%）。GS 使用 logged future 独立校准，并通过了
-source-disjoint 校准和身份置换控制。这些正式分数是结构/方向性的：横向位移、
-米制距离、绝对速度、曲率以及 future-to-action 因果中介不在冻结声明内，必须继续
-作为 diagnostic 或 `unavailable` 报告。
+这些 MAS-yaw/RCS-yaw 行是结构/方向性的旧版 pilot 结果，不能作为 v4 的正式
+接受结论。当前 v4 审计仍因冻结真实视频校准、source-level normal/reversed/zero/
+identity 控制和外部同源 GS 参考不完整而 blocked。横向位移、米制距离、绝对速度、
+曲率以及 future-to-action 因果中介必须继续作为 diagnostic 或 `unavailable` 报告。
+
+v4 的实现见 [`src/iac_new/visual_evidence_v4.py`](src/iac_new/visual_evidence_v4.py)：
+MAS 只有在冻结校准存在时才输出 action-aligned 向量；RCS 只有在四类控制齐全时
+才输出 paired response；FCS 只输出供干预实验消费的 pathway evidence，不从视觉
+读数推断因果。
 
 可选的 future-to-action 中介通道现在已有冻结输入契约和评分器
 （[`configs/future_to_action_mediation_v1.json`](configs/future_to_action_mediation_v1.json)、
