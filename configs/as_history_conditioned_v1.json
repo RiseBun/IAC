@@ -1,0 +1,48 @@
+{
+  "protocol": "iac-history-conditioned-as-v1.1",
+  "status": "frozen_2026-09-15",
+  "benchmark_contract": {
+    "history_count": 4,
+    "future_count": 4,
+    "trajectory_state_count": 4,
+    "history_times_s": [-1.5, -1.0, -0.5, 0.0],
+    "future_times_s": [1.0, 2.0, 3.0, 4.0],
+    "visual_branch_candidate_blind": true,
+    "action_branch_independent": true
+  },
+  "visual_channel": {
+    "backend": "Reloc3r-512 + Metric3Dv2-v2-S + known-R PnP",
+    "uses_history": "context_and_continuity_gate",
+    "scored_intervals": "history_0_to_future_1, future_1_to_future_2, future_2_to_future_3, future_3_to_future_4",
+    "trajectory_origin": [0.0, 0.0, 0.0],
+    "history_boundary_is_required": true
+  },
+  "action_channel": {
+    "fields": ["delta_x_m", "delta_y_m", "delta_yaw_rad", "speed_mps"],
+    "trajectory_source_is_preserved": true
+  },
+  "outputs": {
+    "AS_overall": "coverage-aware geometric mean sqrt(AS_progress_effective * AS_yaw_effective); official 0-1 ranking score",
+    "AS_progress_effective": "acceptable longitudinal intervals divided by four expected intervals per declared row; abstentions receive no credit",
+    "AS_yaw_effective": "correct visual/action turn directions divided by all applicable non-straight action rows; missing visual yaw receives no credit",
+    "AS_yaw": "turn-direction agreement on applicable non-straight rows",
+    "AS_progress": "fraction of future intervals accepted by frozen tolerance or adjacent distance bin",
+    "AS_composite": "deprecated diagnostic: mean of available AS_yaw and AS_progress components; must not be used as the headline score",
+    "coverage": "visual intervals and valid benchmark-v3 rows",
+    "abstention_reasons": true,
+    "official_score_scale": [0, 100]
+  },
+  "input_lineage_audit": {
+    "large_boundary_yaw_threshold_deg": 30.0,
+    "maximum_large_boundary_yaw_rate": 0.10,
+    "minimum_boundary_geometry_coverage_for_pass": 0.20,
+    "failed_lineage_is_not_formal_AS": true
+  },
+  "calibration_policy": {
+    "real_logged_realized": "calibration_and_upper_bound",
+    "real_counterpart_with_wam_action": "observational_control_only",
+    "wam_generated": "observational_action_conditioned_score",
+    "source_disjoint": true,
+    "no_action_leakage_into_visual_probe": true
+  }
+}

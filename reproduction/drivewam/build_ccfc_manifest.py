@@ -13,7 +13,13 @@ import numpy as np
 
 
 def _jsonl(path: Path) -> list[dict[str, Any]]:
-    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    text = path.read_text(encoding="utf-8")
+    # One legacy private export contains literal ``\n`` delimiters between
+    # complete objects rather than physical newlines.
+    text = text.replace("}\\n{", "}\n{")
+    if text.endswith("\\n"):
+        text = text[:-2]
+    return [json.loads(line) for line in text.splitlines() if line.strip()]
 
 
 def _action4(value: Any) -> list[list[float]]:
@@ -48,10 +54,28 @@ def _temporal_contract(generated: dict[str, Any]) -> dict[str, Any]:
     contract = metadata.get("input_image_contract")
     times = np.asarray(metadata.get("input_image_times_s") or [], dtype=np.float64)
     expected = np.arange(0.0, 4.01, 0.5, dtype=np.float64)
+    if images.ndim != 4:
+        raise ValueError(f"{source}: DriveWAM images must be a frame tensor")
+    if len(images) == 12:
+        future_times = np.asarray(metadata.get("future_times_s") or [], dtype=np.float64)
+        if len(future_times) != 8:
+            raise ValueError(f"{source}: legacy 4-history + 8-future sample has invalid timestamps")
+        return {
+            "input_image_contract": "legacy_4_history_plus_8_future_recorded_sample",
+            "input_frame_count": 12,
+            "future_times_s": future_times.tolist(),
+            "native_reader_selected_indices": None,
+            "native_reader_selected_times_s": [0.0, 1.0, 2.0, 3.0, 4.0],
+        }
+    if len(images) != 9:
+        raise ValueError(f"{source}: unsupported DriveWAM frame count {len(images)}")
     if contract != "drivewam_current_plus_8_future_v1":
-        raise ValueError(f"{source}: missing current-plus-future temporal contract")
-    if images.ndim != 4 or len(images) != 9:
-        raise ValueError(f"{source}: DriveWAM images must be current + 8 future")
+        future_times = np.asarray(metadata.get("future_times_s") or [], dtype=np.float64)
+        if len(future_times) == 8:
+            times = np.concatenate([[0.0], future_times])
+            contract = "drivewam_current_plus_8_future_v1_inferred_from_legacy_metadata"
+        else:
+            raise ValueError(f"{source}: missing current-plus-future temporal contract")
     if len(times) != 9 or not np.allclose(times, expected, atol=0.02, rtol=0.0):
         raise ValueError(f"{source}: invalid DriveWAM input timestamps")
     selected_times = times[[0, 2, 4, 6, 8]]
@@ -65,23 +89,35 @@ def _temporal_contract(generated: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _branch_rows(root: Path, index_map: dict[Any, dict[str, Any]]) -> list[dict[str, Any]]:
+def _source_key_from_sample(source: Path) -> str:
+    """Read the immutable source key from the exact sample consumed by WAM."""
+    if not source.is_file():
+        raise ValueError(f"generated branch has no readable source sample: {source}")
+    with source.open("rb") as handle:
+        sample = pickle.load(handle)
+    source_key = str((sample.get("metadata") or {}).get("source_key") or "")
+    if not source_key:
+        raise ValueError(f"{source}: missing immutable metadata.source_key")
+    return source_key
+
+
+def _branch_rows(root: Path, index_by_source_key: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for manifest in sorted(root.glob("shard_*/manifest.json")):
-        shard_id = int(manifest.parent.name.rsplit("_", 1)[-1])
         for generated in json.loads(manifest.read_text(encoding="utf-8")):
-            # The runner restarts sample_index at zero in every shard.  The
-            # immutable new_index_map uses one global index, so recover the
-            # shard offset from the actual partition sizes.
-            local_index = int(generated["sample_index"])
-            offsets = (0, 187, 373, 559)
-            mapped = index_map.get((shard_id, local_index))
+            # Shards were produced by round-robin distribution, so a local
+            # directory index is not a contiguous global benchmark offset.
+            # The exact consumed pickle is authoritative and already carries
+            # the immutable source_key.  Never reconstruct identity from a
+            # shard-local ordinal.
+            source_sample = Path(str(generated.get("source_sample") or ""))
+            source_key = _source_key_from_sample(source_sample)
+            mapped = index_by_source_key.get(source_key)
             if mapped is None:
-                mapped = index_map.get(offsets[shard_id] + local_index)
-            if mapped is None:
-                raise ValueError(f"runner sample is absent from new index map: shard={shard_id} index={local_index}")
+                raise ValueError(f"runner source key is absent from new index map: {source_key}")
             generated = dict(generated)
-            generated["source_key"] = mapped["source_key"]
+            generated["source_key"] = source_key
+            generated["source_key_source"] = "source_sample.metadata.source_key"
             rows.append(generated)
     return rows
 
@@ -105,13 +141,10 @@ def main() -> None:
 
     private = {str(row["source_key"]): row for row in _jsonl(args.private_manifest)}
     index_rows = _jsonl(args.new_index_map)
-    if index_rows and "shard" in index_rows[0]:
-        index_map = {(int(row["shard"]), int(row["local_index"])): row for row in index_rows}
-    else:
-        index_map = {int(row["new_index"]): row for row in index_rows}
+    index_by_source_key = {str(row["source_key"]): row for row in index_rows}
     by_branch = {
-        "left": _branch_rows(args.left, index_map),
-        "right": _branch_rows(args.right, index_map),
+        "left": _branch_rows(args.left, index_by_source_key),
+        "right": _branch_rows(args.right, index_by_source_key),
     }
     rows: list[dict[str, Any]] = []
     counts: dict[str, int] = {}
@@ -131,7 +164,14 @@ def main() -> None:
                 temporal_contracts[source_sample] = _temporal_contract(generated)
             temporal_contract = temporal_contracts[source_sample]
             action = _action4(generated["predicted_action_trajectory"])
-            benchmark_id = str(base["benchmark_id"])
+            benchmark_id = str(
+                base.get("benchmark_id")
+                or (base.get("metadata") or {}).get("benchmark_id")
+                or generated.get("benchmark_id")
+                or ""
+            )
+            if not benchmark_id:
+                raise ValueError(f"{source_key}: missing benchmark_id")
             history_dir = args.history_root / benchmark_id
             history = [str(history_dir / f"history_{idx:02d}.png") for idx in range(4)]
             row = {
@@ -140,7 +180,7 @@ def main() -> None:
                 "counterfactual_group_id": source_key,
                 "branch_role": branch,
                 "history_fingerprint": source_key,
-                "nuisance_seed": int(base["benchmark_id"].rsplit("-", 1)[-1]),
+                "nuisance_seed": int(benchmark_id.rsplit("-", 1)[-1]),
                 "intervention_type": "navigation_command_onehot",
                 # This is the intervention contract itself, not a negative
                 # specificity control.  Leaving the field absent allows the
@@ -182,6 +222,7 @@ def main() -> None:
                 "command_override": branch,
                 "lineage": {
                     "source_sample": generated["source_sample"],
+                    "source_key_source": generated["source_key_source"],
                     "runner_branch": branch,
                     "same_history_seed": True,
                     "intrinsics_source_size_source": (

@@ -1,0 +1,68 @@
+{
+  "protocol": "iac-history-conditioned-as-v1.1",
+  "visual_protocol": "iac-visual-output-layer-v1",
+  "date": "2026-09-15",
+  "official_score": {
+    "formula": "100 * sqrt(AS_progress_effective * AS_yaw_effective)",
+    "abstention_policy": "no credit in the official score; retain reason and coverage for diagnosis",
+    "observable_composite_policy": "diagnostic_only"
+  },
+  "visual_reader_validation": {
+    "reloc3r_512_real_confirmation": {
+      "rows": 120,
+      "coverage": 1.0,
+      "left_straight_right_accuracy": 0.9166666666666666,
+      "turn_direction_accuracy": 0.975,
+      "turn_direction_95ci": [0.9133556701442198, 0.9931171067970292],
+      "signed_yaw_spearman": 0.9474298416226732
+    },
+    "reloc3r_512_wam_confirmation": {
+      "rows": 178,
+      "coverage": 1.0,
+      "left_straight_right_alignment": 0.8820224719101124,
+      "turn_direction_alignment": 0.957983193277311,
+      "signed_yaw_spearman": 0.9023052829583543
+    },
+    "identity_control": {
+      "rows": 32,
+      "false_turns": 0
+    },
+    "metric3d_known_rotation_real_pilot": {
+      "rows": 8,
+      "intervals": 24,
+      "acceptable_intervals": 19,
+      "acceptable_rate": 0.7916666666666666,
+      "median_absolute_error_m": 1.6228447353327595
+    },
+    "rejected_backend": "Reloc3r translation norm is not used for progress because its WAM same-source distance ordering was 0.5869565217391305 with Spearman 0.042368177613321"
+  },
+  "drivewam_lineage_fixed": {
+    "status": "formal_joint_output_as",
+    "rows": 1490,
+    "expected_longitudinal_intervals": 5960,
+    "geometry_eligible_intervals": 2884,
+    "acceptable_longitudinal_intervals": 1399,
+    "progress_row_coverage": 0.736241610738255,
+    "longitudinal_interval_coverage": 0.48389261744966444,
+    "AS_progress_conditional_macro": 0.42198419933151016,
+    "AS_progress_effective": 0.23473154362416107,
+    "yaw_applicable_rows": 1077,
+    "yaw_correct_rows": 1007,
+    "AS_yaw_effective": 0.9350046425255338,
+    "AS_overall": 0.4684816784419381,
+    "AS_overall_100": 46.84816784419381,
+    "AS_overall_bootstrap_95ci_100": [45.129387, 48.498456],
+    "input_lineage_audit": "passed"
+  },
+  "real_logged_reference": {
+    "status": "visual_reader_upper_bound",
+    "rows": 95,
+    "expected_longitudinal_intervals": 380,
+    "acceptable_longitudinal_intervals": 302,
+    "AS_progress_effective": 0.7947368421052632,
+    "AS_yaw_effective": 1.0,
+    "AS_overall": 0.8914801411726809,
+    "AS_overall_100": 89.14801411726809
+  },
+  "claim_boundary": "Observable coarse yaw/progress consistency between generated future images and the supplied trajectory; not exact SE(3), physical realism, or trajectory-to-image causality."
+}

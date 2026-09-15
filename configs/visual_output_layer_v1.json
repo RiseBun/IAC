@@ -1,0 +1,43 @@
+{
+  "protocol": "iac-visual-output-layer-v1",
+  "status": "frozen_2026-09-15",
+  "claim_boundary": "The visual layer reports coarse observable motion and geometry. It does not claim exact metric distance or trajectory causality.",
+  "outputs": {
+    "yaw": {
+      "labels": ["left", "straight", "right"],
+      "straight_threshold_rad": 0.0128,
+      "formal_fields": ["label", "signed_yaw_rad", "confidence", "coverage"]
+    },
+    "longitudinal": {
+      "labels": ["stop", "very_short", "short", "medium", "long", "uncertain"],
+      "distance_bin_edges_m": [0.5, 3.0, 6.0, 9.0],
+      "distance_abs_tolerance_m": 3.0,
+      "distance_relative_tolerance": 0.5,
+      "adjacent_bin_tolerance": 1,
+      "speed_is_distance_over_interval": true,
+      "formal_fields": ["distance_bin", "speed_bin", "distance_m_raw", "speed_mps_raw", "acceptable", "confidence", "abstention_reason"]
+    },
+    "geometry_quality": {
+      "minimum_matches": 40,
+      "minimum_inlier_fraction": 0.10,
+      "high_confidence_inlier_fraction": 0.20,
+      "maximum_median_reprojection_error_px": 3.0,
+      "road_support_is_auxiliary": true
+    }
+  },
+  "evaluation": {
+    "distance_acceptance": "abs_error <= max(distance_abs_tolerance_m, distance_relative_tolerance * reference_m)",
+    "bin_acceptance": "same bin or at most adjacent bin; stop may only match stop/very_short",
+    "speed_acceptance": "same distance tolerance after dividing both values by the observed interval duration",
+    "abstention_is_not_zero": true,
+    "raw_metric_is_diagnostic_only": true
+  },
+  "calibration": {
+    "source": "real_NAVSIM_only",
+    "no_speed_conditioned_mapping": true,
+    "required_report_fields": ["coverage", "exact_bin_accuracy", "adjacent_bin_accuracy", "tolerant_distance_accuracy", "median_absolute_error", "spearman", "abstention_reasons"],
+    "status": "confirmed_on_available_source_disjoint_real_holdout",
+    "real_holdout_rows": 95,
+    "real_effective_progress": 0.7947368421052632
+  }
+}

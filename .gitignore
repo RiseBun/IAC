@@ -17,6 +17,8 @@ outputs/
 runs/
 artifacts/
 checkpoints/
+third_party/
+weights/
 *.ckpt
 *.pt
 *.pkl

@@ -12,9 +12,36 @@
 The machine-readable stages, input prohibitions and promotion gates are in
 [`configs/wam_joint_evaluation_v1.json`](configs/wam_joint_evaluation_v1.json).
 
-## Current frozen flow-token readout (2026-09-14)
+## Current visual layer and AS (2026-09-15)
 
-The current coarse readout is deliberately limited to
+The formal AS consumes `4 history + 4 future + 4 trajectory states`.
+Reloc3r-512 reads visual yaw; Metric3Dv2-v2-S, static correspondences and
+known-rotation PnP read coarse longitudinal progress.  The trajectory is joined
+only after candidate-blind visual extraction.  SegFormer is auxiliary and is
+not the sole correspondence backend.
+
+The official score is coverage-aware:
+
+```text
+AS = 100 * sqrt(acceptable_progress_intervals / all_expected_intervals
+                * correct_yaw / all_applicable_turns)
+```
+
+After fixing the DriveWAM round-robin shard lineage join, the formal 1,490-row
+result is:
+
+| AS | AS-yaw | conditional AS-progress | valid progress interval coverage |
+|---:|---:|---:|---:|
+| **46.8 / 100** | 93.5% | 42.2% | 48.4% |
+
+See [`docs/VISUAL_LAYER_AND_AS_ZH.md`](docs/VISUAL_LAYER_AND_AS_ZH.md) for the
+frozen method and claim boundary, and
+[`reports/as_release_20260915.json`](reports/as_release_20260915.json) for the
+compact machine-readable result.
+
+## Historical flow-token readout (2026-09-14, retained for diagnosis)
+
+This archived coarse readout was deliberately limited to
 `stop / left / right / straight`. A candidate-blind RAFT-Large reader consumes
 whole-clip visual motion; all thresholds and reliability rules are calibrated
 on NAVSIM logged-real video only, never on generated video.

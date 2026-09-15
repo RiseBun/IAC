@@ -22,6 +22,14 @@ perception = [
   "transformers>=4.40",
   "Pillow>=10.0",
 ]
+metric-depth = [
+  "mmengine>=0.10",
+  "transformers>=4.40",
+  "Pillow>=10.0",
+]
+test = [
+  "pytest>=8.0",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -1,0 +1,100 @@
+{
+  "protocol": "iac-history-conditioned-as-v1.1",
+  "date": "2026-09-15",
+  "observable_intervals_s": [[0, 1], [1, 2], [2, 3], [3, 4]],
+  "official_results": [
+    {
+      "condition": "NAVSIM logged-realized upper bound",
+      "rows": 95,
+      "row_coverage": 1.0,
+      "progress_row_coverage": 1.0,
+      "quality_scored_interval_coverage": 0.881578947368421,
+      "AS_progress": 0.9061403508771929,
+      "AS_yaw": 1.0,
+      "AS_composite": 0.9385964912280702,
+      "AS_progress_effective": 0.7947368421052632,
+      "AS_yaw_effective": 1.0,
+      "AS_overall": 0.8914801411726809,
+      "AS_overall_100": 89.14801411726809,
+      "lineage_status": "passed"
+    },
+    {
+      "condition": "benchmark-v3 real future + WAM action",
+      "rows": 255,
+      "row_coverage": 1.0,
+      "progress_row_coverage": 0.9921568627450981,
+      "quality_scored_interval_coverage": 0.8941176470588236,
+      "AS_progress": 0.8560606060606061,
+      "AS_yaw": 0.7751479289940828,
+      "AS_composite": 0.8277777777777777,
+      "AS_progress_effective": 0.7558823529411764,
+      "AS_yaw_effective": 0.7751479289940828,
+      "AS_overall": 0.7654545319256574,
+      "AS_overall_100": 76.54545319256573,
+      "lineage_status": "passed"
+    },
+    {
+      "condition": "benchmark-v3 native DriveWAM lineage-fixed",
+      "rows": 1490,
+      "row_coverage": 0.9838926174496644,
+      "progress_row_coverage": 0.736241610738255,
+      "quality_scored_interval_coverage": 0.48389261744966444,
+      "AS_progress": 0.42198419933151016,
+      "AS_yaw": 0.9350046425255338,
+      "AS_composite": 0.689631650750341,
+      "AS_progress_effective": 0.23473154362416107,
+      "AS_yaw_effective": 0.9350046425255338,
+      "AS_overall": 0.4684816784419381,
+      "AS_overall_100": 46.84816784419381,
+      "lineage_status": "passed"
+    },
+    {
+      "condition": "DriveWAM retained controlled-pair",
+      "rows": 348,
+      "row_coverage": 1.0,
+      "progress_row_coverage": 0.8706896551724138,
+      "quality_scored_interval_coverage": 0.6817528735632183,
+      "AS_progress": 0.8341584158415841,
+      "AS_yaw": 0.9696969696969697,
+      "AS_composite": 0.8892480842911877,
+      "AS_progress_effective": 0.5617816091954023,
+      "AS_yaw_effective": 0.9696969696969697,
+      "AS_overall": 0.7380771802923248,
+      "AS_overall_100": 73.80771802923249,
+      "lineage_status": "passed"
+    },
+    {
+      "condition": "WorldDrive exact-time benchmark-v3 adapter exploratory",
+      "rows": 10,
+      "row_coverage": 1.0,
+      "progress_row_coverage": 0.8,
+      "quality_scored_interval_coverage": 0.525,
+      "AS_progress": 0.9270833333333333,
+      "AS_yaw": 1.0,
+      "AS_composite": 0.9708333333333334,
+      "AS_progress_effective": 0.475,
+      "AS_yaw_effective": 1.0,
+      "AS_overall": 0.689202437604511,
+      "AS_overall_100": 68.9202437604511,
+      "lineage_status": "passed",
+      "formal_claim": false,
+      "reason": "exploratory sample size only"
+    }
+  ],
+  "historical_invalid_input_audits": [
+    {
+      "condition": "benchmark-v3 native DriveWAM manifest",
+      "rows": 1490,
+      "lineage_status": "failed",
+      "formal_metric_eligible": false,
+      "median_absolute_history_boundary_yaw_deg": 99.05009134742113,
+      "large_boundary_yaw_rate_gt_30deg": 0.9044414535666218,
+      "boundary_geometry_coverage": 0.0013422818791946308,
+      "future_only_AS_yaw": 0.9665738161559888,
+      "full_history_conditioned_AS_yaw_audit_only": 0.4976787372330548,
+      "reason": "superseded manifest joined round-robin shards as contiguous offsets; retained only as a regression case",
+      "resolved_by": "source_sample.metadata.source_key join",
+      "replacement_result": "reports/as_full4_benchmark_v3_drivewam_1490_lineage_fixed.json"
+    }
+  ]
+}

@@ -20,9 +20,33 @@ native action，是否与模型预测的未来视觉状态一致？IAC 将图像
 机器可读的阶段、输入禁止项和 promotion gate 见
 [`configs/wam_joint_evaluation_v1.json`](configs/wam_joint_evaluation_v1.json)。
 
-## 当前冻结流场读数（2026-09-14）
+## 当前正式视觉层与 AS（2026-09-15）
 
-为避免把未经验证的米制轨迹混入 MAS/RCS，当前粗粒度读数固定为
+当前 AS 使用 `4 history + 4 future + 4 trajectory states`。视觉分支由
+Reloc3r-512 读取转向，由 Metric3Dv2-v2-S、静态特征对应和 known-R PnP 读取
+粗粒度纵向进度；轨迹只在视觉提取完成后参与比较。SegFormer 仅作道路/动态区域
+辅助掩码，不作为唯一匹配后端。
+
+正式单分数为覆盖率感知的几何平均：
+
+```text
+AS = 100 × sqrt(acceptable_progress_intervals / all_expected_intervals
+                × correct_yaw / all_applicable_turns)
+```
+
+修复 DriveWAM 的 round-robin shard 错配后，1490 条正式结果为：
+
+| AS | AS-yaw | 条件 AS-progress | 有效纵向区间覆盖率 |
+|---:|---:|---:|---:|
+| **46.8 / 100** | 93.5% | 42.2% | 48.4% |
+
+完整定义、视觉后端、结果和声明边界见
+[`docs/VISUAL_LAYER_AND_AS_ZH.md`](docs/VISUAL_LAYER_AND_AS_ZH.md)，紧凑机器可读结果见
+[`reports/as_release_20260915.json`](reports/as_release_20260915.json)。
+
+## 历史流场读数（2026-09-14，诊断保留）
+
+为避免把未经验证的米制轨迹混入 MAS/RCS，当时的粗粒度读数固定为
 `stop / left / right / straight`。候选盲 RAFT-Large 只读取整段视觉运动；阈值和
 可靠性仅在 NAVSIM logged-real 上校准，生成视频不参与调参。
 
