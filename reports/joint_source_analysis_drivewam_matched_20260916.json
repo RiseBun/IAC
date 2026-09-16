@@ -29,6 +29,8 @@
         0.241123569104016
       ],
       "log_cluster_count": 419,
+      "source_permutation_p_two_sided": 0.0001999600079984003,
+      "log_cluster_permutation_p_two_sided": 0.0057988402319536095,
       "source_keys": [
         "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0004:76ee50b1e5be5e1a",
         "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0005:3469409328be53d9",
@@ -620,6 +622,8 @@
         0.24904387106605538
       ],
       "log_cluster_count": 419,
+      "source_permutation_p_two_sided": 0.0001999600079984003,
+      "log_cluster_permutation_p_two_sided": 0.003799240151969606,
       "source_keys": [
         "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0004:76ee50b1e5be5e1a",
         "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0005:3469409328be53d9",
@@ -1211,6 +1215,8 @@
         0.15937667100763436
       ],
       "log_cluster_count": 537,
+      "source_permutation_p_two_sided": 0.023795240951809637,
+      "log_cluster_permutation_p_two_sided": 0.007998400319936013,
       "source_keys": [
         "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0004:76ee50b1e5be5e1a",
         "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0005:3469409328be53d9",
@@ -1956,6 +1962,8 @@
         0.10590651289599057
       ],
       "log_cluster_count": 537,
+      "source_permutation_p_two_sided": 0.39912017596480703,
+      "log_cluster_permutation_p_two_sided": 0.0623875224955009,
       "source_keys": [
         "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0004:76ee50b1e5be5e1a",
         "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0005:3469409328be53d9",

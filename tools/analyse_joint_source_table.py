@@ -102,6 +102,35 @@ def _bootstrap_ci(rows: list[dict[str, Any]], left: str, right: str, *, cluster:
     return [low, high] if low is not None and high is not None else None
 
 
+def _permutation_p(rows: list[dict[str, Any]], left: str, right: str, *, cluster: bool, repeats: int = 5000) -> float | None:
+    if len(rows) < 3:
+        return None
+    if cluster:
+        clustered: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for row in rows:
+            clustered[_log_cluster(row["source_key"])].append(row)
+        analysis_rows = [{left: _mean([float(item[left]) for item in group]), right: _mean([float(item[right]) for item in group])} for group in clustered.values()]
+    else:
+        analysis_rows = rows
+    observed = _spearman([float(row[left]) for row in analysis_rows], [float(row[right]) for row in analysis_rows])
+    if observed is None:
+        return None
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        grouped[_log_cluster(row["source_key"]) if cluster else row["source_key"]].append(row)
+    keys = sorted(grouped)
+    values = [float(row[right]) for row in analysis_rows]
+    rng = random.Random(20260917 + (1 if cluster else 0))
+    extreme = 0
+    for _ in range(repeats):
+        permuted = values[:]
+        rng.shuffle(permuted)
+        value = _spearman([float(row[left]) for row in analysis_rows], permuted)
+        if value is not None and abs(value) >= abs(observed):
+            extreme += 1
+    return (extreme + 1.0) / (repeats + 1.0)
+
+
 def _load_as(path: Path) -> dict[str, dict[str, Any]]:
     from iac_new.history_conditioned_as import aggregate
 
@@ -176,6 +205,8 @@ def analyse(as_path: Path, fcs_path: Path, *, rcs_path: Path | None = None) -> d
             "source_bootstrap_ci95": _bootstrap_ci(rows, left, right, cluster=False),
             "log_cluster_bootstrap_ci95": _bootstrap_ci(rows, left, right, cluster=True),
             "log_cluster_count": len({_log_cluster(r["source_key"]) for r in rows}),
+            "source_permutation_p_two_sided": _permutation_p(rows, left, right, cluster=False),
+            "log_cluster_permutation_p_two_sided": _permutation_p(rows, left, right, cluster=True),
             "source_keys": [r["source_key"] for r in rows],
         }
 

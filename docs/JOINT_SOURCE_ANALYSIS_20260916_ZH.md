@@ -10,12 +10,12 @@ AS 在每个 source 内复用冻结 `history_conditioned_as.aggregate`，输出 
 
 全量 lineage-fixed manifest 的 1490 个分支中，1456 条 NAVSIM PDM rollout 成功，34 条因 metric cache 缺失而 unavailable。成功 rollout 的动作 fingerprint 与视觉 manifest 为 `1456/1456` 精确一致；FCS success rate 为 `55.08%`，Wilson 95% CI `[52.52%, 57.62%]`。
 
-| 关联 | 可计算 source | Spearman | log-cluster bootstrap CI |
-|---|---:|---:|---:|
-| AS-overall vs execution success | 574 | 0.158 | log-cluster bootstrap CI `[0.077, 0.241]` |
-| AS-overall vs execution task score | 574 | 0.168 | log-cluster bootstrap CI `[0.080, 0.249]` |
-| RCS-yaw vs execution success | 728 | 0.086 | log-cluster bootstrap CI `[0.009, 0.159]` |
-| RCS-yaw vs execution task score | 728 | 0.032 | log-cluster bootstrap CI `[-0.040, 0.106]` |
+| 关联 | 可计算 source | Spearman | log-cluster bootstrap CI | log-cluster permutation p |
+|---|---:|---:|---:|---:|
+| AS-overall vs execution success | 574 | 0.158 | `[0.077, 0.241]` | 0.0058 |
+| AS-overall vs execution task score | 574 | 0.168 | `[0.080, 0.249]` | 0.0038 |
+| RCS-yaw vs execution success | 728 | 0.086 | `[0.009, 0.159]` | 0.0080 |
+| RCS-yaw vs execution task score | 728 | 0.032 | `[-0.040, 0.106]` | 0.0624 |
 
 AS 总输入 745 source，其中直行等 source 没有适用的 yaw 通道，完整 AS 不能计算；缺失值保持缺失，不补零。common-10 仍保留为调试报告，不作正式证据。
 
@@ -23,7 +23,7 @@ AS 总输入 745 source，其中直行等 source 没有适用的 yaw 通道，�
 
 旧的 native rollout 与 AS 的错配已经被修复；旧审计仍保留在 [`action_alignment_drivewam_as_fcs_20260916.json`](../reports/action_alignment_drivewam_as_fcs_20260916.json)，作为失败回归案例。当前正式 matched rollout 的审计结果见 [`action_alignment_drivewam_as_matched_20260916.json`](../reports/action_alignment_drivewam_as_matched_20260916.json)。
 
-同动作配对后，AS 与执行 task score 呈小幅正相关，且 log-cluster bootstrap 区间不跨 0；RCS-yaw 与连续 task score 的区间跨 0。这个结果只能作为“指标与执行结果存在部分关联”的探索性证据，不能作为预测性能、因果性或统一质量排序。
+同动作配对后，AS 与两个执行结果的 log-cluster bootstrap 区间均不跨 0；RCS-yaw 只在二值 success 上出现弱关联，连续 task score 的区间跨 0。置换检验是本轮事后探索，未做多重比较校正，不能当作预注册显著性结论。整体只能作为“指标与执行结果存在部分关联”的探索性证据，不能作为预测性能、因果性或统一质量排序。
 
 ## 最短下一步
 
