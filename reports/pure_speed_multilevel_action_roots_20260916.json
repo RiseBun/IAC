@@ -1,0 +1,14 @@
+{
+  "protocol": "iac-pure-speed-multilevel-v1",
+  "status": "images_pending",
+  "source_count": 255,
+  "branch_count": 1020,
+  "roles": {
+    "stop": 0.0,
+    "slow": 0.5,
+    "normal": 1.0,
+    "fast": 1.5
+  },
+  "output": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_multilevel_action_roots_20260916_v2",
+  "same_history_seed_contract": true
+}

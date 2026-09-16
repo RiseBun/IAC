@@ -1,0 +1,12 @@
+{
+  "protocol": "iac-gs-frozen-descriptor-scales-v1",
+  "source": "reports/gs_epona_packets.json and reports/gs_drivewam_packets.json",
+  "calibration_domain": "real_logged_navsim_only",
+  "descriptor_scales": {
+    "median_flow_magnitude_px": 0.6025444157006848,
+    "horizontal_flow_center": 0.030738168189133684,
+    "vertical_flow_center": 0.023590743605748664,
+    "divergence": 0.46077075629131653,
+    "curl": 0.17186898289662392
+  }
+}

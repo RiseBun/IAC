@@ -24,10 +24,17 @@ def prepare(inputs: list[Path], output: Path) -> dict[str, Any]:
                 raise ValueError(f"duplicate branch: {sample_id}")
             seen.add(sample_id)
             source_sample = Path(str(raw["source_sample"]))
-            speed_role = str(raw.get("speed_role") or ("fast" if "/fast/" in str(source_sample) else "slow" if "/slow/" in str(source_sample) else "unknown"))
             with source_sample.open("rb") as handle:
                 sample = pickle.load(handle)
             metadata = sample.get("metadata") or {}
+            branch_mode = str(raw.get("branch_mode", ""))
+            intervention_role = branch_mode.removeprefix("joint_") if branch_mode.startswith("joint_") else ""
+            speed_role = str(
+                raw.get("speed_role")
+                or intervention_role
+                or metadata.get("speed_role")
+                or ("fast" if "/fast/" in str(source_sample) else "slow" if "/slow/" in str(source_sample) else "unknown")
+            )
             history = list(metadata.get("image_paths") or [])[-4:]
             future = list(raw.get("future_images") or [])
             if len(history) != 4 or len(future) < 4:
@@ -37,7 +44,7 @@ def prepare(inputs: list[Path], output: Path) -> dict[str, Any]:
                 "sample_id": sample_id,
                 "source_key": metadata.get("source_key"),
                 "counterfactual_group_id": metadata.get("source_key"),
-                "branch_role": "left" if speed_role == "fast" else ("right" if speed_role == "slow" else raw.get("branch_mode")),
+                "branch_role": "left" if speed_role == "fast" else ("right" if speed_role == "slow" else speed_role),
                 "speed_role": speed_role,
                 "scene_id": str(metadata.get("scene_token", "")),
                 "history_frame_paths": history,

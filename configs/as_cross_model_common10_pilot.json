@@ -1,0 +1,22 @@
+{
+  "protocol": "iac-as-cross-model-comparability-audit-v1",
+  "status": "pilot_2026-09-16",
+  "comparison_unit": "source",
+  "minimum_common_sources_for_formal_comparison": 30,
+  "models": [
+    {
+      "label": "DriveWAM-common10",
+      "manifest": "reports/as_common10_drivewam_manifest_20260916.jsonl",
+      "report": "reports/as_common10_drivewam_20260916.json",
+      "action_contract": "own_native",
+      "selection_policy": "benchmark_v3_stratified_model_output_blind"
+    },
+    {
+      "label": "WorldDrive-common10",
+      "manifest": "reports/as_common10_worlddrive_manifest_20260916.jsonl",
+      "report": "reports/as_common10_worlddrive_20260916.json",
+      "action_contract": "own_native",
+      "selection_policy": "benchmark_v3_stratified_model_output_blind"
+    }
+  ]
+}

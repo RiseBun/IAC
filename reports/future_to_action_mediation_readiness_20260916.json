@@ -1,0 +1,119 @@
+{
+  "protocol": "iac-future-to-action-mediation-v1",
+  "audit_type": "raw_artifact_readiness",
+  "status": "blocked_missing_controls",
+  "claim_enabled": false,
+  "inputs": {
+    "native_rows": 50,
+    "level2_rows": 2,
+    "image_swap_rows": 2,
+    "combined_rows": 54,
+    "counterfactual_groups": 25
+  },
+  "observed": {
+    "branch_roles": [
+      "future_native",
+      "future_reverse"
+    ],
+    "condition_values": [],
+    "pathway_states": [],
+    "source_key_count": 25,
+    "source_keys": [
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0001:36dd0d0bb6f45f01",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0001:4427e53def9f59f3",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0002:f672a791cccd547b",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0003:559fd62152bf5a06",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0004:bf2bba1153b3510c",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0005:bf3b6071ebc35c9a",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0006:d125ef7b4f9b5424",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0007:6073192b542350cd",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0007:98ff465acf2c5fd6",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0007:e8857dfd10515da4",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0008:9655364071745c87",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0009:244000c3a8fc56c9",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0010:b06c00f19ad4596b",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0011:506a50506d955533",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0012:c12087ce408150ed",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0013:d6e980f79d9b59dc",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0013:f73fd065481253db",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0014:2b5f8029c3155393",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0014:fc05cdba50055873",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0015:3ee94fb9483251e3",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0016:6d9fc685b7515a25",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0017:b2e77d0a42f05922",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0018:0256750475455532",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0018:33f475fe82865bc4",
+      "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0019:2bc9532d2a5d56a1"
+    ],
+    "native_provenance": {
+      "native_action_head_recorded_true": 50,
+      "formal_foresight_mediation_input_true": 50,
+      "native_unintervened_true": 25,
+      "action_origins": {
+        "worlddrive_stage2_refined_planner": 25,
+        "worlddrive_stage2_internal_future_latent_permutation": 25
+      },
+      "intervention_types": {
+        "internal_future_latent_permutation": 50
+      },
+      "intervention_targets": {
+        "stage2_candidate_conditioned_future_scene_embed": 50
+      }
+    }
+  },
+  "required_conditions": [
+    "baseline",
+    "future_perturbed",
+    "future_perturbed_pathway_blocked",
+    "future_fixed_action_pathway_control"
+  ],
+  "required_condition_presence": {
+    "baseline": false,
+    "future_perturbed": false,
+    "future_perturbed_pathway_blocked": false,
+    "future_fixed_action_pathway_control": false
+  },
+  "missing_controls": [
+    "baseline",
+    "future_perturbed",
+    "future_perturbed_pathway_blocked",
+    "future_fixed_action_pathway_control"
+  ],
+  "missing_required_fields": {
+    "future_fingerprint": 54,
+    "pathway_state": 54,
+    "action_normalization_fingerprint": 54,
+    "action_normalization_scale": 54,
+    "command_fingerprint": 54,
+    "model_revision": 54
+  },
+  "source_disjoint_confirmation": {
+    "source_key_count_observed": 25,
+    "calibration_manifest_supplied": false,
+    "verified": false
+  },
+  "interpretation": {
+    "what_is_supported": "The pilot contains a model-owned native action head and a future latent permutation intervention, so it is useful for an action-response diagnostic.",
+    "what_is_not_supported": "It does not identify future-to-action mediation because no pathway-blocked and fixed-action controls are present, and no frozen action normalization/future fingerprints are recorded.",
+    "image_swap_is_not_pathway_block": true
+  },
+  "next_experiment": {
+    "minimum_confirmation_sources": 30,
+    "conditions": [
+      "baseline",
+      "future_perturbed",
+      "future_perturbed_pathway_blocked",
+      "future_fixed_action_pathway_control"
+    ],
+    "hold_fixed": [
+      "source_key",
+      "history",
+      "command",
+      "nuisance_seed",
+      "model_revision",
+      "wam_model_id",
+      "native_action_source"
+    ],
+    "calibration_rule": "fit action normalization on calibration sources only, freeze before confirmation, and provide a disjoint source manifest"
+  }
+}

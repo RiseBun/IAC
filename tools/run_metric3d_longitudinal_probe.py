@@ -158,6 +158,11 @@ def main() -> None:
     parser.add_argument("--metric3d-root", type=Path, required=True)
     parser.add_argument("--metric3d-checkpoint", type=Path, required=True)
     parser.add_argument("--reloc3r-root", type=Path, required=True)
+    parser.add_argument(
+        "--reloc3r-checkpoint",
+        type=Path,
+        help="Local Hugging Face model directory containing config.json and model.safetensors.",
+    )
     parser.add_argument("--segformer-model", type=Path)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--resolution", type=int, default=512)
@@ -173,7 +178,7 @@ def main() -> None:
 
     import cv2
     sys.path.insert(0, str(args.reloc3r_root))
-    from reloc3r.reloc3r_relpose import inference_relpose, setup_reloc3r_relpose_model
+    from reloc3r.reloc3r_relpose import Reloc3rRelpose, inference_relpose, setup_reloc3r_relpose_model
     from reloc3r.utils.device import to_numpy
     from reloc3r.utils.image import check_images_shape_format, load_images
     from iac_new.frame_matching import load_manifest, scaled_intrinsics, sift_matches
@@ -191,7 +196,11 @@ def main() -> None:
     if args.limit > 0:
         records = records[: args.limit]
     metric3d, torch, _ = _load_metric3d(args.metric3d_root, args.metric3d_checkpoint, args.device)
-    reloc = setup_reloc3r_relpose_model(str(args.resolution), args.device)
+    if args.reloc3r_checkpoint is not None:
+        reloc = Reloc3rRelpose.from_pretrained(str(args.reloc3r_checkpoint)).to(args.device).eval()
+        print(f"Reloc3r loaded from local registry: {args.reloc3r_checkpoint}", flush=True)
+    else:
+        reloc = setup_reloc3r_relpose_model(str(args.resolution), args.device)
     rows: list[dict[str, Any]] = []
     completed_sample_ids: set[str] = set()
     if args.resume and args.output.exists():

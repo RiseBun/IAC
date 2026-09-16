@@ -1,0 +1,1631 @@
+{
+  "protocol": "iac-response-consistency-v2",
+  "status": "formal",
+  "metric": "coarse_relative_progress_endpoint",
+  "absolute_distance_required": false,
+  "declared_groups": 64,
+  "contract_valid_groups": 64,
+  "eligible_groups": 36,
+  "independent_eligible_sources": 36,
+  "repeated_eligible_sources": {},
+  "independence_requirement_met": true,
+  "scored_groups": 35,
+  "coverage": 0.9722222222222222,
+  "hits": 26,
+  "endpoint_accuracy": 0.7428571428571429,
+  "endpoint_accuracy_ci95": [
+    0.5793069315616084,
+    0.8583697293093955
+  ],
+  "endpoint_accuracy_bootstrap_ci95_diagnostic": [
+    0.6,
+    0.8857142857142857
+  ],
+  "formal_sample_size_met": true,
+  "promotion_pass": false,
+  "invalid_contract_reasons": {},
+  "groups": [
+    {
+      "counterfactual_group_id": "epona_log:2021.05.12.22.00.38_veh-35_01008_01518",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.05.12.22.00.38_veh-35_01008_01518.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.2295736269152258e-06
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.05.12.22.28.35_veh-35_00620_01164",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.05.12.22.28.35_veh-35_00620_01164.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 4.779996395111084,
+      "action_delta_m": 4.779996395111084,
+      "visual_low": {
+        "value": 3.0536642836151744,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.3818850528556608,
+          0.667088793950136,
+          0.004690436809377844
+        ],
+        "inlier_fraction": [
+          0.4,
+          0.43157894736842106,
+          0.25874125874125875
+        ]
+      },
+      "visual_high": {
+        "value": 5.563008107054785,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.9092601293002387,
+          2.6996762659681965,
+          -0.04592828821364952
+        ],
+        "inlier_fraction": [
+          0.3670212765957447,
+          0.3875,
+          0.44171779141104295
+        ]
+      },
+      "visual_delta": 2.509343823439611,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.05.12.23.36.44_veh-35_00152_00504",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.05.12.23.36.44_veh-35_00152_00504.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 6.252400875091553,
+      "action_delta_m": 6.252400875091553,
+      "visual_low": {
+        "value": 10.196299958889274,
+        "accepted_intervals": 3,
+        "raw_values": [
+          3.7837437603898634,
+          3.3253601228373286,
+          3.0871960756620824
+        ],
+        "inlier_fraction": [
+          0.2611464968152866,
+          0.42857142857142855,
+          0.4122137404580153
+        ]
+      },
+      "visual_high": {
+        "value": 10.360462075481042,
+        "accepted_intervals": 3,
+        "raw_values": [
+          3.5379513179532354,
+          3.449199875126937,
+          3.3733108824008706
+        ],
+        "inlier_fraction": [
+          0.2922077922077922,
+          0.328125,
+          0.3973509933774834
+        ]
+      },
+      "visual_delta": 0.16416211659176838,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.05.12.23.36.44_veh-35_01133_01535",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.05.12.23.36.44_veh-35_01133_01535.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 6.249490737915039,
+      "action_delta_m": 6.249490737915039,
+      "visual_low": {
+        "value": 4.557950418128875,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.269441570129873,
+          2.414420635703038,
+          0.8740882122959636
+        ],
+        "inlier_fraction": [
+          0.5098039215686274,
+          0.44680851063829785,
+          0.5675675675675675
+        ]
+      },
+      "visual_high": {
+        "value": 3.9295305674452283,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.4794646978716808,
+          -0.1459953156746157,
+          2.596061185248163
+        ],
+        "inlier_fraction": [
+          0.43333333333333335,
+          0.42201834862385323,
+          0.5402298850574713
+        ]
+      },
+      "visual_delta": -0.6284198506836463,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.05.12.23.36.44_veh-35_02035_02387",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.05.12.23.36.44_veh-35_02035_02387.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 0.5589975118637085,
+      "action_delta_m": 0.5589975118637085,
+      "visual_low": {
+        "value": 1.0916760179185503,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.3065586794699438,
+          0.38292160706213174,
+          0.40219573138647474
+        ],
+        "inlier_fraction": [
+          0.8052126200274349,
+          0.8017751479289941,
+          0.7946768060836502
+        ]
+      },
+      "visual_high": {
+        "value": 1.2393235167765475,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.3242323624019008,
+          0.42396115039357746,
+          0.4911300039810692
+        ],
+        "inlier_fraction": [
+          0.8280346820809249,
+          0.7647058823529411,
+          0.7596330275229358
+        ]
+      },
+      "visual_delta": 0.14764749885799722,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.05.25.14.16.10_veh-35_01690_02183",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.05.25.14.16.10_veh-35_01690_02183.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 6.614930043724598e-07
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.03.12.02.06_veh-35_00233_00609",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.03.12.02.06_veh-35_00233_00609.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 6.676368116131925e-07
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.03.13.55.17_veh-35_00073_00426",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.03.13.55.17_veh-35_00073_00426.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.7594052792446746e-07
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.07.12.54.00_veh-35_01843_02314",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.07.12.54.00_veh-35_01843_02314.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 0.0
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.07.18.53.26_veh-26_00005_00427",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.07.18.53.26_veh-26_00005_00427.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 0.0
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.08.12.54.54_veh-26_04262_04732",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.08.12.54.54_veh-26_04262_04732.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.7812624264479382e-07
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.08.14.35.24_veh-26_02555_03004",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.08.14.35.24_veh-26_02555_03004.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 5.753393173217773,
+      "action_delta_m": 5.753393173217773,
+      "visual_low": {
+        "value": 7.125201428223923,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.663556409767685,
+          2.351858951778955,
+          2.109786066677282
+        ],
+        "inlier_fraction": [
+          0.5988372093023255,
+          0.6424870466321243,
+          0.5891089108910891
+        ]
+      },
+      "visual_high": {
+        "value": 7.866479744503735,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.598424786910658,
+          2.7451581735106156,
+          2.522896784082462
+        ],
+        "inlier_fraction": [
+          0.4808743169398907,
+          0.6055555555555555,
+          0.5773809523809523
+        ]
+      },
+      "visual_delta": 0.7412783162798124,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.08.16.31.33_veh-38_01589_02072",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.08.16.31.33_veh-38_01589_02072.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.9595052435761318e-05
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.11.54.15_veh-12_04366_04810",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.11.54.15_veh-12_04366_04810.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 4.760974192663525e-08
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.12.39.51_veh-26_01943_02303",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.12.39.51_veh-26_01943_02303.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 0.8125382661819458,
+      "action_delta_m": 0.8125382661819458,
+      "visual_low": {
+        "value": 1.8630019349907583,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.6029280538146714,
+          0.5810541660500523,
+          0.6790197151260345
+        ],
+        "inlier_fraction": [
+          0.6686390532544378,
+          0.5965665236051502,
+          0.636085626911315
+        ]
+      },
+      "visual_high": {
+        "value": 1.8354742836401923,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.6199507117399488,
+          0.5905359962691545,
+          0.624987575631089
+        ],
+        "inlier_fraction": [
+          0.5860805860805861,
+          0.7483443708609272,
+          0.6525821596244131
+        ]
+      },
+      "visual_delta": -0.027527651350566007,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.12.39.51_veh-26_05620_06003",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.12.39.51_veh-26_05620_06003.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 1.8366210460662842,
+      "action_delta_m": 1.8366210460662842,
+      "visual_low": {
+        "value": 3.294165542887586,
+        "accepted_intervals": 2,
+        "raw_values": [
+          2.4806639523241767,
+          1.9116776537384639,
+          1.3824878891491221
+        ],
+        "inlier_fraction": [
+          0.1623931623931624,
+          0.2317596566523605,
+          0.27800829875518673
+        ]
+      },
+      "visual_high": {
+        "value": 5.260015183574781,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.8687228350192906,
+          1.866482006534232,
+          1.5248103420212589
+        ],
+        "inlier_fraction": [
+          0.35947712418300654,
+          0.3197969543147208,
+          0.3004694835680751
+        ]
+      },
+      "visual_delta": 1.9658496406871953,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.14.03.17_veh-12_02584_02970",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.14.03.17_veh-12_02584_02970.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.0732120244938415e-05
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.14.58.55_veh-35_01095_01484",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.14.58.55_veh-35_01095_01484.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 6.000504493713379,
+      "action_delta_m": 6.000504493713379,
+      "visual_low": {
+        "value": 5.312778237507727,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.130147348181807,
+          2.2399300345430095,
+          0.9427008547829108
+        ],
+        "inlier_fraction": [
+          0.5294117647058824,
+          0.5098039215686274,
+          0.5
+        ]
+      },
+      "visual_high": {
+        "value": 6.557699069784922,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.1708721585739874,
+          2.2783187443833515,
+          2.1085081668275834
+        ],
+        "inlier_fraction": [
+          0.5258620689655172,
+          0.5932203389830508,
+          0.5978260869565217
+        ]
+      },
+      "visual_delta": 1.2449208322771952,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.14.58.55_veh-35_01894_02311",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.14.58.55_veh-35_01894_02311.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 1.6222461462020874,
+      "action_delta_m": 1.6222461462020874,
+      "visual_low": {
+        "value": 3.338099339089368,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.292004209628237,
+          1.1181605296385413,
+          0.9279345998225897
+        ],
+        "inlier_fraction": [
+          0.8047337278106509,
+          0.8419354838709677,
+          0.7892976588628763
+        ]
+      },
+      "visual_high": {
+        "value": 3.5033917412662765,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.2657095459932592,
+          1.1467051223250178,
+          1.0909770729479993
+        ],
+        "inlier_fraction": [
+          0.8477611940298507,
+          0.8319088319088319,
+          0.8245033112582781
+        ]
+      },
+      "visual_delta": 0.16529240217690866,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.17.23.18_veh-38_00773_01140",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.17.23.18_veh-38_00773_01140.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 0.750097393989563,
+      "action_delta_m": 0.750097393989563,
+      "visual_low": {
+        "value": 1.2931536801134471,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.7047153717015943,
+          0.2629602811560646,
+          0.32547802725578817
+        ],
+        "inlier_fraction": [
+          0.49184782608695654,
+          0.48659003831417624,
+          0.7041666666666667
+        ]
+      },
+      "visual_high": {
+        "value": 1.5796647616257171,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.6461063250876693,
+          0.49066375206182405,
+          0.4428946844762237
+        ],
+        "inlier_fraction": [
+          0.5586734693877551,
+          0.642369020501139,
+          0.5643564356435643
+        ]
+      },
+      "visual_delta": 0.28651108151227,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.17.23.18_veh-38_02526_03027",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.17.23.18_veh-38_02526_03027.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 2.8107047080993652,
+      "action_delta_m": 2.8107047080993652,
+      "visual_low": {
+        "value": 0.35718940778013464,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.2004862237477995,
+          0.18235612900719325,
+          0.3753195025207409
+        ],
+        "inlier_fraction": [
+          0.328125,
+          0.43805309734513276,
+          0.6136919315403423
+        ]
+      },
+      "visual_high": {
+        "value": 1.8996249171911344,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.04923323953394671,
+          0.9324013850617116,
+          1.0164567716633695
+        ],
+        "inlier_fraction": [
+          0.41702127659574467,
+          0.5733333333333334,
+          0.5
+        ]
+      },
+      "visual_delta": 1.5424355094109998,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.09.17.37.09_veh-12_00404_00864",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.09.17.37.09_veh-12_00404_00864.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.5565949070150964e-05
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.14.16.32.09_veh-35_05038_05402",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.14.16.32.09_veh-35_05038_05402.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.3199463865021244e-05
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.14.16.48.02_veh-12_04057_04438",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.14.16.48.02_veh-12_04057_04438.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 7.252416610717773,
+      "action_delta_m": 7.252416610717773,
+      "visual_low": {
+        "value": 2.564713907785295,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.9457856548819266,
+          0.8571636791310233,
+          0.7617645737723451
+        ],
+        "inlier_fraction": [
+          0.56797583081571,
+          0.603399433427762,
+          0.6214285714285714
+        ]
+      },
+      "visual_high": {
+        "value": 2.928893200115581,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.0318772248007506,
+          0.8597344329906033,
+          1.0372815423242272
+        ],
+        "inlier_fraction": [
+          0.5816023738872403,
+          0.6217008797653959,
+          0.6062717770034843
+        ]
+      },
+      "visual_delta": 0.3641792923302858,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.14.16.48.02_veh-12_04978_05337",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.14.16.48.02_veh-12_04978_05337.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 0.0
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.14.17.26.26_veh-38_04544_04920",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.14.17.26.26_veh-38_04544_04920.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.4633814089393127e-06
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.14.18.33.41_veh-35_03901_04264",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.14.18.33.41_veh-35_03901_04264.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 2.437420129776001,
+      "action_delta_m": 2.437420129776001,
+      "visual_low": {
+        "value": 4.376328016280901,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.618419624157475,
+          1.4393966656205954,
+          1.318511726502831
+        ],
+        "inlier_fraction": [
+          0.4457831325301205,
+          0.4578313253012048,
+          0.5789473684210527
+        ]
+      },
+      "visual_high": {
+        "value": 4.327926138362995,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.2387873510225687,
+          1.5532457531251025,
+          1.5358930342153234
+        ],
+        "inlier_fraction": [
+          0.37755102040816324,
+          0.35714285714285715,
+          0.41379310344827586
+        ]
+      },
+      "visual_delta": -0.04840187791790651,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.14.18.42.45_veh-12_03445_03902",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.14.18.42.45_veh-12_03445_03902.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 0.0
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.14.19.22.11_veh-38_01480_01860",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.14.19.22.11_veh-38_01480_01860.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 2.0009238719940186,
+      "action_delta_m": 2.0009238719940186,
+      "visual_low": {
+        "value": 3.3678809055405416,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.2182499880812967,
+          1.15708931073997,
+          0.9925416067192749
+        ],
+        "inlier_fraction": [
+          0.5168918918918919,
+          0.48148148148148145,
+          0.6352201257861635
+        ]
+      },
+      "visual_high": {
+        "value": 3.4159263236547255,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.7148112081329042,
+          1.140992753242813,
+          1.5601223622790081
+        ],
+        "inlier_fraction": [
+          0.4072727272727273,
+          0.3715277777777778,
+          0.36795252225519287
+        ]
+      },
+      "visual_delta": 0.048045418114183835,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.23.15.56.12_veh-16_00839_01285",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.23.15.56.12_veh-16_00839_01285.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 7.820253244972264e-07
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.23.16.54.19_veh-35_00808_01256",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.23.16.54.19_veh-35_00808_01256.pkl",
+      "status": "visual_unavailable",
+      "action_delta_m": 2.9476637840270996,
+      "low_visual": {
+        "value": 0.9558597619050063,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.17650820010089344,
+          0.7793515618041129
+        ],
+        "inlier_fraction": [
+          null,
+          0.32,
+          0.4444444444444444
+        ]
+      },
+      "high_visual": {
+        "value": null,
+        "accepted_intervals": 0,
+        "raw_values": [
+          null,
+          null,
+          null
+        ],
+        "inlier_fraction": [
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.23.17.31.36_veh-16_00016_00377",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.23.17.31.36_veh-16_00016_00377.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 3.3579912185668945,
+      "action_delta_m": 3.3579912185668945,
+      "visual_low": {
+        "value": 5.981581766040953,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.2229910332193135,
+          1.8877417382166957,
+          1.8708489946049438
+        ],
+        "inlier_fraction": [
+          0.3442622950819672,
+          0.5614035087719298,
+          0.2111111111111111
+        ]
+      },
+      "visual_high": {
+        "value": 6.79410484470988,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.35090583093837,
+          2.3884799521160267,
+          2.054719061655483
+        ],
+        "inlier_fraction": [
+          0.34615384615384615,
+          0.41935483870967744,
+          0.21875
+        ]
+      },
+      "visual_delta": 0.812523078668927,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.23.20.43.31_veh-16_03607_04007",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.23.20.43.31_veh-16_03607_04007.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 3.500535488128662,
+      "action_delta_m": 3.500535488128662,
+      "visual_low": {
+        "value": 6.1839619772634435,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.421490897889759,
+          1.6605575445175769,
+          2.101913534856108
+        ],
+        "inlier_fraction": [
+          0.37681159420289856,
+          0.4129032258064516,
+          0.4842105263157895
+        ]
+      },
+      "visual_high": {
+        "value": 4.976874855065258,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.2266003578360216,
+          2.2856486809507484,
+          0.464625816278488
+        ],
+        "inlier_fraction": [
+          0.32786885245901637,
+          0.2746478873239437,
+          0.27692307692307694
+        ]
+      },
+      "visual_delta": -1.2070871221981854,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.28.15.02.02_veh-38_02398_02848",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.28.15.02.02_veh-38_02398_02848.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 0.5027353763580322,
+      "action_delta_m": 0.5027353763580322,
+      "visual_low": {
+        "value": 0.2873439575156498,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.09942877851668484,
+          0.09118834680732957,
+          0.09672683219163535
+        ],
+        "inlier_fraction": [
+          0.6,
+          0.6487889273356401,
+          0.6767515923566879
+        ]
+      },
+      "visual_high": {
+        "value": 0.3433986863520833,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.07313539265689696,
+          0.09785858481248963,
+          0.17240470888269674
+        ],
+        "inlier_fraction": [
+          0.5643564356435643,
+          0.6617210682492581,
+          0.6893203883495146
+        ]
+      },
+      "visual_delta": 0.05605472883643353,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.28.16.29.11_veh-38_01415_01821",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.28.16.29.11_veh-38_01415_01821.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 6.035161277395673e-06
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.28.16.29.11_veh-38_03263_03766",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.28.16.29.11_veh-38_03263_03766.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 0.7494240999221802,
+      "action_delta_m": 0.7494240999221802,
+      "visual_low": {
+        "value": 1.65971686183713,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.43020912277155093,
+          0.6027277308378537,
+          0.6267800082277255
+        ],
+        "inlier_fraction": [
+          0.6008583690987125,
+          0.6600441501103753,
+          0.6370558375634517
+        ]
+      },
+      "visual_high": {
+        "value": 1.6576221907604922,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.4944261680008648,
+          0.5437257072149376,
+          0.6194703155446897
+        ],
+        "inlier_fraction": [
+          0.6307692307692307,
+          0.558252427184466,
+          0.6205962059620597
+        ]
+      },
+      "visual_delta": -0.002094671076637855,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.06.28.16.57.59_veh-26_00016_00484",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.06.28.16.57.59_veh-26_00016_00484.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 3.1320934295654297,
+      "action_delta_m": 3.1320934295654297,
+      "visual_low": {
+        "value": 4.962664011775689,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.070488220308031,
+          2.1915612703309835,
+          0.7006145211366747
+        ],
+        "inlier_fraction": [
+          0.44785276073619634,
+          0.41358024691358025,
+          0.41714285714285715
+        ]
+      },
+      "visual_high": {
+        "value": 5.662542348907877,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.9054943652327607,
+          1.8718370741188626,
+          1.8852109095562541
+        ],
+        "inlier_fraction": [
+          0.43448275862068964,
+          0.49624060150375937,
+          0.38095238095238093
+        ]
+      },
+      "visual_delta": 0.6998783371321879,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.09.17.06.37_veh-35_00258_00748",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.09.17.06.37_veh-35_00258_00748.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 5.501430034637451,
+      "action_delta_m": 5.501430034637451,
+      "visual_low": {
+        "value": 3.31474355131558,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.0794341159270062,
+          0.9763229741203698,
+          1.2589864612682038
+        ],
+        "inlier_fraction": [
+          0.5492957746478874,
+          0.5342857142857143,
+          0.5951557093425606
+        ]
+      },
+      "visual_high": {
+        "value": 3.8544110701889993,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.168756195491529,
+          0.9397965105067889,
+          1.7458583641906813
+        ],
+        "inlier_fraction": [
+          0.4962121212121212,
+          0.44666666666666666,
+          0.5
+        ]
+      },
+      "visual_delta": 0.5396675188734195,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.09.20.59.12_veh-38_01208_01692",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.09.20.59.12_veh-38_01208_01692.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 2.249819755554199,
+      "action_delta_m": 2.249819755554199,
+      "visual_low": {
+        "value": 4.097363464266152,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.4805406289219978,
+          1.3622111305437208,
+          1.2546117048004337
+        ],
+        "inlier_fraction": [
+          0.8045602605863192,
+          0.8035087719298246,
+          0.7177177177177178
+        ]
+      },
+      "visual_high": {
+        "value": 4.699993476770251,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.7067490710514097,
+          1.5748877482689922,
+          1.418356657449849
+        ],
+        "inlier_fraction": [
+          0.7575757575757576,
+          0.74,
+          0.7062937062937062
+        ]
+      },
+      "visual_delta": 0.6026300125040986,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.16.00.51.05_veh-17_01352_01901",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.16.00.51.05_veh-17_01352_01901.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 7.55982273403788e-06
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.16.18.06.21_veh-38_03231_03712",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.16.18.06.21_veh-38_03231_03712.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 2.327010952285491e-05
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.16.18.06.21_veh-38_04471_04922",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.16.18.06.21_veh-38_04471_04922.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 3.820504903793335,
+      "action_delta_m": 3.820504903793335,
+      "visual_low": {
+        "value": 6.219428637991549,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.354853531936659,
+          2.043558588063052,
+          1.821016517991838
+        ],
+        "inlier_fraction": [
+          0.44680851063829785,
+          0.4779874213836478,
+          0.4647887323943662
+        ]
+      },
+      "visual_high": {
+        "value": 8.785571081815256,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.9472375567122993,
+          3.072671408139802,
+          2.7656621169631537
+        ],
+        "inlier_fraction": [
+          0.3551912568306011,
+          0.39864864864864863,
+          0.5151515151515151
+        ]
+      },
+      "visual_delta": 2.566142443823707,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.16.18.06.21_veh-38_04933_05307",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.16.18.06.21_veh-38_04933_05307.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 3.00083589553833,
+      "action_delta_m": 3.00083589553833,
+      "visual_low": {
+        "value": 4.5339660766323675,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.9382781021438482,
+          1.3718387993550587,
+          1.2238491751334601
+        ],
+        "inlier_fraction": [
+          0.6512605042016807,
+          0.6338582677165354,
+          0.6869918699186992
+        ]
+      },
+      "visual_high": {
+        "value": 5.677582925865629,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.9190351798351728,
+          1.7643821315521786,
+          1.9941656144782773
+        ],
+        "inlier_fraction": [
+          0.6600985221674877,
+          0.635,
+          0.6572769953051644
+        ]
+      },
+      "visual_delta": 1.1436168492332612,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.16.18.19.22_veh-35_00440_00858",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.16.18.19.22_veh-35_00440_00858.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 6.778666374884779e-07
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.16.20.45.29_veh-35_00600_01084",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.16.20.45.29_veh-35_00600_01084.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 2.4724221248106915e-07
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.16.20.45.29_veh-35_01095_01486",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.16.20.45.29_veh-35_01095_01486.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 5.251448631286621,
+      "action_delta_m": 5.251448631286621,
+      "visual_low": {
+        "value": 6.479019433067467,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.317938697984251,
+          1.9778248390523692,
+          2.1832558960308472
+        ],
+        "inlier_fraction": [
+          0.49122807017543857,
+          0.46411483253588515,
+          0.46153846153846156
+        ]
+      },
+      "visual_high": {
+        "value": 7.078177033182789,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.470510014439367,
+          2.2169019771893645,
+          2.3907650415540576
+        ],
+        "inlier_fraction": [
+          0.5144508670520231,
+          0.44680851063829785,
+          0.4479166666666667
+        ]
+      },
+      "visual_delta": 0.5991576001153218,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.24.20.37.45_veh-17_00015_00375",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.24.20.37.45_veh-17_00015_00375.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 3.6334733963012695,
+      "action_delta_m": 3.6334733963012695,
+      "visual_low": {
+        "value": 4.5809257454963515,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.4497143402717518,
+          1.6241649100542,
+          1.5070464951704
+        ],
+        "inlier_fraction": [
+          0.5537848605577689,
+          0.4794007490636704,
+          0.6261980830670927
+        ]
+      },
+      "visual_high": {
+        "value": 5.643336530687277,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.3566970442243091,
+          2.0261545565216204,
+          2.260484929941348
+        ],
+        "inlier_fraction": [
+          0.47029702970297027,
+          0.5422885572139303,
+          0.4688995215311005
+        ]
+      },
+      "visual_delta": 1.0624107851909255,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.07.24.23.50.16_veh-17_01696_02071",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.07.24.23.50.16_veh-17_01696_02071.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 5.409008026123047,
+      "action_delta_m": 5.409008026123047,
+      "visual_low": {
+        "value": 5.232628394019513,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.5307458241595304,
+          2.028561953802781,
+          1.6733206160572018
+        ],
+        "inlier_fraction": [
+          0.6738461538461539,
+          0.5426829268292683,
+          0.5818181818181818
+        ]
+      },
+      "visual_high": {
+        "value": 5.453916292640501,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.705942273037778,
+          1.9510532752803058,
+          1.796920744322417
+        ],
+        "inlier_fraction": [
+          0.63003663003663,
+          0.5426621160409556,
+          0.5598591549295775
+        ]
+      },
+      "visual_delta": 0.22128789862098763,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.08.09.17.55.59_veh-28_00021_00307",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.08.09.17.55.59_veh-28_00021_00307.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 2.568191348473192e-06
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.08.17.16.57.11_veh-08_01200_01636",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.08.17.16.57.11_veh-08_01200_01636.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.4768615983484779e-06
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.08.17.17.17.01_veh-45_02314_02798",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.08.17.17.17.01_veh-45_02314_02798.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 2.98408842086792,
+      "action_delta_m": 2.98408842086792,
+      "visual_low": {
+        "value": 5.917259672632886,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.193327163022158,
+          1.9112631169949443,
+          1.812669392615784
+        ],
+        "inlier_fraction": [
+          0.3888888888888889,
+          0.4272300469483568,
+          0.3829787234042553
+        ]
+      },
+      "visual_high": {
+        "value": 6.620340977082494,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.4251744179029227,
+          2.0264246774704833,
+          2.1687418817090878
+        ],
+        "inlier_fraction": [
+          0.5107296137339056,
+          0.33640552995391704,
+          0.4228855721393035
+        ]
+      },
+      "visual_delta": 0.7030813044496078,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.08.17.18.54.02_veh-45_00665_01065",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.08.17.18.54.02_veh-45_00665_01065.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 1.8288077116012573,
+      "action_delta_m": 1.8288077116012573,
+      "visual_low": {
+        "value": 4.204351026154863,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.4370803652289244,
+          1.3529198930764799,
+          1.414350767849459
+        ],
+        "inlier_fraction": [
+          0.6879194630872483,
+          0.6748971193415638,
+          0.676
+        ]
+      },
+      "visual_high": {
+        "value": 4.1344212905214235,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.3647217190297305,
+          1.3877062488539627,
+          1.3819933226377303
+        ],
+        "inlier_fraction": [
+          0.6190476190476191,
+          0.6888888888888889,
+          0.7303370786516854
+        ]
+      },
+      "visual_delta": -0.06992973563343963,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.08.24.13.12.55_veh-45_00386_00472",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.08.24.13.12.55_veh-45_00386_00472.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 6.056719939806499e-06
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.08.30.14.54.34_veh-40_00439_00835",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.08.30.14.54.34_veh-40_00439_00835.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 0.024148425087332726
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.09.16.15.12.03_veh-42_01037_01434",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.09.16.15.12.03_veh-42_01037_01434.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 0.5562258958816528,
+      "action_delta_m": 0.5562258958816528,
+      "visual_low": {
+        "value": 2.160136988138042,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.7400474082711173,
+          0.7325444635955363,
+          0.6875451162713887
+        ],
+        "inlier_fraction": [
+          0.7540983606557377,
+          0.7843137254901961,
+          0.7338129496402878
+        ]
+      },
+      "visual_high": {
+        "value": 2.313435535122909,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.7571235264036679,
+          0.7528497607952589,
+          0.8034622479239822
+        ],
+        "inlier_fraction": [
+          0.6892778993435449,
+          0.6847545219638242,
+          0.5830985915492958
+        ]
+      },
+      "visual_delta": 0.15329854698486667,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.01.19.16.42_veh-28_02011_02410",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.01.19.16.42_veh-28_02011_02410.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.5163349189606379e-06
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.01.19.16.42_veh-28_03307_03808",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.01.19.16.42_veh-28_03307_03808.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 1.6402945518493652,
+      "action_delta_m": 1.6402945518493652,
+      "visual_low": {
+        "value": 3.453995495849007,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.0554397220288678,
+          1.2301667214950058,
+          1.1683890523251332
+        ],
+        "inlier_fraction": [
+          0.8484848484848485,
+          0.8416289592760181,
+          0.8909952606635071
+        ]
+      },
+      "visual_high": {
+        "value": 3.42783414195001,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.0898016345155352,
+          1.1328595550612472,
+          1.2051729523732273
+        ],
+        "inlier_fraction": [
+          0.7853881278538812,
+          0.8073394495412844,
+          0.8242677824267782
+        ]
+      },
+      "visual_delta": -0.02616135389899732,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.05.07.10.04_veh-52_01442_01802",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.05.07.10.04_veh-52_01442_01802.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 4.902215957641602,
+      "action_delta_m": 4.902215957641602,
+      "visual_low": {
+        "value": 10.565081830211122,
+        "accepted_intervals": 3,
+        "raw_values": [
+          3.6334985998535707,
+          3.6723074881448943,
+          3.259275742212657
+        ],
+        "inlier_fraction": [
+          0.3382352941176471,
+          0.34285714285714286,
+          0.3333333333333333
+        ]
+      },
+      "visual_high": {
+        "value": 8.089232722747179,
+        "accepted_intervals": 3,
+        "raw_values": [
+          3.12920407447717,
+          3.3546373375531484,
+          1.60539131071686
+        ],
+        "inlier_fraction": [
+          0.46236559139784944,
+          0.4782608695652174,
+          0.2714285714285714
+        ]
+      },
+      "visual_delta": -2.4758491074639437,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.06.07.26.10_veh-52_00006_00398",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.06.07.26.10_veh-52_00006_00398.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 1.481128454208374,
+      "action_delta_m": 1.481128454208374,
+      "visual_low": {
+        "value": 3.836516528604867,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.3354675009490569,
+          1.2861317344575793,
+          1.2149172931982308
+        ],
+        "inlier_fraction": [
+          0.6781609195402298,
+          0.7615894039735099,
+          0.65
+        ]
+      },
+      "visual_high": {
+        "value": 3.810134100488218,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.3229132361850713,
+          1.3035792898182477,
+          1.183641574484899
+        ],
+        "inlier_fraction": [
+          0.6216216216216216,
+          0.636986301369863,
+          0.722972972972973
+        ]
+      },
+      "visual_delta": -0.026382428116649148,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.06.17.43.07_veh-28_00508_00877",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.06.17.43.07_veh-28_00508_00877.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 3.5874288082122803,
+      "action_delta_m": 3.5874288082122803,
+      "visual_low": {
+        "value": 7.9200917201111105,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.953169522333974,
+          2.7865874150375856,
+          2.180334782739551
+        ],
+        "inlier_fraction": [
+          0.42105263157894735,
+          0.5340909090909091,
+          0.4838709677419355
+        ]
+      },
+      "visual_high": {
+        "value": 9.078299622879127,
+        "accepted_intervals": 3,
+        "raw_values": [
+          3.1175218268714393,
+          3.023365322070744,
+          2.937412473936944
+        ],
+        "inlier_fraction": [
+          0.43617021276595747,
+          0.39285714285714285,
+          0.31521739130434784
+        ]
+      },
+      "visual_delta": 1.1582079027680168,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.11.02.57.41_veh-50_00352_00535",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.11.02.57.41_veh-50_00352_00535.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.2232924746058416e-05
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.11.02.57.41_veh-50_01522_02088",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.11.02.57.41_veh-50_01522_02088.pkl",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 0.20347674190998077
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.11.07.12.18_veh-50_00211_00304",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.11.07.12.18_veh-50_00211_00304.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 2.204878330230713,
+      "action_delta_m": 2.204878330230713,
+      "visual_low": {
+        "value": 3.234730098979357,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.5350298475706232,
+          1.2337056034841878,
+          0.465994647924546
+        ],
+        "inlier_fraction": [
+          0.35772357723577236,
+          0.45901639344262296,
+          0.35555555555555557
+        ]
+      },
+      "visual_high": {
+        "value": 4.224178305169252,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.455939201474955,
+          1.4328380557080855,
+          1.3354010479862115
+        ],
+        "inlier_fraction": [
+          0.6645569620253164,
+          0.5984848484848485,
+          0.5042016806722689
+        ]
+      },
+      "visual_delta": 0.9894482061898948,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_log:2021.10.11.08.31.07_veh-50_01750_01948",
+      "source_sample": "/mnt/slurmfs-3090node1_msp/public_data/download/mini_navsim_logs/mini/2021.10.11.08.31.07_veh-50_01750_01948.pkl",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 2.9080333709716797,
+      "action_delta_m": 2.9080333709716797,
+      "visual_low": {
+        "value": 5.246982354605808,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.2018933073146387,
+          1.8803543979899728,
+          1.1647346493011963
+        ],
+        "inlier_fraction": [
+          0.36923076923076925,
+          0.3125,
+          0.42105263157894735
+        ]
+      },
+      "visual_high": {
+        "value": 8.90946402866458,
+        "accepted_intervals": 3,
+        "raw_values": [
+          3.460402200949156,
+          3.0203953595532433,
+          2.4286664681621795
+        ],
+        "inlier_fraction": [
+          0.38095238095238093,
+          0.3835616438356164,
+          0.2716049382716049
+        ]
+      },
+      "visual_delta": 3.662481674058772,
+      "hit": true
+    }
+  ]
+}

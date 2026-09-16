@@ -1,0 +1,17 @@
+{
+  "protocol": "candidate-blind-flow-structure-v1",
+  "manifest": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/epona_multiscale_pilot8_motion_20260916/flow_manifest.jsonl",
+  "config": "/mnt/slurmfs-4090node1/homes/zchen897/iac_new/configs/flow_structure_epona_multiscale_pilot.json",
+  "num_input": 40,
+  "num_scored": 40,
+  "num_error": 0,
+  "status_counts": {
+    "usable": 30,
+    "partial": 10
+  },
+  "measurement_available_fraction": 0.75,
+  "input_available_interval_fraction": 0.8875,
+  "mean_structure_confidence": 0.2666521330525427,
+  "elapsed_s": 70.26083241403103,
+  "errors": []
+}

@@ -1,7 +1,7 @@
 # IAC 视觉层与 Alignment Score
 
 状态：冻结于 2026-09-15
-协议：`iac-visual-output-layer-v1`、`iac-history-conditioned-as-v1.1`
+协议：`iac-visual-output-layer-v1`、`iac-history-conditioned-as-v1.2`
 
 ## 1. 评测问题
 
@@ -55,7 +55,9 @@ raw yaw/distance, confidence, coverage, abstention reason
 ```
 
 纵向结果采用宽容差：误差不超过 `max(3 m, 参考距离的 50%)`，或预测与参考
-距离档位相同/相邻，即视为粗粒度一致。原始米制值只用于诊断。
+距离档位相同/相邻，即视为粗粒度一致。原始米制值只用于诊断。95 条真实 NAVSIM
+序列（380 个区间）的独立审计见
+[`reports/longitudinal_real_audit_20260916.md`](../reports/longitudinal_real_audit_20260916.md)。
 
 ## 4. AS 评分
 
@@ -65,34 +67,45 @@ raw yaw/distance, confidence, coverage, abstention reason
 - `AS-progress`：至少存在一个质量合格区间的样本上，逐样本等权的纵向接受率；
 - `AS-composite`：旧的可观测分量平均，仅作诊断，不得作为主分数。
 
-正式单分数把覆盖率纳入结果：
+正式报告把“一致性”和“可测性”分开：
 
 ```text
-P_eff = acceptable longitudinal intervals / (4 × declared rows)
-Y_eff = correct yaw directions / all applicable turn rows
-AS    = 100 × sqrt(P_eff × Y_eff)
+P_cond = acceptable progress intervals / quality-scored progress intervals
+Y_cond = correct yaw directions / visually scored applicable turns
+AS_conditional = 100 × sqrt(P_cond × Y_cond)
+
+C_progress = quality-scored progress intervals / all expected intervals
+C_yaw      = visually scored turns / all applicable turns
+AS_observability = sqrt(C_progress × C_yaw)
+
+AS_deployment = AS_conditional × AS_observability
+              = 100 × sqrt(P_eff × Y_eff)
 ```
 
-不可测纵向区间和缺失视觉 yaw 在正式 AS 中不获得分数，但仍通过 coverage 和原因字段
-区分“读不出来”与“读出但不一致”。几何平均保证转向或纵向任一通道失效时，另一通道
-不能完全掩盖它。
+`AS_conditional` 是主要一致性估计；两个 channel coverage 界定其证据范围。
+`AS_deployment` 保留原 v1.1 单分数，表示一致性与可观测性的联合部署摘要，但禁止
+脱离 conditional score、两个 coverage、状态计数和弃权原因单独报告。由于 progress
+和 yaw 的统计单位不同，`AS_observability` 仅为摘要，不能替代两个原始 coverage。
 
 ## 5. 当前结果
 
 视觉读取器先在真实 NAVSIM 上独立确认：Reloc3r-512 的三分类准确率为 91.7%，
 明确转弯方向准确率为 97.5%（95% CI `[91.3%, 99.3%]`），重复帧控制 0/32
-误报转弯。Metric3D known-R PnP 的早期真实 24 区间中，19 个通过冻结宽容差；
-正式 AS 仍按全量 coverage 对纵向通道降分。
+误报转弯。纵向真实审计的 score coverage 为 88.2%、中位绝对误差 0.865 m、
+Spearman 0.665、精确档位准确率 58.5%、相邻档准确率 89.6%。因此纵向通道
+冻结为 coarse ordinal progress，而非米制距离/速度。
 
-| 条件 | N | 有效纵向区间覆盖 | `P_eff` | `Y_eff` | `AS / 100` | 状态 |
-|---|---:|---:|---:|---:|---:|---|
-| NAVSIM logged-realized | 95 | 88.2% | 0.795 | 1.000 | **89.1** | 视觉读取参考上限 |
-| DriveWAM lineage-fixed | 1490 | 48.4% | 0.235 | 0.935 | **46.8** | 正式 joint-output AS |
-| DriveWAM controlled-pair | 348 | 68.2% | 0.562 | 0.970 | **73.8** | 观察性控制 |
-| WorldDrive | 10 | 52.5% | 0.475 | 1.000 | **68.9** | 小样本探索，不作排名 |
+| 条件 | N | progress conditional | progress coverage | yaw conditional | `AS_conditional` | deployment AS |
+|---|---:|---:|---:|---:|---:|---:|
+| NAVSIM logged-realized | 95 | 90.1% | 88.2% | 100.0% | **94.9** | 89.1 |
+| DriveWAM lineage-fixed | 1490 | 48.5% | 48.4% | 93.5% | **67.4** | 46.8 |
+| DriveWAM controlled-pair | 348 | 82.4% | 68.2% | 97.0% | **89.4** | 73.8 |
+| WorldDrive | 10 | 90.5% | 52.5% | 100.0% | **95.1** | 68.9 |
 
-DriveWAM 的 `AS-yaw=0.935` 表明生成帧中存在稳定可读的转向方向；最终 AS 较低的
-主因是纵向运动只有 1399/5960 个应测区间同时可测且落入宽容差。
+DriveWAM 的 `AS-yaw=0.935` 表明生成帧中存在稳定可读的转向方向。纵向通道在
+2884 个可测区间中接受 1399 个，即 conditional progress 为 48.5%；同时只有
+2884/5960=48.4% 的应测区间通过几何门。因此 deployment AS 的 46.8 同时反映
+纵向不一致和低可测性，不能被单独解释为 WAM 的纯一致性分数。
 
 旧 DriveWAM 清单曾把 round-robin shard 当成连续 offset，造成历史与未来错配。
 正式构建器现在从 WAM 实际消费的 source pickle 读取不可变 `metadata.source_key`，

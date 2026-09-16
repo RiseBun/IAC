@@ -70,7 +70,11 @@ def load_frozen(config: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]
             "visual_deadband": float(yaw["visual_deadband"]),
             "action_deadband": float(yaw["action_yaw_deadband_rad"]),
         },
-        {"feature": "median_q25", "threshold": float(stop["visual_threshold_px"])},
+        {
+            "feature": "median_q25",
+            "threshold": float(stop["visual_threshold_px"]),
+            "response_min_delta_px": float(stop.get("response_min_delta_px", 0.0)),
+        },
     )
 
 
@@ -141,6 +145,13 @@ def score_mas(rows: list[dict[str, Any]], yaw_adapter: dict[str, Any], motion_ad
         "per_class": recalls,
         "status": "scored" if min(labels.values(), default=0) >= 20 and len(labels) == 2 else "diagnostic_insufficient_action_class_diversity",
     }
+    stop_ci = stop_result.get("source_bootstrap_ci95")
+    stop_result["promotion_status"] = (
+        "passed" if stop_result["status"] == "scored" and stop_result["coverage"] >= 0.90
+        and stop_ci is not None and stop_ci[0] >= 0.75
+        else "failed_performance" if stop_result["status"] == "scored"
+        else "not_eligible"
+    )
     classes = ("stop", "left", "right", "straight")
     joint_scored = [row for row in joint_rows if row["hit"] is not None]
     per_class = {}
@@ -167,24 +178,29 @@ def score_rcs(
     orientation: int,
     action_yaw_delta: float,
     visual_yaw_delta: float,
+    motion_adapter: dict[str, Any],
 ) -> dict[str, Any]:
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in rows:
         grouped[row["counterfactual_group_id"]].append(row)
-    declared_pairs = 0
+    declared_groups = 0
+    direction_declared_pairs = 0
+    stop_declared_pairs = 0
     yaw_rows, stop_rows = [], []
     pair_reasons = Counter()
     yaw_measurement_available = 0
     for group, items in grouped.items():
+        if len(items) == 2:
+            declared_groups += 1
         roles = {row["branch_role"]: row for row in items}
-        if "left" not in roles or "right" not in roles:
-            pair_reasons["missing_left_or_right"] += 1
-            continue
-        declared_pairs += 1
-        left, right = roles["left"], roles["right"]
-        if left["yaw_available"] and right["yaw_available"]:
-            yaw_measurement_available += 1
-        if not left["action_stop"] and not right["action_stop"]:
+        if "left" in roles and "right" in roles:
+            direction_declared_pairs += 1
+            left, right = roles["left"], roles["right"]
+            if left["yaw_available"] and right["yaw_available"]:
+                yaw_measurement_available += 1
+        else:
+            left = right = None
+        if left is not None and right is not None and not left["action_stop"] and not right["action_stop"]:
             action_delta = left["action_yaw"] - right["action_yaw"]
             if abs(action_delta) < action_yaw_delta:
                 pair_reasons["nonmaterial_action_yaw_delta"] += 1
@@ -194,35 +210,86 @@ def score_rcs(
                 visual_delta = orientation * (float(left["visual_yaw"]) - float(right["visual_yaw"]))
                 hit = abs(visual_delta) >= visual_yaw_delta and np.sign(visual_delta) == np.sign(action_delta)
                 yaw_rows.append({"source_key": left["source_key"], "hit": bool(hit), "visual_delta": visual_delta, "action_delta": action_delta})
-        if left["action_stop"] != right["action_stop"]:
-            if left["motion_features"] is None or right["motion_features"] is None:
-                stop_rows.append({"source_key": left["source_key"], "hit": None, "reason": "visual_motion_unavailable"})
-            else:
-                action_delta = left["action_extent_m"] - right["action_extent_m"]
-                visual_delta = left["motion_features"]["median_q25"] - right["motion_features"]["median_q25"]
-                stop_rows.append({"source_key": left["source_key"], "hit": bool(np.sign(visual_delta) == np.sign(action_delta)), "visual_delta": visual_delta, "action_delta": action_delta})
 
-    yaw_result = binary_summary(yaw_rows, declared_pairs)
+        # Stop response pairs are intentionally role-agnostic.  A valid pair
+        # contains exactly one action-stop and one action-moving branch; names
+        # such as ``stop/move`` must not be disguised as ``left/right`` merely
+        # to pass a direction-specific schema.
+        if len(items) == 2 and bool(items[0]["action_stop"]) != bool(items[1]["action_stop"]):
+            stop_declared_pairs += 1
+            evaluated = []
+            for item in items:
+                evaluated.append(motion.evaluate({
+                    "source_key": item["source_key"],
+                    "sample_id": item["sample_id"],
+                    "label": item["action_stop"],
+                    "features": item["motion_features"],
+                }, motion_adapter))
+            stop_item = items[0] if items[0]["action_stop"] else items[1]
+            move_item = items[1] if items[0]["action_stop"] else items[0]
+            if (
+                any(item.get("prediction") is None for item in evaluated)
+                or stop_item["motion_features"] is None
+                or move_item["motion_features"] is None
+            ):
+                stop_rows.append({"source_key": items[0]["source_key"], "hit": None, "reason": "visual_motion_unavailable"})
+            else:
+                absolute_hits = [bool(item["prediction"] == item["label"]) for item in evaluated]
+                visual_delta = move_item["motion_features"]["median_q25"] - stop_item["motion_features"]["median_q25"]
+                response_margin = float(motion_adapter.get("response_min_delta_px", 0.0))
+                stop_rows.append({
+                    "source_key": items[0]["source_key"],
+                    # RCS is an intervention-response ordering test.  Whether
+                    # the stop branch reaches the absolute stop state is MAS,
+                    # retained below as a separate semantic endpoint audit.
+                    "hit": bool(visual_delta > response_margin),
+                    "reversed_hit": bool(visual_delta < -response_margin),
+                    "absolute_branch_hits": absolute_hits,
+                    "absolute_endpoint_match": bool(all(absolute_hits)),
+                    "visual_move_minus_stop": visual_delta,
+                    "action_move_minus_stop_m": move_item["action_extent_m"] - stop_item["action_extent_m"],
+                })
+        elif len(items) == 2 and left is None:
+            pair_reasons["nonmaterial_stop_move_delta"] += 1
+
+    yaw_result = binary_summary(yaw_rows, direction_declared_pairs)
     yaw_scored = [row for row in yaw_rows if row.get("hit") is not None]
     yaw_result.update({
-        "measurement_pair_coverage": yaw_measurement_available / declared_pairs if declared_pairs else 0.0,
+        "declared_pairs": direction_declared_pairs,
+        "measurement_pair_coverage": yaw_measurement_available / direction_declared_pairs if direction_declared_pairs else 0.0,
         "material_action_pairs": len(yaw_rows),
         "score_coverage_within_material_pairs": len(yaw_scored) / len(yaw_rows) if yaw_rows else 0.0,
-        "effective_score_coverage_over_declared_pairs": len(yaw_scored) / declared_pairs if declared_pairs else 0.0,
+        "effective_score_coverage_over_declared_pairs": len(yaw_scored) / direction_declared_pairs if direction_declared_pairs else 0.0,
         "reversed_action_score": (sum(not row["hit"] for row in yaw_scored) / len(yaw_scored)) if yaw_scored else None,
         "constructed_self_pair_zero_control_false_response_rate": 0.0,
     })
-    stop_result = binary_summary(stop_rows, declared_pairs)
+    stop_result = binary_summary(stop_rows, stop_declared_pairs)
+    stop_scored = [row for row in stop_rows if row.get("hit") is not None]
+    absolute_endpoint_hits = sum(bool(row.get("absolute_endpoint_match")) for row in stop_scored)
     stop_result.update({
-        "eligible_stop_move_pairs": len(stop_rows),
-        "status": "scored" if len(stop_rows) >= 20 else "unavailable_insufficient_stop_move_pairs",
+        "declared_pairs": stop_declared_pairs,
+        "eligible_stop_move_pairs": stop_declared_pairs,
+        "response_min_delta_px": float(motion_adapter.get("response_min_delta_px", 0.0)),
+        "reversed_action_score": (sum(bool(row.get("reversed_hit")) for row in stop_scored) / len(stop_scored)) if stop_scored else None,
+        "constructed_self_pair_zero_control_false_response_rate": 0.0,
+        "absolute_endpoint_match_score_diagnostic": absolute_endpoint_hits / len(stop_scored) if stop_scored else None,
+        "absolute_endpoint_match_hits_diagnostic": absolute_endpoint_hits,
+        "status": "scored" if stop_declared_pairs >= 20 else "unavailable_insufficient_stop_move_pairs",
     })
+    stop_ci = stop_result.get("source_bootstrap_ci95")
+    stop_result["promotion_status"] = (
+        "passed" if stop_result["status"] == "scored" and stop_result["coverage"] >= 0.90
+        and stop_ci is not None and stop_ci[0] >= 0.75
+        else "failed_performance" if stop_result["status"] == "scored"
+        else "not_eligible"
+    )
     return {
-        "declared_pairs": declared_pairs,
+        "declared_pairs": declared_groups,
+        "declared_counterfactual_groups": declared_groups,
         "direction": yaw_result,
         "stop": stop_result,
         "pair_exclusion_reasons": dict(pair_reasons),
-        "claim_boundary": "same-source action/visual response consistency; not future-to-action mediation",
+        "claim_boundary": "same-source action/visual response consistency; RCS.stop tests whether a stop intervention reduces visual motion relative to move, while absolute stopping remains MAS.stop; not future-to-action mediation",
     }
 
 
@@ -253,7 +320,13 @@ def main() -> None:
         "candidate_blind": True,
         "records": len(rows),
         "MAS": score_mas(rows, yaw_adapter, motion_adapter),
-        "RCS": score_rcs(rows, orientation=yaw_adapter["orientation"], action_yaw_delta=args.action_yaw_delta_rad, visual_yaw_delta=args.visual_yaw_delta),
+        "RCS": score_rcs(
+            rows,
+            orientation=yaw_adapter["orientation"],
+            action_yaw_delta=args.action_yaw_delta_rad,
+            visual_yaw_delta=args.visual_yaw_delta,
+            motion_adapter=motion_adapter,
+        ),
         "frozen_config": str(args.frozen_config),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

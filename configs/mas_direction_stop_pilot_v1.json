@@ -21,6 +21,7 @@
     "definition": "action path remains within 0.25 m of the origin over four seconds",
     "visual_feature": "median across intervals of the road-ROI q25 flow magnitude",
     "visual_threshold_px": 0.3240796177124159,
+    "response_min_delta_px": 0.05,
     "minimum_motion_support_fraction_per_interval": 0.9
   },
   "logged_real_validation": {

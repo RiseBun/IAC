@@ -1,0 +1,83 @@
+{
+  "protocol": "iac-history-conditioned-as-v1.2",
+  "date": "2026-09-16",
+  "purpose": "Separate observable image-action consistency from visual measurement coverage without changing the frozen visual reader, acceptance rules, or historical v1.1 results.",
+  "definitions": {
+    "AS_progress_conditional_micro": "accepted progress intervals / quality-scored progress intervals",
+    "AS_progress_score_coverage": "quality-scored progress intervals / all expected progress intervals",
+    "AS_yaw_conditional": "correct yaw events / visually scored applicable yaw events",
+    "AS_yaw_score_coverage": "visually scored applicable yaw events / all applicable yaw events",
+    "AS_conditional": "sqrt(AS_progress_conditional_micro * AS_yaw_conditional)",
+    "AS_observability": "sqrt(AS_progress_score_coverage * AS_yaw_score_coverage)",
+    "AS_deployment": "AS_conditional * AS_observability"
+  },
+  "reporting_rule": "AS_conditional is the primary consistency estimate. AS_deployment is a coverage-aware deployment summary and must not be reported without both channel coverages, status counts, and abstention reasons.",
+  "results": [
+    {
+      "condition": "NAVSIM logged-realized upper bound",
+      "rows": 95,
+      "AS_progress_conditional_micro": 0.9014925373134329,
+      "AS_progress_score_coverage": 0.881578947368421,
+      "AS_yaw_conditional": 1.0,
+      "AS_yaw_score_coverage": 1.0,
+      "AS_conditional": 0.9494696084201079,
+      "AS_observability": 0.9389243565742775,
+      "AS_deployment": 0.8914801411726809
+    },
+    {
+      "condition": "benchmark-v3 real future + WAM action",
+      "rows": 255,
+      "AS_progress_conditional_micro": 0.8453947368421052,
+      "AS_progress_score_coverage": 0.8941176470588236,
+      "AS_yaw_conditional": 0.7751479289940828,
+      "AS_yaw_score_coverage": 1.0,
+      "AS_conditional": 0.8095097154732953,
+      "AS_observability": 0.9455779434075351,
+      "AS_deployment": 0.7654545319256574
+    },
+    {
+      "condition": "benchmark-v3 native DriveWAM lineage-fixed",
+      "rows": 1490,
+      "progress_expected_intervals": 5960,
+      "progress_scored_intervals": 2884,
+      "progress_accepted_intervals": 1399,
+      "AS_progress_conditional_micro": 0.48509015256588073,
+      "AS_progress_score_coverage": 0.48389261744966444,
+      "AS_yaw_conditional": 0.9350046425255338,
+      "AS_yaw_score_coverage": 1.0,
+      "AS_conditional": 0.6734697800885485,
+      "AS_observability": 0.6956239051740994,
+      "AS_deployment": 0.4684816784419381
+    },
+    {
+      "condition": "DriveWAM retained controlled-pair",
+      "rows": 348,
+      "AS_progress_conditional_micro": 0.8240252897787145,
+      "AS_progress_score_coverage": 0.6817528735632183,
+      "AS_yaw_conditional": 0.9696969696969697,
+      "AS_yaw_score_coverage": 1.0,
+      "AS_conditional": 0.8938986667693866,
+      "AS_observability": 0.8256832767854865,
+      "AS_deployment": 0.7380771802923248
+    },
+    {
+      "condition": "WorldDrive exact-time benchmark-v3 adapter exploratory",
+      "rows": 10,
+      "AS_progress_conditional_micro": 0.9047619047619047,
+      "AS_progress_score_coverage": 0.525,
+      "AS_yaw_conditional": 1.0,
+      "AS_yaw_score_coverage": 1.0,
+      "AS_conditional": 0.9511897312113418,
+      "AS_observability": 0.724568837309472,
+      "AS_deployment": 0.689202437604511,
+      "formal_claim": false,
+      "reason": "exploratory sample size only"
+    }
+  ],
+  "provenance": {
+    "source_report": "reports/as_history_conditioned_summary_20260915.json",
+    "historical_protocol_preserved": true,
+    "visual_inference_rerun": false,
+    "score_identity_checked": "AS_conditional * AS_observability = AS_deployment"
+  }
+}

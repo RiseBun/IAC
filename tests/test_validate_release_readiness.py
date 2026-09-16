@@ -9,13 +9,15 @@ ROOT = Path(__file__).parents[1]
 
 
 class ReleaseReadinessTest(unittest.TestCase):
-    def test_current_release_is_conditionally_ready_but_not_causal_complete(self):
+    def test_current_release_remains_blocked_by_conditional_gs(self):
         readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
         protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
         report = validate(readiness, protocol)
-        self.assertEqual(report["status"], "pass")
-        self.assertTrue(report["conditional_consistency_grounding_release"]["ready"])
+        self.assertEqual(report["status"], "fail")
+        self.assertFalse(report["conditional_consistency_grounding_release"]["ready"])
         self.assertFalse(report["complete_causal_future_driven_benchmark"]["ready"])
+        self.assertIn("gs:status_not_validated", report["errors"])
+        self.assertIn("gs:fewer_than_two_models", report["errors"])
         self.assertIn("fcs:cross_model_evidence_pending", report["warnings"])
         self.assertIn("future_to_action_mediation:confirmation_pending", report["warnings"])
         self.assertIn("future_to_action_mediation:pilot_present_but_unqualified", report["warnings"])

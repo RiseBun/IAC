@@ -1,0 +1,61 @@
+{
+  "protocol": "iac-response-consistency-v2",
+  "status": "frozen_protocol_2026-09-16",
+  "claim_boundary": "RCS measures whether independently read visual motion changes in the expected direction under same-history controlled action interventions. It does not require exact metric distance and does not by itself prove trajectory-to-video causality.",
+  "visual_reader": {
+    "registry": "iac_visual_layer_v1",
+    "candidate_blind": true,
+    "yaw": "Reloc3r-512",
+    "relative_progress": "Metric3Dv2-v2-S + Reloc3r known-rotation translation + static matching"
+  },
+  "intervention_contract": {
+    "same_source_within_group_required": true,
+    "same_history_required": true,
+    "same_nuisance_seed_required": true,
+    "actual_regeneration_required": true,
+    "action_injection_verified_required": true,
+    "future_images_source": "epona_generated",
+    "one_counterfactual_group_per_source_for_formal_report": true
+  },
+  "yaw": {
+    "protocol_reference": "configs/response_consistency_v1.json",
+    "status": "frozen_v1_2026-09-15"
+  },
+  "relative_progress": {
+    "status": "frozen_protocol_v2_2026-09-16",
+    "official_comparison": "within-source lowest-versus-highest commanded longitudinal progress",
+    "minimum_action_delta_m": 0.5,
+    "interval_indices": [1, 2, 3],
+    "minimum_quality_intervals": 2,
+    "minimum_inlier_fraction": 0.2,
+    "absolute_distance_required": false,
+    "visual_zero_response_credit": false,
+    "official_score": "directionally correct high-minus-low visual progress divided by all contract-valid action-eligible groups",
+    "coverage": "groups with both low and high visual progress estimates divided by action-eligible contract-valid groups",
+    "diagnostic_only": [
+      "adjacent_level_accuracy",
+      "complete_multilevel_monotonicity",
+      "fine_dose_response",
+      "raw_metric_distance_error"
+    ]
+  },
+  "composite": {
+    "official_score": "unweighted_macro_average_of_formal_yaw_and_relative_progress_channels",
+    "required_channels": ["yaw", "relative_progress"],
+    "missing_channel_policy": "unavailable_do_not_reweight",
+    "weights": {"yaw": 0.5, "relative_progress": 0.5}
+  },
+  "statistics": {
+    "bootstrap_unit": "counterfactual_group_id",
+    "formal_sample_unit": "independent_source_log_or_scene",
+    "bootstrap_draws": 20000,
+    "bootstrap_seed": 20260916,
+    "official_proportion_interval": "wilson_95",
+    "minimum_independent_sources_for_formal_report": 30,
+    "promotion_criteria": {
+      "coverage_min": 0.9,
+      "endpoint_accuracy_min": 0.75,
+      "endpoint_accuracy_ci95_lower_min": 0.5
+    }
+  }
+}

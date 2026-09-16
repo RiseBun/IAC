@@ -177,6 +177,11 @@ def main() -> None:
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--reloc3r-root", type=Path, required=True)
+    parser.add_argument(
+        "--reloc3r-checkpoint",
+        type=Path,
+        help="Local Hugging Face model directory containing config.json and model.safetensors.",
+    )
     parser.add_argument("--resolution", choices=("224", "512"), default="224")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--limit", type=int, default=0)
@@ -186,14 +191,18 @@ def main() -> None:
     import sys
 
     sys.path.insert(0, str(args.reloc3r_root))
-    from reloc3r.reloc3r_relpose import inference_relpose, setup_reloc3r_relpose_model
+    from reloc3r.reloc3r_relpose import Reloc3rRelpose, inference_relpose, setup_reloc3r_relpose_model
     from reloc3r.utils.device import to_numpy
     from reloc3r.utils.image import check_images_shape_format, load_images
 
     records = _records(args.manifest)
     if args.limit:
         records = records[: args.limit]
-    model = setup_reloc3r_relpose_model(args.resolution, args.device)
+    if args.reloc3r_checkpoint is not None:
+        model = Reloc3rRelpose.from_pretrained(str(args.reloc3r_checkpoint)).to(args.device).eval()
+        print(f"Reloc3r loaded from local registry: {args.reloc3r_checkpoint}", flush=True)
+    else:
+        model = setup_reloc3r_relpose_model(args.resolution, args.device)
     rows: list[dict[str, Any]] = []
     for record_index, record in enumerate(records, 1):
         paths = list(record.get("future_frame_paths") or record.get("future_images") or [])

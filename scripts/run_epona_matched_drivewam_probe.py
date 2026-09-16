@@ -217,6 +217,8 @@ def main() -> None:
     parser.add_argument("--action-trajectory-source", default="matched_drivewam_navsim_action_head")
     parser.add_argument("--future-images-source", default="epona_generated_matched_drivewam_action")
     parser.add_argument("--protocol", default="same_source_same_physical_action_v1")
+    parser.add_argument("--left-role", default="left")
+    parser.add_argument("--right-role", default="right")
     args = parser.parse_args()
 
     if not 0 <= args.shard_index < args.num_shards:
@@ -270,6 +272,7 @@ def main() -> None:
         with torch.inference_mode(), torch.autocast(device_type="cuda", dtype=torch.bfloat16):
             history_latents = tokenizer.encode_to_z(images)
             for branch in ("left", "right"):
+                role = args.left_role if branch == "left" else args.right_role
                 action = item[f"{branch}_action"]
                 action_xy, action_yaw = _cumulative_to_epona_controls(action)
                 torch.manual_seed(branch_seed)
@@ -278,7 +281,7 @@ def main() -> None:
                 yaw_sequence = history_yaw.clone()
                 latents = history_latents.clone()
                 future_paths: list[str] = []
-                branch_dir = args.output / f"sample_{global_index:06d}" / branch
+                branch_dir = args.output / f"sample_{global_index:06d}" / role
                 branch_dir.mkdir(parents=True, exist_ok=True)
                 for step in range(8):
                     pose_new = torch.from_numpy(action_xy[step]).to(args.device).view(1, 1, 2)
@@ -302,7 +305,7 @@ def main() -> None:
                     {
                         "source_key": item["source_key"],
                         "source_sample": item["sample_path"],
-                        "branch_mode": branch,
+                        "branch_mode": role,
                         "future_images": future_paths,
                         "action_trajectory": action.tolist(),
                         "action_trajectory_source": args.action_trajectory_source,
@@ -314,7 +317,7 @@ def main() -> None:
                 flow_rows.append(
                     _flow_row(
                         item,
-                        branch,
+                        role,
                         history_paths,
                         future_paths,
                         action,

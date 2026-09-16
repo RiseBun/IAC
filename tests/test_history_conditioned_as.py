@@ -40,6 +40,9 @@ class HistoryConditionedASTest(unittest.TestCase):
         self.assertEqual(result["AS_progress_effective"], 0.0)
         self.assertEqual(result["AS_yaw_effective"], 0.0)
         self.assertEqual(result["AS_overall"], 0.0)
+        self.assertIsNone(result["AS_conditional"])
+        self.assertEqual(result["AS_progress_score_coverage"], 0.0)
+        self.assertEqual(result["AS_yaw_score_coverage"], 0.0)
 
     def test_frozen_visual_threshold_is_consumed(self):
         record = _record()
@@ -89,6 +92,8 @@ class HistoryConditionedASTest(unittest.TestCase):
         # therefore contributes 1/4 to the coverage-aware progress score.
         self.assertEqual(result["accepted_interval_count"], 1)
         self.assertEqual(result["expected_interval_count"], 4)
+        self.assertEqual(result["AS_progress_conditional_micro"], 0.5)
+        self.assertEqual(result["AS_progress_score_coverage"], 0.5)
         self.assertEqual(result["AS_progress_effective"], 0.25)
 
     def test_overall_as_penalizes_progress_abstention(self):
@@ -127,9 +132,19 @@ class HistoryConditionedASTest(unittest.TestCase):
         )
         result = aggregate([row], mode="wam")
         self.assertEqual(result["AS_progress_mean"], 1.0)
+        self.assertEqual(result["AS_progress_conditional_micro"], 1.0)
+        self.assertEqual(result["AS_progress_score_coverage"], 0.5)
         self.assertEqual(result["AS_progress_effective"], 0.5)
+        self.assertEqual(result["AS_yaw_conditional"], 1.0)
+        self.assertEqual(result["AS_yaw_score_coverage"], 1.0)
         self.assertEqual(result["AS_yaw_effective"], 1.0)
+        self.assertEqual(result["AS_conditional"], 1.0)
+        self.assertAlmostEqual(result["AS_observability"], math.sqrt(0.5))
         self.assertAlmostEqual(result["AS_overall"], math.sqrt(0.5))
+        self.assertAlmostEqual(
+            result["AS_overall"],
+            result["AS_conditional"] * result["AS_observability"],
+        )
         self.assertAlmostEqual(result["AS_overall_100"], 100.0 * math.sqrt(0.5))
 
 

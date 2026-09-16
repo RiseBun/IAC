@@ -1,7 +1,23 @@
 {
   "protocol": "iac-future-to-action-mediation-v1",
-  "status": "pilot_worlddrive_unqualified_confirmation_pending",
+  "status": "blocked_missing_controls",
   "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
+  "readiness_audit": "reports/future_to_action_mediation_readiness_20260916.json",
+  "runner_smoke": {
+    "model": "DriveVA",
+    "records": "reports/driveva_future_to_action_mediation_smoke5_20260916.jsonl",
+    "score": "reports/driveva_future_to_action_mediation_smoke5_score_20260916.json",
+    "status": "runner_validated_smoke_only"
+  },
+  "confirmation": {
+    "model": "DriveVA",
+    "calibration_sources": "reports/driveva_future_to_action_calibration_sources_20260916.txt",
+    "calibration_scale": "reports/driveva_future_to_action_calibration_20260916.json",
+    "records": "reports/driveva_future_to_action_mediation_confirmation30_20260916.jsonl",
+    "score": "reports/driveva_future_to_action_mediation_confirmation30_score_20260916.json",
+    "status": "failed_suppression_ci_gate",
+    "claim_enabled": false
+  },
   "purpose": "Test whether a WAM native action changes when only its predicted future is perturbed, and whether blocking that pathway suppresses the change.",
   "required_conditions": [
     "baseline",

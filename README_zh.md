@@ -27,22 +27,28 @@ Reloc3r-512 读取转向，由 Metric3Dv2-v2-S、静态特征对应和 known-R P
 粗粒度纵向进度；轨迹只在视觉提取完成后参与比较。SegFormer 仅作道路/动态区域
 辅助掩码，不作为唯一匹配后端。
 
-正式单分数为覆盖率感知的几何平均：
+v1.2 将可测部分的一致性与测量覆盖率分开：
 
 ```text
-AS = 100 × sqrt(acceptable_progress_intervals / all_expected_intervals
-                × correct_yaw / all_applicable_turns)
+AS_conditional   = 100 × sqrt(可测区间 progress 一致率 × 可测转向 yaw 一致率)
+AS_observability = sqrt(progress score coverage × yaw score coverage)
+AS_deployment    = AS_conditional × AS_observability
 ```
+
+`AS_deployment` 保留原覆盖率感知摘要，但必须与 conditional score 和两个通道的
+coverage 一起报告，不能单独解释成模型的纯一致性。
 
 修复 DriveWAM 的 round-robin shard 错配后，1490 条正式结果为：
 
-| AS | AS-yaw | 条件 AS-progress | 有效纵向区间覆盖率 |
-|---:|---:|---:|---:|
-| **46.8 / 100** | 93.5% | 42.2% | 48.4% |
+| conditional AS | deployment AS | AS-yaw | 条件 progress（区间） | progress score coverage |
+|---:|---:|---:|---:|---:|
+| **67.4 / 100** | 46.8 / 100 | 93.5% | 48.5% | 48.4% |
 
 完整定义、视觉后端、结果和声明边界见
-[`docs/VISUAL_LAYER_AND_AS_ZH.md`](docs/VISUAL_LAYER_AND_AS_ZH.md)，紧凑机器可读结果见
-[`reports/as_release_20260915.json`](reports/as_release_20260915.json)。
+[`docs/VISUAL_LAYER_AND_AS_ZH.md`](docs/VISUAL_LAYER_AND_AS_ZH.md)，v1.2 分解结果见
+[`reports/as_reporting_decomposition_20260916.json`](reports/as_reporting_decomposition_20260916.json)。
+原 v1.1 报告 [`reports/as_release_20260915.json`](reports/as_release_20260915.json)
+保持不变，用于历史复核。
 
 ## 历史流场读数（2026-09-14，诊断保留）
 

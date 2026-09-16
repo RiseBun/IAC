@@ -1,0 +1,1592 @@
+{
+  "protocol": "iac-history-conditioned-as-v1.2",
+  "visual_protocol": "iac-visual-output-layer-v1",
+  "as_config": "/mnt/slurmfs-4090node1/homes/zchen897/iac_probe_test/configs/as_history_conditioned_v1.json",
+  "visual_config": "/mnt/slurmfs-4090node1/homes/zchen897/iac_probe_test/configs/visual_output_layer_v1.json",
+  "mode": "wam",
+  "manifest": "reports/as_common10_worlddrive_manifest_20260916.jsonl",
+  "probe": "reports/as_common10_worlddrive_visual_probe_20260916.json",
+  "aggregate": {
+    "mode": "wam",
+    "row_count": 10,
+    "scored_row_count": 10,
+    "row_coverage": 1.0,
+    "progress_row_count": 8,
+    "progress_row_coverage": 0.8,
+    "interval_count": 40,
+    "expected_interval_count": 40,
+    "accepted_interval_count": 12,
+    "visual_available_interval_count": 21,
+    "visual_interval_coverage": 0.525,
+    "quality_scored_interval_count": 21,
+    "quality_scored_interval_coverage": 0.525,
+    "AS_progress_mean": 0.45833333333333326,
+    "AS_progress_conditional_micro": 0.5714285714285714,
+    "AS_progress_score_coverage": 0.525,
+    "AS_progress_effective": 0.3,
+    "AS_yaw_direction": 1.0,
+    "AS_yaw_conditional": 1.0,
+    "AS_yaw_score_coverage": 1.0,
+    "AS_yaw_effective": 1.0,
+    "AS_composite_mean": 0.7416666666666666,
+    "AS_conditional": 0.7559289460184544,
+    "AS_conditional_100": 75.59289460184544,
+    "AS_observability": 0.724568837309472,
+    "AS_observability_100": 72.4568837309472,
+    "AS_overall": 0.5477225575051661,
+    "AS_overall_100": 54.77225575051661,
+    "AS_decomposition": {
+      "identity": "AS_overall = AS_conditional * AS_observability",
+      "conditional_consistency": 0.7559289460184544,
+      "observability_summary": 0.724568837309472,
+      "coverage_aware_deployment_summary": 0.5477225575051661,
+      "note": "progress and yaw use different declared units; retain both channel coverages"
+    },
+    "status_counts": {
+      "progress": {
+        "declared": 40,
+        "scored": 21,
+        "abstain": 19
+      },
+      "yaw": {
+        "declared_applicable": 8,
+        "scored": 8,
+        "abstain": 0
+      }
+    },
+    "abstention_reasons": {
+      "progress": {
+        "visual_motion_unavailable": 19
+      },
+      "yaw": {
+        "visual_yaw_unavailable": 0
+      }
+    },
+    "yaw_applicable_count": 8,
+    "yaw_turn_count": 8,
+    "yaw_correct_count": 8,
+    "yaw_coverage": 1.0,
+    "input_lineage_audit": {
+      "status": "passed",
+      "formal_metric_eligible": true,
+      "history_boundary_yaw_count": 10,
+      "median_absolute_boundary_yaw_deg": 0.3224074356143738,
+      "large_boundary_yaw_threshold_deg": 30.0,
+      "large_boundary_yaw_rate": 0.0,
+      "maximum_allowed_large_boundary_yaw_rate": 0.1,
+      "minimum_boundary_geometry_coverage_for_pass": 0.2,
+      "boundary_geometry_coverage": 0.2
+    }
+  },
+  "rows": [
+    {
+      "sample_id": "worlddrive-native-000005",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 723.6976612743772,
+          "history_median_laplacian_variance": 789.2717501097992,
+          "future_median_laplacian_variance": 579.6245387229653,
+          "median_adjacent_normalized_mae": 0.1321402905034084,
+          "history_future_boundary_normalized_mae": 0.15298043045343138
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.0009129166615597289
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "long",
+          "reference_distance_bin": "long",
+          "speed_bin": "long",
+          "reference_speed_bin": "long",
+          "distance_m_raw": 19.575194702140077,
+          "speed_mps_raw": 19.575194702140077,
+          "absolute_error_m": 9.137658885163733,
+          "accepted_tolerance_m": 5.218767908488172,
+          "within_tolerance": false,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 134,
+            "inlier_fraction": 0.28205128205128205,
+            "median_reprojection_error_px": 2.0883497686083996
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": -0.0037035067617903566
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": -0.028849196046528882
+        },
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "stop",
+          "reference_distance_bin": "long",
+          "speed_bin": "stop",
+          "reference_speed_bin": "long",
+          "distance_m_raw": -10.406533586349939,
+          "speed_mps_raw": -10.406533586349939,
+          "absolute_error_m": 20.40821877760841,
+          "accepted_tolerance_m": 5.000842595629237,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "usable",
+            "confidence": 0.6,
+            "reasons": [],
+            "matches": 92,
+            "inlier_fraction": 0.1875,
+            "median_reprojection_error_px": 0.8504899930401681
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": -0.020365144621134458
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        0.0009129166615597289,
+        -0.0037035067617903566,
+        -0.028849196046528882,
+        -0.020365144621134458
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 2,
+        "coverage": 0.5,
+        "quality_scored_count": 2,
+        "quality_scored_coverage": 0.5,
+        "accepted_rate": 0.5,
+        "predicted_longitudinal_m": [
+          19.575194702140077,
+          -10.406533586349939
+        ],
+        "action_interval_distance_m": [
+          10.437506578637523,
+          10.437535816976345,
+          10.125048225193794,
+          10.001685191258474
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": -0.05200493076789397,
+        "action_yaw_rad": -0.048583984375,
+        "applicable": true,
+        "direction_match": true
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": 0.0009129166615597289,
+        "absolute_yaw_deg": 0.05230627175454543,
+        "geometry_eligible": false,
+        "normalized_mae": 0.15298043045343138
+      },
+      "as_components": {
+        "progress_acceptance": 0.5,
+        "yaw_direction_match": true,
+        "composite_mean": 0.75,
+        "component_count": 2
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000008",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 591.0334441216639,
+          "history_median_laplacian_variance": 500.25621742929934,
+          "future_median_laplacian_variance": 608.413344912323,
+          "median_adjacent_normalized_mae": 0.10658488554113052,
+          "history_future_boundary_normalized_mae": 0.11180811115339691
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.005708994444947393
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "very_short",
+          "reference_distance_bin": "short",
+          "speed_bin": "very_short",
+          "reference_speed_bin": "short",
+          "distance_m_raw": 2.5790604797695273,
+          "speed_mps_raw": 2.5790604797695273,
+          "absolute_error_m": 3.264691337135946,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": false,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 268,
+            "inlier_fraction": 0.23622047244094488,
+            "median_reprojection_error_px": 1.1540345684055782
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": 0.007972739971199174
+        },
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "long",
+          "reference_distance_bin": "short",
+          "speed_bin": "long",
+          "reference_speed_bin": "short",
+          "distance_m_raw": 9.775764693886694,
+          "speed_mps_raw": 9.775764693886694,
+          "absolute_error_m": 5.838264684307377,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "usable",
+            "confidence": 0.6,
+            "reasons": [],
+            "matches": 243,
+            "inlier_fraction": 0.1889763779527559,
+            "median_reprojection_error_px": 1.4397279551256688
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": 0.0038222333719911106
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "very_short",
+          "reference_distance_bin": "very_short",
+          "speed_bin": "very_short",
+          "reference_speed_bin": "very_short",
+          "distance_m_raw": 1.834314373804689,
+          "speed_mps_raw": 1.834314373804689,
+          "absolute_error_m": 0.29107789461337186,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 529,
+            "inlier_fraction": 0.21052631578947367,
+            "median_reprojection_error_px": 2.065481009043805
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": 0.007810225719981523
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        0.005708994444947393,
+        0.007972739971199174,
+        0.0038222333719911106,
+        0.007810225719981523
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 3,
+        "coverage": 0.75,
+        "quality_scored_count": 3,
+        "quality_scored_coverage": 0.75,
+        "accepted_rate": 0.6666666666666666,
+        "predicted_longitudinal_m": [
+          2.5790604797695273,
+          9.775764693886694,
+          1.834314373804689
+        ],
+        "action_interval_distance_m": [
+          6.968750308981918,
+          5.843751816905473,
+          3.937500009579318,
+          2.125392268418061
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": 0.0253141935081192,
+        "action_yaw_rad": 0.00628662109375,
+        "applicable": false,
+        "direction_match": null
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": 0.005708994444947393,
+        "absolute_yaw_deg": 0.32710128695911767,
+        "geometry_eligible": false,
+        "normalized_mae": 0.11180811115339691
+      },
+      "as_components": {
+        "progress_acceptance": 0.6666666666666666,
+        "yaw_direction_match": null,
+        "composite_mean": 0.6666666666666666,
+        "component_count": 1
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000004",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 620.208165300849,
+          "history_median_laplacian_variance": 713.5306621565496,
+          "future_median_laplacian_variance": 581.6377288658678,
+          "median_adjacent_normalized_mae": 0.09991415435192631,
+          "history_future_boundary_normalized_mae": 0.16177960564108457
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": -0.0002462621598671881
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "long",
+          "reference_distance_bin": "long",
+          "speed_bin": "long",
+          "reference_speed_bin": "long",
+          "distance_m_raw": 12.910972311678917,
+          "speed_mps_raw": 12.910972311678917,
+          "absolute_error_m": 2.4107607769254162,
+          "accepted_tolerance_m": 5.25010576737675,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 182,
+            "inlier_fraction": 0.3333333333333333,
+            "median_reprojection_error_px": 1.2050384899790485
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": -0.007398865168549111
+        },
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "short",
+          "reference_distance_bin": "long",
+          "speed_bin": "short",
+          "reference_speed_bin": "long",
+          "distance_m_raw": 3.023692408502324,
+          "speed_mps_raw": 3.023692408502324,
+          "absolute_error_m": 6.8520262736253414,
+          "accepted_tolerance_m": 4.937859341063833,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 98,
+            "inlier_fraction": 0.35,
+            "median_reprojection_error_px": 0.692158799902276
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": 0.0005347960993597022
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "medium",
+          "reference_distance_bin": "long",
+          "speed_bin": "medium",
+          "reference_speed_bin": "long",
+          "distance_m_raw": 7.132382826606924,
+          "speed_mps_raw": 7.132382826606924,
+          "absolute_error_m": 2.6187769680066326,
+          "accepted_tolerance_m": 4.875579897306778,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 232,
+            "inlier_fraction": 0.5609756097560976,
+            "median_reprojection_error_px": 1.2978035334440194
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": 0.003046217715419254
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        -0.0002462621598671881,
+        -0.007398865168549111,
+        0.0005347960993597022,
+        0.003046217715419254
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 3,
+        "coverage": 0.75,
+        "quality_scored_count": 3,
+        "quality_scored_coverage": 0.75,
+        "accepted_rate": 0.6666666666666666,
+        "predicted_longitudinal_m": [
+          12.910972311678917,
+          3.023692408502324,
+          7.132382826606924
+        ],
+        "action_interval_distance_m": [
+          10.625025314413096,
+          10.5002115347535,
+          9.875718682127665,
+          9.751159794613557
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": -0.004064113513637342,
+        "action_yaw_rad": -0.014892578125,
+        "applicable": true,
+        "direction_match": true
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": -0.0002462621598671881,
+        "absolute_yaw_deg": 0.014109782414165838,
+        "geometry_eligible": false,
+        "normalized_mae": 0.16177960564108457
+      },
+      "as_components": {
+        "progress_acceptance": 0.6666666666666666,
+        "yaw_direction_match": true,
+        "composite_mean": 0.8333333333333333,
+        "component_count": 2
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000006",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 1013.6429811193618,
+          "history_median_laplacian_variance": 982.836180024309,
+          "future_median_laplacian_variance": 1135.7201240426966,
+          "median_adjacent_normalized_mae": 0.04822729522106694,
+          "history_future_boundary_normalized_mae": 0.04822729522106694
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "short",
+          "reference_distance_bin": "stop",
+          "speed_bin": "short",
+          "reference_speed_bin": "stop",
+          "distance_m_raw": 4.5390912781434185,
+          "speed_mps_raw": 4.5390912781434185,
+          "absolute_error_m": 4.408225169771035,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 825,
+            "inlier_fraction": 0.5,
+            "median_reprojection_error_px": 1.6520190720080885
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": 0.0037470834181363415
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "short",
+          "reference_distance_bin": "very_short",
+          "speed_bin": "short",
+          "reference_speed_bin": "very_short",
+          "distance_m_raw": 5.090817342238973,
+          "speed_mps_raw": 5.090817342238973,
+          "absolute_error_m": 4.010736856337142,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": false,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 740,
+            "inlier_fraction": 0.3614457831325301,
+            "median_reprojection_error_px": 1.8306853202114568
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": 0.000832604788295813
+        },
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "medium",
+          "reference_distance_bin": "very_short",
+          "speed_bin": "medium",
+          "reference_speed_bin": "very_short",
+          "distance_m_raw": 6.244916651373148,
+          "speed_mps_raw": 6.244916651373148,
+          "absolute_error_m": 3.6277290068541292,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 498,
+            "inlier_fraction": 0.43103448275862066,
+            "median_reprojection_error_px": 1.6784184037489414
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": -0.0034807356585503015
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "short",
+          "reference_distance_bin": "short",
+          "speed_bin": "short",
+          "reference_speed_bin": "short",
+          "distance_m_raw": 3.9702811421740534,
+          "speed_mps_raw": 3.9702811421740534,
+          "absolute_error_m": 0.04541048506137946,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 748,
+            "inlier_fraction": 0.21428571428571427,
+            "median_reprojection_error_px": 1.0854113606374056
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": 0.008048821833306331
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        0.0037470834181363415,
+        0.000832604788295813,
+        -0.0034807356585503015,
+        0.008048821833306331
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 4,
+        "coverage": 1.0,
+        "quality_scored_count": 4,
+        "quality_scored_coverage": 1.0,
+        "accepted_rate": 0.5,
+        "predicted_longitudinal_m": [
+          4.5390912781434185,
+          5.090817342238973,
+          6.244916651373148,
+          3.9702811421740534
+        ],
+        "action_interval_distance_m": [
+          0.13086610837238358,
+          1.0800804859018305,
+          2.617187644519019,
+          4.015691627235433
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": 0.009147774381188184,
+        "action_yaw_rad": -0.00396728515625,
+        "applicable": false,
+        "direction_match": null
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": 0.0037470834181363415,
+        "absolute_yaw_deg": 0.2146920653426667,
+        "geometry_eligible": true,
+        "normalized_mae": 0.04822729522106694
+      },
+      "as_components": {
+        "progress_acceptance": 0.5,
+        "yaw_direction_match": null,
+        "composite_mean": 0.5,
+        "component_count": 1
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000007",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 867.130218539709,
+          "history_median_laplacian_variance": 842.9897418062628,
+          "future_median_laplacian_variance": 888.6461275591527,
+          "median_adjacent_normalized_mae": 0.08213114270976946,
+          "history_future_boundary_normalized_mae": 0.11736547432693781
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.0055451481238175055
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "short",
+          "reference_distance_bin": "short",
+          "speed_bin": "short",
+          "reference_speed_bin": "short",
+          "distance_m_raw": 5.7315323677700265,
+          "speed_mps_raw": 5.7315323677700265,
+          "absolute_error_m": 2.3094399543514212,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 652,
+            "inlier_fraction": 0.23684210526315788,
+            "median_reprojection_error_px": 1.43470796622963
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": 0.0012354857154703175
+        },
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "long",
+          "reference_distance_bin": "short",
+          "speed_bin": "long",
+          "reference_speed_bin": "short",
+          "distance_m_raw": 9.13446611549211,
+          "speed_mps_raw": 9.13446611549211,
+          "absolute_error_m": 4.1341508168625705,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 337,
+            "inlier_fraction": 0.3870967741935484,
+            "median_reprojection_error_px": 1.417899325290311
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": 0.009768626700108137
+        },
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "stop",
+          "reference_distance_bin": "medium",
+          "speed_bin": "stop",
+          "reference_speed_bin": "medium",
+          "distance_m_raw": -0.51339070298859,
+          "speed_mps_raw": -0.51339070298859,
+          "absolute_error_m": 6.826344390159352,
+          "accepted_tolerance_m": 3.1564768435853807,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 593,
+            "inlier_fraction": 0.2708333333333333,
+            "median_reprojection_error_px": 1.7032472202510691
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": 0.026056751048481472
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        0.0055451481238175055,
+        0.0012354857154703175,
+        0.009768626700108137,
+        0.026056751048481472
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 3,
+        "coverage": 0.75,
+        "quality_scored_count": 3,
+        "quality_scored_coverage": 0.75,
+        "accepted_rate": 0.3333333333333333,
+        "predicted_longitudinal_m": [
+          5.7315323677700265,
+          9.13446611549211,
+          -0.51339070298859
+        ],
+        "action_interval_distance_m": [
+          2.265795944605008,
+          3.4220924134186053,
+          5.000315298629539,
+          6.312953687170761
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": 0.04260601158787743,
+        "action_yaw_rad": 0.0390625,
+        "applicable": true,
+        "direction_match": true
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": 0.0055451481238175055,
+        "absolute_yaw_deg": 0.3177135842696299,
+        "geometry_eligible": false,
+        "normalized_mae": 0.11736547432693781
+      },
+      "as_components": {
+        "progress_acceptance": 0.3333333333333333,
+        "yaw_direction_match": true,
+        "composite_mean": 0.6666666666666666,
+        "component_count": 2
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000000",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 696.0043837987346,
+          "history_median_laplacian_variance": 757.6678333091147,
+          "future_median_laplacian_variance": 671.8929929700163,
+          "median_adjacent_normalized_mae": 0.17111321243585326,
+          "history_future_boundary_normalized_mae": 0.17833552641027114
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.28092509492607554
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.13479963053132368
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.09038505827449263
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.06222447744045813
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        0.28092509492607554,
+        0.13479963053132368,
+        0.09038505827449263,
+        0.06222447744045813
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 0,
+        "coverage": 0.0,
+        "quality_scored_count": 0,
+        "quality_scored_coverage": 0.0,
+        "accepted_rate": null,
+        "predicted_longitudinal_m": [],
+        "action_interval_distance_m": [
+          4.287062659910629,
+          3.8608613028701253,
+          3.8900915798988587,
+          3.5290369171347584
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": 0.56833426117235,
+        "action_yaw_rad": 0.92578125,
+        "applicable": true,
+        "direction_match": true
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": 0.28092509492607554,
+        "absolute_yaw_deg": 16.095822298576145,
+        "geometry_eligible": false,
+        "normalized_mae": 0.17833552641027114
+      },
+      "as_components": {
+        "progress_acceptance": null,
+        "yaw_direction_match": true,
+        "composite_mean": 1.0,
+        "component_count": 1
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000003",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 516.859113185126,
+          "history_median_laplacian_variance": 666.3409194854307,
+          "future_median_laplacian_variance": 337.3688046122775,
+          "median_adjacent_normalized_mae": 0.10494759503532858,
+          "history_future_boundary_normalized_mae": 0.19788442873487286
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": -0.2892026278965168
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": -0.15639527198030687
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": -0.1459886461445287
+        },
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "long",
+          "reference_distance_bin": "short",
+          "speed_bin": "long",
+          "reference_speed_bin": "short",
+          "distance_m_raw": 20.665613233701027,
+          "speed_mps_raw": 20.665613233701027,
+          "absolute_error_m": 15.169076682153317,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 57,
+            "inlier_fraction": 0.4,
+            "median_reprojection_error_px": 1.5775267918219482
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": -0.003551684499025057
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        -0.2892026278965168,
+        -0.15639527198030687,
+        -0.1459886461445287,
+        -0.003551684499025057
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 1,
+        "coverage": 0.25,
+        "quality_scored_count": 1,
+        "quality_scored_coverage": 0.25,
+        "accepted_rate": 0.0,
+        "predicted_longitudinal_m": [
+          20.665613233701027
+        ],
+        "action_interval_distance_m": [
+          5.94551396874476,
+          5.649935237547114,
+          5.615361751272686,
+          5.4965365515477105
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": -0.5951382305203774,
+        "action_yaw_rad": -0.6171875,
+        "applicable": true,
+        "direction_match": true
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": -0.2892026278965168,
+        "absolute_yaw_deg": 16.570090002562818,
+        "geometry_eligible": false,
+        "normalized_mae": 0.19788442873487286
+      },
+      "as_components": {
+        "progress_acceptance": 0.0,
+        "yaw_direction_match": true,
+        "composite_mean": 0.5,
+        "component_count": 2
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000009",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 789.8357777812598,
+          "history_median_laplacian_variance": 657.3924339575531,
+          "future_median_laplacian_variance": 936.384337881465,
+          "median_adjacent_normalized_mae": 0.06367517359116498,
+          "history_future_boundary_normalized_mae": 0.06367517359116498
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "very_short",
+          "reference_distance_bin": "stop",
+          "speed_bin": "very_short",
+          "reference_speed_bin": "stop",
+          "distance_m_raw": 1.5924831684444103,
+          "speed_mps_raw": 1.5924831684444103,
+          "absolute_error_m": 1.4547878358516226,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 953,
+            "inlier_fraction": 0.6375545851528385,
+            "median_reprojection_error_px": 1.8026622416516949
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": 0.00011555436310419128
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "very_short",
+          "reference_distance_bin": "very_short",
+          "speed_bin": "very_short",
+          "reference_speed_bin": "very_short",
+          "distance_m_raw": 2.21795440337577,
+          "speed_mps_raw": 2.21795440337577,
+          "absolute_error_m": 1.3868960452581636,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 1057,
+            "inlier_fraction": 0.25045045045045045,
+            "median_reprojection_error_px": 1.966141439431784
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": -0.0037074986015819132
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "very_short",
+          "reference_distance_bin": "very_short",
+          "speed_bin": "very_short",
+          "reference_speed_bin": "very_short",
+          "distance_m_raw": 2.5489884636227162,
+          "speed_mps_raw": 2.5489884636227162,
+          "absolute_error_m": 0.48645696771904534,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 744,
+            "inlier_fraction": 0.2,
+            "median_reprojection_error_px": 1.8073427859155986
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": -0.009889230927285832
+        },
+        {
+          "status": "scored",
+          "acceptable": true,
+          "distance_bin": "very_short",
+          "reference_distance_bin": "very_short",
+          "speed_bin": "very_short",
+          "reference_speed_bin": "very_short",
+          "distance_m_raw": 2.5395844865287813,
+          "speed_mps_raw": 2.5395844865287813,
+          "absolute_error_m": 0.3356661556260603,
+          "accepted_tolerance_m": 3.0,
+          "within_tolerance": true,
+          "adjacent_bin_match": true,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 988,
+            "inlier_fraction": 0.2491349480968858,
+            "median_reprojection_error_px": 1.8359129027797276
+          },
+          "confidence": 1.0,
+          "abstention_reason": null,
+          "visual_yaw_rad": 0.001498628828124649
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        0.00011555436310419128,
+        -0.0037074986015819132,
+        -0.009889230927285832,
+        0.001498628828124649
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 4,
+        "coverage": 1.0,
+        "quality_scored_count": 4,
+        "quality_scored_coverage": 1.0,
+        "accepted_rate": 1.0,
+        "predicted_longitudinal_m": [
+          1.5924831684444103,
+          2.21795440337577,
+          2.5489884636227162,
+          2.5395844865287813
+        ],
+        "action_interval_distance_m": [
+          0.13769533259278768,
+          0.8310583581176063,
+          2.062531495903671,
+          2.8752506421548416
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": -0.011982546337638905,
+        "action_yaw_rad": -0.0166015625,
+        "applicable": true,
+        "direction_match": true
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": 0.00011555436310419128,
+        "absolute_yaw_deg": 0.006620777310192399,
+        "geometry_eligible": true,
+        "normalized_mae": 0.06367517359116498
+      },
+      "as_components": {
+        "progress_acceptance": 1.0,
+        "yaw_direction_match": true,
+        "composite_mean": 1.0,
+        "component_count": 2
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000001",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 415.60436656114496,
+          "history_median_laplacian_variance": 361.0848851498262,
+          "future_median_laplacian_variance": 503.92949983330413,
+          "median_adjacent_normalized_mae": 0.1643789852366728,
+          "history_future_boundary_normalized_mae": 0.23265804215973498
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.2748983535214668
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.16799225229232087
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.16849352440288362
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.2320021077733308
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        0.2748983535214668,
+        0.16799225229232087,
+        0.16849352440288362,
+        0.2320021077733308
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 0,
+        "coverage": 0.0,
+        "quality_scored_count": 0,
+        "quality_scored_coverage": 0.0,
+        "accepted_rate": null,
+        "predicted_longitudinal_m": [],
+        "action_interval_distance_m": [
+          4.2886159973646,
+          4.236624820321486,
+          4.187762351856299,
+          4.143542604161323
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": 0.8433862379900021,
+        "action_yaw_rad": 1.1640625,
+        "applicable": true,
+        "direction_match": true
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": 0.2748983535214668,
+        "absolute_yaw_deg": 15.75051545187532,
+        "geometry_eligible": false,
+        "normalized_mae": 0.23265804215973498
+      },
+      "as_components": {
+        "progress_acceptance": null,
+        "yaw_direction_match": true,
+        "composite_mean": 1.0,
+        "component_count": 1
+      }
+    },
+    {
+      "sample_id": "worlddrive-native-000002",
+      "model_id": "worlddrive_stage2_native_tadwm_1024",
+      "future_images_source": "wam_generated",
+      "action_trajectory_source": "wam_action_head",
+      "contract": {
+        "valid": true,
+        "issues": [],
+        "history_count": 4,
+        "future_count": 4,
+        "trajectory_shape": [
+          4,
+          3
+        ],
+        "history_context_available": true,
+        "future_sequence_available": true,
+        "action_state_available": true,
+        "trajectory_adapter": "identity"
+      },
+      "history_context": {
+        "used_as_visual_context": true,
+        "history_count": 4,
+        "future_count": 4,
+        "candidate_blind_visual_branch": true,
+        "quality": {
+          "status": "scored",
+          "frame_count": 8,
+          "history_frame_count": 4,
+          "future_frame_count": 4,
+          "median_laplacian_variance": 616.0224362254878,
+          "history_median_laplacian_variance": 570.7514161173208,
+          "future_median_laplacian_variance": 648.4713034239817,
+          "median_adjacent_normalized_mae": 0.06879159515979243,
+          "history_future_boundary_normalized_mae": 0.12374334148332185
+        }
+      },
+      "status": "scored",
+      "visual_probe_contract": {
+        "valid": true,
+        "expected_interval_count": 4,
+        "observed_interval_count": 4
+      },
+      "intervals": [
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.07817511817209992
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": 0.04155784848993302
+        },
+        {
+          "status": "uncertain",
+          "acceptable": false,
+          "reason": "visual_motion_unavailable",
+          "visual_yaw_rad": -0.0010826967102733238
+        },
+        {
+          "status": "outside_tolerance",
+          "acceptable": false,
+          "distance_bin": "very_short",
+          "reference_distance_bin": "long",
+          "speed_bin": "very_short",
+          "reference_speed_bin": "long",
+          "distance_m_raw": 1.523331282221009,
+          "speed_mps_raw": 1.523331282221009,
+          "absolute_error_m": 9.087734948959532,
+          "accepted_tolerance_m": 5.30553311559027,
+          "within_tolerance": false,
+          "adjacent_bin_match": false,
+          "geometry_quality": {
+            "status": "high",
+            "confidence": 1.0,
+            "reasons": [],
+            "matches": 338,
+            "inlier_fraction": 0.26666666666666666,
+            "median_reprojection_error_px": 1.2753820697655103
+          },
+          "confidence": 0.0,
+          "abstention_reason": "outside_tolerance",
+          "visual_yaw_rad": 0.025260970191127555
+        }
+      ],
+      "visual_yaw_intervals_rad": [
+        0.07817511817209992,
+        0.04155784848993302,
+        -0.0010826967102733238,
+        0.025260970191127555
+      ],
+      "progress": {
+        "interval_count": 4,
+        "visual_available_count": 1,
+        "coverage": 0.25,
+        "quality_scored_count": 1,
+        "quality_scored_coverage": 0.25,
+        "accepted_rate": 0.0,
+        "predicted_longitudinal_m": [
+          1.523331282221009
+        ],
+        "action_interval_distance_m": [
+          9.252145054545544,
+          9.654480806018988,
+          9.955773784122709,
+          10.61106623118054
+        ]
+      },
+      "yaw": {
+        "visual_yaw_rad": 0.14391124014288717,
+        "action_yaw_rad": 0.1435546875,
+        "applicable": true,
+        "direction_match": true
+      },
+      "history_future_boundary": {
+        "visual_yaw_rad": 0.07817511817209992,
+        "absolute_yaw_deg": 4.4791043341977925,
+        "geometry_eligible": false,
+        "normalized_mae": 0.12374334148332185
+      },
+      "as_components": {
+        "progress_acceptance": 0.0,
+        "yaw_direction_match": true,
+        "composite_mean": 0.5,
+        "component_count": 2
+      }
+    }
+  ],
+  "claim_boundary": "AS compares independently extracted coarse visual yaw/progress with the supplied trajectory. It is not exact SE(3), physical realism, or proof that the trajectory causally controls image generation. WAM action is not ground truth; real_logged is the calibration/upper-bound condition."
+}

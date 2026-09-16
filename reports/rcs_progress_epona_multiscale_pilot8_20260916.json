@@ -1,0 +1,325 @@
+{
+  "protocol": "iac-progress-response-multiscale-pilot-v1",
+  "roles": [
+    "stop",
+    "quarter",
+    "half",
+    "threequarter",
+    "normal"
+  ],
+  "declared_groups": 8,
+  "eligible_groups": 6,
+  "scored_groups": 6,
+  "coverage": 1.0,
+  "adjacent_hits": 14,
+  "adjacent_total": 24,
+  "adjacent_accuracy": 0.5833333333333334,
+  "monotonic_hits": 0,
+  "monotonic_accuracy": 0.0,
+  "groups": [
+    {
+      "counterfactual_group_id": "epona_native:0",
+      "action_values": {
+        "stop": 0.0,
+        "quarter": 3.0739340672880644e-07,
+        "half": 6.147868134576129e-07,
+        "threequarter": 9.221802201864193e-07,
+        "normal": 1.2295736269152258e-06
+      },
+      "visual_values": {
+        "stop": -0.0521527212482614,
+        "quarter": 0.1351830400684824,
+        "half": 0.1351830400684824,
+        "threequarter": 0.07971714690171025,
+        "normal": 0.07971714690171025
+      },
+      "action_deltas": [
+        3.0739340672880644e-07,
+        3.0739340672880644e-07,
+        3.0739340672880644e-07,
+        3.0739340672880644e-07
+      ],
+      "visual_deltas": [
+        0.1873357613167438,
+        0.0,
+        -0.05546589316677214,
+        0.0
+      ],
+      "action_order_valid": false,
+      "scored": false,
+      "adjacent_hits": [
+        true,
+        false,
+        false,
+        false
+      ],
+      "monotonic_hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_native:1",
+      "action_values": {
+        "stop": 0.0,
+        "quarter": 0.13257086277008057,
+        "half": 0.26514172554016113,
+        "threequarter": 0.3977125883102417,
+        "normal": 0.5302834510803223
+      },
+      "visual_values": {
+        "stop": 0.722247476645955,
+        "quarter": 0.9897091736057395,
+        "half": 0.9737665960255014,
+        "threequarter": 0.983217643984696,
+        "normal": 1.0021624329545542
+      },
+      "action_deltas": [
+        0.13257086277008057,
+        0.13257086277008057,
+        0.13257086277008057,
+        0.13257086277008057
+      ],
+      "visual_deltas": [
+        0.2674616969597845,
+        -0.015942577580238093,
+        0.009451047959194603,
+        0.018944788969858184
+      ],
+      "action_order_valid": false,
+      "scored": false,
+      "adjacent_hits": [
+        true,
+        false,
+        true,
+        true
+      ],
+      "monotonic_hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_native:2",
+      "action_values": {
+        "stop": 0.0,
+        "quarter": 0.4963730275630951,
+        "half": 0.9927460551261902,
+        "threequarter": 1.489119052886963,
+        "normal": 1.9854921102523804
+      },
+      "visual_values": {
+        "stop": 2.7513730886263774,
+        "quarter": 2.559620563333149,
+        "half": 2.5956552200343848,
+        "threequarter": 2.9172040747339105,
+        "normal": 3.1078824242962835
+      },
+      "action_deltas": [
+        0.4963730275630951,
+        0.4963730275630951,
+        0.4963729977607727,
+        0.4963730573654175
+      ],
+      "visual_deltas": [
+        -0.19175252529322862,
+        0.036034656701235956,
+        0.32154885469952577,
+        0.19067834956237295
+      ],
+      "action_order_valid": true,
+      "scored": true,
+      "adjacent_hits": [
+        false,
+        true,
+        true,
+        true
+      ],
+      "monotonic_hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_native:3",
+      "action_values": {
+        "stop": 0.0,
+        "quarter": 1.0625286102294922,
+        "half": 2.1250572204589844,
+        "threequarter": 3.1875858306884766,
+        "normal": 4.250114440917969
+      },
+      "visual_values": {
+        "stop": 4.125856209987939,
+        "quarter": 3.6691640932171303,
+        "half": 4.1461594258424075,
+        "threequarter": 5.398665009021629,
+        "normal": 5.14374939482835
+      },
+      "action_deltas": [
+        1.0625286102294922,
+        1.0625286102294922,
+        1.0625286102294922,
+        1.0625286102294922
+      ],
+      "visual_deltas": [
+        -0.45669211677080845,
+        0.47699533262527716,
+        1.2525055831792216,
+        -0.2549156141932789
+      ],
+      "action_order_valid": true,
+      "scored": true,
+      "adjacent_hits": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "monotonic_hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_native:4",
+      "action_values": {
+        "stop": 0.0,
+        "quarter": 1.286934733390808,
+        "half": 2.573869466781616,
+        "threequarter": 3.8608040809631348,
+        "normal": 5.147738933563232
+      },
+      "visual_values": {
+        "stop": 7.082691567709509,
+        "quarter": 5.798484817068445,
+        "half": 7.269542153066666,
+        "threequarter": 8.476918694517675,
+        "normal": 7.863350920121063
+      },
+      "action_deltas": [
+        1.286934733390808,
+        1.286934733390808,
+        1.2869346141815186,
+        1.2869348526000977
+      ],
+      "visual_deltas": [
+        -1.2842067506410642,
+        1.4710573359982213,
+        1.2073765414510085,
+        -0.6135677743966115
+      ],
+      "action_order_valid": true,
+      "scored": true,
+      "adjacent_hits": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "monotonic_hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_native:5",
+      "action_values": {
+        "stop": 0.0,
+        "quarter": 1.4192478656768799,
+        "half": 2.8384957313537598,
+        "threequarter": 4.257743835449219,
+        "normal": 5.6769914627075195
+      },
+      "visual_values": {
+        "stop": 8.290414946929257,
+        "quarter": 6.792748515845743,
+        "half": 8.436090100342685,
+        "threequarter": 9.195206135477017,
+        "normal": 9.208558448341991
+      },
+      "action_deltas": [
+        1.4192478656768799,
+        1.4192478656768799,
+        1.419248104095459,
+        1.4192476272583008
+      ],
+      "visual_deltas": [
+        -1.4976664310835144,
+        1.6433415844969428,
+        0.7591160351343316,
+        0.01335231286497418
+      ],
+      "action_order_valid": true,
+      "scored": true,
+      "adjacent_hits": [
+        false,
+        true,
+        true,
+        true
+      ],
+      "monotonic_hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_native:6",
+      "action_values": {
+        "stop": 0.0,
+        "quarter": 1.5516021251678467,
+        "half": 3.1032042503356934,
+        "threequarter": 4.654806137084961,
+        "normal": 6.206408500671387
+      },
+      "visual_values": {
+        "stop": 6.928429344538175,
+        "quarter": 5.555480334101391,
+        "half": 7.312451101194556,
+        "threequarter": 7.185374877310772,
+        "normal": 7.338911950773813
+      },
+      "action_deltas": [
+        1.5516021251678467,
+        1.5516021251678467,
+        1.5516018867492676,
+        1.5516023635864258
+      ],
+      "visual_deltas": [
+        -1.372949010436784,
+        1.756970767093165,
+        -0.12707622388378415,
+        0.15353707346304102
+      ],
+      "action_order_valid": true,
+      "scored": true,
+      "adjacent_hits": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "monotonic_hit": false
+    },
+    {
+      "counterfactual_group_id": "epona_native:7",
+      "action_values": {
+        "stop": 0.0,
+        "quarter": 1.5738394260406494,
+        "half": 3.147678852081299,
+        "threequarter": 4.721518516540527,
+        "normal": 6.295357704162598
+      },
+      "visual_values": {
+        "stop": 6.537113059785262,
+        "quarter": 5.066404031500751,
+        "half": 6.6964425776663115,
+        "threequarter": 7.214473839054718,
+        "normal": 6.71487250935533
+      },
+      "action_deltas": [
+        1.5738394260406494,
+        1.5738394260406494,
+        1.5738396644592285,
+        1.5738391876220703
+      ],
+      "visual_deltas": [
+        -1.470709028284511,
+        1.6300385461655607,
+        0.5180312613884066,
+        -0.499601329699388
+      ],
+      "action_order_valid": true,
+      "scored": true,
+      "adjacent_hits": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "monotonic_hit": false
+    }
+  ]
+}

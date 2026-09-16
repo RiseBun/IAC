@@ -1,0 +1,20 @@
+{
+  "protocol": "iac-future-to-action-mediation-v1",
+  "model": "DriveVA",
+  "sources": 1,
+  "conditions": [
+    "baseline",
+    "future_perturbed",
+    "future_perturbed_pathway_blocked",
+    "future_fixed_action_pathway_control"
+  ],
+  "seed": 20260916,
+  "trajectory_seed": 20260917,
+  "normalization_fingerprint": "driveva-calibration-v1",
+  "normalization_scale": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+}

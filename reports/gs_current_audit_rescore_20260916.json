@@ -1,0 +1,2511 @@
+{
+  "protocol": "iac-gs-current-format-audit-v1",
+  "status": "completed_with_lineage_warning",
+  "metric_id": "GS",
+  "frozen_aggregation": "score_structural_grounding",
+  "calibration": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\gs_frozen_descriptor_scales_20260916.json",
+  "descriptor_scales": {
+    "median_flow_magnitude_px": 0.6025444157006848,
+    "horizontal_flow_center": 0.030738168189133684,
+    "vertical_flow_center": 0.023590743605748664,
+    "divergence": 0.46077075629131653,
+    "curl": 0.17186898289662392
+  },
+  "audit_decision": {
+    "numeric_reproduction_pass": true,
+    "evidence_contract_pass": true,
+    "raw_lineage_warning": "archived raw reports do not carry an explicit candidate_blind field; current evidence packets do declare the candidate-blind representation.",
+    "missing_values_zero_filled": false
+  },
+  "models": [
+    {
+      "model": "Epona",
+      "raw_report": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\grounding_score_epona_confirmation_20260911.json",
+      "current_generated": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\gs_current_epona_generated.jsonl",
+      "current_reference": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\gs_current_epona_reference.jsonl",
+      "packet_audit": {
+        "path": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\gs_epona_packets.json",
+        "rows": 118,
+        "validation_valid": true,
+        "status_counts": {
+          "valid": 112,
+          "unavailable": 6,
+          "invalid": 0
+        },
+        "invalid_rows": 0
+      },
+      "raw_audit": {
+        "raw_rows": 442,
+        "explicit_rows": 448,
+        "unique_source_branch_intervals": 442,
+        "missing_descriptor_side_rows": 0,
+        "unavailable_placeholders_added": 6,
+        "raw_protocol": "iac-grounding-score-audit-v1",
+        "raw_claim_boundary": "Same-source generated flow vs logged future; not a frozen scalar Grounding Score and does not establish future-to-action causality."
+      },
+      "rescored": {
+        "protocol": "iac-structural-grounding-score-v1",
+        "metric_id": "GS",
+        "status": "ok",
+        "source_count": 118,
+        "reference_only_source_count": 0,
+        "scored_source_count": 112,
+        "source_coverage": 0.9491525423728814,
+        "conditional_score": 0.552898363913725,
+        "score_coverage": 0.9491525423728814,
+        "status_counts": {
+          "scored": 112,
+          "abstain": 0,
+          "unavailable": 6
+        },
+        "abstention_reasons": {
+          "insufficient_common_intervals_or_descriptors": 6
+        },
+        "score_median": 0.552898363913725,
+        "score_mean": 0.5348441771806935,
+        "score_bootstrap_ci95": [
+          0.5072447552883357,
+          0.5931568670839167
+        ],
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        },
+        "source_reports": [
+          {
+            "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1::left",
+            "status": "ok",
+            "score": 0.6668010500288089,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1::right",
+            "status": "ok",
+            "score": 0.6648148782781561,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e::left",
+            "status": "ok",
+            "score": 0.3770856211892609,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e::right",
+            "status": "ok",
+            "score": 0.5178935242734392,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668::left",
+            "status": "ok",
+            "score": 0.5345377658728632,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668::right",
+            "status": "ok",
+            "score": 0.33241952284429355,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f::left",
+            "status": "ok",
+            "score": 0.7580051993617458,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f::right",
+            "status": "ok",
+            "score": 0.7916632368211691,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d::left",
+            "status": "ok",
+            "score": 0.502110194725233,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d::right",
+            "status": "ok",
+            "score": 0.38541739674531417,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430::left",
+            "status": "ok",
+            "score": 0.5596815256471386,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430::right",
+            "status": "ok",
+            "score": 0.8401155052841703,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729::left",
+            "status": "ok",
+            "score": 0.44393808203515667,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729::right",
+            "status": "ok",
+            "score": 0.11171133263816277,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4::left",
+            "status": "ok",
+            "score": 0.4724793475526783,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4::right",
+            "status": "ok",
+            "score": 0.4999574918108039,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866::left",
+            "status": "ok",
+            "score": 0.5397796579667644,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866::right",
+            "status": "ok",
+            "score": 0.8164705637818619,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357::left",
+            "status": "ok",
+            "score": 0.7513096023585584,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357::right",
+            "status": "ok",
+            "score": 0.6866248240981561,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975::left",
+            "status": "ok",
+            "score": 0.6327812000529851,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975::right",
+            "status": "ok",
+            "score": 0.8349554934419303,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e::left",
+            "status": "ok",
+            "score": 0.7087903896851975,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e::right",
+            "status": "ok",
+            "score": 0.5734412375325186,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8::left",
+            "status": "ok",
+            "score": 0.430594634718344,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8::right",
+            "status": "ok",
+            "score": 0.552441302989609,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32::left",
+            "status": "ok",
+            "score": 0.40992298882279,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32::right",
+            "status": "ok",
+            "score": 0.42690097148780193,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8::left",
+            "status": "ok",
+            "score": 0.9521937710361035,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8::right",
+            "status": "ok",
+            "score": 0.9176639591827405,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161::left",
+            "status": "ok",
+            "score": 0.7519971846563253,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161::right",
+            "status": "ok",
+            "score": 0.5378131656509313,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935::left",
+            "status": "ok",
+            "score": 0.06592000010693452,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935::right",
+            "status": "ok",
+            "score": 0.08749771712469634,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47::left",
+            "status": "ok",
+            "score": 0.7220972203994374,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47::right",
+            "status": "ok",
+            "score": 0.6079540440945572,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d::left",
+            "status": "ok",
+            "score": 0.10058249131163219,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d::right",
+            "status": "ok",
+            "score": 0.6701525708377117,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac::left",
+            "status": "ok",
+            "score": 0.5338533132517846,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac::right",
+            "status": "ok",
+            "score": 0.6784152094481444,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e::left",
+            "status": "ok",
+            "score": 0.3117002752792405,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e::right",
+            "status": "ok",
+            "score": 0.4139988631796092,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0::left",
+            "status": "ok",
+            "score": 0.44879252919734725,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0::right",
+            "status": "ok",
+            "score": 0.21554070406178716,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05::left",
+            "status": "ok",
+            "score": 0.7746283243678057,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05::right",
+            "status": "ok",
+            "score": 0.6335054698154727,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700::left",
+            "status": "ok",
+            "score": 0.10524285321943945,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700::right",
+            "status": "ok",
+            "score": 0.0032274995618295633,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19::left",
+            "status": "ok",
+            "score": 0.7386824847872036,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19::right",
+            "status": "ok",
+            "score": 0.7147669085789801,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a::left",
+            "status": "ok",
+            "score": 0.32798255789781505,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a::right",
+            "status": "ok",
+            "score": 0.6458892039028047,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867::left",
+            "status": "ok",
+            "score": 0.4503274130958915,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867::right",
+            "status": "ok",
+            "score": 0.40783269209987233,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8::left",
+            "status": "ok",
+            "score": 0.6036636751488693,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8::right",
+            "status": "ok",
+            "score": 0.5533554248378412,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3::left",
+            "status": "ok",
+            "score": 0.2189245201984822,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3::right",
+            "status": "ok",
+            "score": 0.1326536078464153,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162::left",
+            "status": "ok",
+            "score": 0.5674075039038718,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162::right",
+            "status": "ok",
+            "score": 0.48512625545851795,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b::left",
+            "status": "ok",
+            "score": 0.7494008638123478,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b::right",
+            "status": "ok",
+            "score": 0.7269295635138109,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e::left",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e::right",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12::left",
+            "status": "ok",
+            "score": 0.6410116664806607,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12::right",
+            "status": "ok",
+            "score": 0.5101157390404507,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac::left",
+            "status": "ok",
+            "score": 0.49288098457857876,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac::right",
+            "status": "ok",
+            "score": 0.6159251509440942,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47::left",
+            "status": "ok",
+            "score": 0.6544005547939791,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47::right",
+            "status": "ok",
+            "score": 0.7332910960280963,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1::left",
+            "status": "ok",
+            "score": 0.2165050178202385,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1::right",
+            "status": "ok",
+            "score": 0.5677228879882728,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9::left",
+            "status": "ok",
+            "score": 0.6515441868732412,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9::right",
+            "status": "ok",
+            "score": 0.6567452436142388,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6::left",
+            "status": "ok",
+            "score": 0.8633310075344883,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6::right",
+            "status": "ok",
+            "score": 0.8218004085885372,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a::left",
+            "status": "ok",
+            "score": 0.582650059018964,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a::right",
+            "status": "ok",
+            "score": 0.6508531858185753,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf::left",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf::right",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b::left",
+            "status": "ok",
+            "score": 0.3608350924558846,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b::right",
+            "status": "ok",
+            "score": 0.46733494208731685,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4::left",
+            "status": "ok",
+            "score": 0.11279046720943488,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4::right",
+            "status": "ok",
+            "score": 0.11486360162666642,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e::left",
+            "status": "ok",
+            "score": 0.7514648501013304,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e::right",
+            "status": "ok",
+            "score": 0.5172532645762172,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6::left",
+            "status": "ok",
+            "score": 0.49008074348943675,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6::right",
+            "status": "ok",
+            "score": 0.5809318771547225,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a::left",
+            "status": "ok",
+            "score": 0.7688899660442852,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a::right",
+            "status": "ok",
+            "score": 0.7823613607418545,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c::left",
+            "status": "ok",
+            "score": 0.5772728528177731,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c::right",
+            "status": "ok",
+            "score": 0.6953669625207753,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb::left",
+            "status": "ok",
+            "score": 0.29803162989279386,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb::right",
+            "status": "ok",
+            "score": 0.3322894999953695,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4::left",
+            "status": "ok",
+            "score": 0.17714256303354045,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4::right",
+            "status": "ok",
+            "score": 0.4073011079386566,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f::left",
+            "status": "ok",
+            "score": 0.5782440225164708,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f::right",
+            "status": "ok",
+            "score": 0.7006718874348226,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a::left",
+            "status": "ok",
+            "score": 0.7498366162753335,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a::right",
+            "status": "ok",
+            "score": 0.795435544897204,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd::left",
+            "status": "ok",
+            "score": 0.250628298562922,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd::right",
+            "status": "ok",
+            "score": 0.40428326563163386,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e::left",
+            "status": "ok",
+            "score": 0.5497273078542542,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e::right",
+            "status": "ok",
+            "score": 0.5444799851065432,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce::left",
+            "status": "ok",
+            "score": 0.44933993698889485,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce::right",
+            "status": "ok",
+            "score": 0.4394023027909455,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0::left",
+            "status": "ok",
+            "score": 0.33126813511533604,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0::right",
+            "status": "ok",
+            "score": 0.47101473252902804,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660::left",
+            "status": "ok",
+            "score": 0.40358562764895506,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660::right",
+            "status": "ok",
+            "score": 0.6605613547680813,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080::left",
+            "status": "ok",
+            "score": 0.844100350191819,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080::right",
+            "status": "ok",
+            "score": 0.7841025268703208,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2::left",
+            "status": "ok",
+            "score": 0.5999405929641348,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2::right",
+            "status": "ok",
+            "score": 0.5043737715362206,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16::left",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16::right",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436::left",
+            "status": "ok",
+            "score": 0.5712290303466208,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436::right",
+            "status": "ok",
+            "score": 0.4989702004884933,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          }
+        ],
+        "claim": "external_reality_grounding_not_future_to_action_causality",
+        "missing_value_policy": "unavailable_never_zero_fill"
+      },
+      "source_cluster_bootstrap": {
+        "source_count": 56,
+        "score_median": 0.5496304143652881,
+        "score_mean": 0.5348441771806935,
+        "bootstrap_ci95": [
+          0.48657715029102544,
+          0.6353394825040241
+        ]
+      },
+      "lineage_audit": {
+        "source_identity_explicit": true,
+        "generated_reference_join_explicit": true,
+        "candidate_blind_measurement_declared": true,
+        "candidate_blind_lineage_in_archived_raw": false,
+        "calibration_source_real_only": true,
+        "native_action_used_by_structural_gs": false,
+        "claim_boundary": "external_reality_grounding_not_future_to_action_causality"
+      }
+    },
+    {
+      "model": "DriveWAM",
+      "raw_report": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\grounding_score_drivewam_confirmation_20260911.json",
+      "current_generated": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\gs_current_drivewam_generated.jsonl",
+      "current_reference": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\gs_current_drivewam_reference.jsonl",
+      "packet_audit": {
+        "path": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\reports\\gs_drivewam_packets.json",
+        "rows": 172,
+        "validation_valid": true,
+        "status_counts": {
+          "valid": 162,
+          "unavailable": 10,
+          "invalid": 0
+        },
+        "invalid_rows": 0
+      },
+      "raw_audit": {
+        "raw_rows": 607,
+        "explicit_rows": 615,
+        "unique_source_branch_intervals": 607,
+        "missing_descriptor_side_rows": 0,
+        "unavailable_placeholders_added": 8,
+        "raw_protocol": "iac-grounding-score-audit-v1",
+        "raw_claim_boundary": "Same-source generated flow vs logged future; not frozen scalar Grounding Score and no future-to-action causality claim."
+      },
+      "rescored": {
+        "protocol": "iac-structural-grounding-score-v1",
+        "metric_id": "GS",
+        "status": "ok",
+        "source_count": 172,
+        "reference_only_source_count": 0,
+        "scored_source_count": 162,
+        "source_coverage": 0.9418604651162791,
+        "conditional_score": 0.19075356284292827,
+        "score_coverage": 0.9418604651162791,
+        "status_counts": {
+          "scored": 162,
+          "abstain": 0,
+          "unavailable": 10
+        },
+        "abstention_reasons": {
+          "insufficient_common_intervals_or_descriptors": 10
+        },
+        "score_median": 0.19075356284292827,
+        "score_mean": 0.23968181661328924,
+        "score_bootstrap_ci95": [
+          0.1677479649240491,
+          0.20874897614273696
+        ],
+        "descriptor_scales": {
+          "median_flow_magnitude_px": 0.6025444157006848,
+          "horizontal_flow_center": 0.030738168189133684,
+          "vertical_flow_center": 0.023590743605748664,
+          "divergence": 0.46077075629131653,
+          "curl": 0.17186898289662392
+        },
+        "source_reports": [
+          {
+            "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1::left",
+            "status": "ok",
+            "score": 0.5188315827681649,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1::right",
+            "status": "ok",
+            "score": 0.5181645308888574,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e::left",
+            "status": "ok",
+            "score": 0.120472728653912,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e::right",
+            "status": "ok",
+            "score": 0.1205704260779097,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668::left",
+            "status": "ok",
+            "score": 0.04218941664437575,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668::right",
+            "status": "ok",
+            "score": 0.04248529961886201,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f::left",
+            "status": "ok",
+            "score": 0.43105319649979,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f::right",
+            "status": "ok",
+            "score": 0.43578310239928825,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d::left",
+            "status": "ok",
+            "score": 0.13341546589952466,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d::right",
+            "status": "ok",
+            "score": 0.13659635815642857,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1::left",
+            "status": "ok",
+            "score": 0.12946154637830704,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1::right",
+            "status": "ok",
+            "score": 0.20874897614273696,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430::left",
+            "status": "ok",
+            "score": 0.4100733163205668,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430::right",
+            "status": "ok",
+            "score": 0.335878598558328,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155::left",
+            "status": "ok",
+            "score": 0.24120266336958576,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155::right",
+            "status": "ok",
+            "score": 0.24176603710653316,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729::left",
+            "status": "ok",
+            "score": 0.11489851835313607,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729::right",
+            "status": "ok",
+            "score": 0.10704653902205528,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd::left",
+            "status": "ok",
+            "score": 0.11889164425823943,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd::right",
+            "status": "ok",
+            "score": 0.11916411229061534,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4::left",
+            "status": "ok",
+            "score": 0.24508198163768707,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4::right",
+            "status": "ok",
+            "score": 0.24199611744553218,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866::left",
+            "status": "ok",
+            "score": 0.37531809843342046,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866::right",
+            "status": "ok",
+            "score": 0.3741487212387529,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735::left",
+            "status": "ok",
+            "score": 0.20442100556857923,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735::right",
+            "status": "ok",
+            "score": 0.19728957748107348,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357::left",
+            "status": "ok",
+            "score": 0.17004911626831334,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357::right",
+            "status": "ok",
+            "score": 0.17025092597126856,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975::left",
+            "status": "ok",
+            "score": 0.6360492123966399,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975::right",
+            "status": "ok",
+            "score": 0.6352168267422573,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e::left",
+            "status": "ok",
+            "score": 0.20415858877563,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e::right",
+            "status": "ok",
+            "score": 0.20103767422195984,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76::left",
+            "status": "ok",
+            "score": 0.20003392981269455,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76::right",
+            "status": "ok",
+            "score": 0.2595096892711645,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8::left",
+            "status": "ok",
+            "score": 0.5294108027880057,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8::right",
+            "status": "ok",
+            "score": 0.4847113054041984,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32::left",
+            "status": "ok",
+            "score": 0.30164605880934736,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32::right",
+            "status": "ok",
+            "score": 0.28423124643002207,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8::left",
+            "status": "ok",
+            "score": 0.5393305006496304,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8::right",
+            "status": "ok",
+            "score": 0.5396271166573936,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161::left",
+            "status": "ok",
+            "score": 0.21129709297161517,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161::right",
+            "status": "ok",
+            "score": 0.21097694958841073,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935::left",
+            "status": "ok",
+            "score": 0.07799675143479626,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935::right",
+            "status": "ok",
+            "score": 0.07810705881946375,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47::left",
+            "status": "ok",
+            "score": 0.1637674576057538,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47::right",
+            "status": "ok",
+            "score": 0.16523474390675427,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9::left",
+            "status": "ok",
+            "score": 0.12307788590622962,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9::right",
+            "status": "ok",
+            "score": 0.16604810958433242,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d::left",
+            "status": "ok",
+            "score": 0.20967895850797325,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d::right",
+            "status": "ok",
+            "score": 0.20725097000151244,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac::left",
+            "status": "ok",
+            "score": 0.22072879889356206,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac::right",
+            "status": "ok",
+            "score": 0.21013616440155605,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd::left",
+            "status": "ok",
+            "score": 0.2047824704729146,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd::right",
+            "status": "ok",
+            "score": 0.1783664678188399,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e::left",
+            "status": "ok",
+            "score": 0.0709656819321864,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e::right",
+            "status": "ok",
+            "score": 0.0670619960972167,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0::left",
+            "status": "ok",
+            "score": 0.1855494210491094,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0::right",
+            "status": "ok",
+            "score": 0.13125769450965982,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2::left",
+            "status": "ok",
+            "score": 0.1698169370411202,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2::right",
+            "status": "ok",
+            "score": 0.16944782026376576,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05::left",
+            "status": "ok",
+            "score": 0.13710642536734716,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05::right",
+            "status": "ok",
+            "score": 0.1369218503416348,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700::left",
+            "status": "ok",
+            "score": 0.0020130740830123827,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700::right",
+            "status": "ok",
+            "score": 0.0019903561056977743,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19::left",
+            "status": "ok",
+            "score": 0.21422753773058517,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19::right",
+            "status": "ok",
+            "score": 0.23813621671512303,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef::left",
+            "status": "ok",
+            "score": 0.12078006897306424,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef::right",
+            "status": "ok",
+            "score": 0.12002758382949716,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a::left",
+            "status": "ok",
+            "score": 0.09228568084276388,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a::right",
+            "status": "ok",
+            "score": 0.09658905978642789,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867::left",
+            "status": "ok",
+            "score": 0.17807798346888165,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867::right",
+            "status": "ok",
+            "score": 0.17767904342304336,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e::left",
+            "status": "ok",
+            "score": 0.323376619233155,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e::right",
+            "status": "ok",
+            "score": 0.31983157041517585,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8::left",
+            "status": "ok",
+            "score": 0.23318252209753831,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8::right",
+            "status": "ok",
+            "score": 0.26049908253101056,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3::left",
+            "status": "ok",
+            "score": 0.078561761789038,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3::right",
+            "status": "ok",
+            "score": 0.07746973041899838,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162::left",
+            "status": "ok",
+            "score": 0.25783017345623016,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162::right",
+            "status": "ok",
+            "score": 0.2575236605620229,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b::left",
+            "status": "ok",
+            "score": 0.5874524642148259,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b::right",
+            "status": "ok",
+            "score": 0.5943494127195327,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e::left",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e::right",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12::left",
+            "status": "ok",
+            "score": 0.22582771874523483,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12::right",
+            "status": "ok",
+            "score": 0.22576177630678634,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac::left",
+            "status": "ok",
+            "score": 0.4718875788873177,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac::right",
+            "status": "ok",
+            "score": 0.4712245617767745,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47::left",
+            "status": "ok",
+            "score": 0.6170543370363071,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47::right",
+            "status": "ok",
+            "score": 0.617205733752527,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1::left",
+            "status": "ok",
+            "score": 0.07962528849934994,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1::right",
+            "status": "ok",
+            "score": 0.07227926501290421,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb::left",
+            "status": "ok",
+            "score": 0.21457241826497803,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb::right",
+            "status": "ok",
+            "score": 0.20869489917163045,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7::left",
+            "status": "ok",
+            "score": 0.3022908049334339,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7::right",
+            "status": "ok",
+            "score": 0.3030593203405741,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09::left",
+            "status": "ok",
+            "score": 0.1901665195108944,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09::right",
+            "status": "ok",
+            "score": 0.18937424991115914,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2::left",
+            "status": "ok",
+            "score": 0.23657548626097621,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2::right",
+            "status": "ok",
+            "score": 0.15628369698557906,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9::left",
+            "status": "ok",
+            "score": 0.3551516468892521,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9::right",
+            "status": "ok",
+            "score": 0.3561240285651697,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6::left",
+            "status": "ok",
+            "score": 0.5022239657974041,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6::right",
+            "status": "ok",
+            "score": 0.5557616415853965,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01::left",
+            "status": "ok",
+            "score": 0.3402828491568918,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01::right",
+            "status": "ok",
+            "score": 0.4241795970581699,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a::left",
+            "status": "ok",
+            "score": 0.47492335584096296,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a::right",
+            "status": "ok",
+            "score": 0.47603384648902164,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86::left",
+            "status": "ok",
+            "score": 0.14306500118236676,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86::right",
+            "status": "ok",
+            "score": 0.1799882215899035,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe::left",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe::right",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf::left",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf::right",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b::left",
+            "status": "ok",
+            "score": 0.07412889186853755,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b::right",
+            "status": "ok",
+            "score": 0.07404792033664435,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4::left",
+            "status": "ok",
+            "score": 0.046352415926525545,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4::right",
+            "status": "ok",
+            "score": 0.04626767309296355,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e::left",
+            "status": "ok",
+            "score": 0.0796267012611405,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e::right",
+            "status": "ok",
+            "score": 0.1404312040467638,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424::left",
+            "status": "ok",
+            "score": 0.4160267294148602,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424::right",
+            "status": "ok",
+            "score": 0.47640041897066737,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6::left",
+            "status": "ok",
+            "score": 0.12320892348168545,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6::right",
+            "status": "ok",
+            "score": 0.1229871133146665,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39::left",
+            "status": "ok",
+            "score": 0.20873941406842286,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39::right",
+            "status": "ok",
+            "score": 0.21213386261510025,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a::left",
+            "status": "ok",
+            "score": 0.666315893838362,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a::right",
+            "status": "ok",
+            "score": 0.6671944325285102,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c::left",
+            "status": "ok",
+            "score": 0.13096558486347593,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c::right",
+            "status": "ok",
+            "score": 0.15243013970223257,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb::left",
+            "status": "ok",
+            "score": 0.13774661076950886,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb::right",
+            "status": "ok",
+            "score": 0.13817531882107276,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f::left",
+            "status": "ok",
+            "score": 0.40543925108786194,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f::right",
+            "status": "ok",
+            "score": 0.6185028832570013,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc::left",
+            "status": "ok",
+            "score": 0.09393749567173085,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc::right",
+            "status": "ok",
+            "score": 0.12816526593570374,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4::left",
+            "status": "ok",
+            "score": 0.15440120725354034,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4::right",
+            "status": "ok",
+            "score": 0.15489953199112716,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f::left",
+            "status": "ok",
+            "score": 0.12883159785751025,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f::right",
+            "status": "ok",
+            "score": 0.12915108087281388,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a::left",
+            "status": "ok",
+            "score": 0.15344460694617712,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a::right",
+            "status": "ok",
+            "score": 0.15000617914060377,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9::left",
+            "status": "ok",
+            "score": 0.05038797043242857,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9::right",
+            "status": "ok",
+            "score": 0.05027362710397399,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18::left",
+            "status": "ok",
+            "score": 0.16279136266728808,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18::right",
+            "status": "ok",
+            "score": 0.18327644730019022,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd::left",
+            "status": "ok",
+            "score": 0.08503734965849506,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd::right",
+            "status": "ok",
+            "score": 0.08514864993667286,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e::left",
+            "status": "ok",
+            "score": 0.20413408303120867,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e::right",
+            "status": "ok",
+            "score": 0.23867466877386712,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce::left",
+            "status": "ok",
+            "score": 0.11025810733249394,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce::right",
+            "status": "ok",
+            "score": 0.11626361159633661,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0::left",
+            "status": "ok",
+            "score": 0.12774745687100456,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0::right",
+            "status": "ok",
+            "score": 0.1230112677097633,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660::left",
+            "status": "ok",
+            "score": 0.10123283754433603,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660::right",
+            "status": "ok",
+            "score": 0.07852048877374226,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080::left",
+            "status": "ok",
+            "score": 0.2840347762390211,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080::right",
+            "status": "ok",
+            "score": 0.2821738069474968,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096::left",
+            "status": "ok",
+            "score": 0.19134060617496218,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096::right",
+            "status": "ok",
+            "score": 0.19138111140851008,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf::left",
+            "status": "ok",
+            "score": 0.3785815399732561,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf::right",
+            "status": "ok",
+            "score": 0.3800310121420768,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2::left",
+            "status": "ok",
+            "score": 0.09035679979952622,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2::right",
+            "status": "ok",
+            "score": 0.08610938918607212,
+            "common_interval_count": 4,
+            "interval_count": 4,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16::left",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16::right",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 0,
+            "interval_count": 1,
+            "stratum": "unavailable"
+          },
+          {
+            "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436::left",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 2,
+            "interval_count": 2,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436::right",
+            "status": "unavailable",
+            "score": null,
+            "common_interval_count": 2,
+            "interval_count": 2,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1::left",
+            "status": "ok",
+            "score": 0.8380584818989562,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1::right",
+            "status": "ok",
+            "score": 0.8469071279313927,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          },
+          {
+            "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532::left",
+            "status": "ok",
+            "score": 0.03760038984156407,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "left"
+          },
+          {
+            "source_key": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532::right",
+            "status": "ok",
+            "score": 0.03787129826988231,
+            "common_interval_count": 3,
+            "interval_count": 3,
+            "stratum": "right"
+          }
+        ],
+        "claim": "external_reality_grounding_not_future_to_action_causality",
+        "missing_value_policy": "unavailable_never_zero_fill"
+      },
+      "source_cluster_bootstrap": {
+        "source_count": 81,
+        "score_median": 0.19136085879173614,
+        "score_mean": 0.23968181661328927,
+        "bootstrap_ci95": [
+          0.1584035577793846,
+          0.21543248164755907
+        ]
+      },
+      "lineage_audit": {
+        "source_identity_explicit": true,
+        "generated_reference_join_explicit": true,
+        "candidate_blind_measurement_declared": true,
+        "candidate_blind_lineage_in_archived_raw": false,
+        "calibration_source_real_only": true,
+        "native_action_used_by_structural_gs": false,
+        "claim_boundary": "external_reality_grounding_not_future_to_action_causality"
+      }
+    }
+  ],
+  "claim_boundary": "GS measures generated future grounding against an external same-source future; it does not establish future-to-action causality.",
+  "paired_model_difference_source_cluster": {
+    "common_source_count": 55,
+    "median_difference_epona_minus_drivewam": 0.3135729043701124,
+    "bootstrap_ci95": [
+      0.25120153915191945,
+      0.3399966111690098
+    ]
+  }
+}

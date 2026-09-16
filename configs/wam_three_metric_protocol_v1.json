@@ -150,9 +150,29 @@
     "future_to_action_mediation": {
       "config": "configs/future_to_action_mediation_v1.json",
       "scorer": "tools/score_future_to_action_mediation.py",
+      "outcome_scorer": "tools/score_conditional_foresight.py",
       "status": "pilot_worlddrive_unqualified_wam_confirmation_pending",
       "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
       "claim_enabled": false
+    },
+    "conditional_foresight_success": {
+      "definition": "same-source paired change in independent task success when only the predicted future is perturbed, with a blocked-pathway arm and a fixed-action specificity control",
+      "distinct_from": "fcs",
+      "why_distinct": "the marginal FCS success rate is unchanged by a model that ignores its own predicted future; only the paired future-perturbation contrast conditions success on foresight",
+      "scorer": "tools/score_conditional_foresight.py",
+      "module": "iac_new.conditional_foresight",
+      "required_conditions": ["baseline", "future_perturbed", "future_perturbed_pathway_blocked", "future_fixed_action_pathway_control"],
+      "monitors": ["dose_response"],
+      "status": "implemented_evidence_pending",
+      "claim_enabled": false
+    },
+    "joint_source_table": {
+      "purpose": "test whether the consistency channels co-vary with independent execution at the source level before further investment",
+      "scorer": "tools/analyse_joint_source_table.py",
+      "module": "iac_new.joint_source",
+      "unit": "source_key",
+      "status": "implemented_requires_private_per_source_tables",
+      "null_result_meaning": "a null association means the consistency channels carry no information about task success on this split"
     },
     "non_yaw_structure_channels": {
       "audit": "reports/structure_channel_audit_20260912.json",

@@ -1,0 +1,1558 @@
+{
+  "protocol": "iac-progress-lineage-audit-v1",
+  "declared_rows": 172,
+  "declared_groups": 86,
+  "valid_four_role_groups": 0,
+  "issue_count": 258,
+  "status": "fail",
+  "issues": [
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000000.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000004.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000008.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000012.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000016.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000020.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000024.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000028.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000032.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000036.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000040.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000044.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000048.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000052.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000056.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000060.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000064.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000068.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000072.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000076.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000080.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_0/sample_000084.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000001.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000005.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000009.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000013.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000017.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000021.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000025.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000029.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000033.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000037.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000041.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000045.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000049.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000053.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000057.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000061.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000065.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000069.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000073.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000077.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000081.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_1/sample_000085.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000002.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000006.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000010.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000014.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000018.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000022.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000026.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000030.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000034.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000038.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000042.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000046.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000050.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000054.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000058.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000062.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000066.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000070.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000074.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000078.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_2/sample_000082.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000003.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000007.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000011.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000015.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000019.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000023.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000027.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000031.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000035.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000039.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000043.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000047.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000051.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000055.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000059.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000063.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000067.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000071.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000075.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000079.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/fast/shard_3/sample_000083.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000000.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000004.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000008.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000012.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000016.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000020.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000024.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000028.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000032.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000036.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000040.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000044.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000048.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000052.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000056.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000060.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000064.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000068.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000072.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000076.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000080.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_0/sample_000084.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000001.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000005.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000009.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000013.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000017.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000021.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000025.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000029.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000033.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000037.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000041.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000045.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000049.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000053.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000057.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000061.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000065.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000069.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000073.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000077.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000081.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_1/sample_000085.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000002.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000006.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000010.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000014.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000018.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000022.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000026.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000030.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000034.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000038.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000042.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000046.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000050.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000054.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000058.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000062.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000066.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000070.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000074.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000078.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_2/sample_000082.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000003.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000007.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000011.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000015.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000019.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000023.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000027.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000031.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000035.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000039.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000043.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000047.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000051.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000055.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000059.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000063.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000067.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000071.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000075.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000079.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "sample_id": "/mnt/slurmfs-4090node3/user_data/zchen897/benchmark_v3_runs/pure_speed_drivewam_samples_v2_20260911/confirmation/slow/shard_3/sample_000083.pkl::logged",
+      "issue": "future_images_source_mismatch",
+      "actual": "epona_generated_pure_speed_action"
+    },
+    {
+      "group": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    },
+    {
+      "group": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "issue": "missing_four_roles",
+      "roles": [
+        "fast",
+        "slow"
+      ]
+    }
+  ]
+}

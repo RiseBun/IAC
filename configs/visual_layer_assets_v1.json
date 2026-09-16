@@ -1,0 +1,41 @@
+{
+  "protocol": "iac-visual-layer-assets-v1",
+  "status": "frozen_2026-09-15",
+  "registry_root": "/mnt/slurmfs-4090node3/user_data/zchen897/model_registry/iac_visual_layer_v1_20260915",
+  "models": {
+    "yaw": {
+      "name": "Reloc3r-512",
+      "repository": "https://huggingface.co/siyan824/reloc3r-512",
+      "revision": "55014aae1798ec830df51d7d2cd47c41f4388187",
+      "file": "weights/reloc3r-512/model.safetensors",
+      "config_file": "weights/reloc3r-512/config.json",
+      "sha256": "d02f5f4d749c926195981fbd8de7f78009a72f9a1d3b9b8708dd9794bf5455c1",
+      "resolution": 512
+    },
+    "metric_depth": {
+      "name": "Metric3Dv2-v2-S",
+      "file": "weights/metric3dv2-v2-s/metric_depth_vit_small_800k.pth",
+      "sha256": "b34b2a2be9148054991cef7e417930e1320602ba7bc503b0ee4e7888543728f6"
+    },
+    "road_segmentation": {
+      "status": "optional_auxiliary_not_formal_motion_backend",
+      "required_for_frozen_score": false
+    }
+  },
+  "source_snapshots": {
+    "reloc3r": {
+      "file": "code/reloc3r_source_761fac648e9c.tar.gz",
+      "git_revision": "761fac648e9c21fd7dcda01ab2ccd4fc20058102"
+    },
+    "metric3dv2": {
+      "file": "code/metric3dv2_source_snapshot.tar.gz",
+      "revision": "server_source_snapshot_2026-09-15"
+    }
+  },
+  "frozen_configs": [
+    "configs/visual_output_layer_v1.json",
+    "configs/as_history_conditioned_v1.json"
+  ],
+  "integrity_manifest": "SHA256SUMS",
+  "retention": "long_term_do_not_auto_delete"
+}

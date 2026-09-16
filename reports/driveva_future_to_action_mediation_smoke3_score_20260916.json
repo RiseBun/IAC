@@ -1,0 +1,113 @@
+{
+  "protocol": "iac-future-to-action-mediation-v1",
+  "status": "scored",
+  "source_count": 1,
+  "scored_source_count": 1,
+  "coverage": 1.0,
+  "status_counts": {
+    "scored": 1
+  },
+  "abstention_reasons": {},
+  "unavailable_reasons": {},
+  "model_ids": [
+    "driveva_navsim"
+  ],
+  "native_action_sources": [
+    "native_action_head"
+  ],
+  "future_effect_on_action": {
+    "median": 0.7812892142527373,
+    "mean": 0.7812892142527373,
+    "bootstrap_ci95": [
+      0.7812892142527373,
+      0.7812892142527373
+    ]
+  },
+  "blocked_effect_on_action": {
+    "median": 31.345238860437764,
+    "mean": 31.345238860437764,
+    "bootstrap_ci95": [
+      31.345238860437764,
+      31.345238860437764
+    ]
+  },
+  "pathway_suppression": {
+    "median": -39.11989195373427,
+    "mean": -39.11989195373427,
+    "bootstrap_ci95": [
+      -39.11989195373427,
+      -39.11989195373427
+    ]
+  },
+  "specificity_control_effect": {
+    "median": 31.06633546055629,
+    "mean": 31.06633546055629,
+    "bootstrap_ci95": [
+      31.06633546055629,
+      31.06633546055629
+    ]
+  },
+  "promotion": {
+    "status": "insufficient_evidence",
+    "criteria": {
+      "minimum_sources": 30,
+      "future_effect_ci95_lower_min": 0.05,
+      "pathway_suppression_ci95_lower_min": 0.5,
+      "specificity_control_ci95_upper_max": 0.25,
+      "source_disjoint_confirmation": true
+    },
+    "checks": {
+      "minimum_sources": false,
+      "future_effect_ci95_lower": true,
+      "pathway_suppression_ci95_lower": false,
+      "specificity_control_ci95_upper": false,
+      "source_disjoint_confirmation": false
+    },
+    "claim_enabled": false
+  },
+  "source_disjoint_confirmation": {
+    "verified": false,
+    "calibration_source_count": null,
+    "overlap_count": null
+  },
+  "pairs": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "status": "scored",
+      "future_effect_on_action": 0.7812892142527373,
+      "blocked_effect_on_action": 31.345238860437764,
+      "specificity_control_effect": 31.06633546055629,
+      "pathway_suppression": -39.11989195373427,
+      "invariance": {
+        "history_fingerprint": "486e41c7d22eba14c4c479a7b8cc972f64ba8d13a76c9fbffd09518e50761524",
+        "command_fingerprint": "005e51822b25b8f435d6010b0cee3ef19fcdbb9a1b0c427fa4f0360721b80630",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "8a92f67cccb8763eb5f872a4fd68c0fb6f56777625f2a5108e07f0829f26f790",
+        "future_perturbed": "11ddda871679316fafcc27ce6ba4354f31c9b9f11f1768aa1d385e22c5704dbf",
+        "future_perturbed_pathway_blocked": "11ddda871679316fafcc27ce6ba4354f31c9b9f11f1768aa1d385e22c5704dbf",
+        "future_fixed_action_pathway_control": "8a92f67cccb8763eb5f872a4fd68c0fb6f56777625f2a5108e07f0829f26f790"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-v1",
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    }
+  ],
+  "missing_value_policy": "unavailable_never_zero_fill",
+  "claim_boundary": "This is a pathway intervention result, not a replacement for MAS, RCS or GS; passing requires the preregistered thresholds and source-disjoint confirmation."
+}

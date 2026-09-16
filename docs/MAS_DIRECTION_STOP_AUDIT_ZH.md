@@ -80,8 +80,26 @@ WorldDrive 的 `10/10` 来自预先筛选的强 left/right 命令对，只证明
 DriveVA 与二者的交集仅 `22/18`，WorldDrive 又是独立的 10-pair 筛选集。因此当前
 结果可以验证协议跨模型可执行和响应信号，但不能组成严格 leaderboard。
 
-三个分支集均无 stop/move twin，因此 `RCS.stop` 仍为 unavailable。各模型只含
-moving action 时得到的高 moving 一致率不作为 `MAS.stop` 分数。
+原始三个分支集均无 stop/move twin；随后新增了 DriveWAM 的受控 stop/move
+实验。它从 255 条 source 中候选无关地筛出“历史速度不超过 `1 m/s`、logged
+future 前进至少 `2 m`”的 56 条，并冻结其中 32 对。两支保持相同 source、history
+和实际扩散 seed，通过 context action chunk 注入 stationary/move pose。
+
+**该次 DriveWAM 运行已判为无效，不得解释成模型性能。** 人工查看本地拉取的
+生成帧后，32 对 stop/move future 均呈块状解码噪声，而不是可辨认的道路视频；
+同一服务器上旧的 DriveWAM 正常运行仍能生成清晰道路场景。因此先前记录的
+`51.6%` balanced accuracy、`RCS.stop=6.25%`、`0.361/0.359 px` 以及 CoTracker
+复核只保留作失败运行审计，不能支持“DriveWAM 不响应停止”。必须在生成质量门
+通过后重新生成和评分。机器可读报告已标记 `invalid_generation_artifact`。
+
+作为独立模型对照，Epona 在 21 个同源 stop/move twin 上生成了可辨认的道路视频。
+冻结 NAVSIM 读数器覆盖 `100%`，但 `MAS.stop` balanced accuracy 仅 `57.1%`
+（stop/moving recall `14.3%/100%`）；绝对终点判定只有 `3/21=14.3%`。
+按修正后的 RCS 定义，`RCS.stop=85.7%`（18/21），source-bootstrap 95% CI
+`[71.4%, 100%]`：RCS 只检验同源干预的相对响应（stop 视觉运动是否小于
+move），不要求 stop 分支达到绝对停止；绝对 MAS.stop 结果另行报告。这是一项
+有效的响应结果：Epona 的 stop 干预通常降低了视觉运动，但多数样本没有完全停住。
+它证明问题不是读数器在所有生成视频上都不可用，但尚不能外推到其他 WAM。
 
 ## 与 SE(2) 的关系
 
@@ -107,4 +125,5 @@ diagnostic。对当前粗粒度 MAS，纯流场路径更短、覆盖更高，也
 - `reports/flow_token_driveva_pair_seedfixed_20260914.json`
 - `reports/flow_token_worlddrive_pair_smoke10_20260914.json`
 - `reports/flow_token_scorecard_20260914.json`
+- `reports/drivewam_stop_move_control_20260914.json`
 - `reports/whole_clip_yaw_backend_ab_20260914.json`

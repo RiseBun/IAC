@@ -1,0 +1,95 @@
+{
+  "protocol": "iac-as-cross-model-comparability-audit-v1",
+  "config": "configs\\as_cross_model_common10_pilot.json",
+  "models": [
+    {
+      "label": "DriveWAM-common10",
+      "wam_model_ids": [
+        "drivewam_navsim_diffusion"
+      ],
+      "row_count": 20,
+      "source_count": 10,
+      "action_sources": {
+        "wam_action_head": 20
+      },
+      "action_contract": "own_native",
+      "selection_policy": "benchmark_v3_stratified_model_output_blind",
+      "as_protocol": "iac-history-conditioned-as-v1.2",
+      "visual_protocol": "iac-visual-output-layer-v1",
+      "AS_conditional_100": 75.7317246446102,
+      "AS_overall_100": 49.37104414532875,
+      "legacy_AS_composite_100": 70.625,
+      "gates": {
+        "four_history_frames": true,
+        "four_future_frames": true,
+        "four_action_states": true,
+        "history_timeline": true,
+        "future_timeline": true,
+        "camera_intrinsics": true,
+        "camera_to_ego": true,
+        "candidate_blind_visual_measurement": true,
+        "generated_future": true,
+        "own_native_action": true,
+        "lineage_passed": true,
+        "selection_independent_of_evaluated_action": true
+      },
+      "individually_eligible": true
+    },
+    {
+      "label": "WorldDrive-common10",
+      "wam_model_ids": [
+        "worlddrive_stage2_native_tadwm_1024"
+      ],
+      "row_count": 10,
+      "source_count": 10,
+      "action_sources": {
+        "wam_action_head": 10
+      },
+      "action_contract": "own_native",
+      "selection_policy": "benchmark_v3_stratified_model_output_blind",
+      "as_protocol": "iac-history-conditioned-as-v1.2",
+      "visual_protocol": "iac-visual-output-layer-v1",
+      "AS_conditional_100": 75.59289460184544,
+      "AS_overall_100": 54.77225575051661,
+      "legacy_AS_composite_100": 74.16666666666666,
+      "gates": {
+        "four_history_frames": true,
+        "four_future_frames": true,
+        "four_action_states": true,
+        "history_timeline": true,
+        "future_timeline": true,
+        "camera_intrinsics": true,
+        "camera_to_ego": true,
+        "candidate_blind_visual_measurement": true,
+        "generated_future": true,
+        "own_native_action": true,
+        "lineage_passed": true,
+        "selection_independent_of_evaluated_action": true
+      },
+      "individually_eligible": true
+    }
+  ],
+  "pairwise_source_overlap": [
+    {
+      "left": "DriveWAM-common10",
+      "right": "WorldDrive-common10",
+      "common_source_count": 10,
+      "same_declared_source_pool": true
+    }
+  ],
+  "all_model_common_source_count": 10,
+  "minimum_common_sources_for_formal_comparison": 30,
+  "comparison_unit": "source",
+  "joint_gates": {
+    "at_least_two_models": true,
+    "all_models_individually_eligible": true,
+    "same_as_protocol": true,
+    "same_visual_protocol": true,
+    "nonempty_all_model_source_intersection": true,
+    "same_declared_source_pool": true,
+    "minimum_common_sources": false,
+    "source_is_comparison_unit": true
+  },
+  "strict_cross_model_leaderboard_eligible": false,
+  "decision": "report model results separately; no cross-model AS ranking"
+}

@@ -38,6 +38,20 @@
       "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
       "claim_boundary": "Delta S_F versus Delta P_A alone establishes consistency, not mediation; if the required future-only intervention is unavailable, this channel is unavailable rather than a zero score"
     },
+    "conditional_foresight_success": {
+      "status": "implemented_evidence_pending",
+      "formula": "Delta success = success(future_perturbed) - success(baseline), paired on source_key",
+      "required_conditions": ["baseline", "future_perturbed", "future_perturbed_pathway_blocked", "future_fixed_action_pathway_control"],
+      "scorer": "tools/score_conditional_foresight.py",
+      "monitors": ["dose_response"],
+      "claim_boundary": "conditions success on the model's own predicted future; it does not show the predicted future is accurate or that the effect is desirable"
+    },
+    "joint_source_analysis": {
+      "status": "implemented_requires_private_per_source_tables",
+      "scorer": "tools/analyse_joint_source_table.py",
+      "question": "do the sources with high visual-motion consistency also have higher independent task success",
+      "claim_boundary": "descriptive co-variation only; a null result does not disprove pathway dependence for a specific model"
+    },
     "fau": {
       "status": "independent_metric_aliased_as_GS",
       "requirement": "logged-GT-compatible image-side representation",

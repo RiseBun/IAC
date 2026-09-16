@@ -36,8 +36,16 @@
     "source": "real_NAVSIM_only",
     "no_speed_conditioned_mapping": true,
     "required_report_fields": ["coverage", "exact_bin_accuracy", "adjacent_bin_accuracy", "tolerant_distance_accuracy", "median_absolute_error", "spearman", "abstention_reasons"],
-    "status": "confirmed_on_available_source_disjoint_real_holdout",
+    "status": "confirmed_coarse_ordinal_progress_on_source_disjoint_real_holdout",
     "real_holdout_rows": 95,
-    "real_effective_progress": 0.7947368421052632
+    "real_holdout_intervals": 380,
+    "real_score_coverage": 0.881578947368421,
+    "real_median_absolute_error_m": 0.8647882994337408,
+    "real_spearman": 0.6650086819963485,
+    "real_exact_bin_accuracy": 0.5850746268656717,
+    "real_adjacent_bin_accuracy": 0.8955223880597015,
+    "real_frozen_tolerance_accuracy_over_scored": 0.9014925373134328,
+    "real_effective_progress": 0.7947368421052632,
+    "claim": "coarse ordinal progress only; raw metric distance and speed remain diagnostic"
   }
 }

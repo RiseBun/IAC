@@ -32,7 +32,15 @@ def _output_manifests(root: Path, name: str) -> list[Path]:
     return ([direct] if direct.is_file() else []) + nested
 
 
-def annotate(output_root: Path, fast_root: Path, slow_root: Path, *, forced_role: str | None = None) -> int:
+def annotate(
+    output_root: Path,
+    fast_root: Path,
+    slow_root: Path,
+    *,
+    forced_role: str | None = None,
+    future_images_source: str = "epona_generated_pure_speed_action",
+    model_id: str | None = None,
+) -> int:
     roles = {**_roles(slow_root), **_roles(fast_root)}
     changed = 0
     for path in _output_manifests(output_root, "manifest.json"):
@@ -46,7 +54,9 @@ def annotate(output_root: Path, fast_root: Path, slow_root: Path, *, forced_role
             row["protocol"] = "iac-pure-speed-twin-v1"
             row["intervention_type"] = "pure_speed"
             row["speed_role"] = role
-            row["future_images_source"] = "epona_generated_pure_speed_action"
+            row["future_images_source"] = future_images_source
+            if model_id is not None:
+                row["wam_model_id"] = model_id
             row["action_trajectory_source"] = "validation_only_scaled_action"
             row.setdefault("metadata", {})["protocol"] = "iac-pure-speed-twin-v1"
             row["metadata"]["intervention_type"] = "pure_speed"
@@ -64,7 +74,9 @@ def annotate(output_root: Path, fast_root: Path, slow_root: Path, *, forced_role
             row["protocol"] = "iac-pure-speed-twin-v1"
             row["intervention_type"] = "pure_speed"
             row["speed_role"] = role
-            row["future_images_source"] = "epona_generated_pure_speed_action"
+            row["future_images_source"] = future_images_source
+            if model_id is not None:
+                row["wam_model_id"] = model_id
             row["action_trajectory_source"] = "validation_only_scaled_action"
             row.setdefault("metadata", {})["protocol"] = "iac-pure-speed-twin-v1"
             row["metadata"]["intervention_type"] = "pure_speed"
@@ -79,8 +91,17 @@ def main() -> None:
     parser.add_argument("--fast-root", type=Path, required=True)
     parser.add_argument("--slow-root", type=Path, required=True)
     parser.add_argument("--forced-role", choices=("fast", "slow"))
+    parser.add_argument("--future-images-source", default="epona_generated_pure_speed_action")
+    parser.add_argument("--model-id")
     args = parser.parse_args()
-    print(json.dumps({"annotated_rows": annotate(args.output_root, args.fast_root, args.slow_root, forced_role=args.forced_role)}))
+    print(json.dumps({"annotated_rows": annotate(
+        args.output_root,
+        args.fast_root,
+        args.slow_root,
+        forced_role=args.forced_role,
+        future_images_source=args.future_images_source,
+        model_id=args.model_id,
+    )}))
 
 
 if __name__ == "__main__":

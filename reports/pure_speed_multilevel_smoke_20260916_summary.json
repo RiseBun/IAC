@@ -1,0 +1,19 @@
+{
+  "protocol": "iac-pure-speed-multilevel-v1",
+  "status": "images_pending",
+  "source_count": 1,
+  "branch_count": 4,
+  "roles": [
+    "stop",
+    "slow",
+    "normal",
+    "fast"
+  ],
+  "scales": {
+    "stop": 0.0,
+    "slow": 0.5,
+    "normal": 1.0,
+    "fast": 1.5
+  },
+  "output": "reports\\pure_speed_multilevel_smoke_20260916.jsonl"
+}

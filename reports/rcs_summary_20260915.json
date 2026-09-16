@@ -1,0 +1,30 @@
+{
+  "protocol": "iac-response-consistency-v1",
+  "date": "2026-09-15",
+  "formal_results": [
+    {
+      "model": "drivewam_navsim_diffusion",
+      "report": "reports/rcs_drivewam_lineage_fixed_20260915.json",
+      "declared_pairs": 745,
+      "RCS_yaw_100": 38.12080536912752,
+      "bootstrap_95ci_100": [34.76510067114094, 41.61073825503356],
+      "material_action_pair_coverage_100": 49.53020134228177,
+      "visual_response_coverage_on_material_100": 83.19783197831978,
+      "conditional_direction_100": 92.50814332247551,
+      "abs_delta_spearman": 0.8098265125940173
+    },
+    {
+      "model": "epona_nuplan",
+      "report": "reports/rcs_epona_common_random_n40_20260915.json",
+      "declared_pairs": 40,
+      "RCS_yaw_100": 87.5,
+      "bootstrap_95ci_100": [77.5, 97.5],
+      "material_action_pair_coverage_100": 100.0,
+      "visual_response_coverage_on_material_100": 95.0,
+      "conditional_direction_100": 92.10526315789473,
+      "abs_delta_spearman": 0.19174860156505494,
+      "future_only_sensitivity_RCS_yaw_100": 90.0
+    }
+  ],
+  "interpretation": "RCS separates intervention execution coverage from visual direction correctness. DriveWAM's low headline score is dominated by non-material action interventions; Epona demonstrates a high-coverage response chain but weak response-amplitude ordering."
+}

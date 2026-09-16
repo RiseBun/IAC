@@ -1,0 +1,30 @@
+{
+  "protocol": "iac-visual-layer-assets-v1",
+  "verified_at": "2026-09-15",
+  "registry_root": "/mnt/slurmfs-4090node3/user_data/zchen897/model_registry/iac_visual_layer_v1_20260915",
+  "reloc3r_512": {
+    "bytes": 1706156328,
+    "sha256": "d02f5f4d749c926195981fbd8de7f78009a72f9a1d3b9b8708dd9794bf5455c1",
+    "official_revision": "55014aae1798ec830df51d7d2cd47c41f4388187",
+    "local_offline_load": "passed"
+  },
+  "metric3dv2_v2_s": {
+    "bytes": 150120967,
+    "sha256": "b34b2a2be9148054991cef7e417930e1320602ba7bc503b0ee4e7888543728f6",
+    "local_offline_load": "passed"
+  },
+  "registry_only_end_to_end_smoke": {
+    "status": "passed",
+    "sample_id": "epona_common_random:0::left",
+    "output": "/mnt/slurmfs-4090node1/homes/zchen897/iac_probe_test/reports/epona_common_random_n40_visual_registry_only_smoke.json"
+  },
+  "network_dependency_for_inference": false,
+  "integrity_manifest": {
+    "status": "passed",
+    "file_count": 560,
+    "file": "SHA256SUMS"
+  },
+  "registry_size": "1.9G",
+  "stable_alias": "/mnt/slurmfs-4090node3/user_data/zchen897/model_registry/iac_visual_layer_v1",
+  "permissions": "read_only"
+}

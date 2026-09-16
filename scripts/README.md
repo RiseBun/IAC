@@ -20,6 +20,16 @@ protocol once a private evaluation server has joined images and ground truth:
 | `prepare_epona_pure_speed_action_roots.py` | Adapt a pure-speed branch manifest to the Epona matched-action runner format |
 | `annotate_pure_speed_output.py` | Correct legacy Epona output labels after pure-speed image generation |
 | `prepare_drivewam_pure_speed_samples.py` | Adapt pure-speed action rows to native DriveWAM intervention samples |
+| `annotate_pure_speed_output.py` | Annotate generated branches; source/model lineage must be passed explicitly for non-Epona runs |
+
+Progress-response utilities now live in `tools/`:
+
+| Tool | Purpose |
+|---|---|
+| `build_multilevel_progress_manifest.py` | Build stop/slow/normal/fast longitudinal action roots; images remain pending until a native WAM run |
+| `audit_progress_lineage.py` | Reject missing roles, mismatched history/seed/source sample, or incorrect future-image/model lineage |
+| `score_progress_response.py` | Score future-only ordinal longitudinal response from frozen visual-probe output |
+| `build_drivewam_multilevel_roots.py` | Materialize native DriveWAM PKL roots for 255 sources × four speed levels |
 | `prepare_flow_structure_manifest.py` | Normalize generated flow manifests for candidate-blind structure scoring |
 | `prepare_drivewam_flow_manifest.py` | Join DriveWAM generated frames with calibration for flow-structure scoring |
 | `score_iac_submission.py` | Capability-stratified scorecard |

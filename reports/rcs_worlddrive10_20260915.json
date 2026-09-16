@@ -1,0 +1,132 @@
+{
+  "protocol": "iac-response-consistency-v1",
+  "metric_definition": "100 * directionally_correct_nonzero_response_pairs / contract_valid_declared_pairs",
+  "yaw_thresholds_rad": {
+    "action_delta": 0.0128,
+    "visual_delta": 0.013317287876106008
+  },
+  "wam_model_ids": [
+    "worlddrive_stage2_native_tadwm_1024"
+  ],
+  "declared_pairs": 5,
+  "contract_valid_pairs": 5,
+  "contract_coverage": 1.0,
+  "invalid_contract_reasons": {},
+  "RCS_yaw": 0.4,
+  "RCS_yaw_100": 40.0,
+  "RCS_yaw_bootstrap_95ci": [
+    0.0,
+    0.8
+  ],
+  "ternary_state_agreement_diagnostic": 0.6,
+  "material_action_pairs": 3,
+  "material_action_pair_coverage": 0.6,
+  "visual_response_coverage_on_material_pairs": 0.6666666666666666,
+  "material_response_effective_score": 0.6666666666666666,
+  "material_response_conditional_direction": 1.0,
+  "zero_action_pairs": 2,
+  "zero_response_specificity": 0.5,
+  "progress_diagnostic": {
+    "status": "diagnostic_only",
+    "pair_coverage": 0.2,
+    "ternary_match": 1.0,
+    "scored_pairs": 1
+  },
+  "controls": {
+    "visual_branch_swap_material_score": 0.0
+  },
+  "formal_metric_eligible": false,
+  "formal_metric_eligibility_reasons": [
+    "insufficient_declared_pairs"
+  ],
+  "pairs": [
+    {
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0001:36dd0d0bb6f45f01",
+      "status": "scored",
+      "action_yaw_delta_rad": 2.15234375,
+      "visual_yaw_delta_rad": 2.149890964530976,
+      "action_yaw_state": "positive",
+      "visual_yaw_state": "positive",
+      "yaw_match": true,
+      "material_action_response": true,
+      "visual_response_detected": true,
+      "progress_diagnostic": {
+        "status": "unavailable",
+        "reason": "insufficient_common_quality_intervals",
+        "common_intervals": 0
+      }
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0007:e8857dfd10515da4",
+      "status": "scored",
+      "action_yaw_delta_rad": -0.001953125,
+      "visual_yaw_delta_rad": -0.020693731454571623,
+      "action_yaw_state": "zero",
+      "visual_yaw_state": "negative",
+      "yaw_match": false,
+      "material_action_response": false,
+      "visual_response_detected": true,
+      "progress_diagnostic": {
+        "status": "unavailable",
+        "reason": "insufficient_common_quality_intervals",
+        "common_intervals": 1
+      }
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0013:d6e980f79d9b59dc",
+      "status": "scored",
+      "action_yaw_delta_rad": -0.00634765625,
+      "visual_yaw_delta_rad": -0.006634086819209323,
+      "action_yaw_state": "zero",
+      "visual_yaw_state": "zero",
+      "yaw_match": true,
+      "material_action_response": false,
+      "visual_response_detected": false,
+      "progress_diagnostic": {
+        "status": "scored",
+        "action_delta_m": 0.12689753924527025,
+        "visual_delta_m": -0.4614403453305611,
+        "action_state": "zero",
+        "visual_state": "zero",
+        "match": true,
+        "common_intervals": 4
+      }
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0014:2b5f8029c3155393",
+      "status": "scored",
+      "action_yaw_delta_rad": 2.4296875,
+      "visual_yaw_delta_rad": 2.055765107965672,
+      "action_yaw_state": "positive",
+      "visual_yaw_state": "positive",
+      "yaw_match": true,
+      "material_action_response": true,
+      "visual_response_detected": true,
+      "progress_diagnostic": {
+        "status": "unavailable",
+        "reason": "insufficient_common_quality_intervals",
+        "common_intervals": 1
+      }
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-1250-scene-0017:ae6f62676c2454ff",
+      "status": "scored",
+      "action_yaw_delta_rad": -0.03125,
+      "visual_yaw_delta_rad": -0.0027970412757396534,
+      "action_yaw_state": "negative",
+      "visual_yaw_state": "zero",
+      "yaw_match": false,
+      "material_action_response": true,
+      "visual_response_detected": false,
+      "progress_diagnostic": {
+        "status": "unavailable",
+        "reason": "insufficient_common_quality_intervals",
+        "common_intervals": 3
+      }
+    }
+  ],
+  "claim_boundary": "RCS measures whether visual and native-action changes co-respond to the same controlled command intervention. It does not prove that the action trajectory causally controls video generation.",
+  "manifest": "artifacts\\local_experiment_archive_20260915\\reports\\benchmark_v3_worlddrive_manifest.jsonl",
+  "as_result": "artifacts\\local_experiment_archive_20260915\\reports\\as_full4_worlddrive10.json",
+  "config": "C:\\Users\\LPN19\\Desktop\\iac\\IAC\\configs\\response_consistency_v1.json"
+}

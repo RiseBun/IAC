@@ -20,24 +20,30 @@ known-rotation PnP read coarse longitudinal progress.  The trajectory is joined
 only after candidate-blind visual extraction.  SegFormer is auxiliary and is
 not the sole correspondence backend.
 
-The official score is coverage-aware:
+The v1.2 report separates observable consistency from measurement coverage:
 
 ```text
-AS = 100 * sqrt(acceptable_progress_intervals / all_expected_intervals
-                * correct_yaw / all_applicable_turns)
+AS_conditional   = 100 * sqrt(progress agreement on scored intervals
+                              * yaw agreement on scored turns)
+AS_observability = sqrt(progress score coverage * yaw score coverage)
+AS_deployment    = AS_conditional * AS_observability
 ```
+
+`AS_deployment` is the legacy-compatible coverage-aware summary and must not
+be reported without the conditional score and both channel coverages.
 
 After fixing the DriveWAM round-robin shard lineage join, the formal 1,490-row
 result is:
 
-| AS | AS-yaw | conditional AS-progress | valid progress interval coverage |
-|---:|---:|---:|---:|
-| **46.8 / 100** | 93.5% | 42.2% | 48.4% |
+| conditional AS | deployment AS | AS-yaw | conditional progress (interval) | progress score coverage |
+|---:|---:|---:|---:|---:|
+| **67.4 / 100** | 46.8 / 100 | 93.5% | 48.5% | 48.4% |
 
 See [`docs/VISUAL_LAYER_AND_AS_ZH.md`](docs/VISUAL_LAYER_AND_AS_ZH.md) for the
 frozen method and claim boundary, and
-[`reports/as_release_20260915.json`](reports/as_release_20260915.json) for the
-compact machine-readable result.
+[`reports/as_reporting_decomposition_20260916.json`](reports/as_reporting_decomposition_20260916.json)
+for the v1.2 decomposition. The original v1.1 result remains immutable in
+[`reports/as_release_20260915.json`](reports/as_release_20260915.json).
 
 ## Historical flow-token readout (2026-09-14, retained for diagnosis)
 

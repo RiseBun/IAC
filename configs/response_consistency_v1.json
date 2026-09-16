@@ -1,0 +1,43 @@
+{
+  "protocol": "iac-response-consistency-v1",
+  "status": "frozen_v1_2026-09-15",
+  "intervention": {
+    "allowed_types": [
+      "navigation_command_onehot",
+      "action_trajectory_perturbation"
+    ],
+    "required_roles": ["left", "right"],
+    "same_history_required": true,
+    "same_nuisance_seed_required": true,
+    "actual_regeneration_required": true,
+    "allowed_future_images_sources": [
+      "wam_generated",
+      "epona_generated_common_random"
+    ],
+    "validation_only_derivatives_allowed": false
+  },
+  "yaw": {
+    "action_delta_threshold_rad": 0.0128,
+    "visual_delta_threshold_rad": 0.013317287876106008,
+    "visual_threshold_source": "Reloc3r-512 real-only frozen adapter",
+    "states": ["negative", "zero", "positive"],
+    "official_score": "directionally correct non-zero visual/action responses divided by all contract-valid declared intervention pairs",
+    "zero_response_policy": "diagnostic_only_no_score_credit",
+    "material_response_score": "directionally correct detected visual response divided by all material-action pairs",
+    "missing_visual_response": "no_credit"
+  },
+  "progress": {
+    "status": "diagnostic_only",
+    "reason": "DriveWAM same-source progress response is near random and full-four-interval pair coverage is low",
+    "action_delta_threshold_m": 0.5,
+    "visual_delta_threshold_m": 0.5,
+    "required_common_intervals": 4
+  },
+  "statistics": {
+    "bootstrap_unit": "counterfactual_group_id",
+    "bootstrap_draws": 20000,
+    "bootstrap_seed": 20260915,
+    "minimum_declared_pairs_for_formal_report": 30
+  },
+  "claim_boundary": "RCS measures whether visual and native-action changes co-respond to the same controlled command intervention. It does not prove that the action trajectory causally controls video generation."
+}

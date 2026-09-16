@@ -1,0 +1,27 @@
+{
+  "protocol": "iac-response-consistency-v2",
+  "status": "not_promoted",
+  "definition": "unweighted_macro_average_of_formal_yaw_and_relative_progress_channels",
+  "weights": {
+    "yaw": 0.5,
+    "relative_progress": 0.5
+  },
+  "channels": {
+    "yaw": {
+      "score": 0.875,
+      "count": 40
+    },
+    "relative_progress": {
+      "score": 0.7428571428571429,
+      "count": 35
+    }
+  },
+  "relative_progress_promotion_pass": false,
+  "RCS": 0.8089285714285714,
+  "RCS_100": 80.89285714285714,
+  "RCS_bootstrap_95ci": [
+    0.7178571428571429,
+    0.8928571428571428
+  ],
+  "claim_boundary": "RCS measures whether independently read visual motion changes in the expected direction under same-history controlled action interventions. It does not require exact metric distance and does not by itself prove trajectory-to-video causality."
+}

@@ -1,0 +1,140 @@
+{
+  "protocol": "iac-as-cross-model-comparability-audit-v1",
+  "config": "configs\\as_cross_model_comparability_v1.json",
+  "models": [
+    {
+      "label": "DriveWAM",
+      "wam_model_ids": [
+        "drivewam_navsim_diffusion"
+      ],
+      "row_count": 1490,
+      "source_count": 745,
+      "action_sources": {
+        "wam_action_head": 1490
+      },
+      "action_contract": "own_native",
+      "selection_policy": "benchmark_v3_declared_pool",
+      "as_protocol": "iac-history-conditioned-as-v1",
+      "visual_protocol": null,
+      "AS_conditional_100": null,
+      "AS_overall_100": null,
+      "legacy_AS_composite_100": 68.96316507503411,
+      "gates": {
+        "four_history_frames": true,
+        "four_future_frames": true,
+        "four_action_states": true,
+        "history_timeline": true,
+        "future_timeline": true,
+        "camera_intrinsics": true,
+        "camera_to_ego": true,
+        "candidate_blind_visual_measurement": true,
+        "generated_future": true,
+        "own_native_action": true,
+        "lineage_passed": true,
+        "selection_independent_of_evaluated_action": true
+      },
+      "individually_eligible": true
+    },
+    {
+      "label": "Epona-action-conditioned",
+      "wam_model_ids": [
+        "epona_nuplan"
+      ],
+      "row_count": 80,
+      "source_count": 40,
+      "action_sources": {
+        "epona_injected_relative_action": 80
+      },
+      "action_contract": "supplied_condition",
+      "selection_policy": "common_random_unselected",
+      "as_protocol": "iac-history-conditioned-as-v1.1",
+      "visual_protocol": "iac-visual-output-layer-v1",
+      "AS_conditional_100": null,
+      "AS_overall_100": 49.27600836106756,
+      "legacy_AS_composite_100": 85.72916666666666,
+      "gates": {
+        "four_history_frames": true,
+        "four_future_frames": true,
+        "four_action_states": true,
+        "history_timeline": true,
+        "future_timeline": true,
+        "camera_intrinsics": true,
+        "camera_to_ego": true,
+        "candidate_blind_visual_measurement": true,
+        "generated_future": true,
+        "own_native_action": false,
+        "lineage_passed": false,
+        "selection_independent_of_evaluated_action": true
+      },
+      "individually_eligible": false
+    },
+    {
+      "label": "WorldDrive-smoke",
+      "wam_model_ids": [
+        "worlddrive_stage2_native_tadwm_1024"
+      ],
+      "row_count": 10,
+      "source_count": 5,
+      "action_sources": {
+        "wam_action_head": 10
+      },
+      "action_contract": "own_native",
+      "selection_policy": "action_materiality_prefilter",
+      "as_protocol": "iac-history-conditioned-as-v1",
+      "visual_protocol": null,
+      "AS_conditional_100": null,
+      "AS_overall_100": null,
+      "legacy_AS_composite_100": 97.08333333333334,
+      "gates": {
+        "four_history_frames": true,
+        "four_future_frames": true,
+        "four_action_states": true,
+        "history_timeline": true,
+        "future_timeline": true,
+        "camera_intrinsics": true,
+        "camera_to_ego": true,
+        "candidate_blind_visual_measurement": true,
+        "generated_future": true,
+        "own_native_action": true,
+        "lineage_passed": true,
+        "selection_independent_of_evaluated_action": false
+      },
+      "individually_eligible": false
+    }
+  ],
+  "pairwise_source_overlap": [
+    {
+      "left": "DriveWAM",
+      "right": "Epona-action-conditioned",
+      "common_source_count": 0,
+      "same_declared_source_pool": false
+    },
+    {
+      "left": "DriveWAM",
+      "right": "WorldDrive-smoke",
+      "common_source_count": 0,
+      "same_declared_source_pool": false
+    },
+    {
+      "left": "Epona-action-conditioned",
+      "right": "WorldDrive-smoke",
+      "common_source_count": 0,
+      "same_declared_source_pool": false
+    }
+  ],
+  "all_model_common_source_count": 0,
+  "minimum_common_sources_for_formal_comparison": 30,
+  "comparison_unit": "source",
+  "joint_gates": {
+    "at_least_two_models": true,
+    "all_models_individually_eligible": false,
+    "same_as_protocol": false,
+    "same_visual_protocol": false,
+    "nonempty_all_model_source_intersection": false,
+    "same_declared_source_pool": false,
+    "minimum_common_sources": false,
+    "source_is_comparison_unit": true
+  },
+  "strict_cross_model_leaderboard_eligible": false,
+  "decision": "report model results separately; no cross-model AS ranking"
+}

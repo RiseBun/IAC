@@ -1,0 +1,742 @@
+{
+  "protocol": "iac-relative-progress-response-v1",
+  "roles": [
+    "stop",
+    "slow",
+    "normal",
+    "fast"
+  ],
+  "target": "within-group relative longitudinal progress ordering",
+  "absolute_distance_required": false,
+  "declared_groups": 8,
+  "eligible_groups": 7,
+  "scored_groups": 7,
+  "coverage": 1.0,
+  "adjacent_hits": 15,
+  "adjacent_total": 21,
+  "adjacent_accuracy": 0.7142857142857143,
+  "all_pair_hits": 28,
+  "all_pair_total": 42,
+  "all_pair_accuracy": 0.6666666666666666,
+  "endpoint_hits": 3,
+  "endpoint_total": 7,
+  "endpoint_accuracy": 0.42857142857142855,
+  "complete_monotonic_hits": 1,
+  "complete_monotonic_accuracy": 0.14285714285714285,
+  "mean_spearman": 0.2571428571428572,
+  "median_spearman": -0.2,
+  "groups": [
+    {
+      "counterfactual_group_id": "epona_native:0",
+      "action_values": {
+        "stop": 0.0,
+        "slow": 6.147868134576129e-07,
+        "normal": 1.2295736269152258e-06,
+        "fast": 1.8443604403728386e-06
+      },
+      "visual_values": {
+        "stop": -0.0521527212482614,
+        "slow": 0.1351830400684824,
+        "normal": 0.07971714690171025,
+        "fast": 0.13977026806854587
+      },
+      "visual_diagnostics": {
+        "stop": {
+          "value": -0.0521527212482614,
+          "accepted_intervals": 3,
+          "raw_values": [
+            -0.026753326489278813,
+            0.04077528299905458,
+            -0.06617467775803716
+          ],
+          "inlier_fraction": [
+            0.7267536704730831,
+            0.7631160572337043,
+            0.7592592592592593
+          ]
+        },
+        "slow": {
+          "value": 0.1351830400684824,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.020164135956555997,
+            0.04624982668312151,
+            0.06876907742880489
+          ],
+          "inlier_fraction": [
+            0.7401960784313726,
+            0.7492236024844721,
+            0.7597145122918318
+          ]
+        },
+        "normal": {
+          "value": 0.07971714690171025,
+          "accepted_intervals": 3,
+          "raw_values": [
+            -0.03351872748951545,
+            0.04556289633980221,
+            0.06767297805142349
+          ],
+          "inlier_fraction": [
+            0.7332228666114333,
+            0.7368006304176516,
+            0.7541899441340782
+          ]
+        },
+        "fast": {
+          "value": 0.13977026806854587,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.02218888153016177,
+            0.04681968723005782,
+            0.07076169930832626
+          ],
+          "inlier_fraction": [
+            0.7328490718321227,
+            0.7448657187993681,
+            0.7580772261623325
+          ]
+        }
+      },
+      "action_order_valid": false,
+      "visual_valid": true,
+      "adjacent_hits": [
+        true,
+        false,
+        true
+      ],
+      "pair_hits": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "spearman": 0.8
+    },
+    {
+      "counterfactual_group_id": "epona_native:1",
+      "action_values": {
+        "stop": 0.0,
+        "slow": 0.26514172554016113,
+        "normal": 0.5302834510803223,
+        "fast": 0.7954251766204834
+      },
+      "visual_values": {
+        "stop": 0.722247476645955,
+        "slow": 0.9737665960255014,
+        "normal": 1.0021624329545542,
+        "fast": 1.1628934019648325
+      },
+      "visual_diagnostics": {
+        "stop": {
+          "value": 0.722247476645955,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.2500564541874749,
+            0.24053749855172382,
+            0.23165352390675634
+          ],
+          "inlier_fraction": [
+            0.8347826086956521,
+            0.8407079646017699,
+            0.830694275274056
+          ]
+        },
+        "slow": {
+          "value": 0.9737665960255014,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.34205478704983017,
+            0.3443843447683969,
+            0.28732746420727434
+          ],
+          "inlier_fraction": [
+            0.815365551425031,
+            0.824607329842932,
+            0.8007425742574258
+          ]
+        },
+        "normal": {
+          "value": 1.0021624329545542,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.35556032647453023,
+            0.3614152142863128,
+            0.2851868921937113
+          ],
+          "inlier_fraction": [
+            0.8291770573566085,
+            0.8177215189873418,
+            0.8367346938775511
+          ]
+        },
+        "fast": {
+          "value": 1.1628934019648325,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.42009009231066374,
+            0.3857554252416176,
+            0.3570478844125511
+          ],
+          "inlier_fraction": [
+            0.7960199004975125,
+            0.8312182741116751,
+            0.8701799485861182
+          ]
+        }
+      },
+      "action_order_valid": true,
+      "visual_valid": true,
+      "adjacent_hits": [
+        true,
+        true,
+        true
+      ],
+      "pair_hits": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "spearman": 1.0
+    },
+    {
+      "counterfactual_group_id": "epona_native:2",
+      "action_values": {
+        "stop": 0.0,
+        "slow": 0.9927460551261902,
+        "normal": 1.9854921102523804,
+        "fast": 2.978238105773926
+      },
+      "visual_values": {
+        "stop": 2.7513730886263774,
+        "slow": 2.5956552200343848,
+        "normal": 3.1078824242962835,
+        "fast": 3.892089508733868
+      },
+      "visual_diagnostics": {
+        "stop": {
+          "value": 2.7513730886263774,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.9141717178051828,
+            0.8803309425965681,
+            0.9568704282246268
+          ],
+          "inlier_fraction": [
+            0.7331975560081466,
+            0.759927797833935,
+            0.7931726907630522
+          ]
+        },
+        "slow": {
+          "value": 2.5956552200343848,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.8774355662462617,
+            0.811602494003432,
+            0.906617159784691
+          ],
+          "inlier_fraction": [
+            0.7401129943502824,
+            0.7258382642998028,
+            0.7672955974842768
+          ]
+        },
+        "normal": {
+          "value": 3.1078824242962835,
+          "accepted_intervals": 3,
+          "raw_values": [
+            0.929831369063053,
+            1.0645076737634394,
+            1.113543381469791
+          ],
+          "inlier_fraction": [
+            0.7329545454545454,
+            0.6774891774891775,
+            0.6923076923076923
+          ]
+        },
+        "fast": {
+          "value": 3.892089508733868,
+          "accepted_intervals": 3,
+          "raw_values": [
+            1.0967648364403653,
+            1.3029899857518221,
+            1.4923346865416804
+          ],
+          "inlier_fraction": [
+            0.7424892703862661,
+            0.7085308056872038,
+            0.6608040201005025
+          ]
+        }
+      },
+      "action_order_valid": true,
+      "visual_valid": true,
+      "adjacent_hits": [
+        false,
+        true,
+        true
+      ],
+      "pair_hits": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "spearman": 0.8
+    },
+    {
+      "counterfactual_group_id": "epona_native:3",
+      "action_values": {
+        "stop": 0.0,
+        "slow": 2.1250572204589844,
+        "normal": 4.250114440917969,
+        "fast": 6.375171661376953
+      },
+      "visual_values": {
+        "stop": 4.125856209987939,
+        "slow": 4.1461594258424075,
+        "normal": 5.14374939482835,
+        "fast": 4.628915235061162
+      },
+      "visual_diagnostics": {
+        "stop": {
+          "value": 4.125856209987939,
+          "accepted_intervals": 3,
+          "raw_values": [
+            1.3949760728944975,
+            1.3602151266060922,
+            1.370665010487349
+          ],
+          "inlier_fraction": [
+            0.6022408963585434,
+            0.6155913978494624,
+            0.6658767772511849
+          ]
+        },
+        "slow": {
+          "value": 4.1461594258424075,
+          "accepted_intervals": 3,
+          "raw_values": [
+            1.4478684669828725,
+            1.3124667020811316,
+            1.3858242567784038
+          ],
+          "inlier_fraction": [
+            0.5979381443298969,
+            0.6062322946175638,
+            0.5788043478260869
+          ]
+        },
+        "normal": {
+          "value": 5.14374939482835,
+          "accepted_intervals": 3,
+          "raw_values": [
+            1.6335795751654245,
+            1.5993635238650654,
+            1.91080629579786
+          ],
+          "inlier_fraction": [
+            0.6062322946175638,
+            0.5438066465256798,
+            0.5661971830985916
+          ]
+        },
+        "fast": {
+          "value": 4.628915235061162,
+          "accepted_intervals": 3,
+          "raw_values": [
+            1.5883568708966342,
+            1.4496829328259158,
+            1.5908754313386118
+          ],
+          "inlier_fraction": [
+            0.5979381443298969,
+            0.5297619047619048,
+            0.6198347107438017
+          ]
+        }
+      },
+      "action_order_valid": true,
+      "visual_valid": true,
+      "adjacent_hits": [
+        true,
+        true,
+        false
+      ],
+      "pair_hits": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "spearman": 0.8
+    },
+    {
+      "counterfactual_group_id": "epona_native:4",
+      "action_values": {
+        "stop": 0.0,
+        "slow": 2.573869466781616,
+        "normal": 5.147738933563232,
+        "fast": 7.7216081619262695
+      },
+      "visual_values": {
+        "stop": 7.082691567709509,
+        "slow": 7.269542153066666,
+        "normal": 7.863350920121063,
+        "fast": 6.754589145631364
+      },
+      "visual_diagnostics": {
+        "stop": {
+          "value": 7.082691567709509,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.636212620345402,
+            2.325818216453823,
+            2.1206607309102843
+          ],
+          "inlier_fraction": [
+            0.5662650602409639,
+            0.6733067729083665,
+            0.6535087719298246
+          ]
+        },
+        "slow": {
+          "value": 7.269542153066666,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.4889623479158396,
+            2.530994169412561,
+            2.2495856357382658
+          ],
+          "inlier_fraction": [
+            0.5666666666666667,
+            0.6022304832713755,
+            0.7247386759581882
+          ]
+        },
+        "normal": {
+          "value": 7.863350920121063,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.780777524725083,
+            2.4402069418241252,
+            2.642366453571855
+          ],
+          "inlier_fraction": [
+            0.6156583629893239,
+            0.6294820717131474,
+            0.652
+          ]
+        },
+        "fast": {
+          "value": 6.754589145631364,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.3819151965254304,
+            2.2536482414491945,
+            2.1190257076567396
+          ],
+          "inlier_fraction": [
+            0.5880149812734082,
+            0.6560283687943262,
+            0.729903536977492
+          ]
+        }
+      },
+      "action_order_valid": true,
+      "visual_valid": true,
+      "adjacent_hits": [
+        true,
+        true,
+        false
+      ],
+      "pair_hits": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        false
+      ],
+      "spearman": -0.2
+    },
+    {
+      "counterfactual_group_id": "epona_native:5",
+      "action_values": {
+        "stop": 0.0,
+        "slow": 2.8384957313537598,
+        "normal": 5.6769914627075195,
+        "fast": 8.515487670898438
+      },
+      "visual_values": {
+        "stop": 8.290414946929257,
+        "slow": 8.436090100342685,
+        "normal": 9.208558448341991,
+        "fast": 7.836247475537716
+      },
+      "visual_diagnostics": {
+        "stop": {
+          "value": 8.290414946929257,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.9897793588316857,
+            2.830411228723661,
+            2.470224359373911
+          ],
+          "inlier_fraction": [
+            0.5059523809523809,
+            0.532051282051282,
+            0.5914634146341463
+          ]
+        },
+        "slow": {
+          "value": 8.436090100342685,
+          "accepted_intervals": 3,
+          "raw_values": [
+            3.076495986434931,
+            2.9585668415970483,
+            2.4010272723107056
+          ],
+          "inlier_fraction": [
+            0.44549763033175355,
+            0.5123456790123457,
+            0.4405594405594406
+          ]
+        },
+        "normal": {
+          "value": 9.208558448341991,
+          "accepted_intervals": 3,
+          "raw_values": [
+            3.239930207941487,
+            2.9716087752458478,
+            2.997019465154657
+          ],
+          "inlier_fraction": [
+            0.4297872340425532,
+            0.5087719298245614,
+            0.42
+          ]
+        },
+        "fast": {
+          "value": 7.836247475537716,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.697518067337144,
+            2.5995167524900324,
+            2.5392126557105392
+          ],
+          "inlier_fraction": [
+            0.5478723404255319,
+            0.4913294797687861,
+            0.46564885496183206
+          ]
+        }
+      },
+      "action_order_valid": true,
+      "visual_valid": true,
+      "adjacent_hits": [
+        true,
+        true,
+        false
+      ],
+      "pair_hits": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        false
+      ],
+      "spearman": -0.2
+    },
+    {
+      "counterfactual_group_id": "epona_native:6",
+      "action_values": {
+        "stop": 0.0,
+        "slow": 3.1032042503356934,
+        "normal": 6.206408500671387,
+        "fast": 9.309612274169922
+      },
+      "visual_values": {
+        "stop": 6.928429344538175,
+        "slow": 7.312451101194556,
+        "normal": 7.338911950773813,
+        "fast": 5.422827629522386
+      },
+      "visual_diagnostics": {
+        "stop": {
+          "value": 6.928429344538175,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.3280439341828227,
+            2.1741836672279033,
+            2.4262017431274487
+          ],
+          "inlier_fraction": [
+            0.6435185185185185,
+            0.6683673469387755,
+            0.6787564766839378
+          ]
+        },
+        "slow": {
+          "value": 7.312451101194556,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.2378266518535037,
+            2.5109869080821685,
+            2.5636375412588843
+          ],
+          "inlier_fraction": [
+            0.5714285714285714,
+            0.6739130434782609,
+            0.5879629629629629
+          ]
+        },
+        "normal": {
+          "value": 7.338911950773813,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.2618188003987694,
+            2.5928335466347936,
+            2.48425960374025
+          ],
+          "inlier_fraction": [
+            0.6062176165803109,
+            0.6728971962616822,
+            0.6807228915662651
+          ]
+        },
+        "fast": {
+          "value": 5.422827629522386,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.092672218915395,
+            1.6100954572610828,
+            1.720059953345908
+          ],
+          "inlier_fraction": [
+            0.5843373493975904,
+            0.7162790697674418,
+            0.6936416184971098
+          ]
+        }
+      },
+      "action_order_valid": true,
+      "visual_valid": true,
+      "adjacent_hits": [
+        true,
+        true,
+        false
+      ],
+      "pair_hits": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        false
+      ],
+      "spearman": -0.2
+    },
+    {
+      "counterfactual_group_id": "epona_native:7",
+      "action_values": {
+        "stop": 0.0,
+        "slow": 3.147678852081299,
+        "normal": 6.295357704162598,
+        "fast": 9.443037033081055
+      },
+      "visual_values": {
+        "stop": 6.537113059785262,
+        "slow": 6.6964425776663115,
+        "normal": 6.71487250935533,
+        "fast": 4.961017405906558
+      },
+      "visual_diagnostics": {
+        "stop": {
+          "value": 6.537113059785262,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.1918795925539745,
+            2.630181350131074,
+            1.7150521171002135
+          ],
+          "inlier_fraction": [
+            0.5108225108225108,
+            0.5026455026455027,
+            0.6312849162011173
+          ]
+        },
+        "slow": {
+          "value": 6.6964425776663115,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.6053666146330374,
+            2.1486069550144054,
+            1.9424690080188685
+          ],
+          "inlier_fraction": [
+            0.5048543689320388,
+            0.625,
+            0.5930232558139535
+          ]
+        },
+        "normal": {
+          "value": 6.71487250935533,
+          "accepted_intervals": 3,
+          "raw_values": [
+            2.497344056117361,
+            2.4851050144254825,
+            1.7324234388124864
+          ],
+          "inlier_fraction": [
+            0.5846153846153846,
+            0.5421052631578948,
+            0.5614035087719298
+          ]
+        },
+        "fast": {
+          "value": 4.961017405906558,
+          "accepted_intervals": 3,
+          "raw_values": [
+            1.7756613187411823,
+            1.6942293367774006,
+            1.4911267503879748
+          ],
+          "inlier_fraction": [
+            0.5777777777777777,
+            0.6237113402061856,
+            0.5515463917525774
+          ]
+        }
+      },
+      "action_order_valid": true,
+      "visual_valid": true,
+      "adjacent_hits": [
+        true,
+        true,
+        false
+      ],
+      "pair_hits": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        false
+      ],
+      "spearman": -0.2
+    }
+  ]
+}

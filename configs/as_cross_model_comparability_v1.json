@@ -1,0 +1,29 @@
+{
+  "protocol": "iac-as-cross-model-comparability-audit-v1",
+  "status": "frozen_2026-09-16",
+  "comparison_unit": "source",
+  "minimum_common_sources_for_formal_comparison": 30,
+  "models": [
+    {
+      "label": "DriveWAM",
+      "manifest": "artifacts/local_experiment_archive_20260915/reports/benchmark_v3_drivewam_manifest_lineage_fixed_20260915.jsonl",
+      "report": "artifacts/local_experiment_archive_20260915/reports/as_full4_benchmark_v3_drivewam_1490_lineage_fixed.json",
+      "action_contract": "own_native",
+      "selection_policy": "benchmark_v3_declared_pool"
+    },
+    {
+      "label": "Epona-action-conditioned",
+      "manifest": "reports/epona_common_random_n40_benchmark_v3.jsonl",
+      "report": "reports/as_full4_epona_common_random_n40_20260915.json",
+      "action_contract": "supplied_condition",
+      "selection_policy": "common_random_unselected"
+    },
+    {
+      "label": "WorldDrive-smoke",
+      "manifest": "artifacts/local_experiment_archive_20260915/reports/benchmark_v3_worlddrive_manifest.jsonl",
+      "report": "artifacts/local_experiment_archive_20260915/reports/as_full4_worlddrive10.json",
+      "action_contract": "own_native",
+      "selection_policy": "action_materiality_prefilter"
+    }
+  ]
+}

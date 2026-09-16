@@ -1,0 +1,1157 @@
+{
+  "protocol": "iac-future-to-action-mediation-v1",
+  "status": "scored",
+  "source_count": 30,
+  "scored_source_count": 30,
+  "coverage": 1.0,
+  "status_counts": {
+    "scored": 30
+  },
+  "abstention_reasons": {},
+  "unavailable_reasons": {},
+  "model_ids": [
+    "driveva_navsim"
+  ],
+  "native_action_sources": [
+    "native_action_head"
+  ],
+  "future_effect_on_action": {
+    "median": 0.4660742908688318,
+    "mean": 0.8923464074237707,
+    "bootstrap_ci95": [
+      0.4062715481386107,
+      1.5573806862349382
+    ]
+  },
+  "blocked_effect_on_action": {
+    "median": 0.09470081135483852,
+    "mean": 0.25758955681463397,
+    "bootstrap_ci95": [
+      0.1446936372592236,
+      0.4039785615867821
+    ]
+  },
+  "pathway_suppression": {
+    "median": 0.5479788945713518,
+    "mean": 0.12244006968079756,
+    "bootstrap_ci95": [
+      -0.4522330128606879,
+      0.5664396957564495
+    ]
+  },
+  "specificity_control_effect": {
+    "median": 0.0,
+    "mean": 0.06079995399377201,
+    "bootstrap_ci95": [
+      0.017740386963526707,
+      0.11471583773825897
+    ]
+  },
+  "promotion": {
+    "status": "failed",
+    "criteria": {
+      "minimum_sources": 30,
+      "future_effect_ci95_lower_min": 0.05,
+      "pathway_suppression_ci95_lower_min": 0.5,
+      "specificity_control_ci95_upper_max": 0.25,
+      "source_disjoint_confirmation": true
+    },
+    "checks": {
+      "minimum_sources": true,
+      "future_effect_ci95_lower": true,
+      "pathway_suppression_ci95_lower": false,
+      "specificity_control_ci95_upper": true,
+      "source_disjoint_confirmation": true
+    },
+    "claim_enabled": false
+  },
+  "source_disjoint_confirmation": {
+    "verified": true,
+    "calibration_source_count": 10,
+    "overlap_count": 0
+  },
+  "pairs": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0005:3469409328be53d9",
+      "status": "scored",
+      "future_effect_on_action": 0.26432512832476446,
+      "blocked_effect_on_action": 0.07076624361721606,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.7322757618024544,
+      "invariance": {
+        "history_fingerprint": "f826bdcc1eb28dde6c0f3565335beba549ec0549e9c70d164208766fb6bc138b",
+        "command_fingerprint": "3d591f21b24fa9fc251069bead3ccf1e837c9955d52a6169e2d4306d5984932f",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "4bd3f137bfbd340e3a8deded3befb35c1e0459e33db4af760356bf8276fb3ce2",
+        "future_perturbed": "ea861645527b24d4a2937a6ed6862f65fa679fb65a2e058b9b5ad9fbd143424b",
+        "future_perturbed_pathway_blocked": "ea861645527b24d4a2937a6ed6862f65fa679fb65a2e058b9b5ad9fbd143424b",
+        "future_fixed_action_pathway_control": "4bd3f137bfbd340e3a8deded3befb35c1e0459e33db4af760356bf8276fb3ce2"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0008:a06ba1d0cf475ea9",
+      "status": "scored",
+      "future_effect_on_action": 0.078125,
+      "blocked_effect_on_action": 0.03538312180860803,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.5470960408498172,
+      "invariance": {
+        "history_fingerprint": "23938680f35784300143ca383eb9b498eae91ebda92020dbee6210691ca1654e",
+        "command_fingerprint": "e0b1eab9461655a900ee1ae73d7930ef607d902964eb790d66cafa0008d7390a",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "f933df4733cc2e0798a8a923a37e6c06741e559ccf3873458144cf8367fffbea",
+        "future_perturbed": "a4b2b4090a5af9992e582f0f48494f4650601f5a7b46aa81cf389e6353383531",
+        "future_perturbed_pathway_blocked": "a4b2b4090a5af9992e582f0f48494f4650601f5a7b46aa81cf389e6353383531",
+        "future_fixed_action_pathway_control": "f933df4733cc2e0798a8a923a37e6c06741e559ccf3873458144cf8367fffbea"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0017:be864e78444455a9",
+      "status": "scored",
+      "future_effect_on_action": 0.0375945669216463,
+      "blocked_effect_on_action": 0.0375945669216463,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.0,
+      "invariance": {
+        "history_fingerprint": "55eee4f1d33fffc696137b97de0799d7ea0fc04e4a9b5d9eb6a5c396c24af0ad",
+        "command_fingerprint": "af0ba7d97afcf04809f24ac010fddca1482714884423c3f7795c796e7a75a967",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "d1bf18a5b18cb6315aeb7762cadd42b35f6812d5a5daaf459602188af16c1e52",
+        "future_perturbed": "2f1aafc59e8ff05a6629df8ee29992209438c4cd3e2c44378682a1aa113b5707",
+        "future_perturbed_pathway_blocked": "2f1aafc59e8ff05a6629df8ee29992209438c4cd3e2c44378682a1aa113b5707",
+        "future_fixed_action_pathway_control": "d1bf18a5b18cb6315aeb7762cadd42b35f6812d5a5daaf459602188af16c1e52"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0026:2569ea6173835857",
+      "status": "scored",
+      "future_effect_on_action": 2.273177735503152,
+      "blocked_effect_on_action": 0.0707662436172165,
+      "specificity_control_effect": 0.05307468271291249,
+      "pathway_suppression": 0.9688690230807875,
+      "invariance": {
+        "history_fingerprint": "0353bf6bd7f2d6983353168d46f64dd3563ec3f4a6dfaa30162f92f2fd9a339b",
+        "command_fingerprint": "83c6f2ea5bea30f12944f7b8d661592c63269dc0db7c63bb59930dab090505a6",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "cf6dc108dd68a4087753e29b91f562c8308b2a266d7902f347a96db5ae14c361",
+        "future_perturbed": "2c14c047c422a00f513d2a86ca0e643996d6f3f6d7f284e3e70079768fbc668f",
+        "future_perturbed_pathway_blocked": "2c14c047c422a00f513d2a86ca0e643996d6f3f6d7f284e3e70079768fbc668f",
+        "future_fixed_action_pathway_control": "cf6dc108dd68a4087753e29b91f562c8308b2a266d7902f347a96db5ae14c361"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0002:8c874288a58c56e2",
+      "status": "scored",
+      "future_effect_on_action": 0.9453220885426213,
+      "blocked_effect_on_action": 0.45332167589449296,
+      "specificity_control_effect": 0.451418973389492,
+      "pathway_suppression": 0.5204579673015286,
+      "invariance": {
+        "history_fingerprint": "fac5b69d9f098623d85d1fd8a9c4ddbb7da0625698c0461289ea790fee1dc67f",
+        "command_fingerprint": "0ccba8c2b0f3c472e47da7364b1f3b8404c66f4bdc3ea16c3f48d6aeba59b4a8",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "84fdd24a146a3c44ae49b3c836288eba6a73f03e2428d6dda705d9800954ca0c",
+        "future_perturbed": "36a5be418cf62b325dc10aac99e3c806c0929ebf494f3a58e44436d7276877c9",
+        "future_perturbed_pathway_blocked": "36a5be418cf62b325dc10aac99e3c806c0929ebf494f3a58e44436d7276877c9",
+        "future_fixed_action_pathway_control": "84fdd24a146a3c44ae49b3c836288eba6a73f03e2428d6dda705d9800954ca0c"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0002:a727ae0cd52d5efb",
+      "status": "scored",
+      "future_effect_on_action": 7.655551385293149,
+      "blocked_effect_on_action": 1.845578014181414,
+      "specificity_control_effect": 0.10386870786230738,
+      "pathway_suppression": 0.7589229147195199,
+      "invariance": {
+        "history_fingerprint": "93a556bd5fc0407bb5c56ac1ae07ea0926567cde04275dcaca347308cfd57a37",
+        "command_fingerprint": "52e6538d2f8ef2e2edf6dda0047c1e8410fbd00ce086cc8e7148723d888df611",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "be975e862d39889f90f44e32c8b075f1cadf60b586949a0da1c8985348488646",
+        "future_perturbed": "506d1c28436bce07f448fc56791e1de6309a4ad0bb31153a7e5b39e313103794",
+        "future_perturbed_pathway_blocked": "506d1c28436bce07f448fc56791e1de6309a4ad0bb31153a7e5b39e313103794",
+        "future_fixed_action_pathway_control": "be975e862d39889f90f44e32c8b075f1cadf60b586949a0da1c8985348488646"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0011:bb96e91eff9c5d67",
+      "status": "scored",
+      "future_effect_on_action": 0.722978346858436,
+      "blocked_effect_on_action": 0.45519493865552696,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.37038925075212914,
+      "invariance": {
+        "history_fingerprint": "d43fb87df5ab7a7329b23b492046b8af382a394ff0bcecc2c68d95150f3e84f4",
+        "command_fingerprint": "ba41059200f6331009fed897ceec63f5b07cf53099fc0e75dcacf2d29f668dbd",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "8e54d954d20b5d6651a9f5ce906b43c9af33dbb7da3e416e40928389465e8056",
+        "future_perturbed": "3a3abd912e3afa11dbce014a3b22b34f30860fab8e0ef6fd822f157a55369932",
+        "future_perturbed_pathway_blocked": "3a3abd912e3afa11dbce014a3b22b34f30860fab8e0ef6fd822f157a55369932",
+        "future_fixed_action_pathway_control": "8e54d954d20b5d6651a9f5ce906b43c9af33dbb7da3e416e40928389465e8056"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0021:27decc74a57b53ac",
+      "status": "scored",
+      "future_effect_on_action": 0.4848468149784825,
+      "blocked_effect_on_action": 0.4514169926705337,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.06894924597871677,
+      "invariance": {
+        "history_fingerprint": "7fd8a6579227c904d76fd97361f63aa628cbb4f780b701eb3b88eee44fea4053",
+        "command_fingerprint": "d1206db4ea7f155bd929a221c0ebc7bf4da816cfb8e98bc8d5b75177c82a5115",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "45e1c6fb154870aa3f8af254f5244d23f4741ffc7c117d071177b9841667fb66",
+        "future_perturbed": "d152a387e566ed0da116acf8faddbadf8ab19693b718998e53b5b7a9fb91f2ec",
+        "future_perturbed_pathway_blocked": "d152a387e566ed0da116acf8faddbadf8ab19693b718998e53b5b7a9fb91f2ec",
+        "future_fixed_action_pathway_control": "45e1c6fb154870aa3f8af254f5244d23f4741ffc7c117d071177b9841667fb66"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0021:816c438c23b55c68",
+      "status": "scored",
+      "future_effect_on_action": 0.9579677560064204,
+      "blocked_effect_on_action": 0.15724838259018978,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.8358521133887351,
+      "invariance": {
+        "history_fingerprint": "b68d6ffbce18bb6a18d7eaf18b0a8b5dbaec9303b76477e4090dbccbea722883",
+        "command_fingerprint": "0653929408ea300b6ded04c917599059e261bb2be35f8587a45fdf9f70e31759",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "555e72d8f363eb41419ab7343307f5d86c0f785e2a1402488fe2173b1ec51213",
+        "future_perturbed": "07dc5351b414a74bfe0bb21592d64b8aa4024ce2e0dd7026523cbadfeaa08171",
+        "future_perturbed_pathway_blocked": "07dc5351b414a74bfe0bb21592d64b8aa4024ce2e0dd7026523cbadfeaa08171",
+        "future_fixed_action_pathway_control": "555e72d8f363eb41419ab7343307f5d86c0f785e2a1402488fe2173b1ec51213"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0023:5a6c7920be6657b9",
+      "status": "scored",
+      "future_effect_on_action": 0.6021687842687339,
+      "blocked_effect_on_action": 0.09444806811193274,
+      "specificity_control_effect": 0.08576410049620292,
+      "pathway_suppression": 0.8431534968611346,
+      "invariance": {
+        "history_fingerprint": "9b17ef0a7762ee60183a34409493c22a847fd1130193dc1840312710f29c7107",
+        "command_fingerprint": "c6cedce1f5a3d8b0741217ecee8c3ec7cf532dd7c8c0b248075c206a136412f7",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "e3547d8d22f4b06fabe5bc5d6d293bad07bd09cf63ca4ba562f0cc864110c424",
+        "future_perturbed": "2308ff78c3439cec784a47c01a6f604386ae13c8c2b090f7c1703b5201b3cb21",
+        "future_perturbed_pathway_blocked": "2308ff78c3439cec784a47c01a6f604386ae13c8c2b090f7c1703b5201b3cb21",
+        "future_fixed_action_pathway_control": "e3547d8d22f4b06fabe5bc5d6d293bad07bd09cf63ca4ba562f0cc864110c424"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0023:a5a0e7a1eaf356ec",
+      "status": "scored",
+      "future_effect_on_action": 0.1602062040275682,
+      "blocked_effect_on_action": 0.47898387800320935,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": -1.989796062584356,
+      "invariance": {
+        "history_fingerprint": "f7c68a7c48f31c79c2e28dfe86c3cca1cabccf9d18d84f73912bde61a2185a4c",
+        "command_fingerprint": "c334d8fe7b50721e8913789bd3b8feef810666f711888e5766ef4b7d4b9b2e69",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "ada4ece1cfd013aac819abded99e619c4f15044c3065dbfbb3d11868aeaeb578",
+        "future_perturbed": "66bd29d1829acedeff817bfb73d73b556518f483cd64cc7d9b88aa2c09b3cfa1",
+        "future_perturbed_pathway_blocked": "66bd29d1829acedeff817bfb73d73b556518f483cd64cc7d9b88aa2c09b3cfa1",
+        "future_fixed_action_pathway_control": "ada4ece1cfd013aac819abded99e619c4f15044c3065dbfbb3d11868aeaeb578"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0024:c6156512a8b25ae2",
+      "status": "scored",
+      "future_effect_on_action": 0.1567935337549003,
+      "blocked_effect_on_action": 0.03980601203468426,
+      "specificity_control_effect": 0.078125,
+      "pathway_suppression": 0.7461246578133188,
+      "invariance": {
+        "history_fingerprint": "b78f76c1d7b355043b23ba6bd9dddf20b070f008ae4e0823f879cc760c7d7c67",
+        "command_fingerprint": "571ba7b07120ecd08b1f6bc895d94ff3477123025011a4732c7a88ca20f09090",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "5d21c49f0f60732c04563481b54de66596299dd9e1beea560db082b3f22aee06",
+        "future_perturbed": "bcfd1a314f8a3ed4ff38b76dd1209bebb305dce18d2f3ad760393f78b1cae99d",
+        "future_perturbed_pathway_blocked": "bcfd1a314f8a3ed4ff38b76dd1209bebb305dce18d2f3ad760393f78b1cae99d",
+        "future_fixed_action_pathway_control": "5d21c49f0f60732c04563481b54de66596299dd9e1beea560db082b3f22aee06"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0025:8145be015e3155e3",
+      "status": "scored",
+      "future_effect_on_action": 0.3310980992675113,
+      "blocked_effect_on_action": 0.44966050631773014,
+      "specificity_control_effect": 0.03538312180860825,
+      "pathway_suppression": -0.3580884556948969,
+      "invariance": {
+        "history_fingerprint": "c82a29b93fee7bfe67d766a9501889a392099f44ee284c65e943209ea3656fc7",
+        "command_fingerprint": "419868993c2a7a16200a6b5e407863e08f73536c307a12b9a010cde8e57c33d1",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "abd6ebfbd7ae3795f269eee66181d2bb7b235eb3b11490ba3598aa7af91200cb",
+        "future_perturbed": "0f2e22cc6951cfb70e363707933a6a1f48d7d1a40deb0cfe0957822fbf7a87c3",
+        "future_perturbed_pathway_blocked": "0f2e22cc6951cfb70e363707933a6a1f48d7d1a40deb0cfe0957822fbf7a87c3",
+        "future_fixed_action_pathway_control": "abd6ebfbd7ae3795f269eee66181d2bb7b235eb3b11490ba3598aa7af91200cb"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0026:5447e71633ee56e7",
+      "status": "scored",
+      "future_effect_on_action": 0.08576410049620292,
+      "blocked_effect_on_action": 0.10541051589234951,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": -0.2290750475138068,
+      "invariance": {
+        "history_fingerprint": "f762b65fe49b52fd90d046dfbeb0792bf08954fa555475040f20080e0ea90d09",
+        "command_fingerprint": "bd64ce685e67bb18e76a2f94bfe0bf1e09c2a9d6bfa90c989a3c8ca75819fd02",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "32b699582facc81d4057128787691ba0b07b5555b0ca7a8d615aebcf2827b65f",
+        "future_perturbed": "eb918d8ca3d0b900ef3a196e717f596e0ff43a20acd169568e76a942831f0c31",
+        "future_perturbed_pathway_blocked": "eb918d8ca3d0b900ef3a196e717f596e0ff43a20acd169568e76a942831f0c31",
+        "future_fixed_action_pathway_control": "32b699582facc81d4057128787691ba0b07b5555b0ca7a8d615aebcf2827b65f"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0026:885a21977b745818",
+      "status": "scored",
+      "future_effect_on_action": 5.463306825734514,
+      "blocked_effect_on_action": 0.4527819484994893,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.9171230972482284,
+      "invariance": {
+        "history_fingerprint": "41e29ced44ee636de715084805459c4f36fd4958f3cceb4ed2072469a59c6071",
+        "command_fingerprint": "b5b02db7371f26dd7e529af28c69975ec88ca2ecc1ad56ed32850b7beba15230",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "57a6e2b96bff2c85bc4d342a0ed4cb6841fc50634375f157d756ce73758dab20",
+        "future_perturbed": "718c66ad35d9d78cbb4d926504f4c434e05bf02d6060203ab6a3d7bc59343008",
+        "future_perturbed_pathway_blocked": "718c66ad35d9d78cbb4d926504f4c434e05bf02d6060203ab6a3d7bc59343008",
+        "future_fixed_action_pathway_control": "57a6e2b96bff2c85bc4d342a0ed4cb6841fc50634375f157d756ce73758dab20"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0026:deb96ffe3c3358a9",
+      "status": "scored",
+      "future_effect_on_action": 0.34679947144195333,
+      "blocked_effect_on_action": 0.15724838259018978,
+      "specificity_control_effect": 0.4760342775913489,
+      "pathway_suppression": 0.5465726001935106,
+      "invariance": {
+        "history_fingerprint": "49e33c667d5416ffa84d9c4133ccf39343d35fb933a276dfb3a11b739577f765",
+        "command_fingerprint": "d6f7b8a79d24494de45d3277e92b03a4c487ea18760304f20b35c81fbb6c3c7f",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "c70680f873a44eccf3d3c6fb6c14b4f84e59fd3c4f62acb594fe5250ac9769e0",
+        "future_perturbed": "2be797e3831268a077259645a93379866d014f556306d39edb70b1f39bf78878",
+        "future_perturbed_pathway_blocked": "2be797e3831268a077259645a93379866d014f556306d39edb70b1f39bf78878",
+        "future_fixed_action_pathway_control": "c70680f873a44eccf3d3c6fb6c14b4f84e59fd3c4f62acb594fe5250ac9769e0"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0027:64c71ae3532a5efb",
+      "status": "scored",
+      "future_effect_on_action": 0.4548510452700171,
+      "blocked_effect_on_action": 0.05307468271291249,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.8833141458839446,
+      "invariance": {
+        "history_fingerprint": "df722bd64a82bb258f4a004d76bc679553749a417f2f006e0f1bcaaff5016e37",
+        "command_fingerprint": "ec8c260e4d48979f0a82e1c5b4370f688a0eaa35232061b21c08720166178fa1",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "2601e87964a797c2ab991d2dc4e663b1c4654f3f0c48cda33948933e1ac22ab0",
+        "future_perturbed": "375b5527dc73622e075a00a46621b9c72ecd19235d0c867297c55743e5e93365",
+        "future_perturbed_pathway_blocked": "375b5527dc73622e075a00a46621b9c72ecd19235d0c867297c55743e5e93365",
+        "future_fixed_action_pathway_control": "2601e87964a797c2ab991d2dc4e663b1c4654f3f0c48cda33948933e1ac22ab0"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0027:a8a6569dc2315b0e",
+      "status": "scored",
+      "future_effect_on_action": 0.67286387262663,
+      "blocked_effect_on_action": 0.0,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 1.0,
+      "invariance": {
+        "history_fingerprint": "efafbe2a675a3aeb5c91e4a25a03c3d9cbd834ee781adb677f978d7c7536b2f3",
+        "command_fingerprint": "8f90cdac3cb704d6f4d4f31cd8c4467f71cf2975e5987f19897ab34f1fc22841",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "58e28c48e413fa0ec75314bf443f17a409a4bd42bab2b13e303eb55e6fbe86e0",
+        "future_perturbed": "dd3b71f07235d52a8aa24d154ec13be42761fd29f7e4351f07d5165a193ab9d1",
+        "future_perturbed_pathway_blocked": "dd3b71f07235d52a8aa24d154ec13be42761fd29f7e4351f07d5165a193ab9d1",
+        "future_fixed_action_pathway_control": "58e28c48e413fa0ec75314bf443f17a409a4bd42bab2b13e303eb55e6fbe86e0"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0007:2fadb352b7175692",
+      "status": "scored",
+      "future_effect_on_action": 1.3829514560161442,
+      "blocked_effect_on_action": 0.017691560904304016,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.9872073883523953,
+      "invariance": {
+        "history_fingerprint": "9f362c0ae75091a75eef56a73a024e1fcb06bc171ea28908f4421e3ea52e9455",
+        "command_fingerprint": "341feba3fdc848bc62869ccd145bb0fd72fdf0513f084ad8ba3dc657c02aa77d",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "ce05fdcdc7d48c924a9bb511ff7b69de2ce10527b4cfb20e645bd7da11604d7b",
+        "future_perturbed": "4844bc517d6cfaa7359ba3f33425219c34789e55f17d7f746969494044308ad7",
+        "future_perturbed_pathway_blocked": "4844bc517d6cfaa7359ba3f33425219c34789e55f17d7f746969494044308ad7",
+        "future_fixed_action_pathway_control": "ce05fdcdc7d48c924a9bb511ff7b69de2ce10527b4cfb20e645bd7da11604d7b"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0009:4d831808730252b8",
+      "status": "scored",
+      "future_effect_on_action": 0.6633206995153074,
+      "blocked_effect_on_action": 0.15625,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.7644427497676872,
+      "invariance": {
+        "history_fingerprint": "2670c4a9ab6f96ffb01f6067f229495ef8553563ac5c7827059d8151a36300e9",
+        "command_fingerprint": "123f08ce952615dee364f2d73898a5f282a6396638c91c02940c09b3dcc3995c",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "b9027923ece45beb65b5ebf8f87f0b76e6616baa9c93a29661782696dacd0300",
+        "future_perturbed": "9977a772ad7010936ee8bd2fc0ea1129c991a4495062458a00aa9aa56bc2b879",
+        "future_perturbed_pathway_blocked": "9977a772ad7010936ee8bd2fc0ea1129c991a4495062458a00aa9aa56bc2b879",
+        "future_fixed_action_pathway_control": "b9027923ece45beb65b5ebf8f87f0b76e6616baa9c93a29661782696dacd0300"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0015:bda2fb6ea7735b5a",
+      "status": "scored",
+      "future_effect_on_action": 0.01769156090430414,
+      "blocked_effect_on_action": 0.08076825127796738,
+      "specificity_control_effect": 0.01769156090430414,
+      "pathway_suppression": -3.565354731267237,
+      "invariance": {
+        "history_fingerprint": "258d70eef20cb1fc3f3140fc55acee59e68b28d7819e1f7c1009236108b423de",
+        "command_fingerprint": "49ef81f279aa30b4949d322e3de43c47819db841ec4c8cebe05502a4f736c581",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "1e7974ba9a3195e803a833beb4f83c3864d953044937c0d5a55e96b8102e1df5",
+        "future_perturbed": "b252e97b8241cf27a13887a8316ace52193afa6efd3725591d7569185d1764d4",
+        "future_perturbed_pathway_blocked": "b252e97b8241cf27a13887a8316ace52193afa6efd3725591d7569185d1764d4",
+        "future_fixed_action_pathway_control": "1e7974ba9a3195e803a833beb4f83c3864d953044937c0d5a55e96b8102e1df5"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0016:ac9eb8c4d4b55502",
+      "status": "scored",
+      "future_effect_on_action": 0.055286127825950424,
+      "blocked_effect_on_action": 0.03759456692164628,
+      "specificity_control_effect": 0.03759456692164628,
+      "pathway_suppression": 0.32000000000000006,
+      "invariance": {
+        "history_fingerprint": "1adf18745ba93a51fc2b7bcb61db48ab4b15ecc977cb1779220eb4e19498d29c",
+        "command_fingerprint": "0b878f57ffd426c92ce214cb24cd35810f1afc0e0c1fc9bade359a185a3d6836",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "d962bffe4c3a7f40dc9f2f711860c27543b36e49d105ba951e894ae2544eed63",
+        "future_perturbed": "08a1c5396262ec2d24ab4cf5a3370585b3074bca8e26d5d803501908f6fe0085",
+        "future_perturbed_pathway_blocked": "08a1c5396262ec2d24ab4cf5a3370585b3074bca8e26d5d803501908f6fe0085",
+        "future_fixed_action_pathway_control": "d962bffe4c3a7f40dc9f2f711860c27543b36e49d105ba951e894ae2544eed63"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_02035_02387:log-0005-scene-0005:17a7615e448f5cae",
+      "status": "scored",
+      "future_effect_on_action": 0.9103898773110533,
+      "blocked_effect_on_action": 0.9027080366279396,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.008437968033874532,
+      "invariance": {
+        "history_fingerprint": "cdf1049c5a2a3d827861df6eb5028872781e28d66551d76e325435d5ca7aaf12",
+        "command_fingerprint": "3934438f2be0e2a7f819aa32d665185b4fe56e68b2ba13ae1ec29935e8b4a5a1",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "1bf260aa951eaee38270982ae58ffde8826065dc148d7c35d62d545d9fcf0263",
+        "future_perturbed": "de592a9066ccdc84ad2553fd6db279e8df22a5a8096d97ad9c7d36b353d6dae0",
+        "future_perturbed_pathway_blocked": "de592a9066ccdc84ad2553fd6db279e8df22a5a8096d97ad9c7d36b353d6dae0",
+        "future_fixed_action_pathway_control": "1bf260aa951eaee38270982ae58ffde8826065dc148d7c35d62d545d9fcf0263"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_02035_02387:log-0005-scene-0006:8f64b97884eb55ec",
+      "status": "scored",
+      "future_effect_on_action": 0.47729753646764644,
+      "blocked_effect_on_action": 0.45771438833870776,
+      "specificity_control_effect": 0.44966050631773014,
+      "pathway_suppression": 0.04102922523729835,
+      "invariance": {
+        "history_fingerprint": "49eb65da7f6b6b55b30eb023929a00907f504bfa8882c78f4e60133fc3eba53e",
+        "command_fingerprint": "e187e64d7c32e50cba60bc7786053576475ac2b2e5c9c86938e0274623dd2af3",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "0a431d41c3d168b6338c9f58e3405b617bd14aa2635188381e43b227b39e998a",
+        "future_perturbed": "f055fcd8f2999958cb3eef618c12c9c5275660c1ccc8928e70214a3eb990974a",
+        "future_perturbed_pathway_blocked": "f055fcd8f2999958cb3eef618c12c9c5275660c1ccc8928e70214a3eb990974a",
+        "future_fixed_action_pathway_control": "0a431d41c3d168b6338c9f58e3405b617bd14aa2635188381e43b227b39e998a"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0008:456ef599efa85659",
+      "status": "scored",
+      "future_effect_on_action": 0.5540085925374157,
+      "blocked_effect_on_action": 0.08576410049620292,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.8451935553862178,
+      "invariance": {
+        "history_fingerprint": "f499219b7b394f0fe82b34bd8bbbfb09ff98e4bee47134904bd69ae24485b311",
+        "command_fingerprint": "42f83291f448e303a5e5e8c0e812211d8ccf854063a84bea9e10ac627e46b96e",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "33723c9adbf3286b20b630894e7aa8b021b658424ddcb4773305c4526739a56a",
+        "future_perturbed": "f37c20be3dfd2c9bd338be08b4901ee8ba543600904c495837a94d60a4d40507",
+        "future_perturbed_pathway_blocked": "f37c20be3dfd2c9bd338be08b4901ee8ba543600904c495837a94d60a4d40507",
+        "future_fixed_action_pathway_control": "33723c9adbf3286b20b630894e7aa8b021b658424ddcb4773305c4526739a56a"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0019:cd354c38b31651d0",
+      "status": "scored",
+      "future_effect_on_action": 0.0,
+      "blocked_effect_on_action": 0.0,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": null,
+      "invariance": {
+        "history_fingerprint": "408d112946841560a508fbbedd95b83442d6e057ffed30001cfb104f352459e6",
+        "command_fingerprint": "5cd5e7f001f52d2108677e886679acfc7e199bd21e2eb1a8f1bf48e14ea7a0a9",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "340100bac84063b628a627d77bf6e18775e1e2449e2d3e47aecc63b30f486645",
+        "future_perturbed": "aef0e0f163e5dfc3df6f57c1c98337dccec43f9444a53fd86cc81412757e41f6",
+        "future_perturbed_pathway_blocked": "aef0e0f163e5dfc3df6f57c1c98337dccec43f9444a53fd86cc81412757e41f6",
+        "future_fixed_action_pathway_control": "340100bac84063b628a627d77bf6e18775e1e2449e2d3e47aecc63b30f486645"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0002:ddc904ff3be05595",
+      "status": "scored",
+      "future_effect_on_action": 0.07076624361721695,
+      "blocked_effect_on_action": 0.4501749493465571,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": -5.361436277183329,
+      "invariance": {
+        "history_fingerprint": "01bcb6e9fa2046a40c7f35e1a4f372c9dc0351f2c62b26c0b1d9914173b0475d",
+        "command_fingerprint": "f21348b343a285e9fcc8058e6d5ed1314d65829100beea6a6c542e1f0deee7c1",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "04038ba22b08e83a3b69733d5aa68f9c0654096de039708d7b3ce95642e15698",
+        "future_perturbed": "fb4d81264c2436acb736f0668db36f7fa362e9d6f8b0ffe4ceffd1cdf095e454",
+        "future_perturbed_pathway_blocked": "fb4d81264c2436acb736f0668db36f7fa362e9d6f8b0ffe4ceffd1cdf095e454",
+        "future_fixed_action_pathway_control": "04038ba22b08e83a3b69733d5aa68f9c0654096de039708d7b3ce95642e15698"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0006:0fb815b347a359ca",
+      "status": "scored",
+      "future_effect_on_action": 0.4774474414160561,
+      "blocked_effect_on_action": 0.09495355459774428,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.8011224977641045,
+      "invariance": {
+        "history_fingerprint": "fd3d05bbed66c5953be8b2e2830e5c7f30a5d7681c0a9bddacb0a7c33a0fbb8e",
+        "command_fingerprint": "304547a6db96cb808b86bfa48ec59779cfc9b9de87f5a3acc1858aa4c2d27231",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "ed0803adc0ad649d03fb62a699f34b4647fcce413b5df9e1f27b22dd570d92d3",
+        "future_perturbed": "c893e198c6c21835ca7c3b616a628591e601bf0f0a92c93eb4b63c0ca3ffc6ef",
+        "future_perturbed_pathway_blocked": "c893e198c6c21835ca7c3b616a628591e601bf0f0a92c93eb4b63c0ca3ffc6ef",
+        "future_fixed_action_pathway_control": "ed0803adc0ad649d03fb62a699f34b4647fcce413b5df9e1f27b22dd570d92d3"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0009:c15774bfb6655d18",
+      "status": "scored",
+      "future_effect_on_action": 0.389214339894691,
+      "blocked_effect_on_action": 0.0,
+      "specificity_control_effect": 0.03538312180860803,
+      "pathway_suppression": 1.0,
+      "invariance": {
+        "history_fingerprint": "bbed8662f26e7a8c829fa25534767573b1802c89c3f28fd41f993fa5840d9096",
+        "command_fingerprint": "51f702ff6afa167f808d7948e6c98076e087bf0e5a15527bb7849a5e20e0f6d9",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "36a43bd7473812f5a6c075ecbe81fbd8d6b2522a8df191fb67eb6a6afaa2d6e2",
+        "future_perturbed": "cfa3f776ad83684b1efc52ce73613e21c1e70f6acd84491233218847f79395a3",
+        "future_perturbed_pathway_blocked": "cfa3f776ad83684b1efc52ce73613e21c1e70f6acd84491233218847f79395a3",
+        "future_fixed_action_pathway_control": "36a43bd7473812f5a6c075ecbe81fbd8d6b2522a8df191fb67eb6a6afaa2d6e2"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "status": "scored",
+      "future_effect_on_action": 0.078277587890625,
+      "blocked_effect_on_action": 0.035383121808608475,
+      "specificity_control_effect": 0.0,
+      "pathway_suppression": 0.5479788945713518,
+      "invariance": {
+        "history_fingerprint": "706a5bbbf3620be6a7124bc6ca30552f526cd4a7f8c4b8414c2445aa33018324",
+        "command_fingerprint": "a80d54cd2c7c367746a6db8f58c28956c440c66d423397e20e6d5914ed2f1bca",
+        "nuisance_seed": 20260916,
+        "model_revision": "e54ca3b5d53ad33bdf31930f5a0e069eb0ee180f46e49ae72fea114dd78f9da3"
+      },
+      "future_fingerprints": {
+        "baseline": "a5f55fded94ded181870d8a059ceba98f0c97dfe88a611e04d2f38a5619f6ac7",
+        "future_perturbed": "067b3aaa6655da48ffb2465fbd95e4213a7c44fbe2215ae28f3cb6d7593c0b97",
+        "future_perturbed_pathway_blocked": "067b3aaa6655da48ffb2465fbd95e4213a7c44fbe2215ae28f3cb6d7593c0b97",
+        "future_fixed_action_pathway_control": "a5f55fded94ded181870d8a059ceba98f0c97dfe88a611e04d2f38a5619f6ac7"
+      },
+      "pathway_states": {
+        "baseline": "normal",
+        "future_perturbed": "normal",
+        "future_perturbed_pathway_blocked": "blocked",
+        "future_fixed_action_pathway_control": "fixed_action"
+      },
+      "wam_model_id": "driveva_navsim",
+      "native_action_source": "native_action_head",
+      "action_normalization": {
+        "fingerprint": "driveva-calibration-mad-v1",
+        "scale": [
+          7.065515625,
+          0.2779875,
+          0.1
+        ]
+      }
+    }
+  ],
+  "missing_value_policy": "unavailable_never_zero_fill",
+  "claim_boundary": "This is a pathway intervention result, not a replacement for MAS, RCS or GS; passing requires the preregistered thresholds and source-disjoint confirmation."
+}

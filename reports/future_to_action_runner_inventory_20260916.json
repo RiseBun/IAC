@@ -1,0 +1,32 @@
+{
+  "protocol": "iac-future-to-action-mediation-v1",
+  "audit_type": "server_runner_inventory",
+  "server": "iac",
+  "worlddrive_root": "/mnt/slurmfs-4090node3/user_data/zchen897/wam_repro/WorldDrive",
+  "searched_tree": "WorldDrive/results",
+  "source_runner_found": false,
+  "source_runner_search": {
+    "extensions": [".py", ".sh"],
+    "searched_for": ["future_latent", "candidate_conditioned_future_scene_embed", "formal_foresight_mediation"],
+    "result": "no WorldDrive runner source was present in the searched tree"
+  },
+  "artifact_dirs_inspected": [
+    "future_latent_intervention_eval25",
+    "command_counterfactual_eval25",
+    "command_counterfactual_5sample",
+    "native_future_5sample_20step"
+  ],
+  "formal_contract_fields_found_in_existing_result_rows": [],
+  "available_artifact": {
+    "future_latent_intervention_eval25": {
+      "native_action_rows": 50,
+      "counterfactual_groups": 25,
+      "branch_roles": ["future_native", "future_reverse"],
+      "pathway_blocked_rows": 0,
+      "fixed_action_rows": 0
+    }
+  },
+  "status": "runner_source_required",
+  "claim_enabled": false,
+  "next_required_input": "WorldDrive inference source or an adapter exposing future latent injection and native action-head forward passes"
+}

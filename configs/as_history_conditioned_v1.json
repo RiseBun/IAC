@@ -1,6 +1,6 @@
 {
-  "protocol": "iac-history-conditioned-as-v1.1",
-  "status": "frozen_2026-09-15",
+  "protocol": "iac-history-conditioned-as-v1.2",
+  "status": "reporting_contract_frozen_2026-09-16",
   "benchmark_contract": {
     "history_count": 4,
     "future_count": 4,
@@ -22,7 +22,11 @@
     "trajectory_source_is_preserved": true
   },
   "outputs": {
-    "AS_overall": "coverage-aware geometric mean sqrt(AS_progress_effective * AS_yaw_effective); official 0-1 ranking score",
+    "AS_conditional": "geometric mean of progress and yaw agreement on units that pass their frozen evidence gates; primary consistency estimate",
+    "AS_progress_score_coverage": "quality-scored longitudinal intervals divided by four expected intervals per declared row",
+    "AS_yaw_score_coverage": "visually readable yaw events divided by all applicable non-straight action rows",
+    "AS_observability": "geometric summary sqrt(AS_progress_score_coverage * AS_yaw_score_coverage); retain both channel coverages because their units differ",
+    "AS_overall": "legacy-compatible coverage-aware deployment summary; exactly AS_conditional * AS_observability when both channels are available",
     "AS_progress_effective": "acceptable longitudinal intervals divided by four expected intervals per declared row; abstentions receive no credit",
     "AS_yaw_effective": "correct visual/action turn directions divided by all applicable non-straight action rows; missing visual yaw receives no credit",
     "AS_yaw": "turn-direction agreement on applicable non-straight rows",
@@ -30,7 +34,9 @@
     "AS_composite": "deprecated diagnostic: mean of available AS_yaw and AS_progress components; must not be used as the headline score",
     "coverage": "visual intervals and valid benchmark-v3 rows",
     "abstention_reasons": true,
-    "official_score_scale": [0, 100]
+    "official_score_scale": [0, 100],
+    "required_primary_report": ["AS_conditional", "AS_progress_score_coverage", "AS_yaw_score_coverage", "AS_overall", "status_counts", "abstention_reasons"],
+    "interpretation": "AS_conditional measures observable consistency; channel coverages delimit its scope; AS_overall is a deployment summary and must not be reported alone"
   },
   "input_lineage_audit": {
     "large_boundary_yaw_threshold_deg": 30.0,

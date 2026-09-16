@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-16",
+  "model": "DriveWAM NavSim",
+  "status": "no_verified_action_to_video_causal_path",
+  "formal_rcs_progress_eligible": false,
+  "evidence": {
+    "official_predict": [
+      "NavSimEvaluator.predict creates an all-zero action_cond.",
+      "_prime_rollout_cache caches frame 0 and the all-zero action condition chunk.",
+      "_rollout_video_frame is called with action_mode=false and receives only video tokens.",
+      "_rollout_action_chunk is called after all future video frames have been generated."
+    ],
+    "training_path": [
+      "NavSimEpisodeDataset keeps action chunk 0 zero and puts future trajectory deltas in chunk 1.",
+      "Trainer._build_joint_sampling_input presents future noisy action tokens and future noisy video tokens jointly during training."
+    ],
+    "adapter_path": [
+      "condition_chunk=0 replaces the training-time zero action condition with an external action; this is out-of-distribution and is not the trained future-action path.",
+      "condition_chunk=1 writes a future action chunk into the cache before the video loop, but the video loop still executes the single-stream video-only inference path; this is not equivalent to the joint training input."
+    ]
+  },
+  "pilot": {
+    "report": "reports/rcs_progress_drivewam_multilevel_pilot8_20260916.json",
+    "sources": 8,
+    "roles": ["stop", "slow", "normal", "fast"],
+    "coverage": 1.0,
+    "adjacent_accuracy": 0.5,
+    "full_monotonic_accuracy": 0.0,
+    "interpretation": "The injection hook executed, but generated longitudinal motion was not monotonic with the injected speed role. This is a valid negative coupling result, not a visual-layer failure."
+  },
+  "joint_sampler_probe": {
+    "report": "reports/rcs_progress_joint_sampler_pilot8_20260916.json",
+    "sampler": "training-layout joint forward_train probe with clean external future action tokens",
+    "sources": 8,
+    "coverage": 1.0,
+    "adjacent_accuracy": 0.5416666666666666,
+    "full_monotonic_accuracy": 0.0,
+    "interpretation": "The experimental joint path runs end-to-end but does not produce monotonic longitudinal response. Because it uses an eager attention fallback and unavailable future visual condition tokens, this remains a diagnostic probe rather than a formal RCS score."
+  },
+  "decision": {
+    "do_not_expand_to_all_1020_conditions": true,
+    "next_valid_experiment": "Do not expand this sampler. A formal causal test requires a released inference path whose action-conditioned video inputs match the training distribution, or a checkpoint explicitly trained for external action-conditioned video generation.",
+    "fallback": "If a joint sampler cannot be justified from the released checkpoint, report DriveWAM RCS-progress as unverified and do not claim action-to-video response."
+  }
+}

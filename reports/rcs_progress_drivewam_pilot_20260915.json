@@ -1,0 +1,3284 @@
+{
+  "protocol": "iac-progress-response-pilot-v1",
+  "descriptor": "future_only_metric3d_reloc3r_longitudinal_sum_m",
+  "interval_policy": "future_to_future_only_indices_1_2_3",
+  "min_action_delta_m": 0.5,
+  "min_inlier_fraction": 0.2,
+  "min_intervals": 2,
+  "declared_groups": 86,
+  "eligible_pairs": 81,
+  "scored_pairs": 81,
+  "coverage": 1.0,
+  "hits": 38,
+  "ordering_accuracy": 0.4691358024691358,
+  "pairs": [
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0007:1abfda95f47153e1",
+      "action_fast": 7.186219692230225,
+      "action_slow": 2.7430777549743652,
+      "action_delta": 4.443141937255859,
+      "visual_fast": {
+        "value": 0.002015115891563233,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0017145881685309875,
+          2.2711658039155836e-05,
+          0.00027781606499308953
+        ],
+        "inlier_fraction": [
+          0.9285714285714286,
+          0.94,
+          0.975
+        ]
+      },
+      "visual_slow": {
+        "value": 0.005781631889072848,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.005776882100587662,
+          -0.0005520972462290691,
+          0.000556847034714255
+        ],
+        "inlier_fraction": [
+          0.9285714285714286,
+          0.945054945054945,
+          0.979757085020243
+        ]
+      },
+      "visual_delta": -0.003766515997509615,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0014:543c334f39ba553d",
+      "action_fast": 32.73579406738281,
+      "action_slow": 27.16830062866211,
+      "action_delta": 5.567493438720703,
+      "visual_fast": {
+        "value": 0.016334914692549735,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.017535387831633404,
+          -0.0006912804771292859,
+          -0.0005091926619543827
+        ],
+        "inlier_fraction": [
+          0.9090909090909091,
+          0.9041095890410958,
+          0.9570815450643777
+        ]
+      },
+      "visual_slow": {
+        "value": 0.008315624387869147,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.007922305959071443,
+          0.000754843487421384,
+          -0.00036152505862368053
+        ],
+        "inlier_fraction": [
+          0.8461538461538461,
+          0.935064935064935,
+          0.95
+        ]
+      },
+      "visual_delta": 0.008019290304680588,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:eb47811e9dbf5729",
+      "action_fast": 50.15266799926758,
+      "action_slow": 37.67328643798828,
+      "action_delta": 12.479381561279297,
+      "visual_fast": {
+        "value": -0.0008652349946004828,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.001992399162616854,
+          0.0014435210374570317,
+          -0.00031635686944066037
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9111111111111111,
+          0.9684684684684685
+        ]
+      },
+      "visual_slow": {
+        "value": 0.000268194896964445,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.00030139116346337676,
+          0.0002839166941934157,
+          0.0002856693662344061
+        ],
+        "inlier_fraction": [
+          0.9285714285714286,
+          0.9090909090909091,
+          0.9646017699115044
+        ]
+      },
+      "visual_delta": -0.0011334298915649278,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:b4ec906c4dbe5735",
+      "action_fast": 60.81138610839844,
+      "action_slow": 50.622901916503906,
+      "action_delta": 10.188484191894531,
+      "visual_fast": {
+        "value": 0.009148816605329423,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.007018056296448092,
+          0.0010086276912174774,
+          0.0011221326176638529
+        ],
+        "inlier_fraction": [
+          0.8,
+          0.9428571428571428,
+          0.9835390946502057
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0025041484320718703,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0007930554497613674,
+          0.0005975331318207142,
+          0.0011135598504897887
+        ],
+        "inlier_fraction": [
+          0.8947368421052632,
+          0.9313725490196079,
+          0.9829059829059829
+        ]
+      },
+      "visual_delta": 0.006644668173257552,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:bde0f753d1c85f76",
+      "action_fast": 7.5117692947387695,
+      "action_slow": 5.395700454711914,
+      "action_delta": 2.1160688400268555,
+      "visual_fast": {
+        "value": 0.0051685881121600165,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.004556876536428106,
+          0.00022905667479722105,
+          0.0003826549009346889
+        ],
+        "inlier_fraction": [
+          0.8888888888888888,
+          0.9318181818181818,
+          0.969811320754717
+        ]
+      },
+      "visual_slow": {
+        "value": 0.011247973733746672,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.010762110768706947,
+          0.0005453384696173308,
+          -5.9475504577605476e-05
+        ],
+        "inlier_fraction": [
+          0.8823529411764706,
+          0.925531914893617,
+          0.9795918367346939
+        ]
+      },
+      "visual_delta": -0.006079385621586656,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0018:aa8e7669fdfd5161",
+      "action_fast": 10.24276351928711,
+      "action_slow": 6.239715576171875,
+      "action_delta": 4.003047943115234,
+      "visual_fast": {
+        "value": 0.0009288508363892926,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.0006996950387211836,
+          0.00022915579766810907
+        ],
+        "inlier_fraction": [
+          null,
+          0.9629629629629629,
+          0.9551569506726457
+        ]
+      },
+      "visual_slow": {
+        "value": 0.001921464504513155,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.0014852057666061562,
+          0.0004362587379069987
+        ],
+        "inlier_fraction": [
+          null,
+          0.98,
+          0.9720930232558139
+        ]
+      },
+      "visual_delta": -0.0009926136681238623,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:7a4a650ed9f6546d",
+      "action_fast": 14.553274154663086,
+      "action_slow": 13.26313591003418,
+      "action_delta": 1.2901382446289062,
+      "visual_fast": {
+        "value": 0.006719113131138876,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003904982019894482,
+          0.0025744181206582544,
+          0.00023971299058613986
+        ],
+        "inlier_fraction": [
+          0.875,
+          0.9285714285714286,
+          0.9710743801652892
+        ]
+      },
+      "visual_slow": {
+        "value": 0.00141014512078854,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0004636564593421945,
+          4.630331444478741e-05,
+          0.0009001853470015582
+        ],
+        "inlier_fraction": [
+          0.9333333333333333,
+          0.9014084507042254,
+          0.9863013698630136
+        ]
+      },
+      "visual_delta": 0.005308968010350336,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0002:043617d29f1c55c0",
+      "action_fast": 39.596435546875,
+      "action_slow": 29.59107780456543,
+      "action_delta": 10.00535774230957,
+      "visual_fast": {
+        "value": 0.007962608599594774,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.004156212249736323,
+          0.0026858033641512613,
+          0.00112059298570719
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9263157894736842,
+          0.9775784753363229
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0010673226759956918,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.00012106608850754202,
+          0.0009462565874881497
+        ],
+        "inlier_fraction": [
+          null,
+          0.9318181818181818,
+          0.9704641350210971
+        ]
+      },
+      "visual_delta": 0.006895285923599083,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0013:e39e16bddc2d5d19",
+      "action_fast": 10.073960304260254,
+      "action_slow": 7.72277307510376,
+      "action_delta": 2.351187229156494,
+      "visual_fast": {
+        "value": 0.00197395111193846,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0009562680014711625,
+          0.0003447339922762755,
+          0.0006729491181910219
+        ],
+        "inlier_fraction": [
+          0.96,
+          0.9703703703703703,
+          0.9970845481049563
+        ]
+      },
+      "visual_slow": {
+        "value": 0.002377713433173019,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0014782336678869775,
+          0.0004703047635961509,
+          0.00042917500168989064
+        ],
+        "inlier_fraction": [
+          0.85,
+          0.9699248120300752,
+          0.9938837920489296
+        ]
+      },
+      "visual_delta": -0.00040376232123455914,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0015:32d4199035105e8e",
+      "action_fast": 52.82940673828125,
+      "action_slow": 40.74791717529297,
+      "action_delta": 12.081489562988281,
+      "visual_fast": {
+        "value": -0.0017267287746691171,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0017303958215092704,
+          -0.00014358903082616132,
+          0.00014725607766631453
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.93,
+          0.9632352941176471
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0019885110920512196,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0026536818174092477,
+          0.0006415399744277951,
+          2.3630750930233013e-05
+        ],
+        "inlier_fraction": [
+          0.9090909090909091,
+          0.9047619047619048,
+          0.9675090252707581
+        ]
+      },
+      "visual_delta": 0.0002617823173821025,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0001:b8068298d6f55c7b",
+      "action_fast": 23.66714096069336,
+      "action_slow": 15.921785354614258,
+      "action_delta": 7.745355606079102,
+      "visual_fast": {
+        "value": 0.0023687535574472137,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.004122376174374644,
+          -0.001957158645974587,
+          0.00020353602904715678
+        ],
+        "inlier_fraction": [
+          0.9375,
+          0.8780487804878049,
+          0.9846153846153847
+        ]
+      },
+      "visual_slow": {
+        "value": 0.000453037799658038,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003089658021090479,
+          -0.0019149092970945222,
+          -0.0007217109243379189
+        ],
+        "inlier_fraction": [
+          0.8571428571428571,
+          0.8941176470588236,
+          0.9885931558935361
+        ]
+      },
+      "visual_delta": 0.0019157157577891757,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0003:32c0c70837d05c47",
+      "action_fast": 8.35276985168457,
+      "action_slow": 3.321831464767456,
+      "action_delta": 5.030938386917114,
+      "visual_fast": {
+        "value": -0.0017086115240929262,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.002399518077242907,
+          0.0009168763125937702,
+          -0.00022596975944378912
+        ],
+        "inlier_fraction": [
+          0.9310344827586207,
+          0.946236559139785,
+          0.9806451612903225
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0008945188508055889,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0005632249826113836,
+          0.0007197695391983174,
+          -0.00038847567100411213
+        ],
+        "inlier_fraction": [
+          0.896551724137931,
+          0.9148936170212766,
+          0.9767441860465116
+        ]
+      },
+      "visual_delta": -0.0026031303748985154,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0004:613fa7d82e8c5a09",
+      "action_fast": 61.60717010498047,
+      "action_slow": 48.597267150878906,
+      "action_delta": 13.009902954101562,
+      "visual_fast": {
+        "value": -0.0019255793112537877,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.003787559669910905,
+          0.0010280450712674637,
+          0.0008339352873896537
+        ],
+        "inlier_fraction": [
+          0.925,
+          0.9333333333333333,
+          0.9793388429752066
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0003120055952933505,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0027452822546630553,
+          0.0017333008592556724,
+          0.0006999758001140325
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9512195121951219,
+          0.9919028340080972
+        ]
+      },
+      "visual_delta": -0.0016135737159604373,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:1e16dae8bca05a01",
+      "action_fast": 0.1507425308227539,
+      "action_slow": -2.8997721672058105,
+      "action_delta": 3.0505146980285645,
+      "visual_fast": {
+        "value": -0.002633507877056636,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0027913961275915335,
+          -0.0010720947940134097,
+          0.0012299830445483076
+        ],
+        "inlier_fraction": [
+          0.8947368421052632,
+          0.9186046511627907,
+          0.9789915966386554
+        ]
+      },
+      "visual_slow": {
+        "value": 0.01004421169614159,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.009651092214215375,
+          -0.000985514878339558,
+          0.0013786343602657733
+        ],
+        "inlier_fraction": [
+          0.9,
+          0.9411764705882353,
+          0.9832635983263598
+        ]
+      },
+      "visual_delta": -0.012677719573198225,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.18.06.21_veh-38_04933_05307:log-0043-scene-0008:0c0554e8cfa15dcf",
+      "action_fast": -7.65037727355957,
+      "action_slow": -7.65037727355957,
+      "action_delta": 0.0,
+      "visual_fast": {
+        "value": 0.005411552738661796,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0019647100081528843,
+          0.0024354241470136984,
+          0.0010114185834952131
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.96,
+          0.9800796812749004
+        ]
+      },
+      "visual_slow": {
+        "value": 0.006535878051820125,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0020551833821016202,
+          0.0033372579305744688,
+          0.0011434367391440353
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9754098360655737,
+          0.978021978021978
+        ]
+      },
+      "visual_delta": -0.001124325313158329,
+      "action_order_valid": false,
+      "scored": false,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0006:c0fb8aebaef25424",
+      "action_fast": 34.3544921875,
+      "action_slow": 26.49610137939453,
+      "action_delta": 7.858390808105469,
+      "visual_fast": {
+        "value": -0.002419793638171395,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.005007969262455324,
+          0.0009545538359752567,
+          0.0016336217883086725
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.963855421686747,
+          0.968421052631579
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0029791917693100557,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0058343155328651865,
+          0.0013245127817838325,
+          0.0015306109817712985
+        ],
+        "inlier_fraction": [
+          0.8260869565217391,
+          0.9655172413793104,
+          0.9651567944250871
+        ]
+      },
+      "visual_delta": 0.0005593981311386607,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0005:ad83eb2a7dc15b6c",
+      "action_fast": 28.989715576171875,
+      "action_slow": 22.824630737304688,
+      "action_delta": 6.1650848388671875,
+      "visual_fast": {
+        "value": 0.0061488724600765,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.004773665075656046,
+          0.0017450860933256557,
+          -0.0003698787089052024
+        ],
+        "inlier_fraction": [
+          0.7777777777777778,
+          0.9466666666666667,
+          0.9579439252336449
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0122902738680704,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.009604374814917143,
+          0.0020541969961731864,
+          0.0006317020569800698
+        ],
+        "inlier_fraction": [
+          0.7142857142857143,
+          0.9466666666666667,
+          0.9759615384615384
+        ]
+      },
+      "visual_delta": -0.006141401407993899,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0014:b8e3585d666259f4",
+      "action_fast": 10.435681343078613,
+      "action_slow": 5.648904800415039,
+      "action_delta": 4.786776542663574,
+      "visual_fast": {
+        "value": -0.0007958667971417986,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.004492896440903803,
+          0.0021849937679495777,
+          0.0015120358758124264
+        ],
+        "inlier_fraction": [
+          0.7777777777777778,
+          0.9142857142857143,
+          0.97165991902834
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0018715637432552032,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.00030688542867499975,
+          1.8446273566771327e-05,
+          0.001546232041013432
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9242424242424242,
+          0.9681274900398407
+        ]
+      },
+      "visual_delta": -0.0026674305403970016,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:4d24781a33345c18",
+      "action_fast": 7.288707256317139,
+      "action_slow": 2.8515944480895996,
+      "action_delta": 4.437112808227539,
+      "visual_fast": {
+        "value": 0.003937791151668333,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0008344479680111545,
+          0.0028901553579419818,
+          0.0002131878257151967
+        ],
+        "inlier_fraction": [
+          0.9583333333333334,
+          0.9396551724137931,
+          0.9715302491103203
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0012538896115453463,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0005763717517276993,
+          -0.001826519888927569,
+          0.0011490020291099218
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.9732142857142857,
+          0.9548611111111112
+        ]
+      },
+      "visual_delta": 0.005191680763213679,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:29647b1293bf52b0",
+      "action_fast": 33.82095718383789,
+      "action_slow": 23.490800857543945,
+      "action_delta": 10.330156326293945,
+      "visual_fast": {
+        "value": -0.0011404793028699548,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.001958453548567118,
+          0.000618889007459151,
+          0.00019908523823801224
+        ],
+        "inlier_fraction": [
+          0.9090909090909091,
+          0.9142857142857143,
+          0.976
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0015550246784724953,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0037681522668374127,
+          0.0018736041564248482,
+          0.00033952343194006926
+        ],
+        "inlier_fraction": [
+          0.8461538461538461,
+          0.9117647058823529,
+          0.9742489270386266
+        ]
+      },
+      "visual_delta": 0.0004145453756025405,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:21cdf3f1825a53bf",
+      "action_fast": 31.46147918701172,
+      "action_slow": 20.544281005859375,
+      "action_delta": 10.917198181152344,
+      "visual_fast": {
+        "value": 0.00141098328017116,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0007529068157426854,
+          0.0017454459223376368,
+          0.0004184441735762085
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9259259259259259,
+          0.9790209790209791
+        ]
+      },
+      "visual_slow": {
+        "value": -0.001775944383582654,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0039080873492491446,
+          0.001752977505238356,
+          0.0003791654604281346
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9107142857142857,
+          0.974910394265233
+        ]
+      },
+      "visual_delta": 0.003186927663753814,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0008:10c857815ed654b1",
+      "action_fast": 8.44621467590332,
+      "action_slow": 8.084493637084961,
+      "action_delta": 0.3617210388183594,
+      "visual_fast": {
+        "value": -0.034966894802886075,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.03322203423357244,
+          -0.0014244296836346227,
+          -0.0003204308856790187
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9594594594594594,
+          0.9617224880382775
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0008802464940953806,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          -0.0004385214064760975,
+          -0.0004417250876192831
+        ],
+        "inlier_fraction": [
+          null,
+          0.9444444444444444,
+          0.9487179487179487
+        ]
+      },
+      "visual_delta": -0.03408664830879069,
+      "action_order_valid": false,
+      "scored": false,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0010:ea72aca728ca535e",
+      "action_fast": 55.14441680908203,
+      "action_slow": 39.95213317871094,
+      "action_delta": 15.192283630371094,
+      "visual_fast": {
+        "value": 0.002296906752351297,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0007386747955328827,
+          0.0011528785507396628,
+          0.0004053534060787518
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.9523809523809523,
+          0.9491525423728814
+        ]
+      },
+      "visual_slow": {
+        "value": -0.00046705448410951875,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0011778674938797884,
+          0.0007082872530611854,
+          2.525756709084201e-06
+        ],
+        "inlier_fraction": [
+          0.9130434782608695,
+          0.974025974025974,
+          0.9658119658119658
+        ]
+      },
+      "visual_delta": 0.002763961236460816,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0015:37625948dec951c1",
+      "action_fast": 6.922464370727539,
+      "action_slow": 3.55092191696167,
+      "action_delta": 3.371542453765869,
+      "visual_fast": {
+        "value": 0.008335324797270206,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.006808726557393667,
+          0.0017163028209559875,
+          -0.00018970458107944846
+        ],
+        "inlier_fraction": [
+          0.8823529411764706,
+          0.8958333333333334,
+          0.9794238683127572
+        ]
+      },
+      "visual_slow": {
+        "value": 0.008528194743011495,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.007999774185908314,
+          0.000730142772912873,
+          -0.00020172221580969232
+        ],
+        "inlier_fraction": [
+          0.8461538461538461,
+          0.896551724137931,
+          0.9766536964980544
+        ]
+      },
+      "visual_delta": -0.00019286994574128913,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0014:fd9695c9770f5edd",
+      "action_fast": 76.26892852783203,
+      "action_slow": 59.60564422607422,
+      "action_delta": 16.663284301757812,
+      "visual_fast": {
+        "value": 0.004682004428714997,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0036081364328916475,
+          0.0010853159518123942,
+          -1.144795598904505e-05
+        ],
+        "inlier_fraction": [
+          0.9090909090909091,
+          0.9361702127659575,
+          0.9831223628691983
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0071881538824417595,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.00828683939344751,
+          0.0006685905319967582,
+          0.000430094979008992
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9534883720930233,
+          0.9746835443037974
+        ]
+      },
+      "visual_delta": 0.011870158311156755,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0013:29c9d694a2a15357",
+      "action_fast": 25.089908599853516,
+      "action_slow": 19.471927642822266,
+      "action_delta": 5.61798095703125,
+      "visual_fast": {
+        "value": 0.00849276957498527,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.006116664511470162,
+          0.0010349742741628239,
+          0.0013411307893522835
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9279279279279279,
+          0.9708029197080292
+        ]
+      },
+      "visual_slow": {
+        "value": 0.008723406889157993,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.006522625400325134,
+          0.001098384231740945,
+          0.0011023972570919148
+        ],
+        "inlier_fraction": [
+          0.8823529411764706,
+          0.9603960396039604,
+          0.9812734082397003
+        ]
+      },
+      "visual_delta": -0.0002306373141727231,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0004:d322456697285dd8",
+      "action_fast": 45.81201171875,
+      "action_slow": 36.47357940673828,
+      "action_delta": 9.338432312011719,
+      "visual_fast": {
+        "value": -0.0028335636929194023,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0012338400734794189,
+          -0.0011245640971789118,
+          -0.0004751595222610715
+        ],
+        "inlier_fraction": [
+          0.8,
+          0.8888888888888888,
+          0.9591836734693877
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0019895257751816175,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0005821618221421374,
+          0.0013023207412337975,
+          0.0012693668560899577
+        ],
+        "inlier_fraction": [
+          0.875,
+          0.8588235294117647,
+          0.9534883720930233
+        ]
+      },
+      "visual_delta": -0.00482308946810102,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0002:1e680a8ac9e45935",
+      "action_fast": 20.594017028808594,
+      "action_slow": 15.029541015625,
+      "action_delta": 5.564476013183594,
+      "visual_fast": {
+        "value": 5.775937543992256e-05,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          -7.828339524251803e-05,
+          0.0001360427706824406
+        ],
+        "inlier_fraction": [
+          null,
+          0.9137931034482759,
+          0.96875
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0009167623756564638,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.0011522762116993723,
+          -0.0002355138360429084
+        ],
+        "inlier_fraction": [
+          null,
+          0.8771929824561403,
+          0.9581589958158996
+        ]
+      },
+      "visual_delta": -0.0008590030002165413,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0003:e3b684408d1b54ac",
+      "action_fast": 13.76954460144043,
+      "action_slow": 7.131961345672607,
+      "action_delta": 6.637583255767822,
+      "visual_fast": {
+        "value": 0.004523655383413524,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0037226920750015927,
+          -0.00022555231418753898,
+          0.0010265156225994696
+        ],
+        "inlier_fraction": [
+          0.875,
+          0.9545454545454546,
+          0.991304347826087
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0044315434644689854,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0034384315985616053,
+          -8.39760622482155e-06,
+          0.0010015094721322016
+        ],
+        "inlier_fraction": [
+          0.8928571428571429,
+          0.9384615384615385,
+          0.9873417721518988
+        ]
+      },
+      "visual_delta": 9.211191894453827e-05,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:3fa1f89822535ac2",
+      "action_fast": 4.274364471435547,
+      "action_slow": 1.3564801216125488,
+      "action_delta": 2.917884349822998,
+      "visual_fast": {
+        "value": 0.0005698507740407937,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.0004394268604969157,
+          0.00013042391354387803
+        ],
+        "inlier_fraction": [
+          null,
+          0.921875,
+          0.9713114754098361
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0009836168801645754,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          -9.475970109074079e-05,
+          -0.0008888571790738347
+        ],
+        "inlier_fraction": [
+          null,
+          0.9538461538461539,
+          0.9787234042553191
+        ]
+      },
+      "visual_delta": 0.0015534676542053691,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0007:03cb37b0188f53ef",
+      "action_fast": 7.059617519378662,
+      "action_slow": 3.2977168560028076,
+      "action_delta": 3.7619006633758545,
+      "visual_fast": {
+        "value": -0.0002090766670510105,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0004648640017002184,
+          0.00010906126435680388,
+          0.00014672607029240402
+        ],
+        "inlier_fraction": [
+          0.7,
+          0.9550561797752809,
+          0.9813432835820896
+        ]
+      },
+      "visual_slow": {
+        "value": 0.008778644774179523,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.007332065656305502,
+          0.0008588080035326632,
+          0.0005877711143413588
+        ],
+        "inlier_fraction": [
+          0.8461538461538461,
+          0.9230769230769231,
+          0.992619926199262
+        ]
+      },
+      "visual_delta": -0.008987721441230534,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:8ba789a78fd955e8",
+      "action_fast": 3.562979221343994,
+      "action_slow": -0.07834720611572266,
+      "action_delta": 3.641326427459717,
+      "visual_fast": {
+        "value": -0.007846126024320957,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0068264569693115085,
+          -0.000374523089763411,
+          -0.0006451459652460366
+        ],
+        "inlier_fraction": [
+          0.8888888888888888,
+          0.968421052631579,
+          0.9748953974895398
+        ]
+      },
+      "visual_slow": {
+        "value": -0.007750338323017909,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.006864437394893063,
+          -0.0003913597531586412,
+          -0.0004945411749662053
+        ],
+        "inlier_fraction": [
+          0.8181818181818182,
+          0.9560439560439561,
+          0.9918032786885246
+        ]
+      },
+      "visual_delta": -9.578770130304771e-05,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.23.20.43.31_veh-16_03607_04007:log-0033-scene-0015:5e6be6c3f151533e",
+      "action_fast": -6.17937707901001,
+      "action_slow": -6.17937707901001,
+      "action_delta": 0.0,
+      "visual_fast": {
+        "value": 0.005031032633966252,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0022227793631167505,
+          0.002069939125284806,
+          0.0007383141455646958
+        ],
+        "inlier_fraction": [
+          0.8918918918918919,
+          0.9661016949152542,
+          0.9748201438848921
+        ]
+      },
+      "visual_slow": {
+        "value": 0.005031032633966252,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0022227793631167505,
+          0.002069939125284806,
+          0.0007383141455646958
+        ],
+        "inlier_fraction": [
+          0.8918918918918919,
+          0.9661016949152542,
+          0.9748201438848921
+        ]
+      },
+      "visual_delta": 0.0,
+      "action_order_valid": false,
+      "scored": false,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0010:21c50a0cb24f54e1",
+      "action_fast": 29.424535751342773,
+      "action_slow": 19.065744400024414,
+      "action_delta": 10.35879135131836,
+      "visual_fast": {
+        "value": -0.004593197488512525,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.004058915500057256,
+          -8.512962871637392e-05,
+          -0.0004491523597388951
+        ],
+        "inlier_fraction": [
+          0.625,
+          0.8703703703703703,
+          0.9732142857142857
+        ]
+      },
+      "visual_slow": {
+        "value": -0.003396419144322329,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.002823143486414333,
+          -2.8664548452709553e-05,
+          -0.0005446111094552865
+        ],
+        "inlier_fraction": [
+          0.7619047619047619,
+          0.8392857142857143,
+          0.9815668202764977
+        ]
+      },
+      "visual_delta": -0.0011967783441901958,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0014:ad1aa0836c7e5ec2",
+      "action_fast": 14.55628776550293,
+      "action_slow": 8.581860542297363,
+      "action_delta": 5.974427223205566,
+      "visual_fast": {
+        "value": 0.005088687559600435,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003482432390196056,
+          0.0007881955841152898,
+          0.000818059585289089
+        ],
+        "inlier_fraction": [
+          0.8888888888888888,
+          0.9117647058823529,
+          0.9810606060606061
+        ]
+      },
+      "visual_slow": {
+        "value": -0.005888534697422416,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.008706060633699081,
+          0.0018090584915410439,
+          0.001008467444735621
+        ],
+        "inlier_fraction": [
+          0.9,
+          0.9107142857142857,
+          0.9884169884169884
+        ]
+      },
+      "visual_delta": 0.010977222257022851,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0011:36c13aea9824583a",
+      "action_fast": 51.79247283935547,
+      "action_slow": 38.119407653808594,
+      "action_delta": 13.673065185546875,
+      "visual_fast": {
+        "value": 0.0028199043848984398,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0001782127806436784,
+          0.0012428659377091865,
+          0.001398825666545575
+        ],
+        "inlier_fraction": [
+          0.9,
+          0.9518072289156626,
+          0.9756944444444444
+        ]
+      },
+      "visual_slow": {
+        "value": 0.004325572144585308,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0029123119545931566,
+          0.0004428698805147391,
+          0.0009703903094774121
+        ],
+        "inlier_fraction": [
+          0.8928571428571429,
+          0.946236559139785,
+          0.978494623655914
+        ]
+      },
+      "visual_delta": -0.0015056677596868681,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0001:15262f9da77b543b",
+      "action_fast": 42.64092254638672,
+      "action_slow": 33.371063232421875,
+      "action_delta": 9.269859313964844,
+      "visual_fast": {
+        "value": 0.00527366437967252,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0025285290169297357,
+          0.0011021926680054037,
+          0.0016429426947373804
+        ],
+        "inlier_fraction": [
+          0.8947368421052632,
+          0.9456521739130435,
+          0.975
+        ]
+      },
+      "visual_slow": {
+        "value": 0.004320582349007588,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003058248459226366,
+          -0.00026710338697835944,
+          0.0015294372767595819
+        ],
+        "inlier_fraction": [
+          0.9473684210526315,
+          0.9239130434782609,
+          0.9651162790697675
+        ]
+      },
+      "visual_delta": 0.0009530820306649316,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_00600_01084:log-0045-scene-0013:5018ed61502d50f6",
+      "action_fast": 5.371584892272949,
+      "action_slow": 3.3338890075683594,
+      "action_delta": 2.03769588470459,
+      "visual_fast": {
+        "value": 0.00038877795066084267,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.00108646294026418,
+          -0.0013223450962103153,
+          0.000624660106606978
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9454545454545454,
+          0.9851485148514851
+        ]
+      },
+      "visual_slow": {
+        "value": 0.004414682995922325,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0033067179821378925,
+          0.0003120381862852239,
+          0.0007959268274992091
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9215686274509803,
+          0.9852941176470589
+        ]
+      },
+      "visual_delta": -0.004025905045261483,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0013:047ef67345fa5bcb",
+      "action_fast": 17.694217681884766,
+      "action_slow": 11.906681060791016,
+      "action_delta": 5.78753662109375,
+      "visual_fast": {
+        "value": 0.0001921606336445705,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.00222570718602959,
+          0.0026759383609815477,
+          -0.0002580705413073871
+        ],
+        "inlier_fraction": [
+          0.9090909090909091,
+          0.9487179487179487,
+          0.9782608695652174
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0011541685547609673,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.00033036470144963176,
+          0.0013624727996502611,
+          0.00012206045656033799
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.9620253164556962,
+          0.9782608695652174
+        ]
+      },
+      "visual_delta": -0.0009620079211163969,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.08.17.16.57.11_veh-08_01200_01636:log-0050-scene-0021:bb0198780883583f",
+      "action_fast": 14.13729476928711,
+      "action_slow": 13.287250518798828,
+      "action_delta": 0.8500442504882812,
+      "visual_fast": {
+        "value": 0.004205081811878297,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0016346095051838958,
+          0.00420066336681571,
+          0.0016390279502464821
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9102564102564102,
+          0.9803149606299213
+        ]
+      },
+      "visual_slow": {
+        "value": 0.005333029427735551,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.0036490194029717175,
+          0.0016840100247638339
+        ],
+        "inlier_fraction": [
+          null,
+          0.9113924050632911,
+          0.9590163934426229
+        ]
+      },
+      "visual_delta": -0.0011279476158572548,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0003:5be989da7a815cdd",
+      "action_fast": 3.6835527420043945,
+      "action_slow": -0.10246196389198303,
+      "action_delta": 3.7860147058963776,
+      "visual_fast": {
+        "value": 0.006153473233057599,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0027255870743842702,
+          0.00278709394872442,
+          0.000640792209948909
+        ],
+        "inlier_fraction": [
+          0.7333333333333333,
+          0.9384615384615385,
+          0.9312169312169312
+        ]
+      },
+      "visual_slow": {
+        "value": 7.952294449774727e-05,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0020565848813250986,
+          -0.002379693289220409,
+          0.0004026313523930576
+        ],
+        "inlier_fraction": [
+          0.8,
+          0.9552238805970149,
+          0.927461139896373
+        ]
+      },
+      "visual_delta": 0.006073950288559851,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0013:774aad2507f75660",
+      "action_fast": 27.16227149963379,
+      "action_slow": 21.270736694335938,
+      "action_delta": 5.891534805297852,
+      "visual_fast": {
+        "value": 0.006279508695756344,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0074802517812519115,
+          -0.0016689090400972967,
+          0.00046816595460172865
+        ],
+        "inlier_fraction": [
+          0.8461538461538461,
+          0.9456521739130435,
+          0.9767441860465116
+        ]
+      },
+      "visual_slow": {
+        "value": 0.006641886500228424,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.008989665116065828,
+          -0.002658989168478056,
+          0.000311210552640653
+        ],
+        "inlier_fraction": [
+          0.8333333333333334,
+          0.9325842696629213,
+          0.97265625
+        ]
+      },
+      "visual_delta": -0.00036237780447208063,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0006:8f095fb450be56a2",
+      "action_fast": 27.050739288330078,
+      "action_slow": 21.72740936279297,
+      "action_delta": 5.323329925537109,
+      "visual_fast": {
+        "value": 0.001490873292163408,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0016395587115634294,
+          0.0021666158093797796,
+          0.0009638161943470579
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9365079365079365,
+          0.9693486590038314
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0030636130318495787,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.006563772125817037,
+          0.0025045960822267545,
+          0.000995563011740704
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9333333333333333,
+          0.9701492537313433
+        ]
+      },
+      "visual_delta": 0.0045544863240129865,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.06.17.43.07_veh-28_00508_00877:log-0060-scene-0018:0256750475455532",
+      "action_fast": 7.2766499519348145,
+      "action_slow": 2.538102626800537,
+      "action_delta": 4.738547325134277,
+      "visual_fast": {
+        "value": 0.0015949147584447948,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0035586889868554016,
+          -0.0020059814814313535,
+          4.2207253020746666e-05
+        ],
+        "inlier_fraction": [
+          0.75,
+          0.8591549295774648,
+          0.9646017699115044
+        ]
+      },
+      "visual_slow": {
+        "value": -0.000609678348448685,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.002914151291410863,
+          -0.0033363350841712327,
+          -0.00018749455568831558
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9090909090909091,
+          0.9674418604651163
+        ]
+      },
+      "visual_delta": 0.0022045931068934797,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0006:16d0a19acfcd5668",
+      "action_fast": 19.091367721557617,
+      "action_slow": 9.60372257232666,
+      "action_delta": 9.487645149230957,
+      "visual_fast": {
+        "value": 0.00363691166236987,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0026448109975929983,
+          0.0006949887466018128,
+          0.0002971119181750589
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9285714285714286,
+          0.9705882352941176
+        ]
+      },
+      "visual_slow": {
+        "value": 0.003982053786001255,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0026250317185455905,
+          0.0005257684543096659,
+          0.0008312536131459981
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9298245614035088,
+          0.9632352941176471
+        ]
+      },
+      "visual_delta": -0.00034514212363138475,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0017:686bf4968c7b5430",
+      "action_fast": 1.8026028871536255,
+      "action_slow": 0.42806220054626465,
+      "action_delta": 1.3745406866073608,
+      "visual_fast": {
+        "value": 0.012606086834695641,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.010131289735452593,
+          0.0018275764198937973,
+          0.0006472206793492518
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.9733333333333334,
+          0.9618320610687023
+        ]
+      },
+      "visual_slow": {
+        "value": 0.018719830428598344,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.017126944910154082,
+          0.0009450898324014401,
+          0.0006477956860428223
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9318181818181818,
+          0.9758064516129032
+        ]
+      },
+      "visual_delta": -0.006113743593902703,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0004:0d1c1f36c49458a4",
+      "action_fast": 6.191486358642578,
+      "action_slow": 2.085951328277588,
+      "action_delta": 4.10553503036499,
+      "visual_fast": {
+        "value": 0.0033663823135389225,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0022263789884682653,
+          0.0007260328016235801,
+          0.000413970523447077
+        ],
+        "inlier_fraction": [
+          0.8846153846153846,
+          0.9420289855072463,
+          0.9886792452830189
+        ]
+      },
+      "visual_slow": {
+        "value": 0.007659620332443357,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.005653947101105682,
+          0.001460857264079736,
+          0.0005448159672579388
+        ],
+        "inlier_fraction": [
+          0.8846153846153846,
+          0.928,
+          0.9809160305343512
+        ]
+      },
+      "visual_delta": -0.004293238018904435,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.07.12.54.00_veh-35_01843_02314:log-0009-scene-0020:c62208e335b15975",
+      "action_fast": 10.037788391113281,
+      "action_slow": 3.792069435119629,
+      "action_delta": 6.245718955993652,
+      "visual_fast": {
+        "value": 5.6421211153085e-05,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.001834478278610941,
+          0.0008219112428284819,
+          0.0010689882469355442
+        ],
+        "inlier_fraction": [
+          0.9259259259259259,
+          0.967479674796748,
+          0.9893238434163701
+        ]
+      },
+      "visual_slow": {
+        "value": -6.0458050157152516e-05,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0010504808286992495,
+          0.0002536390440253441,
+          0.0007363837345167529
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.9586776859504132,
+          0.9851851851851852
+        ]
+      },
+      "visual_delta": 0.00011687926131023752,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0007:52589e8aa56e5a32",
+      "action_fast": 74.60501098632812,
+      "action_slow": 58.954551696777344,
+      "action_delta": 15.650459289550781,
+      "visual_fast": {
+        "value": 0.008029162447044028,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.008356772839357096,
+          -2.3215616498641525e-05,
+          -0.0003043947758144266
+        ],
+        "inlier_fraction": [
+          0.9411764705882353,
+          0.9158878504672897,
+          0.9844357976653697
+        ]
+      },
+      "visual_slow": {
+        "value": 0.013314543311164485,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.013560227821860945,
+          0.00033541003325246487,
+          -0.0005810945439489252
+        ],
+        "inlier_fraction": [
+          0.8947368421052632,
+          0.91,
+          0.9728682170542635
+        ]
+      },
+      "visual_delta": -0.005285380864120457,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0005:37c8ea887ecb5d47",
+      "action_fast": 3.3459465503692627,
+      "action_slow": 0.391890287399292,
+      "action_delta": 2.9540562629699707,
+      "visual_fast": {
+        "value": 0.02357715508686323,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.021895190701141824,
+          0.0009859674724715134,
+          0.000695996913249895
+        ],
+        "inlier_fraction": [
+          0.875,
+          0.8947368421052632,
+          0.9644268774703557
+        ]
+      },
+      "visual_slow": {
+        "value": 0.003935988871705022,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003513692669663908,
+          0.0005619124251339213,
+          -0.00013961622309280723
+        ],
+        "inlier_fraction": [
+          0.75,
+          0.9310344827586207,
+          0.9764705882352941
+        ]
+      },
+      "visual_delta": 0.01964116621515821,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0009:e8878c5d773451fd",
+      "action_fast": 35.0930061340332,
+      "action_slow": 27.213516235351562,
+      "action_delta": 7.879489898681641,
+      "visual_fast": {
+        "value": 0.004056955771847703,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003438113368051068,
+          -0.0003636043734666965,
+          0.000982446777263332
+        ],
+        "inlier_fraction": [
+          0.9615384615384616,
+          0.9523809523809523,
+          0.9786324786324786
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0036180442299168195,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0026820106841231994,
+          1.3032338018212634e-05,
+          0.0009230012077754073
+        ],
+        "inlier_fraction": [
+          0.9615384615384616,
+          0.97,
+          0.9773755656108597
+        ]
+      },
+      "visual_delta": 0.0004389115419308836,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0006:52dbe8c440ce5c05",
+      "action_fast": 5.407756805419922,
+      "action_slow": 1.8990617990493774,
+      "action_delta": 3.5086950063705444,
+      "visual_fast": {
+        "value": 0.0009905187542664099,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.0004928920085465299,
+          0.0004976267457198801
+        ],
+        "inlier_fraction": [
+          null,
+          0.9310344827586207,
+          0.9669811320754716
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0022176003212342962,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.0018796002393380556,
+          0.00033800008189624085
+        ],
+        "inlier_fraction": [
+          null,
+          0.9333333333333333,
+          0.9742268041237113
+        ]
+      },
+      "visual_delta": -0.0012270815669678864,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0008:0f1699d101ba5a3a",
+      "action_fast": 21.026575088500977,
+      "action_slow": 15.349061012268066,
+      "action_delta": 5.67751407623291,
+      "visual_fast": {
+        "value": 0.00547109199364674,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003116635691273223,
+          0.002298182862081064,
+          5.6273440292453336e-05
+        ],
+        "inlier_fraction": [
+          0.8571428571428571,
+          0.9438202247191011,
+          0.9873949579831933
+        ]
+      },
+      "visual_slow": {
+        "value": 0.014412373984459536,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.012269908210078893,
+          0.0021803900995484987,
+          -3.792432516785611e-05
+        ],
+        "inlier_fraction": [
+          0.6666666666666666,
+          0.967032967032967,
+          0.9873417721518988
+        ]
+      },
+      "visual_delta": -0.008941281990812795,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.23.16.54.19_veh-35_00808_01256:log-0031-scene-0003:dd435683aa3154a3",
+      "action_fast": 33.65742874145508,
+      "action_slow": 23.57369613647461,
+      "action_delta": 10.083732604980469,
+      "visual_fast": {
+        "value": -0.005307476894468071,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.003012940242572007,
+          -0.001277049203896505,
+          -0.0010174874479995588
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.948051948051948,
+          0.9803921568627451
+        ]
+      },
+      "visual_slow": {
+        "value": -0.008092219661262197,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0065738878532123025,
+          -0.0007301589766584638,
+          -0.0007881728313914305
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9459459459459459,
+          0.9714285714285714
+        ]
+      },
+      "visual_delta": 0.0027847427667941262,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0008:86ade9bf57a15a12",
+      "action_fast": 12.925529479980469,
+      "action_slow": 4.780773639678955,
+      "action_delta": 8.144755840301514,
+      "visual_fast": {
+        "value": 0.002639527450186971,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.002034633246736068,
+          0.0007404158302405506,
+          -0.00013552162678964744
+        ],
+        "inlier_fraction": [
+          0.9259259259259259,
+          0.8735632183908046,
+          0.9739776951672863
+        ]
+      },
+      "visual_slow": {
+        "value": 0.004407948986688017,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0032984349448610677,
+          0.0009143015407284559,
+          0.0001952125010984937
+        ],
+        "inlier_fraction": [
+          0.9310344827586207,
+          0.9111111111111111,
+          0.9660377358490566
+        ]
+      },
+      "visual_delta": -0.001768421536501046,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.28.16.29.11_veh-38_03263_03766:log-0036-scene-0011:b87c15c9f6cf54eb",
+      "action_fast": 13.281222343444824,
+      "action_slow": 11.074722290039062,
+      "action_delta": 2.2065000534057617,
+      "visual_fast": {
+        "value": 0.0012854321284089905,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0031439366953875275,
+          -0.0015828654816083048,
+          -0.0002756390853702323
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.9,
+          0.9866071428571429
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0031199803476228425,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0042710694022806105,
+          -0.000930339297604334,
+          -0.00022074975705343406
+        ],
+        "inlier_fraction": [
+          0.8333333333333334,
+          0.9361702127659575,
+          0.9744680851063829
+        ]
+      },
+      "visual_delta": -0.001834548219213852,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0020:283e72de69e554a9",
+      "action_fast": -3.309722900390625,
+      "action_slow": -5.624738693237305,
+      "action_delta": 2.3150157928466797,
+      "visual_fast": {
+        "value": 0.00011656823609215865,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0015088800076133845,
+          0.0015089244112264943,
+          0.00011652383247904888
+        ],
+        "inlier_fraction": [
+          0.8461538461538461,
+          0.8541666666666666,
+          0.9723320158102767
+        ]
+      },
+      "visual_slow": {
+        "value": -2.43181171892634e-05,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0009614073513373953,
+          0.0006286936778136747,
+          0.0003083955563344572
+        ],
+        "inlier_fraction": [
+          0.8333333333333334,
+          0.8867924528301887,
+          0.9731800766283525
+        ]
+      },
+      "visual_delta": 0.00014088635328142205,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0008:473250ea97725d86",
+      "action_fast": 8.129709243774414,
+      "action_slow": 3.85235595703125,
+      "action_delta": 4.277353286743164,
+      "visual_fast": {
+        "value": 0.010568497883875316,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.006753792230553902,
+          0.002226213665742372,
+          0.0015884919875790414
+        ],
+        "inlier_fraction": [
+          0.875,
+          0.9424460431654677,
+          0.979933110367893
+        ]
+      },
+      "visual_slow": {
+        "value": 0.009673679774277374,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.006019564436190468,
+          0.002483183438154158,
+          0.0011709318999327475
+        ],
+        "inlier_fraction": [
+          0.8571428571428571,
+          0.9280575539568345,
+          0.9901639344262295
+        ]
+      },
+      "visual_delta": 0.0008948181095979422,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0016:1ba80125a66c55f4",
+      "action_fast": 18.404096603393555,
+      "action_slow": 12.334716796875,
+      "action_delta": 6.069379806518555,
+      "visual_fast": {
+        "value": 0.0021281501499861746,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003082047007142798,
+          -0.002004143725363441,
+          0.0010502468682068175
+        ],
+        "inlier_fraction": [
+          0.7692307692307693,
+          0.9310344827586207,
+          0.96
+        ]
+      },
+      "visual_slow": {
+        "value": 0.00036375036167326114,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0006652675654631383,
+          -0.0008513363673016217,
+          0.0018803542944380212
+        ],
+        "inlier_fraction": [
+          0.8181818181818182,
+          0.9433962264150944,
+          0.9580838323353293
+        ]
+      },
+      "visual_delta": 0.0017643997883129135,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0002:34fe9c9f73ee5f39",
+      "action_fast": 12.636152267456055,
+      "action_slow": 9.826784133911133,
+      "action_delta": 2.809368133544922,
+      "visual_fast": {
+        "value": 0.016655315203571528,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.015132618199910441,
+          0.00047289063527999084,
+          0.0010498063683810975
+        ],
+        "inlier_fraction": [
+          0.9090909090909091,
+          0.9393939393939394,
+          0.973568281938326
+        ]
+      },
+      "visual_slow": {
+        "value": 0.02222470482583059,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.019641312867015814,
+          0.0011884794712013506,
+          0.001394912487613425
+        ],
+        "inlier_fraction": [
+          0.9,
+          0.9166666666666666,
+          0.9743589743589743
+        ]
+      },
+      "visual_delta": -0.005569389622259061,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.24.23.50.16_veh-17_01696_02071:log-0048-scene-0004:38d364ae06d2537f",
+      "action_fast": 63.753379821777344,
+      "action_slow": 49.76683044433594,
+      "action_delta": 13.986549377441406,
+      "visual_fast": {
+        "value": -0.0005471313423415496,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0018093847640079518,
+          0.0007805478948497876,
+          0.0004817055268166146
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.9358974358974359,
+          0.9866666666666667
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0003045098803183155,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0025491346349118442,
+          0.0018285009304840427,
+          0.000416123824109486
+        ],
+        "inlier_fraction": [
+          0.9230769230769231,
+          0.9285714285714286,
+          0.9832635983263598
+        ]
+      },
+      "visual_delta": -0.00024262146202323412,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0003:ac9cd9d48368593a",
+      "action_fast": 12.220172882080078,
+      "action_slow": 9.344490051269531,
+      "action_delta": 2.875682830810547,
+      "visual_fast": {
+        "value": 0.016191458950026542,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.013436823497406717,
+          0.0013835705494224717,
+          0.001371064903197354
+        ],
+        "inlier_fraction": [
+          0.8,
+          0.9210526315789473,
+          0.9705882352941176
+        ]
+      },
+      "visual_slow": {
+        "value": 0.009073581773753104,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.005555418897404025,
+          0.002077897017576102,
+          0.0014402658587729764
+        ],
+        "inlier_fraction": [
+          0.7777777777777778,
+          0.9090909090909091,
+          0.9783393501805054
+        ]
+      },
+      "visual_delta": 0.0071178771762734384,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0003:c4fd814210875a8e",
+      "action_fast": 3.7197251319885254,
+      "action_slow": -1.0067648887634277,
+      "action_delta": 4.726490020751953,
+      "visual_fast": {
+        "value": 0.007359162080170149,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.001346726286686351,
+          0.004844561160856331,
+          0.001167874632627467
+        ],
+        "inlier_fraction": [
+          0.95,
+          0.9134615384615384,
+          0.9762845849802372
+        ]
+      },
+      "visual_slow": {
+        "value": 0.006639939982307046,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.000871631310237877,
+          0.004776830616858278,
+          0.0009914780552108906
+        ],
+        "inlier_fraction": [
+          0.9545454545454546,
+          0.9215686274509803,
+          0.980544747081712
+        ]
+      },
+      "visual_delta": 0.0007192220978631033,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0017:bf05b40056ce5080",
+      "action_fast": 8.072436332702637,
+      "action_slow": 5.3896708488464355,
+      "action_delta": 2.682765483856201,
+      "visual_fast": {
+        "value": 0.003278377963218956,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0007756496769962835,
+          0.0007028163409359785,
+          0.001799911945286694
+        ],
+        "inlier_fraction": [
+          0.9375,
+          0.9,
+          0.9732824427480916
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0003918292124122157,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.000499244584983214,
+          0.00010872091960283369,
+          0.000782352877792596
+        ],
+        "inlier_fraction": [
+          0.8571428571428571,
+          0.9038461538461539,
+          0.9806949806949807
+        ]
+      },
+      "visual_delta": 0.00288654875080674,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.01.19.16.42_veh-28_03307_03808:log-0057-scene-0011:ea646de793c05d16",
+      "action_fast": -11.195243835449219,
+      "action_slow": -11.195243835449219,
+      "action_delta": 0.0,
+      "visual_fast": {
+        "value": 0.005239126854680549,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0017766402452471842,
+          0.0020189907553676252,
+          0.0014434958540657393
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9606299212598425,
+          0.9880239520958084
+        ]
+      },
+      "visual_slow": {
+        "value": 0.005239126854680549,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0017766402452471842,
+          0.0020189907553676252,
+          0.0014434958540657393
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9606299212598425,
+          0.9880239520958084
+        ]
+      },
+      "visual_delta": 0.0,
+      "action_order_valid": false,
+      "scored": false,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0014:49196fecbe9a549f",
+      "action_fast": 5.1907243728637695,
+      "action_slow": -1.4890598058700562,
+      "action_delta": 6.679784178733826,
+      "visual_fast": {
+        "value": -0.0003238426525700319,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0011335751849900675,
+          0.0008036154143708735,
+          6.117118049162131e-06
+        ],
+        "inlier_fraction": [
+          0.9347826086956522,
+          0.9596774193548387,
+          0.9661016949152542
+        ]
+      },
+      "visual_slow": {
+        "value": -0.001174924192012402,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0017863972641423613,
+          0.000692558565789274,
+          -8.108549365931467e-05
+        ],
+        "inlier_fraction": [
+          0.9523809523809523,
+          0.9523809523809523,
+          0.9738562091503268
+        ]
+      },
+      "visual_delta": 0.0008510815394423702,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0017:c52a38ddf7ef5155",
+      "action_fast": 4.642114162445068,
+      "action_slow": 0.41600489616394043,
+      "action_delta": 4.226109266281128,
+      "visual_fast": {
+        "value": 0.029307541804540333,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.030038837387097644,
+          0.00042474576626633356,
+          -0.0011560413488236458
+        ],
+        "inlier_fraction": [
+          0.6923076923076923,
+          0.8783783783783784,
+          0.9775784753363229
+        ]
+      },
+      "visual_slow": {
+        "value": 0.018944895941624726,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.019900980194478165,
+          -0.00016143841398843419,
+          -0.0007946458388650053
+        ],
+        "inlier_fraction": [
+          0.7142857142857143,
+          0.8961038961038961,
+          0.9823008849557522
+        ]
+      },
+      "visual_delta": 0.010362645862915607,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0008:578754f1c0465866",
+      "action_fast": 10.664772033691406,
+      "action_slow": 9.350518226623535,
+      "action_delta": 1.314253807067871,
+      "visual_fast": {
+        "value": 0.0002685196843297254,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0005865847371441357,
+          0.00043163643213883605,
+          0.00042346798933502505
+        ],
+        "inlier_fraction": [
+          0.9545454545454546,
+          0.95,
+          0.97165991902834
+        ]
+      },
+      "visual_slow": {
+        "value": -4.010848655410727e-07,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0004038931247340973,
+          5.3853770655985324e-05,
+          0.0003496382692125709
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9439252336448598,
+          0.9596774193548387
+        ]
+      },
+      "visual_delta": 0.0002689207691952665,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0009:64a07926a82c588e",
+      "action_fast": 11.876537322998047,
+      "action_slow": 6.625551700592041,
+      "action_delta": 5.250985622406006,
+      "visual_fast": {
+        "value": 0.02251268698969825,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.020683843999174126,
+          0.0008499199811858521,
+          0.0009789230093382724
+        ],
+        "inlier_fraction": [
+          0.7333333333333333,
+          0.9431818181818182,
+          0.9647577092511013
+        ]
+      },
+      "visual_slow": {
+        "value": 0.012029736011853913,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.010218519834614366,
+          0.0007145816947223805,
+          0.0010966344825171666
+        ],
+        "inlier_fraction": [
+          0.8333333333333334,
+          0.9634146341463414,
+          0.9672897196261683
+        ]
+      },
+      "visual_delta": 0.010482950977844338,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.11.54.15_veh-12_04366_04810:log-0014-scene-0015:bae44d22679650a8",
+      "action_fast": -8.687311172485352,
+      "action_slow": -9.700130462646484,
+      "action_delta": 1.0128192901611328,
+      "visual_fast": {
+        "value": -0.001803819101085316,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0009838296568377035,
+          -0.0008269795835126634,
+          6.9901392650508455e-06
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.8888888888888888,
+          0.9819004524886877
+        ]
+      },
+      "visual_slow": {
+        "value": 0.00014023216446766308,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -7.587630621338946e-05,
+          0.00012072044042421363,
+          9.538803025683892e-05
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.8769230769230769,
+          0.9774774774774775
+        ]
+      },
+      "visual_delta": -0.0019440512655529792,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.12.39.51_veh-26_05620_06003:log-0016-scene-0011:679e5b97df1e59e9",
+      "action_fast": 29.352191925048828,
+      "action_slow": 20.936145782470703,
+      "action_delta": 8.416046142578125,
+      "visual_fast": {
+        "value": 0.002366043597853867,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.0016569423920853642,
+          0.0007091012057685031
+        ],
+        "inlier_fraction": [
+          null,
+          0.9125,
+          0.9724409448818898
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0029445504485652264,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0002540833388203813,
+          0.002229361103666006,
+          0.0009692726837196018
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9358974358974359,
+          0.9661016949152542
+        ]
+      },
+      "visual_delta": -0.0005785068507113593,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.14.58.55_veh-35_01095_01484:log-0018-scene-0012:744298c7a8e4555e",
+      "action_fast": 11.743906021118164,
+      "action_slow": 6.987273216247559,
+      "action_delta": 4.7566328048706055,
+      "visual_fast": {
+        "value": 0.0025756969802290105,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003137529450584925,
+          -0.0012497496183273634,
+          0.0006879171479714491
+        ],
+        "inlier_fraction": [
+          0.9047619047619048,
+          0.935064935064935,
+          0.976303317535545
+        ]
+      },
+      "visual_slow": {
+        "value": 0.001827664558664238,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -3.4342454161867996e-05,
+          0.00021082065720448356,
+          0.0016511863556216224
+        ],
+        "inlier_fraction": [
+          0.9583333333333334,
+          0.8607594936708861,
+          0.9765258215962441
+        ]
+      },
+      "visual_delta": 0.0007480324215647725,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.09.17.23.18_veh-38_00773_01140:log-0020-scene-0016:2519a76e3bce5700",
+      "action_fast": 22.528472900390625,
+      "action_slow": 15.77408218383789,
+      "action_delta": 6.754390716552734,
+      "visual_fast": {
+        "value": -0.0067207498790804905,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.006372133284484086,
+          -0.0011286184352815234,
+          0.0007800018406851187
+        ],
+        "inlier_fraction": [
+          0.8571428571428571,
+          0.9365079365079365,
+          0.9903381642512077
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0062721217360422995,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.006799252288306023,
+          -0.0005227321624978803,
+          0.0010498627147616034
+        ],
+        "inlier_fraction": [
+          0.8571428571428571,
+          0.9206349206349206,
+          0.9898477157360406
+        ]
+      },
+      "visual_delta": -0.00044862814303819106,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.14.16.32.09_veh-35_05038_05402:log-0023-scene-0017:6999504ca5215867",
+      "action_fast": 5.751392841339111,
+      "action_slow": 1.971406102180481,
+      "action_delta": 3.7799867391586304,
+      "visual_fast": {
+        "value": 0.00184149970705107,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0005806612736132733,
+          0.0019024890018240323,
+          0.000519671978840311
+        ],
+        "inlier_fraction": [
+          0.9444444444444444,
+          0.9752066115702479,
+          0.9831649831649831
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0038432401491927544,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.000852524956585108,
+          0.0019136628047050229,
+          0.0010770523879026237
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.957983193277311,
+          0.986013986013986
+        ]
+      },
+      "visual_delta": -0.0020017404421416845,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.23.17.31.36_veh-16_00016_00377:log-0032-scene-0003:3fa2f81cff025162",
+      "action_fast": 15.171215057373047,
+      "action_slow": 7.783059597015381,
+      "action_delta": 7.388155460357666,
+      "visual_fast": {
+        "value": 0.006143377342572257,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0060212319900982475,
+          0.0001164874491394023,
+          5.657903334607188e-06
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9519230769230769,
+          0.9739776951672863
+        ]
+      },
+      "visual_slow": {
+        "value": 0.007066232537327535,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.006740025139647587,
+          0.0002536368840538179,
+          7.257051362613001e-05
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9484536082474226,
+          0.977859778597786
+        ]
+      },
+      "visual_delta": -0.0009228551947552781,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0023:1884cdb9a91d54ac",
+      "action_fast": 36.47960662841797,
+      "action_slow": 24.946727752685547,
+      "action_delta": 11.532878875732422,
+      "visual_fast": {
+        "value": -0.00036935544007348224,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.002323566723370456,
+          0.0014165110560619275,
+          0.0005377002272350462
+        ],
+        "inlier_fraction": [
+          0.9666666666666667,
+          0.8762886597938144,
+          0.9884615384615385
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0006879275617819383,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0021737986412143076,
+          0.0009761317343177194,
+          0.0005097393451146499
+        ],
+        "inlier_fraction": [
+          0.96875,
+          0.8775510204081632,
+          0.984251968503937
+        ]
+      },
+      "visual_delta": 0.00031857212170845607,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0018:b3e874004d2b5ea7",
+      "action_fast": 74.4603271484375,
+      "action_slow": 58.08641815185547,
+      "action_delta": 16.37390899658203,
+      "visual_fast": {
+        "value": 0.0011073195246320442,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0015101893764636108,
+          -0.0003311764110961477,
+          -7.169344073541892e-05
+        ],
+        "inlier_fraction": [
+          0.875,
+          0.9444444444444444,
+          0.9775280898876404
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0015884015911086552,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0001879097522803193,
+          -0.0012806368407524155,
+          -0.000495674502636559
+        ],
+        "inlier_fraction": [
+          0.8823529411764706,
+          0.9240506329113924,
+          0.9685314685314685
+        ]
+      },
+      "visual_delta": 0.0026957211157406995,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.09.17.06.37_veh-35_00258_00748:log-0038-scene-0021:11aa2d1a69d953d6",
+      "action_fast": -7.722721099853516,
+      "action_slow": -8.831998825073242,
+      "action_delta": 1.1092777252197266,
+      "visual_fast": {
+        "value": 0.0005920217006959917,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0001856234874161404,
+          -9.997746692452625e-05,
+          0.0008776226550366583
+        ],
+        "inlier_fraction": [
+          0.9166666666666666,
+          0.9651162790697675,
+          0.9743589743589743
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0046133948708229795,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003849156028807125,
+          -0.0003255050443454531,
+          0.0010897438863613075
+        ],
+        "inlier_fraction": [
+          0.9090909090909091,
+          0.9555555555555556,
+          0.9644128113879004
+        ]
+      },
+      "visual_delta": -0.004021373170126988,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.18.06.21_veh-38_03231_03712:log-0041-scene-0019:3c7e410ca7aa5bbe",
+      "action_fast": -11.653424263000488,
+      "action_slow": -11.653424263000488,
+      "action_delta": 0.0,
+      "visual_fast": {
+        "value": 0.0023296661434048568,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0009271040037862088,
+          0.0008911316529342904,
+          0.0005114304866843579
+        ],
+        "inlier_fraction": [
+          0.9777777777777777,
+          0.98,
+          0.9888579387186629
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0023296661434048568,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0009271040037862088,
+          0.0008911316529342904,
+          0.0005114304866843579
+        ],
+        "inlier_fraction": [
+          0.9777777777777777,
+          0.98,
+          0.9888579387186629
+        ]
+      },
+      "visual_delta": 0.0,
+      "action_order_valid": false,
+      "scored": false,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.18.19.22_veh-35_00440_00858:log-0044-scene-0018:8371beb3ca32587e",
+      "action_fast": 8.02420711517334,
+      "action_slow": 2.8998236656188965,
+      "action_delta": 5.124383449554443,
+      "visual_fast": {
+        "value": -0.0001359238929907904,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0016972096139212757,
+          0.0007388888902922567,
+          0.0008223968306382285
+        ],
+        "inlier_fraction": [
+          0.8571428571428571,
+          0.9743589743589743,
+          0.9565217391304348
+        ]
+      },
+      "visual_slow": {
+        "value": 0.0008261537666396737,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.00017608194219674095,
+          0.0010634793188718508,
+          -6.124361003543613e-05
+        ],
+        "inlier_fraction": [
+          0.8636363636363636,
+          0.9743589743589743,
+          0.9601769911504425
+        ]
+      },
+      "visual_delta": -0.0009620776596304641,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.07.16.20.45.29_veh-35_01095_01486:log-0046-scene-0003:2ff93800f84c525a",
+      "action_fast": 19.35662841796875,
+      "action_slow": 11.412328720092773,
+      "action_delta": 7.944299697875977,
+      "visual_fast": {
+        "value": 0.0012186488719818324,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.00011666786402279416,
+          6.664765319742082e-05,
+          0.0010353333547616173
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9186046511627907,
+          0.9688715953307393
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0006435119345380082,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0023108603545619008,
+          0.0004443872600087234,
+          0.0012229611600151691
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9166666666666666,
+          0.9717741935483871
+        ]
+      },
+      "visual_delta": 0.0018621608065198406,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.08.09.17.55.59_veh-28_00021_00307:log-0049-scene-0013:6fb2a39fcd8f57cc",
+      "action_fast": 29.24066162109375,
+      "action_slow": 19.101917266845703,
+      "action_delta": 10.138744354248047,
+      "visual_fast": {
+        "value": -0.004430723894515759,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.00571863351483439,
+          0.0017795600227696034,
+          -0.0004916504024509723
+        ],
+        "inlier_fraction": [
+          0.8076923076923077,
+          0.9302325581395349,
+          0.9815668202764977
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0019525861558912876,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.0027365446238880185,
+          0.0011527906902907864,
+          -0.00036883222229405543
+        ],
+        "inlier_fraction": [
+          0.875,
+          0.9302325581395349,
+          0.9767441860465116
+        ]
+      },
+      "visual_delta": -0.0024781377386244715,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.08.17.17.17.01_veh-45_02314_02798:log-0051-scene-0007:87c65fc20c8150e9",
+      "action_fast": 1.6820292472839355,
+      "action_slow": -0.9947078227996826,
+      "action_delta": 2.676737070083618,
+      "visual_fast": {
+        "value": -0.00298027649614041,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.003426518400566851,
+          -0.0006185034936752489,
+          0.0010647453981016896
+        ],
+        "inlier_fraction": [
+          0.9,
+          0.9333333333333333,
+          0.9597069597069597
+        ]
+      },
+      "visual_slow": {
+        "value": -0.0007614599341514185,
+        "accepted_intervals": 3,
+        "raw_values": [
+          -0.002308461644907578,
+          0.0001839938640307407,
+          0.0013630078467254186
+        ],
+        "inlier_fraction": [
+          0.8823529411764706,
+          0.918918918918919,
+          0.9565217391304348
+        ]
+      },
+      "visual_delta": -0.0022188165619889916,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.09.16.15.12.03_veh-42_01037_01434:log-0055-scene-0005:3c82e47677b159ce",
+      "action_fast": 29.513458251953125,
+      "action_slow": 24.156593322753906,
+      "action_delta": 5.356864929199219,
+      "visual_fast": {
+        "value": 0.006899842520736073,
+        "accepted_intervals": 2,
+        "raw_values": [
+          null,
+          0.005925311461087797,
+          0.0009745310596482757
+        ],
+        "inlier_fraction": [
+          null,
+          0.9375,
+          0.9870689655172413
+        ]
+      },
+      "visual_slow": {
+        "value": 0.009719335208954988,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.0028204885020159448,
+          0.005646664853977997,
+          0.0012521818529610468
+        ],
+        "inlier_fraction": [
+          0.8571428571428571,
+          0.9195402298850575,
+          0.991304347826087
+        ]
+      },
+      "visual_delta": -0.002819492688218915,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.01.19.16.42_veh-28_02011_02410:log-0056-scene-0004:59995bde0c105096",
+      "action_fast": 7.559998035430908,
+      "action_slow": 2.4537010192871094,
+      "action_delta": 5.106297016143799,
+      "visual_fast": {
+        "value": 0.005887347557223317,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.003990790100513897,
+          0.0004772190776895423,
+          0.0014193383790198778
+        ],
+        "inlier_fraction": [
+          0.8928571428571429,
+          0.9576271186440678,
+          0.9897260273972602
+        ]
+      },
+      "visual_slow": {
+        "value": 0.005766993713538432,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.004019849636883164,
+          0.0006172688310883966,
+          0.0011298752455668715
+        ],
+        "inlier_fraction": [
+          0.9310344827586207,
+          0.963963963963964,
+          0.9863481228668942
+        ]
+      },
+      "visual_delta": 0.0001203538436848851,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "navsim:2021.10.05.07.10.04_veh-52_01442_01802:log-0058-scene-0013:5f7f28b955fb5436",
+      "action_fast": -1.5493465662002563,
+      "action_slow": -4.4069437980651855,
+      "action_delta": 2.857597231864929,
+      "visual_fast": {
+        "value": 0.018613900700239504,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.016211066428342517,
+          0.0018653572066055844,
+          0.0005374770652914027
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9272727272727272,
+          0.9819004524886877
+        ]
+      },
+      "visual_slow": {
+        "value": 0.018812867096840706,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.015859988172517363,
+          0.0024990097268249418,
+          0.0004538691974984024
+        ],
+        "inlier_fraction": [
+          1.0,
+          0.9152542372881356,
+          0.9817351598173516
+        ]
+      },
+      "visual_delta": -0.0001989663966012016,
+      "action_order_valid": true,
+      "scored": true,
+      "hit": false
+    }
+  ]
+}

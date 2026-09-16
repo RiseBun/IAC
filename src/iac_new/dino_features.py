@@ -103,6 +103,55 @@ class DINOv2TemporalConsistency:
         norm = np.linalg.norm(pooled, axis=1, keepdims=True)
         return (pooled / np.maximum(norm, 1e-8)).astype(np.float32)
 
+    def embed_global_images(self, images: np.ndarray) -> np.ndarray:
+        """Return normalized embeddings for already decoded RGB images."""
+        values = np.asarray(images, dtype=np.uint8)
+        if values.ndim != 4 or values.shape[-1] != 3:
+            raise ValueError("images must have shape [T,H,W,3]")
+        spatial = self._features(values)
+        pooled = spatial.mean(axis=(2, 3))
+        norm = np.linalg.norm(pooled, axis=1, keepdims=True)
+        return (pooled / np.maximum(norm, 1e-8)).astype(np.float32)
+
+    def embed_images(self, images: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        """Return global and spatial embeddings from one backbone pass."""
+        values = np.asarray(images, dtype=np.uint8)
+        if values.ndim != 4 or values.shape[-1] != 3:
+            raise ValueError("images must have shape [T,H,W,3]")
+        spatial = self._features(values)
+        spatial_norm = np.linalg.norm(spatial, axis=1, keepdims=True)
+        normalized_spatial = spatial / np.maximum(spatial_norm, 1e-8)
+        pooled = spatial.mean(axis=(2, 3))
+        pooled_norm = np.linalg.norm(pooled, axis=1, keepdims=True)
+        normalized_global = pooled / np.maximum(pooled_norm, 1e-8)
+        return normalized_global.astype(np.float32), normalized_spatial.astype(np.float32)
+
+    def embed_spatial_images(self, images: np.ndarray) -> np.ndarray:
+        """Return normalized spatial embeddings for decoded RGB images."""
+        values = np.asarray(images, dtype=np.uint8)
+        if values.ndim != 4 or values.shape[-1] != 3:
+            raise ValueError("images must have shape [T,H,W,3]")
+        spatial = self._features(values)
+        norm = np.linalg.norm(spatial, axis=1, keepdims=True)
+        return (spatial / np.maximum(norm, 1e-8)).astype(np.float32)
+
+    def embed_spatial(
+        self,
+        frame_paths: list[str],
+        *,
+        target_size: tuple[int, int] = (256, 144),
+    ) -> np.ndarray:
+        """Return normalized DINO patch tokens as ``[T,C,H,W]``.
+
+        Global pooling erased most of the local counterfactual signal in the
+        first appearance pilot.  Keeping the patch grid lets the evidence
+        layer compare where a change occurs and whether it persists.
+        """
+        images = self._read(frame_paths, target_size)
+        spatial = self._features(images)
+        norm = np.linalg.norm(spatial, axis=1, keepdims=True)
+        return (spatial / np.maximum(norm, 1e-8)).astype(np.float32)
+
     def embed_global(
         self,
         frame_paths: list[str],

@@ -1,0 +1,9 @@
+{
+  "protocol": "iac-progress-lineage-audit-v1",
+  "declared_rows": 4,
+  "declared_groups": 1,
+  "valid_four_role_groups": 1,
+  "issue_count": 0,
+  "status": "pass",
+  "issues": []
+}

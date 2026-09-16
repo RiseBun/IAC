@@ -1,0 +1,304 @@
+{
+  "protocol": "iac-response-consistency-v2",
+  "status": "pilot",
+  "metric": "coarse_relative_progress_endpoint",
+  "absolute_distance_required": false,
+  "declared_groups": 8,
+  "contract_valid_groups": 8,
+  "eligible_groups": 7,
+  "scored_groups": 7,
+  "coverage": 1.0,
+  "hits": 7,
+  "endpoint_accuracy": 1.0,
+  "endpoint_accuracy_ci95": [
+    0.6456695649333126,
+    1.0
+  ],
+  "endpoint_accuracy_bootstrap_ci95_diagnostic": [
+    1.0,
+    1.0
+  ],
+  "formal_sample_size_met": false,
+  "promotion_pass": false,
+  "invalid_contract_reasons": {},
+  "groups": [
+    {
+      "counterfactual_group_id": "epona_native:0",
+      "status": "action_delta_below_threshold",
+      "action_delta_m": 1.2295736269152258e-06
+    },
+    {
+      "counterfactual_group_id": "epona_native:1",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 0.5302834510803223,
+      "action_delta_m": 0.5302834510803223,
+      "visual_low": {
+        "value": 0.722247476645955,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.2500564541874749,
+          0.24053749855172382,
+          0.23165352390675634
+        ],
+        "inlier_fraction": [
+          0.8347826086956521,
+          0.8407079646017699,
+          0.830694275274056
+        ]
+      },
+      "visual_high": {
+        "value": 1.0021624329545542,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.35556032647453023,
+          0.3614152142863128,
+          0.2851868921937113
+        ],
+        "inlier_fraction": [
+          0.8291770573566085,
+          0.8177215189873418,
+          0.8367346938775511
+        ]
+      },
+      "visual_delta": 0.2799149563085992,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_native:2",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 1.9854921102523804,
+      "action_delta_m": 1.9854921102523804,
+      "visual_low": {
+        "value": 2.7513730886263774,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.9141717178051828,
+          0.8803309425965681,
+          0.9568704282246268
+        ],
+        "inlier_fraction": [
+          0.7331975560081466,
+          0.759927797833935,
+          0.7931726907630522
+        ]
+      },
+      "visual_high": {
+        "value": 3.1078824242962835,
+        "accepted_intervals": 3,
+        "raw_values": [
+          0.929831369063053,
+          1.0645076737634394,
+          1.113543381469791
+        ],
+        "inlier_fraction": [
+          0.7329545454545454,
+          0.6774891774891775,
+          0.6923076923076923
+        ]
+      },
+      "visual_delta": 0.35650933566990606,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_native:3",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 4.250114440917969,
+      "action_delta_m": 4.250114440917969,
+      "visual_low": {
+        "value": 4.125856209987939,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.3949760728944975,
+          1.3602151266060922,
+          1.370665010487349
+        ],
+        "inlier_fraction": [
+          0.6022408963585434,
+          0.6155913978494624,
+          0.6658767772511849
+        ]
+      },
+      "visual_high": {
+        "value": 5.14374939482835,
+        "accepted_intervals": 3,
+        "raw_values": [
+          1.6335795751654245,
+          1.5993635238650654,
+          1.91080629579786
+        ],
+        "inlier_fraction": [
+          0.6062322946175638,
+          0.5438066465256798,
+          0.5661971830985916
+        ]
+      },
+      "visual_delta": 1.0178931848404114,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_native:4",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 5.147738933563232,
+      "action_delta_m": 5.147738933563232,
+      "visual_low": {
+        "value": 7.082691567709509,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.636212620345402,
+          2.325818216453823,
+          2.1206607309102843
+        ],
+        "inlier_fraction": [
+          0.5662650602409639,
+          0.6733067729083665,
+          0.6535087719298246
+        ]
+      },
+      "visual_high": {
+        "value": 7.863350920121063,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.780777524725083,
+          2.4402069418241252,
+          2.642366453571855
+        ],
+        "inlier_fraction": [
+          0.6156583629893239,
+          0.6294820717131474,
+          0.652
+        ]
+      },
+      "visual_delta": 0.7806593524115542,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_native:5",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 5.6769914627075195,
+      "action_delta_m": 5.6769914627075195,
+      "visual_low": {
+        "value": 8.290414946929257,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.9897793588316857,
+          2.830411228723661,
+          2.470224359373911
+        ],
+        "inlier_fraction": [
+          0.5059523809523809,
+          0.532051282051282,
+          0.5914634146341463
+        ]
+      },
+      "visual_high": {
+        "value": 9.208558448341991,
+        "accepted_intervals": 3,
+        "raw_values": [
+          3.239930207941487,
+          2.9716087752458478,
+          2.997019465154657
+        ],
+        "inlier_fraction": [
+          0.4297872340425532,
+          0.5087719298245614,
+          0.42
+        ]
+      },
+      "visual_delta": 0.9181435014127342,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_native:6",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 6.206408500671387,
+      "action_delta_m": 6.206408500671387,
+      "visual_low": {
+        "value": 6.928429344538175,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.3280439341828227,
+          2.1741836672279033,
+          2.4262017431274487
+        ],
+        "inlier_fraction": [
+          0.6435185185185185,
+          0.6683673469387755,
+          0.6787564766839378
+        ]
+      },
+      "visual_high": {
+        "value": 7.338911950773813,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.2618188003987694,
+          2.5928335466347936,
+          2.48425960374025
+        ],
+        "inlier_fraction": [
+          0.6062176165803109,
+          0.6728971962616822,
+          0.6807228915662651
+        ]
+      },
+      "visual_delta": 0.4104826062356377,
+      "hit": true
+    },
+    {
+      "counterfactual_group_id": "epona_native:7",
+      "status": "scored",
+      "low_role": "stop",
+      "high_role": "normal",
+      "action_low_m": 0.0,
+      "action_high_m": 6.295357704162598,
+      "action_delta_m": 6.295357704162598,
+      "visual_low": {
+        "value": 6.537113059785262,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.1918795925539745,
+          2.630181350131074,
+          1.7150521171002135
+        ],
+        "inlier_fraction": [
+          0.5108225108225108,
+          0.5026455026455027,
+          0.6312849162011173
+        ]
+      },
+      "visual_high": {
+        "value": 6.71487250935533,
+        "accepted_intervals": 3,
+        "raw_values": [
+          2.497344056117361,
+          2.4851050144254825,
+          1.7324234388124864
+        ],
+        "inlier_fraction": [
+          0.5846153846153846,
+          0.5421052631578948,
+          0.5614035087719298
+        ]
+      },
+      "visual_delta": 0.17775944957006828,
+      "hit": true
+    }
+  ]
+}

@@ -447,6 +447,11 @@ def assemble_step1_evidence(
     evidence: dict[str, Any] = {
         "protocol": "iac-step1-evidence-layer-v1",
         "status": "experimental_not_promoted",
+        "compatibility": {
+            "status": "deprecated_diagnostic_only",
+            "replacement_protocol": "iac-visual-evidence-v2",
+            "reason": "legacy aggregate evidence is retained for replay but v2 owns metric-specific scoring",
+        },
         "channels": {
             "temporal_motion": temporal_motion_evidence(branch_profile),
             "counterfactual_response": {"status": "unavailable", "reason": "missing_twin"},

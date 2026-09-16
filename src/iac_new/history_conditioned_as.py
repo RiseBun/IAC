@@ -8,6 +8,7 @@ the action trajectory is only joined after visual motion has been extracted.
 from __future__ import annotations
 
 import math
+from collections import Counter
 from typing import Any, Mapping
 
 import numpy as np
@@ -152,15 +153,22 @@ def score_row(row: Mapping[str, Any], record: Mapping[str, Any], *, config: Mapp
     predicted: list[float] = []
     interval_scores: list[dict[str, Any]] = []
     for index, interval in enumerate(scoring_intervals):
+        visual_interval_yaw = _interval_visual_yaw(interval, record)
         motion = interval.get("estimators", {}).get("all", {}).get("motion", {})
         match = interval.get("estimators", {}).get("all", {}).get("match", {})
         value = motion.get("longitudinal_m") if motion.get("available") else None
         if value is None or not np.isfinite(float(value)) or index >= len(action_delta):
-            interval_scores.append({"status": "uncertain", "acceptable": False, "reason": "visual_motion_unavailable"})
+            interval_scores.append({
+                "status": "uncertain",
+                "acceptable": False,
+                "reason": "visual_motion_unavailable",
+                "visual_yaw_rad": visual_interval_yaw,
+            })
             continue
         predicted.append(float(value))
         interval_scores.append(
-            score_longitudinal(
+            {
+                **score_longitudinal(
                 float(value),
                 float(action_delta[index]),
                 geometry={
@@ -169,7 +177,9 @@ def score_row(row: Mapping[str, Any], record: Mapping[str, Any], *, config: Mapp
                     "median_reprojection_error_px": motion.get("median_reprojection_error_px"),
                 },
                 config=config,
-            )
+                ),
+                "visual_yaw_rad": visual_interval_yaw,
+            }
         )
     visual_yaw = _visual_yaw({"intervals": scoring_intervals}, record) if visual_probe_valid else None
     boundary_yaw = (
@@ -206,6 +216,7 @@ def score_row(row: Mapping[str, Any], record: Mapping[str, Any], *, config: Mapp
                 "observed_interval_count": len(probe_intervals),
             },
             "intervals": interval_scores,
+            "visual_yaw_intervals_rad": [item.get("visual_yaw_rad") for item in interval_scores],
             "progress": {
                 "interval_count": len(interval_scores),
                 "visual_available_count": len(predicted),
@@ -272,15 +283,44 @@ def aggregate(
     progress_effective = (
         len(accepted_intervals) / expected_interval_count if expected_interval_count else None
     )
+    progress_conditional_micro = (
+        len(accepted_intervals) / len(quality_scored) if quality_scored else None
+    )
+    progress_score_coverage = (
+        len(quality_scored) / expected_interval_count if expected_interval_count else None
+    )
     yaw_correct_count = sum(value is True for value in yaw)
+    yaw_conditional = yaw_correct_count / len(yaw) if yaw else None
+    yaw_score_coverage = len(yaw) / len(yaw_applicable) if yaw_applicable else None
     yaw_effective = (
         yaw_correct_count / len(yaw_applicable) if yaw_applicable else None
+    )
+    as_conditional = (
+        math.sqrt(progress_conditional_micro * yaw_conditional)
+        if progress_conditional_micro is not None and yaw_conditional is not None
+        else None
+    )
+    as_observability = (
+        math.sqrt(progress_score_coverage * yaw_score_coverage)
+        if progress_score_coverage is not None and yaw_score_coverage is not None
+        else None
     )
     as_overall = (
         math.sqrt(progress_effective * yaw_effective)
         if progress_effective is not None and yaw_effective is not None
         else None
     )
+    progress_abstentions = Counter(
+        str(interval.get("reason") or "unspecified")
+        for interval in intervals
+        if interval.get("status") == "uncertain"
+    )
+    unaccounted_progress = max(
+        expected_interval_count - len(quality_scored) - sum(progress_abstentions.values()),
+        0,
+    )
+    if unaccounted_progress:
+        progress_abstentions["missing_or_invalid_record"] += unaccounted_progress
     boundary = [row.get("history_future_boundary", {}) for row in rows]
     boundary_yaw_deg = [
         float(item["absolute_yaw_deg"])
@@ -321,12 +361,45 @@ def aggregate(
         "quality_scored_interval_count": len(quality_scored),
         "quality_scored_interval_coverage": len(quality_scored) / len(intervals) if intervals else 0.0,
         "AS_progress_mean": float(np.mean(progress)) if progress else None,
+        "AS_progress_conditional_micro": progress_conditional_micro,
+        "AS_progress_score_coverage": progress_score_coverage,
         "AS_progress_effective": progress_effective,
-        "AS_yaw_direction": float(np.mean(yaw)) if yaw else None,
+        "AS_yaw_direction": yaw_conditional,
+        "AS_yaw_conditional": yaw_conditional,
+        "AS_yaw_score_coverage": yaw_score_coverage,
         "AS_yaw_effective": yaw_effective,
         "AS_composite_mean": float(np.mean(composite)) if composite else None,
+        "AS_conditional": as_conditional,
+        "AS_conditional_100": 100.0 * as_conditional if as_conditional is not None else None,
+        "AS_observability": as_observability,
+        "AS_observability_100": 100.0 * as_observability if as_observability is not None else None,
         "AS_overall": as_overall,
         "AS_overall_100": 100.0 * as_overall if as_overall is not None else None,
+        "AS_decomposition": {
+            "identity": "AS_overall = AS_conditional * AS_observability",
+            "conditional_consistency": as_conditional,
+            "observability_summary": as_observability,
+            "coverage_aware_deployment_summary": as_overall,
+            "note": "progress and yaw use different declared units; retain both channel coverages",
+        },
+        "status_counts": {
+            "progress": {
+                "declared": expected_interval_count,
+                "scored": len(quality_scored),
+                "abstain": max(expected_interval_count - len(quality_scored), 0),
+            },
+            "yaw": {
+                "declared_applicable": len(yaw_applicable),
+                "scored": len(yaw),
+                "abstain": max(len(yaw_applicable) - len(yaw), 0),
+            },
+        },
+        "abstention_reasons": {
+            "progress": dict(sorted(progress_abstentions.items())),
+            "yaw": {
+                "visual_yaw_unavailable": max(len(yaw_applicable) - len(yaw), 0),
+            },
+        },
         "yaw_applicable_count": len(yaw_applicable),
         "yaw_turn_count": len(yaw),
         "yaw_correct_count": yaw_correct_count,
