@@ -25,6 +25,7 @@
 | [`../tools/score_future_to_action_mediation.py`](../tools/score_future_to_action_mediation.py) | CLI | 四条件 future-to-action pathway mediation scorer |
 | [`../tools/score_conditional_foresight.py`](../tools/score_conditional_foresight.py) | CLI | Paired future-perturbation contrast on task success (foresight-conditioned, not marginal) |
 | [`../tools/analyse_joint_source_table.py`](../tools/analyse_joint_source_table.py) | CLI | Source-level join of consistency scores with execution outcomes |
+| [`JOINT_SOURCE_ANALYSIS_20260916_ZH.md`](JOINT_SOURCE_ANALYSIS_20260916_ZH.md) | ZH | Current source-level AS/RCS versus independent FCS association audit |
 | [`../tools/score_structural_grounding.py`](../tools/score_structural_grounding.py) | CLI | Recompute GS from generated and user-supplied reference flow-structure JSONL |
 | [`../tools/export_gs_reference_release.py`](../tools/export_gs_reference_release.py) | CLI | HMAC-pseudonymized descriptor-only reference export for public GS replay |
 | [`../tools/verify_gs_reference_release.py`](../tools/verify_gs_reference_release.py) | CLI | Privacy and integrity checks for a descriptor-only GS reference bundle |
