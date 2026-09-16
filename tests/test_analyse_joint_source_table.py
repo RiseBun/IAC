@@ -11,8 +11,8 @@ class JointSourceTableTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "as.json").write_text(json.dumps({"rows": [
-                {"sample_id": "s1::left", "status": "scored", "as_components": {"composite_mean": 0.8}},
-                {"sample_id": "s1::right", "status": "scored", "as_components": {"composite_mean": 0.6}},
+                {"sample_id": "s1::left", "status": "scored", "as_components": {"composite_mean": 0.8}, "yaw": {"applicable": True, "direction_match": True}, "intervals": [{"status": "scored", "acceptable": True}]},
+                {"sample_id": "s1::right", "status": "scored", "as_components": {"composite_mean": 0.6}, "yaw": {"applicable": True, "direction_match": True}, "intervals": [{"status": "scored", "acceptable": True}]},
             ]}), encoding="utf-8")
             (root / "fcs.jsonl").write_text(json.dumps({"source_key": "s1", "task_success": True, "task_score": 0.9}) + "\n" + json.dumps({"source_key": "s2", "task_success": False, "task_score": 0.1}) + "\n", encoding="utf-8")
             report = analyse(root / "as.json", root / "fcs.jsonl")

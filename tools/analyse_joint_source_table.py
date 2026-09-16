@@ -67,19 +67,19 @@ def _spearman(left: list[float], right: list[float]) -> float | None:
 
 
 def _load_as(path: Path) -> dict[str, dict[str, Any]]:
+    from iac_new.history_conditioned_as import aggregate
+
     payload = _read_json(path)
-    grouped: dict[str, list[float]] = defaultdict(list)
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in _rows(payload, "rows"):
-        if row.get("status") not in {None, "scored"}:
-            continue
         source = _source(row.get("source_key") or row.get("sample_id"))
-        components = row.get("as_components") or {}
-        score = components.get("composite_mean")
-        if score is None:
-            score = row.get("AS_composite")
-        if source and isinstance(score, (int, float)):
-            grouped[source].append(float(score))
-    return {k: {"as_score": _mean(v), "as_rows": len(v)} for k, v in grouped.items()}
+        if source:
+            grouped[source].append(row)
+    output = {}
+    for source, rows in grouped.items():
+        result = aggregate(rows, mode="wam")
+        output[source] = {"as_score": result["AS_overall"], "as_rows": len(rows), "as_conditional": result["AS_conditional"], "as_observability": result["AS_observability"]}
+    return output
 
 
 def _load_rcs(path: Path) -> dict[str, dict[str, Any]]:
@@ -91,7 +91,8 @@ def _load_rcs(path: Path) -> dict[str, dict[str, Any]]:
             continue
         value = row.get("yaw_match")
         if isinstance(value, bool):
-            grouped[source].append(float(value))
+            hit = value and row.get("material_action_response") is True and row.get("visual_response_detected") is True
+            grouped[source].append(float(hit))
     return {k: {"rcs_yaw": _mean(v), "rcs_rows": len(v)} for k, v in grouped.items()}
 
 
@@ -150,7 +151,7 @@ def analyse(as_path: Path, fcs_path: Path, *, rcs_path: Path | None = None) -> d
         "joined_source_count": sum(1 for row in table if row["joined_channels"] >= 2),
         "correlations": joins,
         "table": table,
-        "claim_boundary": "Descriptive source-level association only; no causal or predictive claim.",
+        "claim_boundary": "Exploratory source-level association only. Shared source does not verify shared model revision, command branch or executed action; no causal, predictive or same-rollout validation claim.",
     }
 
 
@@ -163,7 +164,9 @@ def main() -> None:
     args = parser.parse_args()
     report = analyse(args.as_path, args.fcs_path, rcs_path=args.rcs_path)
     args.output.write_text(json.dumps(report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
-    print(json.dumps({k: report[k] for k in ("source_counts", "joined_source_count", "correlations")}, indent=2))
+    summary = {k: report[k] for k in ("source_counts", "joined_source_count")}
+    summary["correlations"] = [{k: v for k, v in item.items() if k != "source_keys"} for item in report["correlations"]]
+    print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":

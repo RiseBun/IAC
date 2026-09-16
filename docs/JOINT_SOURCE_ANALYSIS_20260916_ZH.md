@@ -1,30 +1,35 @@
-# Source-level joint analysis（2026-09-16）
+# Source-level joint audit（2026-09-16）
 
-## 目的
+## 完成了什么
 
-检查视觉一致性分数是否与独立闭环执行结果在同一 source 上共同变化。该分析只做描述性关联，不把相关性解释为预测能力或因果关系。
+找回服务器保留的 1490-row、745-source lineage-fixed DriveWAM AS，以及 978 条独立 NAVSIM PDM rollout，接入本地 745-source RCS。补齐文档曾引用但实际不存在的 `analyse_joint_source_table.py`。
 
-## 数据契约
+AS 在每个 source 内复用冻结 `history_conditioned_as.aggregate`，输出 coverage-aware `AS_overall`；RCS 使用正式命中条件：动作差实质、视觉响应非零、方向匹配，零动作/零视觉响应不计为命中。旧 `composite_mean` 与 ternary `yaw_match` 不是这两个正式分数。
 
-- AS 使用当前 common-10 DriveWAM 结果；AS 分支先按 source 聚合；
-- RCS 使用 lineage-fixed DriveWAM yaw pairs；
-- FCS 使用 NAVSIM PDM 独立闭环 rollout，任务成功来自 `pdm_score`，不读取生成图像；
-- source 通过 `source_key` 精确连接；缺失通道保持缺失，不补零；
-- Spearman 只在两个通道都存在的 source 上计算。
+## 当前探索性结果
 
-## 结果
+| 关联 | 可计算 source | Spearman |
+|---|---:|---:|
+| AS-overall vs execution success | 574 | 0.123 |
+| AS-overall vs execution task score | 574 | 0.149 |
+| RCS-yaw vs execution success | 728 | 0.019 |
+| RCS-yaw vs execution task score | 728 | 0.042 |
 
-| 关联 | source 数 | Spearman | 解释边界 |
-|---|---:|---:|---|
-| AS vs FCS success | 10 | 0.326 | common-10 pilot，不能作正式相关性结论 |
-| AS vs FCS task score | 10 | 0.035 | common-10 pilot，连续分数几乎无排序证据 |
-| RCS-yaw vs FCS success | 728 | 0.061 | 现有 RCS/FCS source overlap 的描述性结果 |
-| RCS-yaw vs FCS task score | 728 | 0.080 | 不能解释为无效，只能说明该 split 未见明显单调关系 |
+AS 总输入 745 source，其中直行等 source 没有适用的 yaw 通道，完整 AS 不能计算；缺失值保持缺失，不补零。common-10 仍保留为调试报告，不作正式证据。
 
-## 决策
+## 为什么不能作正式有效性验证
 
-这一步没有证明“视觉一致性高就一定执行得好”。它也没有推翻视觉层：RCS/AS 测量的是生成视觉与动作的结构一致性，FCS 测量的是独立闭环任务结果，两者并非同一能力。
+这些表只通过 source identity 相交。旧 FCS 执行 `drivewam_native` 分支，而 AS/RCS 使用左右命令分支；model revision 标识也不一致。尚未验证同一生成样本、命令、随机种子、模型版本和实际执行动作。
 
-真正的缺口是 AS 与 FCS 尚未在至少 30 个 source 的同一正式公共池上对齐。下一步应扩大 common pool，并把 FCS rollout 的 source manifest 固定为该池；在此之前，不应把 joint correlation 写成主结果，也不应据此调整 AS/RCS 阈值。
+因此不能把弱相关解释为指标有效，也不能把近零相关解释为指标无效。尚未完成 bootstrap/置换和场景分层，但更优先的问题是样本/动作同一性，不应先给错配关联添加统计显著性。
 
-机器可读结果：[`joint_source_analysis_drivewam_common10_20260916.json`](../reports/joint_source_analysis_drivewam_common10_20260916.json)。
+## 最短下一步
+
+直接对 AS 已通过 lineage 的 manifest 中原生动作运行独立 NAVSIM PDM rollout，保存与视觉分支一致的 source、branch、model revision、seed 和 action fingerprint。先用小样本验证动作指纹完全一致，再扩展；不需要重新生成视频，不需要更换视觉后端。
+
+只有同动作配对闭合后，才能检验“一致性与执行质量是否有关”。即使最终关系弱，AS/RCS 作为一致性指标的定义也不自动失效；是否预测驾驶成功是另一个待验证主张。
+
+产物：
+
+- [`joint_source_analysis_drivewam_full_20260916.json`](../reports/joint_source_analysis_drivewam_full_20260916.json)
+- [`analyse_joint_source_table.py`](../tools/analyse_joint_source_table.py)
