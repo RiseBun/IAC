@@ -1,0 +1,30 @@
+{
+  "protocol": "iac-wam-release-readiness-validator-v1",
+  "conditional_consistency_grounding_release": {
+    "ready": false,
+    "claim": "AS/RCS/GS are independently reported where supported; unavailable channels are not zero-filled."
+  },
+  "complete_causal_future_driven_benchmark": {
+    "ready": false,
+    "claim": "future-to-action mediation is required; independent simulator execution remains external validation, not an IAC metric."
+  },
+  "errors": [
+    "as:status_not_validated",
+    "as:fewer_than_two_models",
+    "as:architecture_claim_scope_missing_or_overbroad",
+    "gs:status_not_validated",
+    "gs:fewer_than_two_models",
+    "gs:architecture_claim_scope_missing_or_overbroad"
+  ],
+  "warnings": [
+    "future_to_action_mediation:confirmation_pending",
+    "future_to_action_mediation:pilot_present_but_unqualified",
+    "gs:reference_data_private_public_score_recompute_unavailable"
+  ],
+  "evidence_boundary": {
+    "future_to_action_mediation_complete": false,
+    "future_to_action_mediation_pilot_present": true,
+    "gs_reference_publicly_recomputable": false
+  },
+  "status": "fail"
+}

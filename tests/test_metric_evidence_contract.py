@@ -9,7 +9,7 @@ from iac_new.metric_evidence_contract import (
 
 
 class MetricEvidenceContractTest(unittest.TestCase):
-    def test_mas_requires_native_action_and_visual_likelihood(self) -> None:
+    def test_as_requires_native_action_and_visual_likelihood(self) -> None:
         packet = {
             "source_key": "s0",
             "evidence_status": "scored",
@@ -18,7 +18,7 @@ class MetricEvidenceContractTest(unittest.TestCase):
             "action_source": "wam_native_action",
             "visual_evidence": {"likelihood": 0.7, "support_fraction": 0.8},
         }
-        report = validate_metric_evidence_packet("MAS", packet)
+        report = validate_metric_evidence_packet("AS", packet)
         self.assertEqual(report["status"], "valid")
         self.assertTrue(report["score_allowed"])
 
@@ -53,7 +53,7 @@ class MetricEvidenceContractTest(unittest.TestCase):
 
     def test_table_preserves_unavailable_without_zero_fill(self) -> None:
         rows = [{"source_key": "s0", "evidence_status": "unavailable", "failure_reason": "no_video"}]
-        report = validate_metric_evidence_table(rows, "MAS")
+        report = validate_metric_evidence_table(rows, "AS")
         self.assertEqual(report["status_counts"]["unavailable"], 1)
         self.assertEqual(report["status_counts"]["invalid"], 0)
 

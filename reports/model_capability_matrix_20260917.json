@@ -1,0 +1,73 @@
+{
+  "protocol": "iac-model-capability-evidence-matrix-v1",
+  "as_of": "2026-09-17",
+  "promotion_gate": {
+    "minimum_models": 2,
+    "minimum_distinct_architectures_for_universal_claim": 3,
+    "minimum_pair_coverage": 0.90,
+    "direction_ci95_lower": 0.75,
+    "source_disjoint_confirmation": true
+  },
+  "evaluated_models": ["Epona", "DriveWAM", "DriveVA", "WorldDrive"],
+  "architecture_families": {
+    "Epona": "epona_nuplan_world_model",
+    "DriveWAM": "drivewam_navsim_world_model",
+    "DriveVA": "driveva",
+    "WorldDrive": "worlddrive"
+  },
+  "claim_scope": "metric_specific_only",
+  "architecture_universal_claim": false,
+  "formal_claims": {
+    "as": {
+      "models": ["DriveWAM"],
+      "diagnostic_models": ["Epona", "WorldDrive"],
+      "claim_enabled": false,
+      "reason": "full native-action AS cross-model confirmation pending; historical MAS-yaw is retained only as AS-yaw component evidence",
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "ordinal_progress": "validated_on_real_holdout",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
+      }
+    },
+    "rcs_yaw": {
+      "models": ["Epona", "DriveWAM"],
+      "claim_enabled": true,
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
+      }
+    },
+    "gs": {"models": ["Epona"], "diagnostic_models": ["DriveWAM"], "claim_enabled": true, "reason": "DriveWAM identity-specificity control failed; retained as low-grounding diagnostic"},
+    "future_to_action_mediation": {"models": [], "claim_enabled": false, "reason": "no formal four-condition confirmation"}
+  },
+  "diagnostic_models": {
+    "DriveVA": {
+      "channel": "RCS-yaw",
+      "pair_coverage": 0.92,
+      "direction_accuracy": 0.526,
+      "direction_ci95": [0.373, 0.675],
+      "claim_enabled": false,
+      "reason": "direction_gate_failed_on_scene_disjoint_holdout",
+      "source_report": "docs/CCFC_S_VALIDATION_PLAN_ZH.md"
+    },
+    "WorldDrive": {
+      "channel": "RCS-structure-pilot",
+      "scene_clusters": 11,
+      "direction_accuracy": 0.9090909091,
+      "direction_ci95": [0.7272727273, 1.0],
+      "claim_enabled": false,
+      "reason": "pilot_below_confirmation_sample_requirement",
+      "source_report": "reports/forward_visual_worlddrive_combined_scene_bootstrap_20260911.json"
+    }
+  },
+  "interpretation": "Evidence is metric-specific: RCS-yaw is validated on Epona and DriveWAM, complete native-action AS only on DriveWAM, and identity-specific GS only on Epona. This does not establish architecture-universal performance. Diagnostic models expose adapter and model-specific failures; they do not form a natural quality ranking.",
+  "ranking_policy": "not_supported"
+}

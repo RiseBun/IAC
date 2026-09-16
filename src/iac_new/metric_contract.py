@@ -17,16 +17,17 @@ EXPECTED_MEASUREMENT_DIMENSIONS = {
 
 
 def validate_directional_yaw_config(config: dict[str, Any]) -> dict[str, Any]:
-    """Validate the frozen, model-comparable contract of MAS/RCS yaw configs.
+    """Validate the frozen, model-comparable contract of AS-yaw/RCS configs.
 
     A model adapter may only resolve coordinate handedness.  It must not alter
     the descriptor, deadbands, aggregation, promotion gates, or bootstrap unit.
     This function is intentionally dependency-free so it can run in CI and on
     an evaluation server before any private data is mounted.
     """
-    metric_id = str(config.get("metric_id") or "")
-    if metric_id not in {"MAS", "RCS"}:
-        raise ValueError("metric_id must be MAS or RCS")
+    requested_metric_id = str(config.get("metric_id") or "")
+    if requested_metric_id not in {"AS", "MAS", "RCS"}:
+        raise ValueError("metric_id must be AS or RCS (legacy MAS is accepted)")
+    metric_id = "AS" if requested_metric_id == "MAS" else requested_metric_id
     representation = config.get("representation")
     adapter = config.get("adapter")
     contract = config.get("comparability_contract")
@@ -78,7 +79,7 @@ def validate_directional_yaw_config(config: dict[str, Any]) -> dict[str, Any]:
 def validate_directional_yaw_config_set(configs: list[dict[str, Any]]) -> dict[str, Any]:
     """Validate both individual configs and their shared frozen contract.
 
-    MAS and RCS are different estimands, so their action thresholds may differ,
+    AS-yaw and RCS are different estimands, so their action thresholds may differ,
     but the image descriptor, bootstrap unit, missing-value policy, calibration
     contract, and promotion policy must remain comparable.  This check catches
     a common failure mode where every adapter passes a local schema check while

@@ -9,13 +9,15 @@ ROOT = Path(__file__).parents[1]
 
 
 class ReleaseReadinessTest(unittest.TestCase):
-    def test_current_release_remains_blocked_by_conditional_gs(self):
-        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+    def test_current_release_remains_blocked_by_as_and_gs(self):
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260917.json").read_text())
         protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
         report = validate(readiness, protocol)
         self.assertEqual(report["status"], "fail")
         self.assertFalse(report["conditional_consistency_grounding_release"]["ready"])
         self.assertFalse(report["complete_causal_future_driven_benchmark"]["ready"])
+        self.assertIn("as:status_not_validated", report["errors"])
+        self.assertIn("as:fewer_than_two_models", report["errors"])
         self.assertIn("gs:status_not_validated", report["errors"])
         self.assertIn("gs:fewer_than_two_models", report["errors"])
         self.assertIn("future_to_action_mediation:confirmation_pending", report["warnings"])
@@ -26,7 +28,7 @@ class ReleaseReadinessTest(unittest.TestCase):
     def test_missing_validated_metric_fails(self):
         readiness = {
             "claims": {
-                "mas_yaw": {"status": "pilot", "models": ["a", "b"]},
+                "as": {"status": "pilot", "models": ["a", "b"]},
                 "rcs_yaw": {"status": "validated", "models": ["a", "b"]},
                 "gs": {"status": "validated", "models": ["a", "b"]},
                 "future_to_action_mediation": {},
@@ -35,20 +37,20 @@ class ReleaseReadinessTest(unittest.TestCase):
         protocol = {"status": "conditional_framework_validated_causal_evidence_pending"}
         report = validate(readiness, protocol)
         self.assertEqual(report["status"], "fail")
-        self.assertIn("mas_yaw:status_not_validated", report["errors"])
+        self.assertIn("as:status_not_validated", report["errors"])
 
     def test_two_model_claim_cannot_be_relabelled_architecture_universal(self):
-        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260917.json").read_text())
         protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
-        readiness["claims"]["mas_yaw"]["claim_scope"] = "architecture_universal"
-        readiness["claims"]["mas_yaw"]["architecture_universal"] = True
+        readiness["claims"]["as"]["claim_scope"] = "architecture_universal"
+        readiness["claims"]["as"]["architecture_universal"] = True
         report = validate(readiness, protocol)
         self.assertEqual(report["status"], "fail")
-        self.assertIn("mas_yaw:architecture_claim_scope_missing_or_overbroad", report["errors"])
-        self.assertIn("mas_yaw:architecture_universal_claim_not_disabled", report["errors"])
+        self.assertIn("as:architecture_claim_scope_missing_or_overbroad", report["errors"])
+        self.assertIn("as:architecture_universal_claim_not_disabled", report["errors"])
 
     def test_protocol_universal_claim_requires_three_architectures(self):
-        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260917.json").read_text())
         protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
         protocol["architecture_claim_policy"]["architecture_universal_claim"] = True
         report = validate(readiness, protocol)
@@ -57,7 +59,7 @@ class ReleaseReadinessTest(unittest.TestCase):
         self.assertIn("protocol:universal_architecture_gate_not_met", report["errors"])
 
     def test_yaw_claim_cannot_silently_add_metric_dimensions(self):
-        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260917.json").read_text())
         protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
         readiness["claims"]["rcs_yaw"]["measurement_dimensions"]["speed"] = "validated"
         report = validate(readiness, protocol)
@@ -65,7 +67,7 @@ class ReleaseReadinessTest(unittest.TestCase):
         self.assertIn("rcs_yaw:measurement_dimension_boundary_missing_or_drifted", report["errors"])
 
     def test_mediation_validated_status_requires_claim_enabled(self):
-        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
+        readiness = json.loads((ROOT / "reports" / "release_readiness_20260917.json").read_text())
         protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
         readiness["claims"]["future_to_action_mediation"]["status"] = "validated"
         report = validate(readiness, protocol)

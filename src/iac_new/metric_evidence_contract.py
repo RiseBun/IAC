@@ -1,4 +1,4 @@
-"""Metric-first evidence contracts for MAS, RCS, and GS.
+"""Metric-first evidence contracts for AS, RCS, and GS.
 
 The benchmark is not allowed to infer one metric from another.  Each metric
 has a minimal evidence bundle and fails closed when that bundle is absent.
@@ -13,7 +13,7 @@ from typing import Any
 import numpy as np
 
 
-METRIC_IDS = ("MAS", "RCS", "GS")
+METRIC_IDS = ("AS", "RCS", "GS")
 _FORBIDDEN_ACTION_SOURCES = {"logged", "oracle", "gt", "ground_truth", "proxy"}
 
 
@@ -70,7 +70,7 @@ def validate_metric_evidence_packet(metric_id: str, packet: dict[str, Any]) -> d
     _base_checks(packet, missing)
     status = str(packet.get("evidence_status") or "")
 
-    if metric == "MAS" and status != "unavailable":
+    if metric == "AS" and status != "unavailable":
         _missing(bool(str(packet.get("branch_id") or "")), "branch_id", missing)
         _missing(_native_action_source(packet.get("action_source")), "native_action_source", missing)
         visual = packet.get("visual_evidence")
@@ -117,7 +117,7 @@ def validate_metric_evidence_packet(metric_id: str, packet: dict[str, Any]) -> d
         "missing": missing,
         "score_allowed": bool(valid and status in {"scored", "weak"}),
         "claim_boundary": {
-            "MAS": "Visual compatibility with a supplied native action; not future-to-action causality.",
+            "AS": "Visual compatibility with a supplied native action in validated yaw and coarse-progress channels; not future-to-action causality.",
             "RCS": "Paired counterfactual visual response matching; not a single-branch action readout.",
             "GS": "Generated future grounding against an external reference; not action mediation.",
         }[metric],

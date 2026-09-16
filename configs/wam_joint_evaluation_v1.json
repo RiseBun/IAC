@@ -1,6 +1,6 @@
 {
   "protocol": "iac-wam-joint-evaluation-v1",
-  "status": "conditional_framework_validated_causal_evidence_pending",
+  "status": "research_implementation_three_metric_validation_pending_causal_evidence_pending",
   "objective": "Provide conditional, capability-stratified measurements of whether a WAM's native action and predicted future are compatible, without assuming that every WAM is future-driven or conflating visual quality with action consistency.",
   "unit_of_analysis": {
     "single_branch": "source_key + branch_role",
@@ -9,7 +9,7 @@
   },
   "stages": {
     "step1_image_observation": {
-      "status": "frozen_yaw_plus_experimental_channels",
+      "status": "frozen_yaw_and_coarse_ordinal_progress_plus_diagnostics",
       "input": ["history_images", "wam_generated_future_images", "camera_calibration"],
       "forbidden_inputs": ["candidate_trajectory", "logged_future_state", "pdm_score"],
       "output": ["per_interval_structure", "confidence", "availability", "abstention_reason"],
@@ -26,11 +26,11 @@
       "pair_gate": "both branches must provide the required channel; otherwise pair is unavailable"
     },
     "step2_single_branch_alignment": {
-      "canonical_metric": "Motion Alignment Score",
-      "legacy_alias": "CFAC",
-      "status": "frozen_directional_yaw_variant",
-      "formula": "MAS = alignment(S_F, structuralized P_A)",
-      "warning": "Frozen MAS scope is directional yaw alignment; metric distance/progress/lateral/curvature adapters remain diagnostic and do not replace metric CFAC"
+      "canonical_metric": "Alignment Score",
+      "legacy_alias": "CFAC/MAS",
+      "status": "frozen_yaw_and_coarse_ordinal_progress_variant",
+      "formula": "AS_cond = sqrt(progress_agreement * yaw_agreement), with coverage reported separately",
+      "warning": "Frozen AS promotes directional yaw and coarse ordinal progress; exact distance, speed, lateral displacement and curvature remain diagnostic"
     },
     "future_to_action": {
       "status": "pilot_worlddrive_unqualified_confirmation_pending",
@@ -101,7 +101,7 @@
     "formal_claim_scope": "two_model_protocol_validation_only",
     "architecture_universal_claim": false,
     "minimum_distinct_architectures_for_universal_claim": 3,
-    "interpretation": "Two formal models validate the measurement protocol on the declared models; they do not establish architecture-universal performance."
+    "interpretation": "Evidence is metric-specific: RCS-yaw has two formal models, while complete AS and identity-specific GS each have one. No architecture-universal claim is enabled."
   },
-  "current_claim": "The framework is a conditional evaluation standard: it does not assume that every WAM is future-driven. Directional-yaw MAS and RCS variants are validated on Epona and DriveWAM with source-level bootstrap gates passed, while metric magnitude/progress channels remain diagnostic. GS is formally frozen for external-future grounding. Future-to-action mediation is an optional evidence channel and remains unavailable until a four-condition, source-disjoint promotion passes; independent task execution is reported separately rather than introduced as another IAC metric."
+  "current_claim": "The framework is a conditional evaluation standard: it does not assume that every WAM is future-driven. AS measures directional yaw and coarse ordinal progress with coverage reported separately; its complete native-action contract is currently formal on DriveWAM and awaits cross-model confirmation. Directional-yaw RCS is validated on Epona and DriveWAM. Exact metric motion remains diagnostic, GS is conditional pending a second identity-specific confirmation, and independent task execution is reported separately rather than introduced as another IAC metric."
 }

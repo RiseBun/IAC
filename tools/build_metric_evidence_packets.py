@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build source-level MAS/RCS evidence packets from a SE(2) pilot report.
+"""Build source-level legacy AS-yaw/RCS evidence packets from a pilot report.
 
 This tool deliberately requires the evaluator to state model and action
 provenance.  A report containing only scores is not allowed to silently become
@@ -72,7 +72,7 @@ def _base(source: str, status: str, coverage: float, reason: str | None = None) 
     return packet
 
 
-def build_mas(rows: list[dict[str, Any]], *, model_id: str, action_source: str, threshold: float) -> list[dict[str, Any]]:
+def build_as(rows: list[dict[str, Any]], *, model_id: str, action_source: str, threshold: float) -> list[dict[str, Any]]:
     packets: list[dict[str, Any]] = []
     for row in rows:
         source = str(row.get("source_key") or "")
@@ -150,29 +150,32 @@ def build_rcs(
 
 
 def run(input_path: Path, *, metric: str, model_id: str, action_source: str, raw_root: Path | None, threshold: float) -> dict[str, Any]:
+    requested_metric = str(metric).upper()
+    canonical_metric = "AS" if requested_metric == "MAS" else requested_metric
     report = json.loads(input_path.read_text(encoding="utf-8"))
     rows = list(report.get("rows") or [])
     records = _load_records(raw_root) if raw_root else None
-    if metric == "MAS":
-        packets = build_mas(rows, model_id=model_id, action_source=action_source, threshold=threshold)
+    if canonical_metric == "AS":
+        packets = build_as(rows, model_id=model_id, action_source=action_source, threshold=threshold)
     else:
         packets = build_rcs(rows, model_id=model_id, action_source=action_source, records=records, threshold=threshold)
-    validation = validate_metric_evidence_table(packets, metric)
+    validation = validate_metric_evidence_table(packets, canonical_metric)
     return {
         "protocol": "iac-metric-evidence-packet-builder-v1",
-        "metric_id": metric,
+        "metric_id": canonical_metric,
+        "legacy_requested_metric": requested_metric if requested_metric != canonical_metric else None,
         "model_id": model_id,
         "input": str(input_path),
         "raw_root_used": str(raw_root) if raw_root else None,
         "rows": packets,
         "validation": validation,
-        "claim_boundary": "Source-level evidence completeness only; validation does not promote a pilot metric or establish causal mediation.",
+        "claim_boundary": "AS packets built here contain legacy yaw-component evidence only; validation does not establish complete AS, promote a pilot metric, or establish causal mediation.",
     }
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--metric", choices=("MAS", "RCS"), required=True)
+    parser.add_argument("--metric", choices=("AS", "MAS", "RCS"), required=True, help="MAS is accepted as a deprecated alias for AS")
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--raw-root", type=Path)
     parser.add_argument("--model-id", required=True)

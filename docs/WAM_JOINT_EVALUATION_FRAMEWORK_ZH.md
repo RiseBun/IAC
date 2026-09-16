@@ -75,7 +75,7 @@ history + command
                               ↓
                same-source counterfactual delta ΔS_F
                               ↓
-                   MAS / RCS / future-to-action audit
+                   AS / RCS / future-to-action audit
 
 native action P_A ───────────→ independent simulator ─→ external task validation
 logged future + GT-compatible channel ────────────────→ GS
@@ -149,15 +149,16 @@ RCS-yaw = ordinal_consistency(ΔS_F, ΔP_A)
 
 它回答的是“预测未来和动作是否对同一个干预作出一致响应”。
 
-### 5.2 MAS-yaw（旧 CFAC-S）
+### 5.2 AS（旧 CFAC/MAS）
 
 ```text
-MAS-yaw = alignment(S_F, yaw_direction(P_A))
+AS_cond = sqrt(progress_agreement(S_F, P_A) * yaw_agreement(S_F, P_A))
 ```
 
-当前冻结的 MAS-yaw 只使用 real-only 校准的 yaw 方向/死区适配器，不声称米制
-轨迹重建。任何 lateral、纵向距离、速度和曲率映射都必须单独校准并通过独立
-跨模型门槛，否则只能标为 diagnostic/unavailable。
+当前冻结 AS 使用 Reloc3r-512 的 yaw 与 Metric3Dv2-v2-S + 静态对应 + known-R
+PnP 的粗粒度 ordinal progress。视觉读数完成后才与 native action 对齐。
+`AS_conditional`、两通道 coverage 与 `AS_observability` 必须同时报告；精确米制
+距离、绝对速度、lateral 和 curvature 仍为 diagnostic/unavailable。
 
 ### 5.3 Future-to-action audit
 
@@ -205,7 +206,8 @@ WAM 生成视频，也不属于 IAC 指标向量。
 | 结构差分 scorer | implemented / exploratory |
 | RCS-yaw（旧 CCFC-S） | frozen / validated on two WAMs |
 | pure-speed progress channel | cross-model confirmation completed; not promoted (no stable signal) |
-| MAS-yaw（旧 CFAC-S） | frozen / validated on two WAMs |
+| AS | DriveWAM 完整 native-action 结果已冻结；跨模型完整确认待完成 |
+| GS | Epona identity-specific 验证通过；DriveWAM 仅为诊断；第二模型待确认 |
 | future-to-action mediation | WorldDrive pilot unqualified / formal four-condition confirmation pending |
 | metric SE(2) reconstruction | diagnostic only |
 | FAU | independent GT-compatible axis |
@@ -216,7 +218,7 @@ WAM 生成视频，也不属于 IAC 指标向量。
 在所有通道完成验证前，不压成单一总分，优先报告：
 
 ```text
-{ MAS, RCS, GS, future-to-action mediation, coverage, abstention }
+{ AS, RCS, GS, future-to-action mediation, coverage, abstention }
 ```
 
 这样可以区分“视频看起来逼真”“动作与未来一致”“未来真正影响动作”和“实际任务

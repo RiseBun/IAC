@@ -1,6 +1,6 @@
 """Capability-stratified IAC scorecard.
 
-Optional capabilities (MAS, RCS, GS, and future-to-action mediation) are
+Optional capabilities (AS, RCS, GS, and future-to-action mediation) are
 reported as ``unavailable`` when a model does not
 expose the required interface.  ``missing`` is reserved for a claimed capability
 whose evidence is incomplete; ``ineligible`` is reserved for hard protocol
@@ -23,7 +23,7 @@ CAPABILITIES = (
 CELLS = (
     "l1", "a2f", "f2a",
     # Canonical metric ids.
-    "mas", "rcs", "gs", "future_to_action_mediation",
+    "as", "rcs", "gs", "future_to_action_mediation",
     # Legacy aliases retained for compatibility with older scorecards.
     "cfac", "ccfc", "fau_f", "fau_a", "fau", "coverage",
 )
@@ -37,25 +37,26 @@ CLAIMED = {
 
 STATUSES = ("pass", "fail", "pilot", "unavailable", "ineligible", "missing")
 OPTIONAL_CELLS = frozenset({
-    "mas", "rcs", "gs", "future_to_action_mediation",
+    "as", "rcs", "gs", "future_to_action_mediation",
     "ccfc", "fau_f", "fau_a", "fau", "coverage",
 })
 PROJECTION_GATED_CELLS = frozenset({
     "cfac", "ccfc", "fau_f", "fau_a", "fau",
 })
-CANONICAL_COVERAGE_CELLS = frozenset({"mas", "rcs", "gs", "future_to_action_mediation"})
+CANONICAL_COVERAGE_CELLS = frozenset({"as", "rcs", "gs", "future_to_action_mediation"})
 
 # These boundaries are part of the output contract rather than documentation
 # only.  Downstream consumers must be able to distinguish an observed visual
 #/action relationship from a causal future-to-action claim without consulting
 # a second file or guessing from the cell name.
 CLAIM_BOUNDARIES = {
-    "mas": {
+    "as": {
         "evidence_type": "visual_action_consistency",
         "causal_status": "not_mediation",
-        "scope": "directional_yaw_alignment_only",
+        "scope": "directional_yaw_and_coarse_ordinal_progress_alignment",
         "measurement_dimensions": {
             "yaw_direction": "validated",
+            "ordinal_progress": "validated_on_real_holdout",
             "speed": "diagnostic_only",
             "longitudinal_distance": "diagnostic_only",
             "lateral_displacement": "diagnostic_only",
@@ -151,7 +152,7 @@ def summarize_conditional_units(
 ) -> dict[str, Any]:
     """Summarize a metric without turning non-evaluable units into failures.
 
-    ``units`` is deliberately metric-agnostic: MAS may use branches, RCS may
+    ``units`` is deliberately metric-agnostic: AS may use branches, RCS may
     use twins, and GS may use sources.  The caller must choose the status that
     means "quality gate passed" for that metric.  The returned score is
     conditional on those units only; coverage always uses all declared units.

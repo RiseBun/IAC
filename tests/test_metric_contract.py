@@ -12,8 +12,10 @@ class MetricContractTest(unittest.TestCase):
         self.mas = json.loads((root / "configs" / "mas_yaw_v1.json").read_text(encoding="utf-8"))
         self.rcs = json.loads((root / "configs" / "rcs_yaw_v1.json").read_text(encoding="utf-8"))
 
-    def test_frozen_mas_and_rcs_contracts_are_valid(self) -> None:
-        self.assertEqual(validate_directional_yaw_config(self.mas)["status"], "valid")
+    def test_frozen_as_yaw_and_rcs_contracts_are_valid(self) -> None:
+        as_report = validate_directional_yaw_config(self.mas)
+        self.assertEqual(as_report["status"], "valid")
+        self.assertEqual(as_report["metric_id"], "AS")
         self.assertEqual(validate_directional_yaw_config(self.rcs)["status"], "valid")
 
     def test_model_specific_threshold_change_is_rejected(self) -> None:

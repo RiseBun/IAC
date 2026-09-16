@@ -4,7 +4,7 @@
 当前主榜使用 `benchmark` split。统一准入是“future visual state +
 native action”；生成形式不设限，详见
 [`WAM_SCOPE_AND_UNIFIED_PROTOCOL_ZH.md`](WAM_SCOPE_AND_UNIFIED_PROTOCOL_ZH.md)。
-MAS、RCS、GS 是能力分层记分板列：模型提供对应证据就计分，不支持或
+AS、RCS、GS 是能力分层记分板列：模型提供对应证据就计分，不支持或
 无法测量就标记 `unavailable`，不得填 0。`ineligible` 只用于违反硬准入条件的提交。
 
 ## 0. 新提交的硬条件
@@ -54,7 +54,7 @@ decoder 和重建协议生成与模型原生时间轴对应的 RGB 文件（至�
 
 | 值 | 必须交 | 可打的格子 |
 |---|---|---|
-| `native_action_conditioned` | ≥4 个未来点覆盖 4 秒 + 同轴 native action | MAS（旧 CFAC）；RCS、GS 需额外证据 |
+| `native_action_conditioned` | ≥4 个未来点覆盖 4 秒 + 同轴 native action | AS（旧 CFAC/MAS）；RCS、GS 需额外证据 |
 | `externally_controlled_video` | ≥4 个未来点覆盖 4 秒 + 外控轨迹；`action_source=external_control` | 仅 A→F |
 | `video_only` | ≥4 个未来点覆盖 4 秒 | 无 IAC 主格 |
 | `action_only` | 仅动作 | 无 IAC 主格 |
@@ -65,7 +65,7 @@ history、seed、nuisance；`clear`/`risk` 只是可选示例。干预必须改�
 输入并重新生成 future 与 native action；评测端不得在生成后直接注入、覆盖或替换
 action，再把结果声称为 RCS。
 
-停车（`stratum=stop`）只进入独立停车识别和 coverage 报告，不进入 MAS 的运动
+停车（`stratum=stop`）只进入独立停车识别和 coverage 报告，不进入 AS 的运动
 平均值；其余分层仍分别报告后再做 macro-average。
 
 ## 2. 评测服务器怎么跑
@@ -106,7 +106,7 @@ python scripts/score_iac_submission.py \
 
 记分板不把不同能力强行压成一个总分，而是并列展示每个通道的 `n`、coverage、
 置信区间、分层和状态。它不假设 WAM 一定由预测未来驱动：没有 future-only
-干预的模型仍可报告 MAS/RCS/GS 中实际支持的通道，不会因缺少 mediation 被
+干预的模型仍可报告 AS/RCS/GS 中实际支持的通道，不会因缺少 mediation 被
 判零分；但 `unavailable` 不能当作可比的低分。
 
 ### 3.1 条件式分数的固定口径
@@ -130,11 +130,11 @@ lateral/纵向距离、速度和曲率仍为 diagnostic。任何通道未达到�
 
 | 主榜列 | 回答的问题 | 最小证据 | 不支持时 |
 |---|---|---|---|
-| `MAS`（旧 CFAC） | 单次推理中，视觉 yaw 结构与 native action 方向是否一致 | 一条 future visual + 一条 native action | `unavailable` |
+| `AS`（旧 CFAC/MAS） | 单次推理中，视觉 yaw 和粗粒度纵向进度与 native action 是否一致 | 一条 future visual + 一条 native action | `unavailable` |
 | `RCS`（旧 CCFC） | 固定条件干预下，视觉差分与动作差分方向是否一致 | 同 history/seed/nuisance 的成对分支 | `unavailable` |
 | `GS`（旧 FAU 组件） | 生成视觉结构是否接近外部 logged future | future visual + 私有 GT-compatible reference | `unavailable` |
 
-MAS/RCS/GS 都不是所有模型的硬性准入条件；按能力列和 coverage 分层报告，
+AS/RCS/GS 都不是所有模型的硬性准入条件；按能力列和 coverage 分层报告，
 不对缺失列做零填充或未经校准的总平均。future-to-action mediation 是额外的
 因果证据列，缺少 future-only/pathway intervention 时为 `unavailable`。
 
@@ -151,7 +151,7 @@ MAS/RCS/GS 都不是所有模型的硬性准入条件；按能力列和 coverage
 | `l1` | 生成未来 vs native action 的形状对齐 | 主表 MAE/容差 + 覆盖 |
 | `a2f` | 左/右或 clear/risk 图像是否随动作变 | bootstrap L1 下界 > 0.005 |
 | `f2a` | 干预未来表征后 native action 是否变 | 内容敏感，不是 zero 开关 |
-| `mas` | 单支视觉 yaw 结构↔native action 方向 | MAS-yaw；缺图像或动作则 `unavailable` |
+| `as` | 单支视觉 yaw + 粗粒度 progress ↔ native action | AS；缺图像或动作则 `unavailable` |
 | `rcs` | 同 history 的可重复双分支，Δstructure↔Δaction | RCS-yaw；缺少双分支则 `unavailable` |
 | `gs` | 生成视觉结构↔外部 logged future | GS；缺 reference 则 `unavailable` |
 

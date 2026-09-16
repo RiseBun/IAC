@@ -1,0 +1,134 @@
+{
+  "protocol": "iac-wam-release-readiness-v1",
+  "as_of": "2026-09-17",
+  "evaluation_scope": "conditional_capability_stratified",
+  "assumption": "future_driven_generation_is_not_required",
+  "scoring_policy": {
+    "supported_channel_scored_independently": true,
+    "missing_or_unsupported": "unavailable_with_reason",
+    "unavailable_is_zero": false,
+    "overall_aggregate": "not_defined",
+    "score_denominator": "units_with_evidence_and_quality_gate_passed",
+    "coverage_denominator": "all_declared_units_in_the_split",
+    "abstention_is_not_failure": true
+  },
+  "ranking_policy": {
+    "natural_model_quality_ranking": "not_supported",
+    "aggregate_across_capabilities": "not_defined",
+    "allowed_comparison": "same_metric_source_disjoint_or_paired_with_uncertainty"
+  },
+  "claims": {
+    "as": {
+      "status": "single_model_validated_cross_model_pending",
+      "models": ["DriveWAM"],
+      "diagnostic_models": ["Epona", "WorldDrive"],
+      "claim_scope": "DriveWAM native-action AS; cross-model confirmation pending",
+      "architecture_universal": false,
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "ordinal_progress": "validated_on_real_holdout",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
+      },
+      "scope": "candidate-blind directional yaw and coarse ordinal progress alignment",
+      "component_evidence": {
+        "yaw": "legacy MAS-yaw experiments retained as AS-yaw component evidence on Epona and DriveWAM",
+        "progress": "source-disjoint real NAVSIM confirmation",
+        "full_contract": "DriveWAM only; Epona lacks native-action provenance and WorldDrive common-source n=10"
+      },
+      "not_claimed": ["metric distance", "speed", "lateral amplitude", "curvature", "future_to_action causality"]
+    },
+    "rcs_yaw": {
+      "status": "validated",
+      "models": ["Epona", "DriveWAM"],
+      "claim_scope": "two_model_protocol_validation_only",
+      "architecture_universal": false,
+      "measurement_dimensions": {
+        "yaw_direction": "validated",
+        "speed": "diagnostic_only",
+        "longitudinal_distance": "diagnostic_only",
+        "lateral_displacement": "diagnostic_only",
+        "curvature": "diagnostic_only",
+        "metric_trajectory": "unavailable"
+      },
+      "scope": "same-source counterfactual yaw response",
+      "not_claimed": ["future_to_action causality", "natural model quality ranking"]
+    },
+    "gs": {
+      "status": "conditional",
+      "models": ["Epona"],
+      "diagnostic_models": ["DriveWAM"],
+      "claim_scope": "Epona identity-specific grounding validation; DriveWAM diagnostic only",
+      "architecture_universal": false,
+      "scope": "generated flow structure against external logged future",
+      "recompute": "protocol_and_cli_public_reference_data_private",
+      "identity_specificity_audit": "reports/metric_credibility_audit_20260917.json",
+      "not_claimed": ["two-model identity-specificity", "native action was caused by predicted future"]
+    },
+    "external_task_validation": {
+      "status": "diagnostic_only",
+      "models": ["DriveWAM"],
+      "scope": "independent simulator execution and explicit task label",
+      "claim_boundary": "reported separately; not an IAC metric or future-to-action mediation evidence"
+    },
+    "future_to_action_mediation": {
+      "status": "pilot_worlddrive_unqualified_confirmation_pending",
+      "scope": "future-only intervention or pathway ablation",
+      "required_for": "causal future_to_action claim",
+      "pilot_report": "reports/future_to_action_worlddrive_pilot_20260912.json",
+      "pilot_boundary": "WorldDrive internal future-latent permutation changed action/trajectory in 11/25 groups, but only 1/25 passed the material yaw/lateral gate; blocked-pathway, fixed-action, source-disjoint, and >=30-material-source confirmation requirements remain unmet.",
+      "claim_enabled": false
+    },
+    "conditional_foresight_success": {
+      "status": "implemented_evidence_pending",
+      "scorer": "tools/score_conditional_foresight.py",
+      "scope": "paired same-source change in independent task success under a future-only perturbation",
+      "monitors": ["dose_response"],
+      "not_claimed": ["the predicted future is accurate", "the effect is desirable", "any other model shares the pathway"],
+      "claim_enabled": false
+    },
+    "joint_source_analysis": {
+      "status": "implemented_requires_private_per_source_tables",
+      "scorer": "tools/analyse_joint_source_table.py",
+      "scope": "whether the consistency channels co-vary with independent execution at the source level",
+      "null_result_meaning": "the consistency channels carry no information about task success on this split",
+      "claim_enabled": false
+    }
+  },
+  "diagnostic_only": [
+    "metric_SE2_reconstruction",
+    "metric_speed",
+    "metric_distance",
+    "lateral_amplitude",
+    "curvature",
+    "pure_speed_progress"
+  ],
+  "adapter_policy": {
+    "allowed": "coordinate/image-geometry normalization declared in manifest",
+    "frozen_before_confirmation": true,
+    "model_specific_metric_tuning": false,
+    "validator": "tools/validate_metric_comparability.py"
+  },
+  "architecture_claim_policy": {
+    "formal_claim_scope": "two_model_protocol_validation_only",
+    "architecture_universal": false,
+    "minimum_distinct_architectures_for_universal_claim": 3,
+    "formal_architecture_families": {
+      "Epona": "epona_nuplan_world_model",
+      "DriveWAM": "drivewam_navsim_world_model"
+    }
+  },
+  "public_replay": {
+    "gs_fixture": "datasets/public_gs_fixture_generated.jsonl",
+    "gs_reference_fixture": "datasets/public_gs_fixture_reference.jsonl",
+    "expected_report": "reports/gs_public_fixture_expected_20260912.json",
+    "status": "verified",
+    "scope": "implementation_and_missing_value_semantics_only",
+    "does_not_reproduce_private_benchmark_reference": true
+  },
+  "model_capability_matrix": "reports/model_capability_matrix_20260917.json",
+  "release_boundary": "The package is publishable as a research implementation of a conditional evaluation protocol. A complete three-metric benchmark release still requires cross-model AS confirmation and a second identity-specific GS confirmation. Future-to-action mediation is required only for causal claims; independent task execution is external validation."
+}

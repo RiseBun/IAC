@@ -3,7 +3,7 @@
   "principle": "metric_first_each_metric_consumes_only_its_own_evidence",
   "missing_value_policy": "unavailable_never_zero_fill",
   "metrics": {
-    "MAS": {
+    "AS": {
       "question": "Does one future video visually support its native action trajectory?",
       "required": ["source_key", "branch_id", "native_action_source", "visual_evidence.likelihood", "visual_evidence.support_fraction"],
       "primary_observer": "trajectory_conditioned_visual_likelihood",
@@ -23,5 +23,5 @@
     }
   },
   "cross_metric_rule": "no_metric_may_fill_another_metrics_missing_evidence",
-  "claim_boundary": "MAS/RCS/GS are consistency or grounding evidence. Independent simulator execution is reported separately and is not an IAC metric or a mediation claim."
+  "claim_boundary": "AS/RCS/GS are consistency or grounding evidence. Independent simulator execution is reported separately and is not an IAC metric or a mediation claim."
 }

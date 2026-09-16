@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build a canonical MAS/RCS/GS pilot bundle from precomputed reports.
+"""Build an AS/RCS/GS diagnostic bundle from precomputed legacy reports.
 
 The builder deliberately leaves Grounding Score unavailable unless an external
 logged/simulated reference report is supplied.  Legacy CFAC/CCFC/FAU names are
-retained only as compatibility metadata.
+retained only as compatibility metadata. The alignment input is legacy
+flow-structure component evidence, not the complete yaw-plus-progress AS.
 """
 from __future__ import annotations
 
@@ -17,15 +18,17 @@ def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _mas(path: Path) -> dict[str, Any]:
+def _as_diagnostic(path: Path) -> dict[str, Any]:
     report = _load(path)
     normal = report.get("summary", {}).get("controls", {}).get("normal", {})
     count = int(normal.get("count", 0) or 0)
     return {
-        "metric_id": "MAS",
-        "metric_name": "Motion Alignment Score",
-        "legacy_alias": "CFAC",
-        "status": "pilot" if count else "unavailable",
+        "metric_id": "AS",
+        "metric_name": "Alignment Score",
+        "legacy_alias": "CFAC/MAS",
+        "status": "diagnostic" if count else "unavailable",
+        "score_definition": "legacy_flow_structure_component",
+        "claim_boundary": "not a complete AS result; coarse ordinal progress is absent",
         "coverage": normal.get("interval_coverage"),
         "reliable_interval_fraction": normal.get("reliable_interval_fraction"),
         "median_residual_px": normal.get("median_residual_px"),
@@ -56,7 +59,7 @@ def _rcs(path: Path) -> dict[str, Any]:
 def _gs(path: Path, model: str) -> dict[str, Any]:
     """Load an explicitly supplied structural GS candidate report.
 
-    The report is never inferred from MAS/RCS inputs.  A missing model entry
+    The report is never inferred from AS/RCS inputs. A missing model entry
     remains unavailable and retains the protocol's no-zero-fill contract.
     """
     report = _load(path)
@@ -95,14 +98,17 @@ def _gs(path: Path, model: str) -> dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--mas", action="append", metavar="MODEL=PATH", default=[])
+    parser.add_argument(
+        "--as", "--mas", dest="alignment", action="append", metavar="MODEL=PATH",
+        default=[], help="legacy alignment component report (--mas is deprecated)",
+    )
     parser.add_argument("--rcs", action="append", metavar="MODEL=PATH", default=[])
     parser.add_argument("--gs", action="append", metavar="MODEL=PATH", default=[])
     args = parser.parse_args()
     models: dict[str, dict[str, Any]] = {}
-    for item in args.mas:
+    for item in args.alignment:
         model, path = item.split("=", 1)
-        models.setdefault(model, {})["motion_alignment_score"] = _mas(Path(path))
+        models.setdefault(model, {})["alignment_score"] = _as_diagnostic(Path(path))
     for item in args.rcs:
         model, path = item.split("=", 1)
         models.setdefault(model, {})["response_consistency_score"] = _rcs(Path(path))
@@ -122,11 +128,11 @@ def main() -> None:
         "protocol": "iac-wam-three-metric-v1",
         "status": "pilot_grounding_pending",
         "canonical_metrics": [
-            "Motion Alignment Score",
+            "Alignment Score",
             "Response Consistency Score",
             "Grounding Score",
         ],
-        "legacy_aliases": {"CFAC": "Motion Alignment Score", "CCFC": "Response Consistency Score", "FAU": "Grounding Score components"},
+        "legacy_aliases": {"CFAC/MAS": "Alignment Score", "CCFC": "Response Consistency Score", "FAU": "Grounding Score components"},
         "models": models,
         "missing_value_policy": "unavailable_or_abstain_never_zero_fill",
     }

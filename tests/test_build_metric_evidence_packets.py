@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from tools.build_metric_evidence_packets import build_mas, build_rcs
+from tools.build_metric_evidence_packets import build_as, build_rcs
 from iac_new.metric_evidence_contract import validate_metric_evidence_table
 
 
@@ -13,10 +13,10 @@ def _score(value: float = 0.4, coverage: float = 1.0) -> dict:
     }
 
 
-def test_mas_builder_requires_explicit_action_source_and_builds_valid_packets():
+def test_as_builder_requires_explicit_action_source_and_builds_valid_packets():
     rows = [{"source_key": "s1", "mas_left": _score(), "mas_right": _score(0.2)}]
-    packets = build_mas(rows, model_id="Epona", action_source="native_action_head", threshold=0.75)
-    report = validate_metric_evidence_table(packets, "MAS")
+    packets = build_as(rows, model_id="Epona", action_source="native_action_head", threshold=0.75)
+    report = validate_metric_evidence_table(packets, "AS")
     assert report["valid"]
     assert report["status_counts"]["valid"] == 2
 

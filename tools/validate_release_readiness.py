@@ -5,7 +5,7 @@ This is intentionally a claim validator, not a score generator.  It checks
 that the frozen protocol and the evidence matrix agree, then emits two
 separate decisions:
 
-* conditional consistency/grounding release (MAS/RCS/GS as supported);
+* conditional consistency/grounding release (AS/RCS/GS as supported);
 * complete causal future-driven benchmark release (requires mediation evidence).
 
 Missing private data or an unavailable official simulator is reported as a
@@ -22,7 +22,16 @@ from typing import Any
 
 
 FORMAL_CLAIM_SCOPE = "two_model_protocol_validation_only"
-EXPECTED_YAW_DIMENSIONS = {
+EXPECTED_AS_DIMENSIONS = {
+    "yaw_direction": "validated",
+    "ordinal_progress": "validated_on_real_holdout",
+    "speed": "diagnostic_only",
+    "longitudinal_distance": "diagnostic_only",
+    "lateral_displacement": "diagnostic_only",
+    "curvature": "diagnostic_only",
+    "metric_trajectory": "unavailable",
+}
+EXPECTED_RCS_DIMENSIONS = {
     "yaw_direction": "validated",
     "speed": "diagnostic_only",
     "longitudinal_distance": "diagnostic_only",
@@ -41,7 +50,7 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
     errors: list[str] = []
     warnings: list[str] = []
 
-    for metric in ("mas_yaw", "rcs_yaw", "gs"):
+    for metric in ("as", "rcs_yaw", "gs"):
         claim = claims.get(metric) or {}
         models = claim.get("models") or []
         if claim.get("status") != "validated":
@@ -52,7 +61,8 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
             errors.append(f"{metric}:architecture_claim_scope_missing_or_overbroad")
         if claim.get("architecture_universal") is not False:
             errors.append(f"{metric}:architecture_universal_claim_not_disabled")
-        if metric in {"mas_yaw", "rcs_yaw"} and claim.get("measurement_dimensions") != EXPECTED_YAW_DIMENSIONS:
+        expected_dimensions = EXPECTED_AS_DIMENSIONS if metric == "as" else EXPECTED_RCS_DIMENSIONS
+        if metric in {"as", "rcs_yaw"} and claim.get("measurement_dimensions") != expected_dimensions:
             errors.append(f"{metric}:measurement_dimension_boundary_missing_or_drifted")
 
     architecture_policy = protocol.get("architecture_claim_policy") or {}
@@ -67,7 +77,7 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
     )
     declared_families = architecture_policy.get("formal_architecture_families") or {}
     if architecture_policy.get("architecture_universal_claim") is True:
-        families = {declared_families.get(model) for metric in ("mas_yaw", "rcs_yaw", "gs")
+        families = {declared_families.get(model) for metric in ("as", "rcs_yaw", "gs")
                     for model in (claims.get(metric) or {}).get("models", [])}
         families.discard(None)
         if len(families) < minimum_architectures:
@@ -118,7 +128,7 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
         "protocol": "iac-wam-release-readiness-validator-v1",
         "conditional_consistency_grounding_release": {
             "ready": not errors,
-            "claim": "MAS/RCS/GS are independently reported where supported; unavailable channels are not zero-filled.",
+            "claim": "AS/RCS/GS are independently reported where supported; unavailable channels are not zero-filled.",
         },
         "complete_causal_future_driven_benchmark": {
             "ready": complete_causal,

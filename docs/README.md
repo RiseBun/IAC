@@ -12,7 +12,7 @@
 | [`WAM_SUBMISSION_ZH.md`](WAM_SUBMISSION_ZH.md) | ZH | Author JSONL fields and scoreboard cells |
 | [`RELEASE_MANIFEST_ZH.md`](RELEASE_MANIFEST_ZH.md) | ZH | What is public vs private |
 | [`WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md`](WAM_JOINT_EVALUATION_FRAMEWORK_ZH.md) | ZH | Current joint framework, claims and validation gates |
-| [`STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md`](STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md) | ZH | S1.3 audit, pure-speed preparation and MAS-yaw boundary |
+| [`STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md`](STEP1_S1_3_AUDIT_AND_METRIC_ROADMAP_ZH.md) | ZH | Historical S1.3 audit and AS-yaw component boundary |
 | [`CCFC_S_VALIDATION_PLAN_ZH.md`](CCFC_S_VALIDATION_PLAN_ZH.md) | ZH | RCS/CCFC-S controls and cross-model validation matrix |
 | [`../configs/cfac_structure_calibration_v1.json`](../configs/cfac_structure_calibration_v1.json) | JSON | Legacy CFAC-S diagnostic calibration contract |
 | [`../reports/pure_speed_confirmation_20260911.json`](../reports/pure_speed_confirmation_20260911.json) | JSON | Cross-model pure-speed confirmation result and promotion decision |
@@ -30,14 +30,14 @@
 | [`../tools/score_structural_grounding.py`](../tools/score_structural_grounding.py) | CLI | Recompute GS from generated and user-supplied reference flow-structure JSONL |
 | [`../tools/export_gs_reference_release.py`](../tools/export_gs_reference_release.py) | CLI | HMAC-pseudonymized descriptor-only reference export for public GS replay |
 | [`../tools/verify_gs_reference_release.py`](../tools/verify_gs_reference_release.py) | CLI | Privacy and integrity checks for a descriptor-only GS reference bundle |
-| [`../tools/validate_metric_comparability.py`](../tools/validate_metric_comparability.py) | CLI | Fail-closed MAS/RCS adapter comparability contract check |
-| [`../tools/build_metric_evidence_packets.py`](../tools/build_metric_evidence_packets.py) | CLI | Build source-level MAS/RCS evidence packets with explicit provenance and fail-closed status |
-| [`../reports/release_readiness_20260912.json`](../reports/release_readiness_20260912.json) | JSON | Machine-readable release claims, boundaries and pending evidence |
+| [`../tools/validate_metric_comparability.py`](../tools/validate_metric_comparability.py) | CLI | Fail-closed AS/RCS adapter comparability contract check |
+| [`../tools/build_metric_evidence_packets.py`](../tools/build_metric_evidence_packets.py) | CLI | Build source-level legacy AS-yaw/RCS evidence packets with explicit provenance and fail-closed status |
+| [`../reports/release_readiness_20260917.json`](../reports/release_readiness_20260917.json) | JSON | Current machine-readable release claims, boundaries and pending evidence |
 | [`../datasets/public_gs_fixture_generated.jsonl`](../datasets/public_gs_fixture_generated.jsonl) | JSONL | Public GS scorer replay input (synthetic, not benchmark data) |
 | [`../datasets/public_gs_fixture_reference.jsonl`](../datasets/public_gs_fixture_reference.jsonl) | JSONL | Public GS scorer replay reference (synthetic, not logged GT) |
 | [`../reports/gs_public_fixture_expected_20260912.json`](../reports/gs_public_fixture_expected_20260912.json) | JSON | Expected public replay result and privacy boundary |
-| [`../reports/release_validation_20260912.json`](../reports/release_validation_20260912.json) | JSON | Output of the fail-closed release boundary validator |
-| [`../reports/model_capability_matrix_20260912.json`](../reports/model_capability_matrix_20260912.json) | JSON | Formal vs diagnostic model evidence; prevents cross-architecture overclaim |
+| [`../reports/release_validation_20260917.json`](../reports/release_validation_20260917.json) | JSON | Current fail-closed release boundary validation |
+| [`../reports/model_capability_matrix_20260917.json`](../reports/model_capability_matrix_20260917.json) | JSON | Current formal vs diagnostic model evidence; prevents cross-architecture overclaim |
 | [`../tools/validate_release_readiness.py`](../tools/validate_release_readiness.py) | CLI | Fail-closed check separating conditional release from complete causal release |
 | [`RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md`](RELEASE_BLOCKERS_AND_NEXT_EXPERIMENTS_ZH.md) | ZH | Remaining evidence required for causal/cross-model claims |
 | [`STEP1_IMPROVEMENT_PLAN_ZH.md`](STEP1_IMPROVEMENT_PLAN_ZH.md) | ZH | Step1.3 改进优先级、深度/光流 A/B 与验收门 |
@@ -54,7 +54,7 @@
 | [`VISUAL_EVIDENCE_V2.md`](VISUAL_EVIDENCE_V2.md) | EN | v2 视觉证据 schema、后端接口和指标适配器 |
 | [`../configs/visual_evidence_v2.json`](../configs/visual_evidence_v2.json) | JSON | v2 后端、支持交集和 promotion gates |
 | [`../tools/build_visual_evidence_v2.py`](../tools/build_visual_evidence_v2.py) | CLI | 从 raw flow 或既有 flow-structure archive 构建 v2 evidence |
-| [`../tools/run_visual_evidence_v2_pilot.py`](../tools/run_visual_evidence_v2_pilot.py) | CLI | 在现有归档上做 MAS/RCS/GS v2 兼容性 pilot |
+| [`../tools/run_visual_evidence_v2_pilot.py`](../tools/run_visual_evidence_v2_pilot.py) | CLI | 在现有归档上做 AS/RCS/GS v2 兼容性 pilot |
 | [`../tools/run_visual_evidence_v2_backend_ab.py`](../tools/run_visual_evidence_v2_backend_ab.py) | CLI | 在同一帧序列上比较 flow-only、flow+tracking、flow+tracking+depth |
 | [`../tools/score_visual_evidence_v2_backend_ab.py`](../tools/score_visual_evidence_v2_backend_ab.py) | CLI | 对后端 A/B evidence 做小规模 RCS 控制审计 |
 | [`../src/iac_new/motion_tokens_v3.py`](../src/iac_new/motion_tokens_v3.py) | Python | 不拟合 SE(2) 的结构运动 token 与成对差分 pilot |
@@ -67,14 +67,14 @@
 | [`../src/iac_new/multimodal_evidence_v3.py`](../src/iac_new/multimodal_evidence_v3.py) | Python | flow、track、DINOv2 patch 的固定网格证据融合（不做硬交集） |
 | [`../tools/run_multimodal_evidence_v3_pilot.py`](../tools/run_multimodal_evidence_v3_pilot.py) | CLI | 多模态固定网格 evidence 真实小样本 pilot |
 | [`../reports/multimodal_evidence_v3_pilot_summary_20260913.json`](../reports/multimodal_evidence_v3_pilot_summary_20260913.json) | JSON | flow + DINOv2 patch 对齐 pilot |
-| [`../configs/visual_evidence_v3_promotion.json`](../configs/visual_evidence_v3_promotion.json) | JSON | MAS/RCS/GS 正式校准、控制和晋级门槛 |
+| [`../configs/visual_evidence_v3_promotion.json`](../configs/visual_evidence_v3_promotion.json) | JSON | AS/RCS/GS 正式校准、控制和晋级门槛 |
 | [`../src/iac_new/promotion_v3.py`](../src/iac_new/promotion_v3.py) | Python | v3 缺失即阻断、source-level CI 与控制验收逻辑 |
-| [`../tools/validate_visual_evidence_v3_promotion.py`](../tools/validate_visual_evidence_v3_promotion.py) | CLI | 运行 v3 MAS/RCS/GS 正式验收，不把缺失证据填成 0 |
+| [`../tools/validate_visual_evidence_v3_promotion.py`](../tools/validate_visual_evidence_v3_promotion.py) | CLI | 运行 v3 AS/RCS/GS 正式验收，不把缺失证据填成 0 |
 | [`../tools/audit_v3_controls.py`](../tools/audit_v3_controls.py) | CLI | v3 source/twin 原子 normal/reversed/zero 控制审计 |
-| [`../tools/build_visual_evidence_v3_status.py`](../tools/build_visual_evidence_v3_status.py) | CLI | 汇总 MAS/RCS/GS 当前正式状态 |
+| [`../tools/build_visual_evidence_v3_status.py`](../tools/build_visual_evidence_v3_status.py) | CLI | 汇总 AS/RCS/GS 当前正式状态 |
 | [`../tools/fit_visual_evidence_v3_adapter_pilot.py`](../tools/fit_visual_evidence_v3_adapter_pilot.py) | CLI | 透明线性校准 adapter pilot（不冻结、不作正式确认） |
 | [`../tools/crossval_visual_evidence_v3_adapter.py`](../tools/crossval_visual_evidence_v3_adapter.py) | CLI | 按 source_key 的校准/确认拆分与 bootstrap |
-| [`../src/iac_new/visual_evidence_v4.py`](../src/iac_new/visual_evidence_v4.py) | Python | action-aligned MAS、control-ready RCS、mediation pathway evidence 输出层 |
+| [`../src/iac_new/visual_evidence_v4.py`](../src/iac_new/visual_evidence_v4.py) | Python | action-aligned AS、control-ready RCS、mediation pathway evidence 输出层 |
 | [`../configs/visual_evidence_v4.json`](../configs/visual_evidence_v4.json) | JSON | v4 指标需求反推的视觉输出契约 |
 | [`../tools/summarize_visual_evidence_v3_calibration.py`](../tools/summarize_visual_evidence_v3_calibration.py) | CLI | 真实视频校准 pilot 的候选映射诊断（不冻结） |
 | [`../reports/visual_evidence_v3_promotion_audit_20260913.json`](../reports/visual_evidence_v3_promotion_audit_20260913.json) | JSON | 当前 v3 正式验收结果：三项均 blocked |

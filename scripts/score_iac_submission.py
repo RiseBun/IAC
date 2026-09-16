@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build an IAC capability-stratified scorecard from a validated submission.
 
-Optional MAS/RCS/GS and future-to-action cells (with legacy CCFC/FAU aliases)
+Optional AS/RCS/GS and future-to-action cells (with legacy CFAC/CCFC/FAU aliases)
 are ``unavailable`` when their interface or evidence is absent; the scorer never
 invents numbers or converts absence into zero.
 """

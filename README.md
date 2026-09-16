@@ -58,11 +58,12 @@ Per-class recall is stop `100%`, left `82.9%`, right `81.0%`, and straight
 `72.5%`. These are visual-reader accuracy measurements.
 
 Generated video has no directly observed image-motion ground truth, so the WAM
-rows below are alignment/response scores, not visual accuracy. MAS compares one
-branch's visual token with its native action; RCS compares same-source left/right
+rows below are legacy alignment/response evidence, not visual accuracy. The
+single-branch rows are retained as historical AS-yaw component evidence; RCS
+compares same-source left/right
 visual and native-action differences.
 
-| Model | MAS.direction coverage / alignment | RCS measurement coverage | RCS.direction | 95% source CI | Status |
+| Model | legacy AS-yaw coverage / alignment | RCS measurement coverage | RCS.direction | 95% source CI | Status |
 |---|---:|---:|---:|---:|---|
 | DriveWAM (255 pairs) | `96.9% / 77.9%` | `93.7%` | `86.2%` | `[80.4%, 91.3%]` | directional RCS pass |
 | Epona (174 pairs) | `95.4% / 77.7%` | `94.3%` | `91.9%` | `[85.9%, 97.0%]` | directional RCS pass |
@@ -102,7 +103,7 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
 > from this repository alone.
 
 The scorecard is deliberately conditional: it does not assume that every WAM
-uses its predicted future to produce its action. MAS, RCS and GS are reported
+uses its predicted future to produce its action. AS, RCS and GS are reported
 independently with their own coverage; mediation is an optional causal audit.
 An unsupported or unevaluable channel is `unavailable` with a reason; it is
 excluded from that channel's score denominator, never converted to zero, and no
@@ -127,17 +128,16 @@ uncertainty, not by adding capability columns.
 
 Independent simulator execution is reported as external task validation rather
 than an IAC metric. It requires verified native-action provenance and realized
-state, but it is never folded into the MAS/RCS/GS vector.
+state, but it is never folded into the AS/RCS/GS vector.
 
 ## Contributions
 
-1. **Candidate-blind motion measurement.** The selected S1.3 path reads a frozen
-   RAFT-Large flow field directly as an ordinal yaw response, without metric
-   reconstruction or candidate trajectories. The continuous ground-plane SE(2)
-   decoder remains an explicit, fail-closed diagnostic. Only yaw direction/rank
-   enters the primary score.
-2. **Capability-stratified metrics.** The canonical metrics are Motion Alignment
-   Score (MAS; legacy CFAC), Response Consistency Score (RCS; legacy CCFC), and
+1. **Candidate-blind motion measurement.** The frozen visual layer reads yaw
+   with Reloc3r-512 and coarse ordinal progress with Metric3Dv2-v2-S, static
+   correspondences, and known-rotation PnP. Exact metric motion remains an
+   explicit diagnostic.
+2. **Capability-stratified metrics.** The canonical metrics are Alignment
+   Score (AS; legacy CFAC/MAS), Response Consistency Score (RCS; legacy CCFC), and
    Grounding Score (GS; legacy FAU components).
    Each is an evidence column with its own coverage. Unsupported capabilities
    are `unavailable`, not zero-filled.
@@ -145,7 +145,7 @@ state, but it is never folded into the MAS/RCS/GS vector.
    revision, seed and lineage are required. Private GT is joined only on the
    evaluation server; submitted motion profiles cannot replace image probing.
    Model adapters may only declare the frozen orientation transform; the
-   comparability validator also checks that MAS/RCS share the same calibration
+   comparability validator also checks that AS/RCS share the same calibration
    contract, descriptor, bootstrap and promotion gates.
 4. **Structural counterfactual channel.** Same-source left/right flow
    differences are exposed as an ordinal, decoder-free signal for the Response
@@ -167,7 +167,7 @@ fallback, not a learned-tracker claim.
 
 The v2 packet carries ordinal/structural evidence (`yaw_direction`,
 `progress_order`, `lateral_direction`, relative magnitude, FOE, divergence,
-curl, affine components and temporal persistence). MAS and RCS consume this
+curl, affine components and temporal persistence). AS and RCS consume this
 vector evidence independently; GS consumes generated/reference evidence with
 identity and temporal controls. Future-to-action mediation requires paired,
 independent intervention rollouts. Metric distance, absolute speed,
@@ -188,7 +188,7 @@ for compatibility and are diagnostic/deprecated only.
 **Metric-first v4 output layer.** The current reconstruction adds
 [`src/iac_new/visual_evidence_v4.py`](src/iac_new/visual_evidence_v4.py) and
 [`configs/visual_evidence_v4.json`](configs/visual_evidence_v4.json). v4 does
-not treat generic flow/appearance descriptors as action semantics: MAS requires
+not treat generic flow/appearance descriptors as action semantics: AS requires
 a frozen real-video calibration before emitting an action-aligned vector, RCS
 requires normal/reversed/zero/identity controls before emitting a paired
 response, and the optional mediation output exposes pathway evidence without
@@ -203,14 +203,15 @@ are never zero-filled.
 
 | Metric | Epona | DriveWAM | Interpretation |
 |---|---:|---:|---|
-| MAS-yaw pair coverage | 94.8% | 96.0% | visual yaw direction aligned with native action |
-| MAS-yaw direction accuracy | 83.6% | 81.4% | source-bootstrap 95% CI: [79.4%, 87.6%] / [76.6%, 86.2%] |
+| legacy AS-yaw pair coverage | 94.8% | 96.0% | visual yaw direction aligned with native action |
+| legacy AS-yaw direction accuracy | 83.6% | 81.4% | source-bootstrap 95% CI: [79.4%, 87.6%] / [76.6%, 86.2%] |
 | RCS-yaw pair coverage | 98.3% | 100.0% | same-source counterfactual pairs available |
 | RCS-yaw direction accuracy | 92.4% | 85.8% | source-bootstrap 95% CI: [86.7%, 97.1%] / [79.0%, 92.4%] |
 | GS coverage | 94.9% | 94.2% | external logged-future grounding |
 | GS median | 0.550 | 0.191 | paired Epona−DriveWAM difference: 0.314 [0.251, 0.340] |
 
-The archived MAS-yaw/RCS-yaw rows are structural/directional pilot claims, not
+The archived `mas_yaw_*`/RCS-yaw rows are structural/directional component
+evidence, not separate metrics and not
 formal v4 promotion. The v4 promotion audit is currently blocked because the
 required frozen real-video calibration, source-level controls (including zero
 and identity controls), and external same-source GS references are incomplete.
@@ -224,13 +225,13 @@ and scorer ([`configs/future_to_action_mediation_v1.json`](configs/future_to_act
 It requires a future-only perturbation and a pathway-blocked replica with the
 same history, command, seed and model revision. Until a source-disjoint WAM
 confirmation passes its preregistered suppression and specificity gates, the
-channel is `unavailable`; MAS/RCS scores are not relabelled as causal evidence.
+channel is `unavailable`; AS/RCS scores are not relabelled as causal evidence.
 
 **Metric-first evidence packets.**  The score is only admissible when its
 sample-level provenance is present.  `tools/build_metric_evidence_packets.py`
 records model identity, native-action source, branch identity, same-source
 counterfactual pairing, action deltas, and reversed/zero controls.  A
-2026-09-12 replay produced MAS scored/weak/unavailable counts of 106/10/2 for
+2026-09-12 replay produced legacy AS-yaw scored/weak/unavailable counts of 106/10/2 for
 Epona and 148/20/4 for DriveWAM; RCS counts were 37/0/22 and 63/0/23.
 Weak and unavailable rows remain explicit rather than being zero-filled.
 These are evidence-completeness results, not new quality scores or causal
@@ -272,7 +273,7 @@ these four conditions exists yet, so no causal claim is enabled.
 Two source-level questions can be answered without any new model runs, from
 tables the frozen reports already contain.
 [`tools/analyse_joint_source_table.py`](tools/analyse_joint_source_table.py)
-joins per-source consistency scores (MAS/RCS) with per-source independent
+joins per-source consistency scores (AS/RCS) with per-source independent
 execution outcomes and reports a source-level bootstrap Spearman, a
 deterministically shuffled null control, and the distance of the consistency
 score from its chance level (0.5 for the ordinal direction scores). This is the
@@ -312,18 +313,18 @@ private; this is the safe publication path, not a claim that private GT is
 already public.
 
 The machine-readable release boundary is recorded in
-[`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json):
-the package is publishable as a conditional consistency/grounding standard, but
-does not claim future-to-action causality until mediation evidence is supplied.
+[`reports/release_readiness_20260917.json`](reports/release_readiness_20260917.json):
+the code and protocol are publishable as a research implementation, but the
+complete three-metric benchmark is not yet release-validated. AS still needs a
+second native-action model and GS still needs a second identity-specific model.
+Future-to-action causality additionally requires mediation evidence.
 Run [`tools/validate_release_readiness.py`](tools/validate_release_readiness.py)
 before publishing a new scorecard; it fails closed if these boundaries drift.
 
-The current two-model result has a deliberately narrow scope. Epona and
-DriveWAM validate the protocol on two declared model families; they do **not**
-justify an architecture-universal claim. The machine-readable claim scope is
-`two_model_protocol_validation_only`. A universal architecture claim is disabled
-until at least three distinct architecture families pass the pre-registered
-gate. DriveVA and WorldDrive remain diagnostic/pilot evidence and cannot be
+The current evidence is metric-specific. RCS-yaw is validated on Epona and
+DriveWAM; complete native-action AS is formal only on DriveWAM; identity-specific
+GS is formal only on Epona. None of these justify an architecture-universal
+claim. DriveVA and WorldDrive remain diagnostic/pilot evidence and cannot be
 silently promoted by adding their names to a report.
 
 An independent same-source channel audit tested five decoder-free descriptors on
@@ -462,14 +463,14 @@ For the same `source_key`, it computes
 
 and reports raw/common-motion-normalized deltas, direction and temporal
 persistence without reconstructing metres or radians. It can support the
-structural `RCS`, but it does not replace metric `MAS` or `GS`; progress
+structural `RCS`, but it does not replace the frozen `AS` or `GS`; these legacy progress
 descriptors remain diagnostic until the independent pure-speed swap validation
 is complete.
 
-### Step 2: Motion Alignment (MAS) and Response Consistency (RCS)
+### Step 2: Alignment Score (AS) and Response Consistency Score (RCS)
 
-**Motion Alignment Score (MAS; legacy CFAC)** compares one run's imagined motion
-profile `P_F` with its native action profile `P_A`. **Response Consistency Score
+**Alignment Score (AS; legacy CFAC/MAS)** compares candidate-blind yaw and coarse
+ordinal progress read from one generated future with its native action. **Response Consistency Score
 (RCS; legacy CCFC)** compares the changes produced by two reproducible
 forwards with the same history, seed and nuisance variables:
 
@@ -495,10 +496,10 @@ The Grounding Score (GS) reports whether imagined motion and native
 action approach the private ground-truth future. Its compatibility components
 remain `FAU_F` and `FAU_A`, with legacy `FAU = sqrt(FAU_F × FAU_A)`.
 
-`MAS` in the structural domain requires an action-to-structure
-mapping fitted on a separate calibration set and frozen before confirmation.
-Until that calibration is validated, it must be reported as `unavailable`, not
-as a metre-domain error. The executable pilot bundle is recorded in
+Any additional AS dimension requires an action-to-structure mapping fitted on a
+separate calibration set and frozen before confirmation. Unvalidated dimensions
+must be reported as diagnostic or `unavailable`, not as metre-domain errors. The
+legacy executable pilot bundle is recorded in
 [`reports/wam_three_metric_pilot_20260911.json`](reports/wam_three_metric_pilot_20260911.json).
 
 The current cross-model pilot scorecard is recorded in
@@ -518,7 +519,7 @@ have passed the frozen GS gates and are recorded in
 下面把“证明测量器有效的控制结果”和“模型本身的分数”分开报告。所有数值都
 保留 coverage；不可测样本为 `unavailable`，不填零。
 
-**Step 1 / MAS 选择依据（冻结 S1.3 yaw pilot）**
+**Step 1 / AS-yaw 历史选择依据（冻结 S1.3 yaw pilot）**
 
 在 255 个配对 source 上，pair coverage 为 `254/255 = 99.6%`，yaw 方向准确率
 为 `126/149 = 84.6%`（95% CI `[77.9%, 89.5%]`），Spearman 为 `0.779`。
@@ -551,11 +552,11 @@ Both models pass the frozen RCS-yaw gates.  Pure-speed progress RCS remains a
 separate diagnostic because its DriveWAM result is near chance; it is not
 silently folded into the yaw score.
 
-The dimension contract is explicit: the frozen MAS/RCS cells validate only
-ordinal yaw direction/response. Speed, longitudinal distance, lateral
+The dimension contract is explicit: frozen AS validates yaw direction and
+coarse ordinal progress, while RCS currently validates yaw response. Speed, metric longitudinal distance, lateral
 displacement, and curvature are still `diagnostic_only`, while a complete
 metric trajectory is `unavailable`. A downstream score must not treat those
-diagnostic fields as hidden components of MAS/RCS or infer a full-trajectory
+diagnostic fields as hidden components of AS/RCS or infer a full-trajectory
 claim from a yaw score.
 
 To broaden Step 1 beyond the current yaw adapter, the repository now contains
@@ -584,7 +585,7 @@ three-architecture gate.
 Step1 is now being refactored as a shared evidence layer rather than a single
 yaw or metric-trajectory decoder. The experimental interface exposes temporal
 motion, same-source counterfactual response, generated/reference grounding, and
-reliability/abstention evidence independently. MAS, RCS and GS consume the
+reliability/abstention evidence independently. AS, RCS and GS consume the
 relevant evidence product; causal claims still require a separate future-only
 pathway intervention. Metric depth is optional and may improve validity or grounding
 diagnostics, but it is not required and cannot fill missing visual evidence.
@@ -625,7 +626,7 @@ python tools/score_structural_grounding.py \
   --output gs_report.json
 ```
 
-**MAS structural diagnostic（尚未作为正式排行榜分数）**
+**Legacy action-to-structure diagnostic（不属于正式 AS）**
 
 | 模型 | interval coverage | reliable fraction | median residual (px) | direction cosine |
 |---|---:|---:|---:|---:|
@@ -634,10 +635,10 @@ python tools/score_structural_grounding.py \
 | WorldDrive (eval25) | `26.9%` | `5.0%` | `6.32` | `0.851` |
 | DriveVA | `21.3%` | `2.5%` | `13.32` | `0.313` |
 
-这组结果说明直接把结构流拟合成 action-aligned MAS 仍受模型域差异影响，
+这组结果说明直接把结构流拟合成 action-aligned score 仍受模型域差异影响，
 不能与上面的 RCS/GS 分数混排；它保留作诊断和后续校准依据。
 
-**Frozen MAS-yaw variant.**  The metric scope is now explicitly directional:
+**Archived `MAS-yaw` variant (AS-yaw component evidence).** The historical scope is directional:
 the median `horizontal_flow_center` sign over a branch is compared with the
 sign of the native terminal yaw.  Orientation and deadbands are frozen from
 logged real future flow; source-level bootstrap is used for confirmation.  This
@@ -649,9 +650,11 @@ metre-domain motion score.
 | Epona | `94.8%` | `83.6%` | `[79.4%, 87.6%]` | `16.4%` |
 | DriveWAM | `96.0%` | `81.4%` | `[76.6%, 86.2%]` | `18.6%` |
 
-Both models pass the frozen MAS-yaw gates (coverage ≥90%, bootstrap lower
-bound ≥75%).  Progress, speed, lateral displacement, curvature, and absolute
-trajectory alignment remain diagnostic-only.  Full artifacts are
+Both models pass the historical yaw-component gates (coverage ≥90%, bootstrap
+lower bound ≥75%). This supports the yaw component but is not a full AS result;
+the current AS additionally uses coarse ordinal progress. Exact speed, metric
+distance, lateral displacement, curvature, and absolute trajectory alignment
+remain diagnostic-only. Full legacy artifacts are
 [`configs/mas_yaw_v1.json`](configs/mas_yaw_v1.json),
 [`reports/mas_yaw_epona_20260912.json`](reports/mas_yaw_epona_20260912.json),
 [`reports/mas_yaw_drivewam_20260912.json`](reports/mas_yaw_drivewam_20260912.json),
@@ -666,17 +669,17 @@ The machine-checkable contract can be checked with
 
 An independent, candidate-blind action-to-structure calibration was also
 run using logged real future flow only, then applied once to untouched pure-
-speed generated confirmations.  It is an audit of the MAS interface, not a
+speed generated confirmations. It is a legacy component audit, not a
 promotion result:
 
-| Model | branch coverage | median MAS | median zero baseline | fast-vs-slow order |
+| Model | branch coverage | median legacy alignment | median zero baseline | fast-vs-slow order |
 |---|---:|---:|---:|---:|
 | Epona | `95.0%` (112/118) | `0.550` | `0.650` | `36.0%` (56 twins) |
 | DriveWAM | `100%` (172/172) | `0.270` | `0.350` | `7.0%` (86 twins) |
 
 Both models score below the zero-action baseline and fail the preregistered
 transportability requirement.  This is evidence that the current
-action-to-structure adapter is not yet a reliable MAS; the result is retained
+action-to-structure adapter is not reliable enough for AS; the result is retained
 as a negative control and does not alter the frozen RCS or GS claims.  The
 reproducible artifacts are
 [`reports/mas_independent_epona_20260912.json`](reports/mas_independent_epona_20260912.json),

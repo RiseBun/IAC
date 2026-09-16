@@ -15,7 +15,7 @@ def _load(path: Path) -> dict[str, Any]:
 
 def _direction_row(path: Path, metric: str) -> dict[str, Any]:
     report = _load(path)
-    row = report.get("confirmation", {}).get("normal", {}) if metric == "MAS" else report.get("normal", {})
+    row = report.get("confirmation", {}).get("normal", {}) if metric == "AS-yaw" else report.get("normal", {})
     coverage = float(row.get("pair_coverage") or 0.0)
     ci = list(row.get("source_bootstrap_ci95") or row.get("direction_ci95") or [])
     lower = float(ci[0]) if ci else None
@@ -33,7 +33,7 @@ def _direction_row(path: Path, metric: str) -> dict[str, Any]:
 
 def run(root: Path) -> dict[str, Any]:
     rows = []
-    for metric, names in (("MAS", ("mas_yaw_epona_20260912.json", "mas_yaw_drivewam_20260912.json")), ("RCS", ("rcs_yaw_epona_20260912.json", "rcs_yaw_drivewam_20260912.json"))):
+    for metric, names in (("AS-yaw", ("mas_yaw_epona_20260912.json", "mas_yaw_drivewam_20260912.json")), ("RCS", ("rcs_yaw_epona_20260912.json", "rcs_yaw_drivewam_20260912.json"))):
         rows.append(_direction_row(root / "reports" / names[0], metric))
         rows.append(_direction_row(root / "reports" / names[1], metric))
     candidate = _load(root / "reports" / "grounding_score_candidate_20260911.json")
@@ -59,8 +59,8 @@ def run(root: Path) -> dict[str, Any]:
         "protocol": "iac-metric-credibility-audit-v1",
         "rows": all_rows,
         "summary": {
-            "mas_rcs_yaw_models_passing": sum(r["credible_for_declared_yaw_scope"] for r in rows),
-            "mas_rcs_yaw_models_total": len(rows),
+            "as_yaw_and_rcs_models_passing": sum(r["credible_for_declared_yaw_scope"] for r in rows),
+            "as_yaw_and_rcs_models_total": len(rows),
             "gs_models_passing_identity_specificity": sum(r["credible_for_grounding_scope"] for r in gs_rows),
             "gs_models_total": len(gs_rows),
         },

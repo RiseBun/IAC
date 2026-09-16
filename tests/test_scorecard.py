@@ -36,7 +36,7 @@ def _row(**extra):
 class ScorecardTest(unittest.TestCase):
     def test_canonical_metric_cells_are_present(self) -> None:
         card = build_model_scorecard(model_id="x", capability="video_only")
-        for cell in ("mas", "rcs", "gs", "future_to_action_mediation"):
+        for cell in ("as", "rcs", "gs", "future_to_action_mediation"):
             self.assertEqual(card["cells"][cell]["status"], "unavailable")
 
     def test_scorecard_is_explicitly_conditional(self) -> None:
@@ -53,7 +53,7 @@ class ScorecardTest(unittest.TestCase):
 
     def test_canonical_cells_expose_claim_boundaries(self) -> None:
         card = build_model_scorecard(model_id="x", capability="native_action_conditioned")
-        self.assertEqual(card["cells"]["mas"]["causal_status"], "not_mediation")
+        self.assertEqual(card["cells"]["as"]["causal_status"], "not_mediation")
         self.assertEqual(card["cells"]["rcs"]["causal_status"], "not_mediation")
         self.assertEqual(card["cells"]["gs"]["causal_status"], "not_mediation")
         self.assertEqual(
@@ -61,7 +61,7 @@ class ScorecardTest(unittest.TestCase):
             "causal_only_if_promotion_passed",
         )
         self.assertEqual(
-            card["cells"]["mas"]["conditional_evaluation"]["score_scope"],
+            card["cells"]["as"]["conditional_evaluation"]["score_scope"],
             "units_with_evidence_and_quality_gate_passed",
         )
 
@@ -98,11 +98,11 @@ class ScorecardTest(unittest.TestCase):
             model_id="x",
             capability="video_only",
             measurements={
-                "mas": {"status": "pass", "pair_coverage": 0.94, "score": 0.84},
+                "as": {"status": "pass", "pair_coverage": 0.94, "score": 0.84},
                 "rcs": {"status": "pass", "pair_coverage": 1.0, "score": 0.86},
             },
         )
-        self.assertAlmostEqual(card["cells"]["mas"]["coverage"], 0.94)
+        self.assertAlmostEqual(card["cells"]["as"]["coverage"], 0.94)
         self.assertAlmostEqual(card["cells"]["rcs"]["coverage"], 1.0)
 
     def test_epona_does_not_claim_ccfc(self) -> None:
