@@ -1,0 +1,142 @@
+{
+  "protocol": "iac-action-alignment-audit-v1",
+  "status": "passed",
+  "visual_manifest_rows": 1490,
+  "rollout_rows": 1456,
+  "source_overlap_rows": 1456,
+  "matched_rows": 1456,
+  "exact_matches": 1456,
+  "approximate_matches": 1456,
+  "exact_tolerance": 1e-06,
+  "approximate_tolerance": 0.01,
+  "nearest_visual_branch_counts": {
+    "left": 728,
+    "right": 728
+  },
+  "nearest_max_abs_error_median": 0.0,
+  "nearest_max_abs_error_p95": 0.0,
+  "examples": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0018:2c757b2eaf465d16",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0010:422cef22a8e65a1b",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.37.09_veh-12_00404_00864:log-0022-scene-0011:377ca66f04da5fe8",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0022:9f5ac897aea35174",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.08.30.14.54.34_veh-40_00439_00835:log-0054-scene-0011:2bcd81c410995e6a",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0018:f08d7babff3f5651",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.28.15.02.02_veh-38_02398_02848:log-0034-scene-0021:50b496981aff577a",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.07.16.00.51.05_veh-17_01352_01901:log-0040-scene-0016:05ce988efe6d5e3e",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0008:a06ba1d0cf475ea9",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0023:5a6c7920be6657b9",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.22.28.35_veh-35_00620_01164:log-0002-scene-0026:885a21977b745818",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0009:a6c2110240ba5434",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_01133_01535:log-0004-scene-0012:77dd35637ef35db8",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0009:738f19951fa85dba",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0013:ca36c8cf4d88554c",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0018:895302b7e60f527b",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0008:27e1e7135ccc5fa2",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0012:a7ce5db35c27537a",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0012:b7705ccaf9225f93",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    },
+    {
+      "source_key": "navsim:2021.06.08.14.35.24_veh-26_02555_03004:log-0012-scene-0015:f113e70c012f55ca",
+      "rollout_branch": null,
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 0.0
+    }
+  ],
+  "decision": "same_action_alignment_passed",
+  "claim_boundary": "Source overlap is not action alignment; model, seed, branch and trajectory identity must be verified before joint validity claims."
+}

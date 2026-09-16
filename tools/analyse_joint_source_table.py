@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
+import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -64,6 +66,40 @@ def _pearson(left: list[float], right: list[float]) -> float | None:
 
 def _spearman(left: list[float], right: list[float]) -> float | None:
     return _pearson(_rank(left), _rank(right))
+
+
+def _percentile(values: list[float], q: float) -> float | None:
+    if not values:
+        return None
+    ordered = sorted(values)
+    position = (len(ordered) - 1) * q
+    lower = int(position)
+    upper = min(lower + 1, len(ordered) - 1)
+    weight = position - lower
+    return ordered[lower] * (1.0 - weight) + ordered[upper] * weight
+
+
+def _log_cluster(source: str) -> str:
+    match = re.search(r":(log-[^:]+):", source)
+    return match.group(1) if match else source
+
+
+def _bootstrap_ci(rows: list[dict[str, Any]], left: str, right: str, *, cluster: bool, repeats: int = 2000) -> list[float] | None:
+    if len(rows) < 3:
+        return None
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        grouped[_log_cluster(row["source_key"]) if cluster else row["source_key"]].append(row)
+    keys = sorted(grouped)
+    rng = random.Random(20260916 + (1 if cluster else 0))
+    values = []
+    for _ in range(repeats):
+        sample = [item for _key in (rng.choice(keys) for _ in keys) for item in grouped[_key]]
+        value = _spearman([float(row[left]) for row in sample], [float(row[right]) for row in sample])
+        if value is not None:
+            values.append(value)
+    low, high = _percentile(values, 0.025), _percentile(values, 0.975)
+    return [low, high] if low is not None and high is not None else None
 
 
 def _load_as(path: Path) -> dict[str, dict[str, Any]]:
@@ -137,6 +173,9 @@ def analyse(as_path: Path, fcs_path: Path, *, rcs_path: Path | None = None) -> d
             "right": right,
             "n_sources": len(rows),
             "spearman": _spearman([float(r[left]) for r in rows], [float(r[right]) for r in rows]),
+            "source_bootstrap_ci95": _bootstrap_ci(rows, left, right, cluster=False),
+            "log_cluster_bootstrap_ci95": _bootstrap_ci(rows, left, right, cluster=True),
+            "log_cluster_count": len({_log_cluster(r["source_key"]) for r in rows}),
             "source_keys": [r["source_key"] for r in rows],
         }
 
@@ -149,6 +188,8 @@ def analyse(as_path: Path, fcs_path: Path, *, rcs_path: Path | None = None) -> d
         "inputs": {"as": str(as_path), "rcs": str(rcs_path) if rcs_path else None, "fcs": str(fcs_path)},
         "source_counts": {name: len(value) for name, value in channels.items()},
         "joined_source_count": sum(1 for row in table if row["joined_channels"] >= 2),
+        "as_fcs_joined_source_count": sum(1 for row in table if "as_score" in row and "fcs_success" in row),
+        "rcs_fcs_joined_source_count": sum(1 for row in table if "rcs_yaw" in row and "fcs_success" in row),
         "correlations": joins,
         "table": table,
         "claim_boundary": "Exploratory source-level association only. Shared source does not verify shared model revision, command branch or executed action; no causal, predictive or same-rollout validation claim.",

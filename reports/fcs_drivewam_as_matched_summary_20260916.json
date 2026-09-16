@@ -1,0 +1,151 @@
+{
+  "protocol": "navsim-counterfactual-realized-rollout",
+  "input_rows": 1490,
+  "output_rows": 1456,
+  "error_rows": 34,
+  "errors": [
+    {
+      "branch_id": "",
+      "error": "KeyError: '0ab84792c8ef54d9'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '45a388c8f17f58cc'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'b126947a8fea5f91'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'df6d38a688865954'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '2ae6bc66426a5cdb'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '06041e4ffd715c97'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '65e0e95a5f6a55b4'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '6dd770a280065023'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'd08f8398d3b45aa1'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '434cd7030f975450'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'bac81ef35411528f'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '2a6755e2f29a504b'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'f5da934281495b54'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'bb475c68f97456ea'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '4128625076935567'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '9fc7fc9b97f258a7'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'db744bbda1e35834'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '0ab84792c8ef54d9'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '45a388c8f17f58cc'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'b126947a8fea5f91'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'df6d38a688865954'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '2ae6bc66426a5cdb'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '06041e4ffd715c97'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '65e0e95a5f6a55b4'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '6dd770a280065023'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'd08f8398d3b45aa1'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '434cd7030f975450'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'bac81ef35411528f'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '2a6755e2f29a504b'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'f5da934281495b54'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'bb475c68f97456ea'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '4128625076935567'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: '9fc7fc9b97f258a7'"
+    },
+    {
+      "branch_id": "",
+      "error": "KeyError: 'db744bbda1e35834'"
+    }
+  ],
+  "task_success_rows": 802,
+  "task_success_rate": 0.5508241758241759,
+  "success_threshold": 0.5,
+  "state_reference_source": "navsim_pdm_kinematic_bicycle_closed_loop",
+  "traffic_policy": "static_cached_objects_compat",
+  "independent_realized_state": true,
+  "output": "reports/action_alignment/rollout_as_manifest_full.jsonl"
+}

@@ -14,6 +14,7 @@ absent in those pickles; it does not replace the ego-state simulation.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import sys
@@ -25,6 +26,12 @@ import numpy as np
 
 def _read(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def _action_fingerprint(row: dict[str, Any]) -> str:
+    payload = {"future_times_s": row.get("future_times_s"), "action_trajectory": row.get("action_trajectory")}
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
 
 
 def _token(row: dict[str, Any]) -> str:
@@ -162,7 +169,9 @@ def run(rows: list[dict[str, Any]], cache_root: Path, *, horizon_s: float, inter
                     "realized_future_ego_state": realized,
                     "state_times_s": times,
                     "state_reference_source": "navsim_pdm_kinematic_bicycle_closed_loop",
-                    "closed_loop_rollout_id": f"navsim-pdm:{_token(row)}::{row.get('branch_mode', 'unknown')}",
+                    "closed_loop_rollout_id": f"navsim-pdm:{_token(row)}::{row.get('branch_id') or row.get('sample_id') or 'unknown'}",
+                    "action_fingerprint": _action_fingerprint(row),
+                    "action_fingerprint_scope": "future_times_s+action_trajectory_before_resampling",
                     "pdm_score": score,
                     "task_score": score,
                     "task_success": bool(score >= success_threshold),

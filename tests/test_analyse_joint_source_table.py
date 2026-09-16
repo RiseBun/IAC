@@ -19,6 +19,7 @@ class JointSourceTableTest(unittest.TestCase):
             self.assertEqual(report["joined_source_count"], 1)
             self.assertEqual(report["correlations"][0]["n_sources"], 1)
             self.assertIsNone(report["correlations"][0]["spearman"])
+            self.assertIsNone(report["correlations"][0]["log_cluster_bootstrap_ci95"])
             s2 = next(row for row in report["table"] if row["source_key"] == "s2")
             self.assertNotIn("as_score", s2)
 
