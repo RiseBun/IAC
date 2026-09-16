@@ -17,7 +17,7 @@
 | [`../configs/cfac_structure_calibration_v1.json`](../configs/cfac_structure_calibration_v1.json) | JSON | Legacy CFAC-S diagnostic calibration contract |
 | [`../reports/pure_speed_confirmation_20260911.json`](../reports/pure_speed_confirmation_20260911.json) | JSON | Cross-model pure-speed confirmation result and promotion decision |
 | [`../reports/progress_structure_pure_speed_audit_20260912.json`](../reports/progress_structure_pure_speed_audit_20260912.json) | JSON | Non-yaw progress descriptor audit and promotion boundary |
-| [`../tools/score_fcs_rollout.py`](../tools/score_fcs_rollout.py) | CLI | Fail-closed independent rollout scorer for FCS |
+| [`../tools/score_independent_execution.py`](../tools/score_independent_execution.py) | CLI | Fail-closed independent rollout scorer for external task validation |
 | [`FUTURE_TO_ACTION_MEDIATION_AUDIT_20260916_ZH.md`](FUTURE_TO_ACTION_MEDIATION_AUDIT_20260916_ZH.md) | ZH | WorldDrive future-to-action mediation 四条件审计与下一轮执行规格 |
 | [`../reports/future_to_action_runner_inventory_20260916.json`](../reports/future_to_action_runner_inventory_20260916.json) | JSON | 服务器 WorldDrive runner/source inventory；当前仅有结果 artifact |
 | [`FUTURE_TO_ACTION_DRIVEVA_SMOKE_20260916_ZH.md`](FUTURE_TO_ACTION_DRIVEVA_SMOKE_20260916_ZH.md) | ZH | DriveVA 四条件 runner smoke 与 pathway-control 失败审计 |
@@ -25,7 +25,7 @@
 | [`../tools/score_future_to_action_mediation.py`](../tools/score_future_to_action_mediation.py) | CLI | 四条件 future-to-action pathway mediation scorer |
 | [`../tools/score_conditional_foresight.py`](../tools/score_conditional_foresight.py) | CLI | Paired future-perturbation contrast on task success (foresight-conditioned, not marginal) |
 | [`../tools/analyse_joint_source_table.py`](../tools/analyse_joint_source_table.py) | CLI | Source-level join of consistency scores with execution outcomes |
-| [`JOINT_SOURCE_ANALYSIS_20260916_ZH.md`](JOINT_SOURCE_ANALYSIS_20260916_ZH.md) | ZH | Current source-level AS/RCS versus independent FCS association audit |
+| [`JOINT_SOURCE_ANALYSIS_20260916_ZH.md`](JOINT_SOURCE_ANALYSIS_20260916_ZH.md) | ZH | Current source-level AS/RCS versus independent execution association audit |
 | [`../tools/audit_action_alignment.py`](../tools/audit_action_alignment.py) | CLI | Fail-closed action fingerprint audit before joint consistency/execution analysis |
 | [`../tools/score_structural_grounding.py`](../tools/score_structural_grounding.py) | CLI | Recompute GS from generated and user-supplied reference flow-structure JSONL |
 | [`../tools/export_gs_reference_release.py`](../tools/export_gs_reference_release.py) | CLI | HMAC-pseudonymized descriptor-only reference export for public GS replay |
@@ -74,7 +74,7 @@
 | [`../tools/build_visual_evidence_v3_status.py`](../tools/build_visual_evidence_v3_status.py) | CLI | 汇总 MAS/RCS/GS 当前正式状态 |
 | [`../tools/fit_visual_evidence_v3_adapter_pilot.py`](../tools/fit_visual_evidence_v3_adapter_pilot.py) | CLI | 透明线性校准 adapter pilot（不冻结、不作正式确认） |
 | [`../tools/crossval_visual_evidence_v3_adapter.py`](../tools/crossval_visual_evidence_v3_adapter.py) | CLI | 按 source_key 的校准/确认拆分与 bootstrap |
-| [`../src/iac_new/visual_evidence_v4.py`](../src/iac_new/visual_evidence_v4.py) | Python | action-aligned MAS、control-ready RCS、FCS pathway evidence 输出层 |
+| [`../src/iac_new/visual_evidence_v4.py`](../src/iac_new/visual_evidence_v4.py) | Python | action-aligned MAS、control-ready RCS、mediation pathway evidence 输出层 |
 | [`../configs/visual_evidence_v4.json`](../configs/visual_evidence_v4.json) | JSON | v4 指标需求反推的视觉输出契约 |
 | [`../tools/summarize_visual_evidence_v3_calibration.py`](../tools/summarize_visual_evidence_v3_calibration.py) | CLI | 真实视频校准 pilot 的候选映射诊断（不冻结） |
 | [`../reports/visual_evidence_v3_promotion_audit_20260913.json`](../reports/visual_evidence_v3_promotion_audit_20260913.json) | JSON | 当前 v3 正式验收结果：三项均 blocked |
@@ -102,7 +102,7 @@ that broader claim can be enabled. The release validator enforces this scope.
 | Doc | Content |
 |---|---|
 | [`BENCHMARK_PROTOCOL_AUDIT_ZH.md`](BENCHMARK_PROTOCOL_AUDIT_ZH.md) | 1000-row selection / leakage audit |
-| [`DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](DRIVEWAM_BENCHMARK_RESULTS_ZH.md) | Reference DriveWAM CFAC/CCFC/FAU/FCS numbers |
+| [`DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](DRIVEWAM_BENCHMARK_RESULTS_ZH.md) | Historical DriveWAM consistency, grounding, and external execution numbers |
 | [`IAC_FROZEN_PIPELINE.mmd`](IAC_FROZEN_PIPELINE.mmd) | Frozen pipeline diagram source |
 
 ## English summary of the reference pilot
@@ -112,7 +112,7 @@ DriveWAM on `benchmark` (1,000 NAVSIM windows):
 - **CFAC** (shape): 0.7638 on 823/1000
 - **CCFC** (arc-relative): 0.2178 on 453/1000 pairs
 - **FAU**: 0.5169 (`FAU_F` 0.5449, `FAU_A` 0.4904)
-- **FCS**: 0.5143 (503/978 executable)
+- **External execution success (not an IAC metric)**: 0.5143 (503/978 executable)
 
 The frozen Step 1 primary is the candidate-blind S1.3 yaw structural response.
 Metric SE(2) reconstruction, lateral/curvature/distance/speed fields and

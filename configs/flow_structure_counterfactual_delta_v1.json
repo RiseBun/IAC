@@ -53,6 +53,6 @@
     "CCFC-S": "ordinal consistency between delta structure and delta native action",
     "CFAC-S": "single-branch structural alignment after a frozen action-to-structure calibration",
     "FAU": "not supplied by this protocol; requires a logged-GT-compatible channel",
-    "FCS": "independent of this protocol"
+    "external_task_validation": "independent of this protocol and not an IAC metric"
   }
 }

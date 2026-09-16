@@ -1,8 +1,8 @@
-"""Independent rollout scoring for the foresight-conditioned success (FCS) cell.
+"""Independent simulator execution scoring for external task validation.
 
-FCS is deliberately separate from image-side MAS/RCS.  It scores an explicit
-task outcome after native actions are executed by an independent simulator and
-never infers success from generated-image quality.
+This module is deliberately outside the IAC metric vector. It scores an
+explicit task outcome after native actions are executed by an independent
+simulator and never infers success from generated-image quality.
 """
 
 from __future__ import annotations
@@ -34,7 +34,7 @@ def _wilson(successes: int, total: int, z: float = 1.959963984540054) -> list[fl
     return [max(0.0, float(centre - radius)), min(1.0, float(centre + radius))]
 
 
-def score_fcs_rollout(
+def score_execution_rollout(
     rows: list[dict[str, Any]],
     *,
     success_field: str = "task_success",
@@ -49,7 +49,7 @@ def score_fcs_rollout(
     never treated as failures.  If evidence metadata is present, it must state
     that the realized state is independent and native action injection was
     verified; this prevents an image-side or post-hoc label from masquerading
-    as FCS.
+    as independent execution evidence.
     """
     if minimum_rows < 1:
         raise ValueError("minimum_rows must be positive")
@@ -67,7 +67,7 @@ def score_fcs_rollout(
             continue
         key = (source, branch)
         if key in seen:
-            raise ValueError(f"duplicate FCS rollout row: {key}")
+            raise ValueError(f"duplicate execution rollout row: {key}")
         seen.add(key)
         model_id = str(row.get("wam_model_id") or "").strip()
         if not model_id:
@@ -129,7 +129,7 @@ def score_fcs_rollout(
 
     scored = [item for item in normalized if item["status"] == "scored"]
     if len(model_ids) > 1:
-        raise ValueError(f"FCS input mixes WAM models: {sorted(model_ids)}")
+        raise ValueError(f"execution input mixes WAM models: {sorted(model_ids)}")
     successes = sum(bool(item["task_success"]) for item in scored)
     coverage = len(scored) / len(rows) if rows else None
     unavailable_reasons = dict(Counter(
@@ -152,7 +152,7 @@ def score_fcs_rollout(
         for key in ("simulator_id", "state_reference_source", "action_injection_verified", "independent_realized_state")
     }
     return {
-        "protocol": "iac-fcs-independent-rollout-v1",
+        "protocol": "iac-independent-execution-v1",
         "status": "pass" if len(scored) >= minimum_rows else "unavailable",
         "rows": len(rows),
         "model_id": next(iter(model_ids), None),
@@ -170,17 +170,17 @@ def score_fcs_rollout(
         "status_counts": dict(Counter(item["status"] for item in normalized)),
         "unavailable_reasons": unavailable_reasons,
         "rows_detail": normalized,
-        "claim_boundary": "FCS is independent task execution evidence; it does not establish image grounding or future-to-action mediation.",
+        "claim_boundary": "Independent task execution is external validation, not an IAC metric; it does not establish image grounding or future-to-action mediation.",
     }
 
 
-def assess_cross_model_fcs(
+def assess_cross_model_execution(
     reports: list[dict[str, Any]],
     *,
     minimum_models: int = 2,
     minimum_scored_rows: int = 30,
 ) -> dict[str, Any]:
-    """Assess whether independent FCS reports support a cross-model claim.
+    """Assess whether independent execution reports support a cross-model audit.
 
     This function intentionally does not combine success rates into a model
     ranking.  It only checks whether each report is an independently scored
@@ -189,7 +189,7 @@ def assess_cross_model_fcs(
     result ``pending`` rather than becoming a zero-performing model.
     """
     if minimum_models < 2 or minimum_scored_rows < 1:
-        raise ValueError("cross-model FCS gates are invalid")
+        raise ValueError("cross-model execution gates are invalid")
     model_ids: list[str] = []
     per_model: list[dict[str, Any]] = []
     errors: list[str] = []
@@ -209,7 +209,7 @@ def assess_cross_model_fcs(
         if not checks["model_id_present"]:
             errors.append(f"report_{index}:missing_model_id")
         if not checks["independent_rollout_passed"]:
-            errors.append(f"report_{index}:fcs_not_passed")
+            errors.append(f"report_{index}:execution_not_passed")
         if not checks["minimum_scored_rows"]:
             errors.append(f"report_{index}:fewer_than_{minimum_scored_rows}_scored_rows")
         if not checks["native_action_source_present"]:
@@ -228,7 +228,7 @@ def assess_cross_model_fcs(
         errors.append(f"fewer_than_{minimum_models}_distinct_models")
     claim_enabled = not errors
     return {
-        "protocol": "iac-fcs-cross-model-assessment-v1",
+        "protocol": "iac-independent-execution-cross-model-assessment-v1",
         "status": "validated" if claim_enabled else "pending",
         "claim_enabled": claim_enabled,
         "model_count": len(set(model_ids)),
@@ -238,5 +238,5 @@ def assess_cross_model_fcs(
         "per_model": per_model,
         "errors": errors,
         "ranking_policy": "cross-model presence gate only; no natural quality ranking",
-        "claim_boundary": "Cross-model FCS confirms independent execution evidence exists for each listed model; it does not establish future-to-action mediation or rank models by success rate.",
+        "claim_boundary": "This audit confirms independent execution evidence exists for each listed model; it is not an IAC metric and does not establish future-to-action mediation or rank models by success rate.",
     }

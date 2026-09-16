@@ -372,14 +372,14 @@ Spearman 为 `0.949`。缺失时刻不插补 terminal yaw；`>=1/4` 虽越过 90
 逐样本记录与评分由私有评测端保存为 `ccfc_full_records.jsonl`、
 `ccfc_full_report.json`，不随公开仓库发布。
 
-## Step 3 / FCS
+## 外部任务验证
 
 native action 进入独立 NAVSIM PDM kinematic-bicycle closed-loop rollout。该步骤测量可执行动作的实现效果，不读取 WAM 生成图像，也不把 waypoint 当作 realized state。
 
 | 指标 | 结果 |
 |---|---:|
 | 输入/成功 | 978 / 503 |
-| FCS task success rate | 0.5143 |
+| external task success rate（非 IAC 指标） | 0.5143 |
 | state reference | `navsim_pdm_kinematic_bicycle_closed_loop` |
 | traffic policy | `static_cached_objects_compat` |
 

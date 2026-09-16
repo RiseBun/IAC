@@ -12,7 +12,7 @@ from iac_new.metric_evidence_contract import validate_metric_evidence_table
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--metric", required=True, choices=("MAS", "RCS", "GS", "FCS"))
+    parser.add_argument("--metric", required=True, choices=("MAS", "RCS", "GS"))
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()

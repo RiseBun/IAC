@@ -7,7 +7,7 @@
 
 | 路径 | 作用 | 是否必需 |
 |---|---|---:|
-| `src/iac_new/` | 光流、结构观测、条件式 scorecard、FCS 与兼容几何诊断 | 是 |
+| `src/iac_new/` | 光流、结构观测、条件式 scorecard、独立执行验证与兼容几何诊断 | 是 |
 | `src/iac_new/metric_contract.py` | MAS/RCS adapter 可比性失败关闭校验 | 是 |
 | `src/iac_new/foresight_metrics.py` | 旧 CFAC/FAU 兼容与诊断实现，不代表当前 primary | 推荐 |
 | `scripts/validate_wam_submission.py` | 提交格式与泄漏审计 | 是 |

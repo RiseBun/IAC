@@ -1,12 +1,12 @@
 {
-  "protocol": "iac-fcs-cross-model-readiness-v1",
+  "protocol": "iac-independent-execution-cross-model-readiness-v1",
   "as_of": "2026-09-12",
   "status": "pending",
   "claim_enabled": false,
   "formal_model_reports": [
     {
       "model_id": "drivewam_navsim_checkpoint_20260824",
-      "report": "reports/fcs_drivewam_summary_20260912.json",
+      "report": "reports/independent_execution_drivewam_summary_20260912.json",
       "status": "validated_single_model",
       "scored_rows": 978,
       "native_action_source": "drivewam_native_action_head",
@@ -29,7 +29,7 @@
   "promotion_gate": {
     "minimum_distinct_models": 2,
     "minimum_scored_rows_per_model": 30,
-    "assessor": "tools/assess_fcs_cross_model.py"
+    "assessor": "tools/assess_cross_model_execution.py"
   },
-  "claim_boundary": "A second model with an independently verified native-action rollout is still required; MAS/RCS/GS cannot substitute for cross-model FCS."
+  "claim_boundary": "A second model is required only for a cross-model external execution audit. This audit is separate from MAS/RCS/GS and is not an IAC metric."
 }

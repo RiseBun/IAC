@@ -6,8 +6,7 @@ that the frozen protocol and the evidence matrix agree, then emits two
 separate decisions:
 
 * conditional consistency/grounding release (MAS/RCS/GS as supported);
-* complete causal future-driven benchmark release (requires mediation and
-  cross-model FCS evidence).
+* complete causal future-driven benchmark release (requires mediation evidence).
 
 Missing private data or an unavailable official simulator is reported as a
 blocking evidence item; it is never converted into a zero score or a failed
@@ -74,19 +73,6 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
         if len(families) < minimum_architectures:
             errors.append("protocol:universal_architecture_gate_not_met")
 
-    fcs = claims.get("fcs") or {}
-    fcs_cross_model = fcs.get("cross_model_status")
-    fcs_models = {str(model) for model in (fcs.get("models") or []) if str(model)}
-    fcs_complete = (
-        fcs.get("status") == "validated"
-        and fcs_cross_model == "validated"
-        and len(fcs_models) >= 2
-    )
-    if fcs_cross_model == "validated" and len(fcs_models) < 2:
-        errors.append("fcs:cross_model_claim_without_two_independent_models")
-    if not fcs_complete:
-        warnings.append("fcs:cross_model_evidence_pending")
-
     mediation = claims.get("future_to_action_mediation") or {}
     mediation_complete = mediation.get("status") == "validated"
     if mediation_complete and mediation.get("claim_enabled") is not True:
@@ -101,7 +87,7 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
         warnings.append("gs:reference_data_private_public_score_recompute_unavailable")
 
     protocol_status = str(protocol.get("status") or "")
-    if "causal_and_cross_model_evidence_pending" not in protocol_status:
+    if "causal_evidence_pending" not in protocol_status:
         errors.append("protocol:causal_boundary_status_mismatch")
 
     ranking = protocol.get("ranking_policy") or {}
@@ -127,7 +113,7 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
     if not required_fields.issubset(set(report_contract.get("must_report") or [])):
         errors.append("protocol:conditional_report_fields_missing")
 
-    complete_causal = not errors and fcs_complete and mediation_complete
+    complete_causal = not errors and mediation_complete
     return {
         "protocol": "iac-wam-release-readiness-validator-v1",
         "conditional_consistency_grounding_release": {
@@ -136,12 +122,11 @@ def validate(readiness: dict[str, Any], protocol: dict[str, Any]) -> dict[str, A
         },
         "complete_causal_future_driven_benchmark": {
             "ready": complete_causal,
-            "claim": "future-to-action mediation plus cross-model FCS are required.",
+            "claim": "future-to-action mediation is required; independent simulator execution remains external validation, not an IAC metric.",
         },
         "errors": errors,
         "warnings": warnings,
         "evidence_boundary": {
-            "fcs_cross_model_complete": fcs_complete,
             "future_to_action_mediation_complete": mediation_complete,
             "future_to_action_mediation_pilot_present": "pilot" in str(mediation.get("status") or ""),
             "gs_reference_publicly_recomputable": not any(
@@ -161,7 +146,7 @@ def main() -> None:
     parser.add_argument(
         "--require-complete-causal",
         action="store_true",
-        help="return a non-zero exit code until mediation and cross-model FCS pass",
+        help="return a non-zero exit code until future-to-action mediation passes",
     )
     args = parser.parse_args()
     report = validate(_read(args.readiness), _read(args.protocol))

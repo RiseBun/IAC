@@ -17,9 +17,9 @@ flowchart LR
         E -.-> Q
     end
     Q --> R
-    subgraph S3["STEP 3 · 前瞻条件成功 FCS"]
+    subgraph S3["外部任务验证（不属于 IAC 指标）"]
         R["独立模拟器闭环<br/>每条分支分别执行"]
-        T["输出实际自车状态<br/>task score / task success → FCS"]
+        T["输出实际自车状态<br/>task score / task success"]
         U["依据<br/>状态必须来自模拟器<br/>waypoint 不能充当实际状态"]
         R --> T
         U -.-> T

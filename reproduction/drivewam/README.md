@@ -10,7 +10,7 @@ reference row. Run the files in this order:
    to the frozen image probe without exposing action candidates to the probe.
 4. `build_ccfc_manifest.py`: assemble two regenerated command branches for
    paired CCFC.
-5. `build_fcs_staging.py`: prepare native actions for independent NAVSIM/PDM
+5. `build_execution_staging.py`: prepare native actions for independent NAVSIM/PDM
    execution.
 
 `prepare_reuse.py` and `build_missing_partition.py` are deterministic helpers

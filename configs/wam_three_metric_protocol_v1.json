@@ -157,8 +157,8 @@
     },
     "conditional_foresight_success": {
       "definition": "same-source paired change in independent task success when only the predicted future is perturbed, with a blocked-pathway arm and a fixed-action specificity control",
-      "distinct_from": "fcs",
-      "why_distinct": "the marginal FCS success rate is unchanged by a model that ignores its own predicted future; only the paired future-perturbation contrast conditions success on foresight",
+      "distinct_from": "marginal_external_execution_success",
+      "why_distinct": "a marginal execution success rate is unchanged by a model that ignores its own predicted future; only the paired future-perturbation contrast conditions success on foresight",
       "scorer": "tools/score_conditional_foresight.py",
       "module": "iac_new.conditional_foresight",
       "required_conditions": ["baseline", "future_perturbed", "future_perturbed_pathway_blocked", "future_fixed_action_pathway_control"],
@@ -177,11 +177,6 @@
     "non_yaw_structure_channels": {
       "audit": "reports/structure_channel_audit_20260912.json",
       "status": "diagnostic_only"
-    },
-    "fcs": {
-      "report": "reports/fcs_drivewam_summary_20260912.json",
-      "status": "validated_single_model_cross_model_pending",
-      "scorer": "tools/score_fcs_rollout.py"
     }
   },
   "compatibility": {"preserve_legacy_output_keys": true}

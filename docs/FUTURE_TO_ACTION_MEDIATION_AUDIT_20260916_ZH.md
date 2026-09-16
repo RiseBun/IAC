@@ -1,8 +1,8 @@
-# FCS / future-to-action mediation 审计（2026-09-16）
+# Future-to-action mediation 审计（2026-09-16）
 
 ## 结论
 
-当前 WorldDrive 的 25 组 pilot 不能作为 FCS mediation 结果发布。它已经证明了一个较弱但有价值的事实：模型内部确实存在“未来 latent permutation → native action head”的可干预路径，并且动作输出是模型自己的 action head 输出；但它还没有证明动作变化是通过该未来路径传递的。
+当前 WorldDrive 的 25 组 pilot 不能作为正式 mediation 结果发布。它已经证明了一个较弱但有价值的事实：模型内部确实存在“未来 latent permutation → native action head”的可干预路径，并且动作输出是模型自己的 action head 输出；但它还没有证明动作变化是通过该未来路径传递的。
 
 审计结果保存在：
 
@@ -27,7 +27,7 @@
 
 因此当前状态是 `blocked_missing_controls`，而不是分数为 0，也不是 mediation 失败。
 
-## FCS 的正式四条件
+## Mediation 的正式四条件
 
 每个独立 source 必须同时产生以下四条记录：
 
@@ -52,6 +52,6 @@
 
 正式 promotion gates 已固定在 `configs/future_to_action_mediation_v1.json`：future effect CI 下界至少 0.05，pathway suppression CI 下界至少 0.50，specificity control CI 上界不超过 0.25，且至少 30 个 source、确认集与 calibration 集不相交。
 
-## 与 FCS 独立 rollout 的关系
+## 与独立执行 rollout 的关系
 
-FCS 独立 rollout 可以回答“给定未来和动作是否共同变化”；本 mediation 实验回答“未来变化是否经由指定的 future-to-action pathway 改变 native action”。后者是因果路径证据，不能由 MAS、RCS、GS 或普通 future/action 相关性替代。
+独立执行 rollout 只回答“原生动作能否完成任务”；本 mediation 实验回答“未来变化是否经由指定的 future-to-action pathway 改变 native action”。后者是因果路径证据，不能由 MAS、RCS、GS、边际执行成功率或普通 future/action 相关性替代。

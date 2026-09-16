@@ -102,8 +102,8 @@ interface. Waymo is an external-domain protocol, not part of the leaderboard.
 > from this repository alone.
 
 The scorecard is deliberately conditional: it does not assume that every WAM
-uses its predicted future to produce its action. MAS, RCS, GS, FCS and the
-optional mediation channel are reported independently with their own coverage.
+uses its predicted future to produce its action. MAS, RCS and GS are reported
+independently with their own coverage; mediation is an optional causal audit.
 An unsupported or unevaluable channel is `unavailable` with a reason; it is
 excluded from that channel's score denominator, never converted to zero, and no
 overall aggregate score is defined.
@@ -125,11 +125,9 @@ The release also does not define a natural model-quality ranking: comparisons
 are allowed only within the same metric with source-disjoint or paired
 uncertainty, not by adding capability columns.
 
-FCS is validated per model. Cross-model FCS is a separate gate implemented by
-[`tools/assess_fcs_cross_model.py`](tools/assess_fcs_cross_model.py): it requires
-two distinct model identities and independently passed native-action rollout
-reports. A staging rollout or a report without native-action provenance cannot
-open that claim.
+Independent simulator execution is reported as external task validation rather
+than an IAC metric. It requires verified native-action provenance and realized
+state, but it is never folded into the MAS/RCS/GS vector.
 
 ## Contributions
 
@@ -140,7 +138,7 @@ open that claim.
    enters the primary score.
 2. **Capability-stratified metrics.** The canonical metrics are Motion Alignment
    Score (MAS; legacy CFAC), Response Consistency Score (RCS; legacy CCFC), and
-   Grounding Score (GS; legacy FAU components), with FCS reported separately.
+   Grounding Score (GS; legacy FAU components).
    Each is an evidence column with its own coverage. Unsupported capabilities
    are `unavailable`, not zero-filled.
 3. **Fail-closed reproducibility.** Exact timestamps, calibration, model
@@ -171,8 +169,8 @@ The v2 packet carries ordinal/structural evidence (`yaw_direction`,
 `progress_order`, `lateral_direction`, relative magnitude, FOE, divergence,
 curl, affine components and temporal persistence). MAS and RCS consume this
 vector evidence independently; GS consumes generated/reference evidence with
-identity and temporal controls; FCS remains unavailable unless paired,
-independent intervention rollouts exist. Metric distance, absolute speed,
+identity and temporal controls. Future-to-action mediation requires paired,
+independent intervention rollouts. Metric distance, absolute speed,
 curvature and a free fitted trajectory remain diagnostic.
 
 Archived flow profiles can be bridged without rerunning perception:
@@ -193,8 +191,8 @@ for compatibility and are diagnostic/deprecated only.
 not treat generic flow/appearance descriptors as action semantics: MAS requires
 a frozen real-video calibration before emitting an action-aligned vector, RCS
 requires normal/reversed/zero/identity controls before emitting a paired
-response, and the FCS-facing output exposes pathway evidence without inferring
-causality. Missing evidence remains `unavailable` rather than zero.
+response, and the optional mediation output exposes pathway evidence without
+inferring causality. Missing evidence remains `unavailable` rather than zero.
 
 ## Archived legacy scorecard (2026-09-12)
 
@@ -260,8 +258,8 @@ sources, it is pathway-response evidence only—not a future-to-action causal
 result. The mediation channel therefore remains `unavailable` for formal
 scoring.
 
-The same four conditions now also have an **outcome** scorer. The marginal FCS
-rate cannot distinguish a model that acts on its predicted future from one that
+The same four conditions now also have an **outcome** scorer. A marginal
+execution success rate cannot distinguish a model that acts on its predicted future from one that
 ignores it, because both the baseline and the perturbed arm are averaged
 together. [`tools/score_conditional_foresight.py`](tools/score_conditional_foresight.py)
 instead reports the paired same-source contrast
@@ -316,8 +314,7 @@ already public.
 The machine-readable release boundary is recorded in
 [`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json):
 the package is publishable as a conditional consistency/grounding standard, but
-does not claim future-to-action causality or cross-architecture FCS until those
-separate evidence channels are supplied.
+does not claim future-to-action causality until mediation evidence is supplied.
 Run [`tools/validate_release_readiness.py`](tools/validate_release_readiness.py)
 before publishing a new scorecard; it fails closed if these boundaries drift.
 
@@ -352,7 +349,7 @@ flowchart LR
     S2a["Two fixed-condition forwards"] --> S2b["Δ imagined motion ↔ Δ native action"]
   end
   S2 --> S3
-  subgraph S3["Step 3 · Reality Grounding / FCS"]
+  subgraph S3["External task validation (reported separately)"]
     S3a["Native action → independent NAVSIM/PDM rollout"] --> S3b["Realized state + task success"]
   end
 ```
@@ -588,8 +585,8 @@ Step1 is now being refactored as a shared evidence layer rather than a single
 yaw or metric-trajectory decoder. The experimental interface exposes temporal
 motion, same-source counterfactual response, generated/reference grounding, and
 reliability/abstention evidence independently. MAS, RCS and GS consume the
-relevant evidence product; FCS still requires a separate future-only pathway
-intervention. Metric depth is optional and may improve validity or grounding
+relevant evidence product; causal claims still require a separate future-only
+pathway intervention. Metric depth is optional and may improve validity or grounding
 diagnostics, but it is not required and cannot fill missing visual evidence.
 See [`src/iac_new/step1_evidence.py`](src/iac_new/step1_evidence.py) and
 [`configs/step1_evidence_layer_v1.json`](configs/step1_evidence_layer_v1.json).
@@ -606,7 +603,7 @@ GS 使用同源 logged future 作为外部参考，尺度只由 real-only calibr
 
 Epona − DriveWAM 的 paired 差值为 `0.314`，95% CI `[0.251, 0.340]`；这证明
 GS 能在两个模型之间区分真实运动结构保真度。该结果不单独证明
-future-to-action 因果关系，因果一致性仍由 RCS 和后续 FCS 负责。
+future-to-action 因果关系；该因果问题只能由独立的 mediation 实验回答。
 
 GS 的 source-disjoint generated calibration 为 `230` 个分支，coverage `98.3%`，
 中位数 `0.503`；随机身份置换均值 `0.289`（95% 上界 `0.303`）。详细审计见
@@ -691,22 +688,22 @@ signal: fast-vs-slow ordering was `69.5%` for Epona and `43.0%` for DriveWAM.
 The artifacts are [`reports/neu_flow_structure_epona_20260912.json`](reports/neu_flow_structure_epona_20260912.json)
 and [`reports/neu_flow_structure_drivewam_20260912.json`](reports/neu_flow_structure_drivewam_20260912.json).
 
-### Step 3: FCS
+### External task validation
 
-FCS sends native action to an independent simulator and scores the realized
+This optional validation sends native action to an independent simulator and scores the realized
 state and task label. The rollout never reads generated future images, and a
 WAM waypoint is never treated as realized state. Without a compatible rollout
-or task label, FCS is `unavailable`.
+or task label, external validation is `unavailable`.
 
 The independent DriveWAM rollout is available as a public aggregate audit:
-`978` executable rows, `503` successes, FCS `0.5143`, with zero rollout errors.
+`978` executable rows and `503` successes, with zero rollout errors.
 The fail-closed scorer gives coverage `1.000` and a Wilson 95% CI of
 `[0.4830, 0.5455]` for the success rate.
 The simulator used realized state and verified action injection without reading
-generated future images. This is a single-model result; cross-model FCS remains
-pending and the score does not establish future-to-action mediation. See
-[`reports/fcs_drivewam_summary_20260912.json`](reports/fcs_drivewam_summary_20260912.json).
-The reusable fail-closed scorer is [`tools/score_fcs_rollout.py`](tools/score_fcs_rollout.py):
+generated future images. This is external single-model task evidence and does
+not establish future-to-action mediation. See the historical artifact
+[`reports/independent_execution_drivewam_summary_20260912.json`](reports/independent_execution_drivewam_summary_20260912.json).
+The reusable fail-closed scorer is [`tools/score_independent_execution.py`](tools/score_independent_execution.py):
 it requires explicit task labels and their simulator provenance, stable source
 keys, verified native-action injection, and independent realized state, and reports missing rows as
 `unavailable` rather than failures.
@@ -725,8 +722,7 @@ python tools/score_conditional_foresight.py <four_condition_rollouts.jsonl> \
 # Source-level join: do high-consistency sources also succeed more often?
 python tools/analyse_joint_source_table.py \
   --rcs <per_source_rcs.jsonl> \
-  --fcs <per_source_rollout.jsonl> \
-  --primary rcs --outcome fcs \
+  --execution <per_source_rollout.jsonl> \
   --output reports/joint_source_analysis.json
 ```
 
@@ -767,7 +763,7 @@ results:
 | FAU_F | 0.5449 | 823/1,000 |
 | FAU_A | 0.4904 | 823/1,000 |
 | FAU | 0.5169 | 823/1,000 |
-| FCS | 0.5143 | 503 successes / 978 executable rows |
+| External execution success (not an IAC metric) | 0.5143 | 503 successes / 978 executable rows |
 
 Aggregate provenance and the private artifact contract are documented in
 [`docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md).

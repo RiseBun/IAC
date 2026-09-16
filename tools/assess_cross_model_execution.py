@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed cross-model assessment for independently scored FCS reports."""
+"""Fail-closed cross-model audit of independent execution reports."""
 
 from __future__ import annotations
 
@@ -7,18 +7,18 @@ import argparse
 import json
 from pathlib import Path
 
-from iac_new.fcs import assess_cross_model_fcs
+from iac_new.independent_execution import assess_cross_model_execution
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("reports", nargs="+", type=Path, help="one FCS JSON report per model")
+    parser.add_argument("reports", nargs="+", type=Path, help="one independent-execution JSON report per model")
     parser.add_argument("--minimum-models", type=int, default=2)
     parser.add_argument("--minimum-scored-rows", type=int, default=30)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     reports = [json.loads(path.read_text(encoding="utf-8")) for path in args.reports]
-    result = assess_cross_model_fcs(
+    result = assess_cross_model_execution(
         reports,
         minimum_models=args.minimum_models,
         minimum_scored_rows=args.minimum_scored_rows,

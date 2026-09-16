@@ -106,9 +106,9 @@ def audit(rows: list[dict[str, Any]], *, require_realized: bool, require_success
         if not any(row.get(key) is not None for key in ("action_condition", "executed_action", "trajectory", "action_trajectory", "candidates")):
             issues.append({"row": index, "field": "action_condition", "reason": "action condition or candidate bank required"})
         if require_realized and not any(row.get(key) is not None for key in ("realized_future_ego_state", "realized_future", "future_ego_state")):
-            issues.append({"row": index, "field": "realized_future_ego_state", "reason": "required for realized-state CC/FCS"})
+            issues.append({"row": index, "field": "realized_future_ego_state", "reason": "required for external realized-state validation"})
         if require_success and row.get("task_success") is None:
-            issues.append({"row": index, "field": "task_success", "reason": "required for FCS"})
+            issues.append({"row": index, "field": "task_success", "reason": "required for external task validation"})
     duplicate_branches = sorted(branch for branch, count in Counter(branch_ids).items() if count > 1)
     if duplicate_branches:
         issues.append({"field": "branch_id", "reason": "duplicate branch ids", "values": duplicate_branches})
@@ -150,7 +150,7 @@ def audit(rows: list[dict[str, Any]], *, require_realized: bool, require_success
         "image_probe_ready": image_probe_ready,
         "action_response_ready": action_response_ready,
         "realized_state_ready": realized_available and not any(issue["field"] == "realized_future_ego_state" for issue in issues),
-        "fcs_ready": realized_available and success_available and not any(issue["field"] in {"realized_future_ego_state", "task_success"} for issue in issues),
+        "external_task_validation_ready": realized_available and success_available and not any(issue["field"] in {"realized_future_ego_state", "task_success"} for issue in issues),
     }
 
 

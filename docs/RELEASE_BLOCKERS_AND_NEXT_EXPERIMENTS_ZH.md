@@ -27,7 +27,7 @@ chance（RCS 为 0.5）的偏离。这是当前**最便宜、也最可能推翻�
 的任务成功没有信息”，不构成对某个模型通路依赖的反证。
 
 **条件式 foresight-conditioned success** [`tools/score_conditional_foresight.py`](../tools/score_conditional_foresight.py)。
-`fcs.py` 报的是边际成功率，一个完全忽略自己预测视频、直接从 history 出动作的
+独立执行 scorer 报的是边际成功率，一个完全忽略自己预测视频、直接从 history 出动作的
 模型拿到同样的分数；要让它成为 *foresight-conditioned*，必须报同 source 配对
 的 `success(future_perturbed) - success(baseline)`，并同时跑
 `pathway_blocked`（归因控制）与 `fixed_action`（特异性控制）。该 scorer 额外
@@ -63,17 +63,17 @@ pathway-blocked、fixed-action、source-disjoint 和至少 30 个实质 source�
 `pilot_unqualified`，不能提升 mediation 状态，也不能把 MAS/RCS 改写为因果分数。
 记录见 [`reports/future_to_action_worlddrive_pilot_20260912.json`](../reports/future_to_action_worlddrive_pilot_20260912.json)。
 
-### FCS 跨模型
+### 独立执行的跨模型审计
 
 每个模型至少需要独立 simulator rollout、native action 注入证明、独立 realized
 state 和明确的 task-label provenance。当前 DriveWAM 已有一份合规汇总，第二个
 模型仍需单独提交，不能从 MAS/RCS 推断。
-仓库提供 [`tools/assess_fcs_cross_model.py`](../tools/assess_fcs_cross_model.py) 做
+仓库提供 [`tools/assess_cross_model_execution.py`](../tools/assess_cross_model_execution.py) 做
 第二道审核：至少两个不同 `wam_model_id`、每个模型达到最小 scored rows，且每个
-报告已经通过 native-action provenance 检查，才开启跨模型 FCS 声明。现有
+报告已经通过 native-action provenance 检查，才允许报告跨模型外部任务验证。现有
 `closed_loop_recovered_20260829` 中缺少 action source 或标为 staging 的记录会被
 明确拒绝，不会被计作第二模型。
-当前逐项审计记录见 [`reports/fcs_cross_model_readiness_20260912.json`](../reports/fcs_cross_model_readiness_20260912.json)。
+当前逐项审计记录见 [`reports/independent_execution_cross_model_readiness_20260912.json`](../reports/independent_execution_cross_model_readiness_20260912.json)。
 
 ### 非 yaw 运动量
 
@@ -101,10 +101,10 @@ GS 的执行代码和冻结尺度公开；logged future、NAVSIM/Waymo 图像和
 
 ## 推荐实验顺序
 
-1. **先跑 source 级联合表**（零新实验）：拼已有的 RCS/MAS 逐 source 表与 FCS
+1. **先跑 source 级联合表**（零新实验）：拼已有的 RCS/MAS 逐 source 表与独立执行
    结果。若一致性分数与任务成功无关，先停下重新想指标定义；
-2. 再完成第二模型 FCS rollout；
-3. 把 FCS 改成条件式（baseline vs future_perturbed 配对）并做 dose-response，
+2. 需要检验跨模型任务效用时，再完成第二模型独立执行 rollout；
+3. 单独推进 mediation：使用 baseline vs future_perturbed 配对并做 dose-response，
    再补 pathway-blocked 与 fixed-action 两个条件；
 4. 只有非 yaw 通道出现跨模型、跨控制的稳定证据时，才考虑扩展 MAS/RCS。
 

@@ -102,7 +102,7 @@ MAS/RCS；Epona、DriveWAM 的 coverage/方向问题仍是真实限制，DriveVA
 4. `reliability`：支持率、深度有效率和弃权原因。
 
 MAS 消费单支 temporal/action evidence，RCS 消费 twin response evidence，GS
-消费 grounding evidence；FCS 仍需要独立的 future-only intervention，不能由
+消费 grounding evidence；future-to-action mediation 仍需要独立的 future-only intervention，不能由
 Step1 单独推出。实现入口是
 [`../src/iac_new/step1_evidence.py`](../src/iac_new/step1_evidence.py)，协议配置是
 [`../configs/step1_evidence_layer_v1.json`](../configs/step1_evidence_layer_v1.json)。

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Score explicit independent simulator outcomes for the FCS cell."""
+"""Score independent simulator outcomes as external task validation."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import argparse
 import json
 from pathlib import Path
 
-from iac_new.fcs import score_fcs_rollout
+from iac_new.independent_execution import score_execution_rollout
 
 
 def main() -> None:
@@ -17,7 +17,7 @@ def main() -> None:
     parser.add_argument("--minimum-rows", type=int, default=1)
     args = parser.parse_args()
     rows = [json.loads(line) for line in args.input.read_text(encoding="utf-8").splitlines() if line.strip()]
-    report = score_fcs_rollout(rows, minimum_rows=args.minimum_rows)
+    report = score_execution_rollout(rows, minimum_rows=args.minimum_rows)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
     print(json.dumps({key: value for key, value in report.items() if key != "rows_detail"}, indent=2))

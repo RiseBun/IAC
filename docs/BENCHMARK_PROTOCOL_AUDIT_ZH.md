@@ -22,16 +22,16 @@
 占 65%。每条记录含历史/未来时间戳、相机内外参、私有真实状态和稳定的
 `source_key`。公开发布时移除图像路径和私有 GT。
 
-## Step 3/FCS 可用性
+## 外部任务验证可用性
 
 NAVSIM PDM metric cache 当前覆盖 978/1000 条。缺失的 22 条不是图像缺失，而是
-NAVSIM 路线或完整未来条件未通过 PDM cache 构建。它们保留在 主榜，FCS 对应
-单元按协议记为 `unavailable`，不能填零，也不能从分母中静默删除。
+NAVSIM 路线或完整未来条件未通过 PDM cache 构建。它们保留在审计清单，外部任务验证
+按协议记为 `unavailable`，不能填零，也不能从分母中静默删除。
 
 因此：
 
 - Step 1、CFAC、FAU 的主榜分母仍是 1000，按各自 coverage 报告；
-- Step 3/FCS 先在 978 条 cache-valid 样本上运行，最终报告 `n/1000` 与可执行
+- 外部任务验证先在 978 条 cache-valid 样本上运行，最终报告 `n/1000` 与可执行
   coverage；
 - 22 条缺失样本单独列出 `source_key`、stratum 和失败原因。
 
@@ -51,5 +51,5 @@ WAM 输出审计
   -> 冻结 RAFT-Large Step 1
   -> CFAC / FAU（私有 GT join）
   -> native action 独立 NAVSIM-PDM rollout
-  -> FCS（仅 cache-valid 行）
+  -> 外部任务验证（仅 cache-valid 行，单独报告）
 ```

@@ -8,7 +8,7 @@ AS 在每个 source 内复用冻结 `history_conditioned_as.aggregate`，输出 
 
 ## 同动作配对结果
 
-全量 lineage-fixed manifest 的 1490 个分支中，1456 条 NAVSIM PDM rollout 成功，34 条因 metric cache 缺失而 unavailable。成功 rollout 的动作 fingerprint 与视觉 manifest 为 `1456/1456` 精确一致；FCS success rate 为 `55.08%`，Wilson 95% CI `[52.52%, 57.62%]`。
+全量 lineage-fixed manifest 的 1490 个分支中，1456 条 NAVSIM PDM rollout 成功，34 条因 metric cache 缺失而 unavailable。成功 rollout 的动作 fingerprint 与视觉 manifest 为 `1456/1456` 精确一致；外部执行成功率为 `55.08%`，Wilson 95% CI `[52.52%, 57.62%]`。该成功率不是 IAC 指标。
 
 | 关联 | 可计算 source | Spearman | log-cluster bootstrap CI | log-cluster permutation p |
 |---|---:|---:|---:|---:|
@@ -21,7 +21,7 @@ AS 总输入 745 source，其中直行等 source 没有适用的 yaw 通道，�
 
 ## 为什么不能作正式有效性验证
 
-旧的 native rollout 与 AS 的错配已经被修复；旧审计仍保留在 [`action_alignment_drivewam_as_fcs_20260916.json`](../reports/action_alignment_drivewam_as_fcs_20260916.json)，作为失败回归案例。当前正式 matched rollout 的审计结果见 [`action_alignment_drivewam_as_matched_20260916.json`](../reports/action_alignment_drivewam_as_matched_20260916.json)。
+旧的 native rollout 与 AS 的错配已经被修复；旧审计仍保留在 [`action_alignment_drivewam_as_execution_20260916.json`](../reports/action_alignment_drivewam_as_execution_20260916.json)，作为失败回归案例。当前正式 matched rollout 的审计结果见 [`action_alignment_drivewam_as_matched_20260916.json`](../reports/action_alignment_drivewam_as_matched_20260916.json)。
 
 同动作配对后，AS 与两个执行结果的 log-cluster bootstrap 区间均不跨 0；RCS-yaw 只在二值 success 上出现弱关联，连续 task score 的区间跨 0。置换检验是本轮事后探索，未做多重比较校正，不能当作预注册显著性结论。整体只能作为“指标与执行结果存在部分关联”的探索性证据，不能作为预测性能、因果性或统一质量排序。
 
@@ -33,5 +33,5 @@ AS 总输入 745 source，其中直行等 source 没有适用的 yaw 通道，�
 
 - [`joint_source_analysis_drivewam_full_20260916.json`](../reports/joint_source_analysis_drivewam_full_20260916.json)
 - [`joint_source_analysis_drivewam_matched_20260916.json`](../reports/joint_source_analysis_drivewam_matched_20260916.json)
-- [`fcs_drivewam_as_matched_score_20260916.json`](../reports/fcs_drivewam_as_matched_score_20260916.json)
+- [`independent_execution_drivewam_as_matched_score_20260916.json`](../reports/independent_execution_drivewam_as_matched_score_20260916.json)
 - [`analyse_joint_source_table.py`](../tools/analyse_joint_source_table.py)

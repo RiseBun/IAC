@@ -77,7 +77,7 @@ history + command
                               ↓
                    MAS / RCS / future-to-action audit
 
-native action P_A ───────────→ independent simulator ─→ FCS
+native action P_A ───────────→ independent simulator ─→ external task validation
 logged future + GT-compatible channel ────────────────→ GS
 ```
 
@@ -176,13 +176,13 @@ native `action_source`。logged、oracle、proxy、candidate、staging 或评测
 `unavailable`。这条门把“动作向量发生了变化”和“WAM 自己的 future-to-action
 路径发生了变化”严格区分开。
 
-### 5.4 GS 与 FCS
+### 5.4 GS 与外部任务验证
 
 GS 继续使用 logged-GT-compatible 图像侧表示，衡量生成视觉未来是否接近外部
 真实未来。它不能替代 RCS，也不单独证明 future-to-action 因果关系。
 
-FCS 继续把 native action 放入独立模拟器，根据实际状态和任务标签评分；它不读取
-WAM 生成视频。
+外部任务验证把 native action 放入独立模拟器，根据实际状态和任务标签评分；它不读取
+WAM 生成视频，也不属于 IAC 指标向量。
 
 ## 6. 可靠性和弃权
 
@@ -209,14 +209,14 @@ WAM 生成视频。
 | future-to-action mediation | WorldDrive pilot unqualified / formal four-condition confirmation pending |
 | metric SE(2) reconstruction | diagnostic only |
 | FAU | independent GT-compatible axis |
-| FCS | validated on DriveWAM / cross-model confirmation pending |
+| external task validation | DriveWAM diagnostic / reported separately |
 
 ## 8. 最终报告形式
 
 在所有通道完成验证前，不压成单一总分，优先报告：
 
 ```text
-{ MAS, RCS, GS, future-to-action mediation, FCS, coverage, abstention }
+{ MAS, RCS, GS, future-to-action mediation, coverage, abstention }
 ```
 
 这样可以区分“视频看起来逼真”“动作与未来一致”“未来真正影响动作”和“实际任务

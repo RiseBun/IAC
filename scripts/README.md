@@ -42,7 +42,7 @@ needed.
 ## Reproduction and dataset tools
 
 `reproduction/drivewam/` contains the adapter used for the reference DriveWAM
-run. `reproduction/navsim/` contains the independent PDM rollout used for FCS.
+run. `reproduction/navsim/` contains the independent PDM rollout used for external task validation.
 They are not required to score a WAM that already emits the submission JSONL
 contract. `tools/dataset/` rebuilds the public manifest from licensed NAVSIM
 data; raw frames are never shipped.

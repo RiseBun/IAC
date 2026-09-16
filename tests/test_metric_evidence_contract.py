@@ -51,23 +51,6 @@ class MetricEvidenceContractTest(unittest.TestCase):
         self.assertEqual(report["status"], "unavailable")
         self.assertFalse(report["score_allowed"])
 
-    def test_fcs_requires_independent_paired_intervention(self) -> None:
-        packet = {
-            "source_key": "s0",
-            "evidence_status": "scored",
-            "coverage": 1.0,
-            "native_action_source": "policy_native_action",
-            "independent_rollout": {
-                "realized_state_available": True,
-                "action_injection_verified": True,
-                "simulator_id": "navsim",
-            },
-            "intervention": {"paired": True, "type": "future_ablation"},
-            "task_success": True,
-        }
-        report = validate_metric_evidence_packet("FCS", packet)
-        self.assertEqual(report["status"], "valid")
-
     def test_table_preserves_unavailable_without_zero_fill(self) -> None:
         rows = [{"source_key": "s0", "evidence_status": "unavailable", "failure_reason": "no_video"}]
         report = validate_metric_evidence_table(rows, "MAS")

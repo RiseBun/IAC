@@ -81,7 +81,7 @@ WAM 样本池并非全部 source-matched，因此本表不能作为严格模型�
 
 ## Visual Evidence Layer v2（实现候选，尚未升级为正式通道）
 
-新版 Step1 按 MAS、RCS、GS、FCS 各自需要的证据输出，而不是强行拟合一条米制
+新版 Step1 按 MAS、RCS、GS 各自需要的证据输出，而不是强行拟合一条米制
 SE(2) 轨迹。`src/iac_new/visual_evidence_v2.py` 输出带版本、来源、区间级描述量、
 支持率、后端一致性、不确定性以及 `scored/weak/unavailable` 状态的候选无关证据包。
 `src/iac_new/backend_adapters.py` 冻结 RAFT/SEA-RAFT、CoTracker/TAPIR 和可选
@@ -89,7 +89,7 @@ UniDepth 的统一接口；流链跟踪器只用于可审计归档回放，不�
 
 证据包优先提供方向、序关系、相对幅度和时间持续性，并保留 FOE、散度、旋度及
 仿射分量。MAS/RCS 分别消费这些向量证据；GS 必须保留身份打乱和时间反转对照；
-FCS 仍要求独立的成对干预 rollout，不能从视觉证据推导。米制距离、绝对速度、曲率
+future-to-action mediation 仍要求独立的成对干预 rollout，不能从视觉证据推导。米制距离、绝对速度、曲率
 和自由轨迹拟合继续属于 diagnostic。
 
 已有 flow archive 可以直接转换为 v2：
@@ -110,8 +110,8 @@ benchmark 通道。旧 Step1/CFAC/CCFC 接口保留，但标记为 deprecated/di
 > 逐样本 DriveWAM 输出、私有图像、GT 和 PDM cache 不公开，因此只依靠本仓库不能
 > 独立重算下方参考主表。
 
-记分板是**条件式**的：不假设每个 WAM 都用预测未来生成动作。MAS、RCS、GS、FCS
-以及可选的 future-to-action mediation 分开报告，各自带 coverage；不支持或无法测量
+记分板是**条件式**的：不假设每个 WAM 都用预测未来生成动作。MAS、RCS、GS
+分开报告，各自带 coverage；future-to-action mediation 是可选因果审计。不支持或无法测量
 的通道标记为 `unavailable` 并说明原因，只从该通道的分数分母排除，绝不填 0，也不定义一个
 把不同能力强行合并的总分。
 
@@ -126,10 +126,8 @@ benchmark 通道。旧 Step1/CFAC/CCFC 接口保留，但标记为 deprecated/di
 协议也不定义自然模型质量排序；只能在同一指标内、使用 source-disjoint 或配对
 不确定性进行比较，不能把不同能力列相加成总榜。
 
-FCS 先按模型独立验证；跨模型 FCS 另有审核器
-[`tools/assess_fcs_cross_model.py`](tools/assess_fcs_cross_model.py)，要求至少两个
-不同模型身份，且每个模型都有通过 native-action provenance 检查的独立 rollout。
-staging rollout 或缺少动作来源的报告不会打开跨架构声明。
+独立模拟器执行只作为外部任务验证，不属于 IAC 指标。它仍要求可验证的原生动作
+来源和实际状态，但不会并入 MAS/RCS/GS 指标向量。
 
 ## 方法贡献
 
@@ -137,8 +135,8 @@ staging rollout 或缺少动作来源的报告不会打开跨架构声明。
    yaw 的序响应，不做米制重建，也不读取候选轨迹。连续地平面 SE(2) decoder
    保留为显式、失败关闭的 diagnostic。只有 yaw 方向/排序进入 primary。
 2. **能力分层指标：** Motion Alignment Score（MAS，旧 CFAC）、Response
-   Consistency Score（RCS，旧 CCFC）、Grounding Score（GS，旧 FAU 组件）和
-   FCS 作为独立证据列并报告各自 coverage；模型不支持某项时记为
+   Consistency Score（RCS，旧 CCFC）和 Grounding Score（GS，旧 FAU 组件）
+   作为独立证据列并报告各自 coverage；模型不支持某项时记为
    `unavailable`，不填 0。
 3. **失败关闭与可复现：** 强制精确时间戳、标定、随机种子、模型版本和 lineage；
    私有 GT 只在评测端 join，作者提交的运动剖面不能替代图像侧探针。
@@ -173,8 +171,8 @@ salt 伪匿名化 source key，并主动丢弃图像、相机标定、自车状�
 在挂载私有数据前做失败关闭检查。
 
 机器可读的发布边界见 [`reports/release_readiness_20260912.json`](reports/release_readiness_20260912.json)：
-当前版本可以作为条件式一致性/保真度标准发布，但在 mediation 和跨架构 FCS
-证据补齐前，不宣称 future-to-action 因果或跨架构普适性。
+当前版本可以作为条件式一致性/保真度标准发布，但在 mediation
+证据补齐前，不宣称 future-to-action 因果。
 模型级正式/诊断证据矩阵见
 [`reports/model_capability_matrix_20260912.json`](reports/model_capability_matrix_20260912.json)：
 Epona 与 DriveWAM 通过当前两模型门槛；DriveVA、WorldDrive 的结果保留为诊断，
@@ -210,8 +208,8 @@ identity 控制和外部同源 GS 参考不完整而 blocked。横向位移、�
 
 v4 的实现见 [`src/iac_new/visual_evidence_v4.py`](src/iac_new/visual_evidence_v4.py)：
 MAS 只有在冻结校准存在时才输出 action-aligned 向量；RCS 只有在四类控制齐全时
-才输出 paired response；FCS 只输出供干预实验消费的 pathway evidence，不从视觉
-读数推断因果。
+才输出 paired response；可选 mediation 通道只输出供干预实验消费的 pathway evidence，
+不从视觉读数推断因果。
 
 可选的 future-to-action 中介通道现在已有冻结输入契约和评分器
 （[`configs/future_to_action_mediation_v1.json`](configs/future_to_action_mediation_v1.json)、
@@ -252,7 +250,7 @@ flowchart LR
     S2a["固定条件运行两次"] --> S2b["Δ 想象运动 ↔ Δ native action"]
   end
   S2 --> S3
-  subgraph S3["Step 3 · FCS"]
+  subgraph S3["外部任务验证（单独报告）"]
     S3a["native action → 独立 NAVSIM/PDM rollout"] --> S3b["实际状态 + 任务成功"]
   end
 ```
@@ -450,19 +448,19 @@ calibration 分支的 coverage 为 `98.3%`，GS 中位数 `0.503`，随机身份
 [`reports/neu_flow_structure_epona_20260912.json`](reports/neu_flow_structure_epona_20260912.json)
 和 [`reports/neu_flow_structure_drivewam_20260912.json`](reports/neu_flow_structure_drivewam_20260912.json)。
 
-### Step 3：FCS
+### 外部任务验证
 
-FCS 将 native action 输入独立模拟器，依据模拟器产生的实际状态和任务标签评分。
+该可选验证将 native action 输入独立模拟器，依据模拟器产生的实际状态和任务标签评分。
 rollout 不读取 WAM 生成图像，WAM waypoint 也不能冒充实际状态。没有兼容 rollout 或
-任务标签时，FCS 为 `unavailable`。
+任务标签时，外部验证为 `unavailable`。
 
-目前已有 DriveWAM 的独立 rollout 汇总审计：978 条可执行行、503 条成功，FCS 为
-`0.5143`，无 rollout 错误。模拟器使用实际 realized state，并验证了 action 注入，
-且不读取生成未来图像。这是单模型结果；跨模型 FCS 仍待补齐，该分数也不证明
-future-to-action 因果。详见 [`reports/fcs_drivewam_summary_20260912.json`](reports/fcs_drivewam_summary_20260912.json)。
+目前已有 DriveWAM 的独立 rollout 汇总审计：978 条可执行行、503 条成功，成功率
+为 `0.5143`，无 rollout 错误。模拟器使用实际 realized state，并验证了 action 注入，
+且不读取生成未来图像。这是单模型外部任务证据，该结果不证明
+future-to-action 因果。详见 [`reports/independent_execution_drivewam_summary_20260912.json`](reports/independent_execution_drivewam_summary_20260912.json)。
 fail-closed 评分器得到 coverage `1.000`，成功率 Wilson 95% CI 为
 `[0.4830, 0.5455]`。
-通用的 fail-closed 评分器位于 [`tools/score_fcs_rollout.py`](tools/score_fcs_rollout.py)：
+通用的 fail-closed 评分器位于 [`tools/score_independent_execution.py`](tools/score_independent_execution.py)：
 它要求显式任务标签及其模拟器来源、稳定 source key、已验证的 native-action 注入和独立 realized state；
 缺失记录报告为 `unavailable`，绝不当成失败。
 
@@ -499,7 +497,7 @@ fail-closed 评分器得到 coverage `1.000`，成功率 Wilson 95% CI 为
 | FAU_F | 0.5449 | 823/1,000 |
 | FAU_A | 0.4904 | 823/1,000 |
 | FAU | 0.5169 | 823/1,000 |
-| FCS | 0.5143 | 503 successes / 978 可执行行 |
+| 外部执行成功率（非 IAC 指标） | 0.5143 | 503 successes / 978 可执行行 |
 
 聚合结果来源和私有产物合同见
 [`docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md`](docs/DRIVEWAM_BENCHMARK_RESULTS_ZH.md)；

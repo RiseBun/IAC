@@ -44,7 +44,6 @@ def run(root: Path) -> dict[str, Any]:
     rcs_epona_path = root / "reports" / "rcs_yaw_epona_20260912.json"
     rcs_drivewam_path = root / "reports" / "rcs_yaw_drivewam_20260912.json"
     gs_path = root / "reports" / "grounding_score_candidate_20260911.json"
-    fcs_path = root / "reports" / "fcs_drivewam_summary_20260912.json"
     rows: list[dict[str, Any]] = []
 
     for model, path in (("Epona", mas_epona_path), ("DriveWAM", mas_drivewam_path)):
@@ -92,25 +91,6 @@ def run(root: Path) -> dict[str, Any]:
             },
             {"legacy_score": values.get("score_median"), "legacy_coverage": values.get("coverage")},
         ))
-
-    fcs = _load(fcs_path)
-    rows.append(_audit(
-        "FCS", "DriveWAM", fcs_path,
-        {
-            "source_key": "aggregate:DriveWAM",
-            "evidence_status": "scored",
-            "coverage": fcs.get("coverage"),
-            "native_action_source": (fcs.get("action_sources") or [None])[0],
-            "independent_rollout": {
-                "realized_state_available": fcs.get("independent_realized_state"),
-                "action_injection_verified": fcs.get("action_injection_verified"),
-                "simulator_id": fcs.get("state_reference_source"),
-            },
-            "intervention": fcs.get("intervention"),
-            "task_success": None,
-        },
-        {"legacy_score": fcs.get("task_success_rate"), "legacy_coverage": fcs.get("coverage")},
-    ))
 
     return {
         "protocol": "iac-metric-first-readiness-audit-v1",

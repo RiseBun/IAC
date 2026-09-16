@@ -1,5 +1,5 @@
 {
-  "protocol": "iac-fcs-independent-rollout-v1",
+  "protocol": "iac-independent-execution-v1",
   "status": "pass",
   "rows": 1456,
   "model_id": "drivewam_navsim_diffusion",
@@ -11692,5 +11692,5 @@
       "stratum": "unknown"
     }
   ],
-  "claim_boundary": "FCS is independent task execution evidence; it does not establish image grounding or future-to-action mediation."
+  "claim_boundary": "Independent task execution is external validation, not an IAC metric; it does not establish image grounding or future-to-action mediation."
 }

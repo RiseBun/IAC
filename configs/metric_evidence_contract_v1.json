@@ -20,14 +20,8 @@
       "required": ["source_key", "reference_source", "generated_representation", "reference_representation", "comparison.score"],
       "primary_observer": "reference_conditioned_grounding",
       "causal_claim": false
-    },
-    "FCS": {
-      "question": "Does native action under an explicit future intervention change independent realized task success?",
-      "required": ["source_key", "native_action_source", "independent_rollout", "intervention.paired", "task_success"],
-      "primary_observer": "independent_rollout_intervention",
-      "causal_claim": true
     }
   },
   "cross_metric_rule": "no_metric_may_fill_another_metrics_missing_evidence",
-  "claim_boundary": "MAS/RCS/GS are consistency or grounding evidence; only an independent intervention-backed FCS path may support future-to-action mediation."
+  "claim_boundary": "MAS/RCS/GS are consistency or grounding evidence. Independent simulator execution is reported separately and is not an IAC metric or a mediation claim."
 }

@@ -18,7 +18,6 @@ class ReleaseReadinessTest(unittest.TestCase):
         self.assertFalse(report["complete_causal_future_driven_benchmark"]["ready"])
         self.assertIn("gs:status_not_validated", report["errors"])
         self.assertIn("gs:fewer_than_two_models", report["errors"])
-        self.assertIn("fcs:cross_model_evidence_pending", report["warnings"])
         self.assertIn("future_to_action_mediation:confirmation_pending", report["warnings"])
         self.assertIn("future_to_action_mediation:pilot_present_but_unqualified", report["warnings"])
         self.assertTrue(report["evidence_boundary"]["future_to_action_mediation_pilot_present"])
@@ -30,11 +29,10 @@ class ReleaseReadinessTest(unittest.TestCase):
                 "mas_yaw": {"status": "pilot", "models": ["a", "b"]},
                 "rcs_yaw": {"status": "validated", "models": ["a", "b"]},
                 "gs": {"status": "validated", "models": ["a", "b"]},
-                "fcs": {},
                 "future_to_action_mediation": {},
             }
         }
-        protocol = {"status": "conditional_framework_validated_causal_and_cross_model_evidence_pending"}
+        protocol = {"status": "conditional_framework_validated_causal_evidence_pending"}
         report = validate(readiness, protocol)
         self.assertEqual(report["status"], "fail")
         self.assertIn("mas_yaw:status_not_validated", report["errors"])
@@ -65,15 +63,6 @@ class ReleaseReadinessTest(unittest.TestCase):
         report = validate(readiness, protocol)
         self.assertEqual(report["status"], "fail")
         self.assertIn("rcs_yaw:measurement_dimension_boundary_missing_or_drifted", report["errors"])
-
-    def test_fcs_cannot_claim_cross_model_without_two_models(self):
-        readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())
-        protocol = json.loads((ROOT / "configs" / "wam_joint_evaluation_v1.json").read_text())
-        readiness["claims"]["fcs"]["status"] = "validated"
-        readiness["claims"]["fcs"]["cross_model_status"] = "validated"
-        report = validate(readiness, protocol)
-        self.assertEqual(report["status"], "fail")
-        self.assertIn("fcs:cross_model_claim_without_two_independent_models", report["errors"])
 
     def test_mediation_validated_status_requires_claim_enabled(self):
         readiness = json.loads((ROOT / "reports" / "release_readiness_20260912.json").read_text())

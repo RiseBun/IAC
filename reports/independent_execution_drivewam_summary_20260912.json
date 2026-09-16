@@ -1,5 +1,5 @@
 {
-  "protocol": "iac-fcs-independent-rollout-v1",
+  "protocol": "iac-independent-execution-v1",
   "model": "DriveWAM",
   "model_id": "drivewam_navsim_checkpoint_20260824",
   "action_sources": ["drivewam_native_action_head"],
@@ -17,7 +17,7 @@
   "traffic_policy": "static_cached_objects_compat",
   "independent_realized_state": true,
   "action_injection_verified": true,
-  "scorer": "tools/score_fcs_rollout.py",
+  "scorer": "tools/score_independent_execution.py",
   "generated_future_images_used": false,
-  "claim_boundary": "FCS is an independent execution score for this model and split; it does not establish future-to-action mediation or cross-model significance."
+  "claim_boundary": "Independent execution is external task validation for this model and split, not an IAC metric; it does not establish future-to-action mediation or cross-model significance."
 }

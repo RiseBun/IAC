@@ -117,11 +117,11 @@ native action
   → independent simulator rollout
   → realized ego state
   → explicit task-success label
-  → FCS
+  → external task validation（单独报告）
 ```
 
-FCS 必须标注干预类型（例如 `FCS-command` 或 `FCS-semantic`）。缺少独立任务
-标签或兼容模拟器时记为 `unavailable`，不能把缺失当作失败分数。
+外部任务验证必须标注动作来源和执行环境。缺少独立任务标签或兼容模拟器时记为
+`unavailable`，不能把缺失当作 IAC 失败分数。
 
 ## 3. 失败关闭与报告规则
 

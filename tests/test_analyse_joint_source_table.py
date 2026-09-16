@@ -14,8 +14,8 @@ class JointSourceTableTest(unittest.TestCase):
                 {"sample_id": "s1::left", "status": "scored", "as_components": {"composite_mean": 0.8}, "yaw": {"applicable": True, "direction_match": True}, "intervals": [{"status": "scored", "acceptable": True}]},
                 {"sample_id": "s1::right", "status": "scored", "as_components": {"composite_mean": 0.6}, "yaw": {"applicable": True, "direction_match": True}, "intervals": [{"status": "scored", "acceptable": True}]},
             ]}), encoding="utf-8")
-            (root / "fcs.jsonl").write_text(json.dumps({"source_key": "s1", "task_success": True, "task_score": 0.9}) + "\n" + json.dumps({"source_key": "s2", "task_success": False, "task_score": 0.1}) + "\n", encoding="utf-8")
-            report = analyse(root / "as.json", root / "fcs.jsonl")
+            (root / "execution.jsonl").write_text(json.dumps({"source_key": "s1", "task_success": True, "task_score": 0.9}) + "\n" + json.dumps({"source_key": "s2", "task_success": False, "task_score": 0.1}) + "\n", encoding="utf-8")
+            report = analyse(root / "as.json", root / "execution.jsonl")
             self.assertEqual(report["joined_source_count"], 1)
             self.assertEqual(report["correlations"][0]["n_sources"], 1)
             self.assertIsNone(report["correlations"][0]["spearman"])

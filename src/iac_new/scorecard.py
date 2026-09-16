@@ -1,7 +1,7 @@
 """Capability-stratified IAC scorecard.
 
-Optional capabilities (MAS, RCS, GS, future-to-action mediation, and the legacy
-CCFC/FAU/FCS aliases) are reported as ``unavailable`` when a model does not
+Optional capabilities (MAS, RCS, GS, and future-to-action mediation) are
+reported as ``unavailable`` when a model does not
 expose the required interface.  ``missing`` is reserved for a claimed capability
 whose evidence is incomplete; ``ineligible`` is reserved for hard protocol
 violations.
@@ -25,7 +25,7 @@ CELLS = (
     # Canonical metric ids.
     "mas", "rcs", "gs", "future_to_action_mediation",
     # Legacy aliases retained for compatibility with older scorecards.
-    "cfac", "ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage",
+    "cfac", "ccfc", "fau_f", "fau_a", "fau", "coverage",
 )
 
 CLAIMED = {
@@ -38,7 +38,7 @@ CLAIMED = {
 STATUSES = ("pass", "fail", "pilot", "unavailable", "ineligible", "missing")
 OPTIONAL_CELLS = frozenset({
     "mas", "rcs", "gs", "future_to_action_mediation",
-    "ccfc", "fau_f", "fau_a", "fau", "fcs", "coverage",
+    "ccfc", "fau_f", "fau_a", "fau", "coverage",
 })
 PROJECTION_GATED_CELLS = frozenset({
     "cfac", "ccfc", "fau_f", "fau_a", "fau",
@@ -85,11 +85,6 @@ CLAIM_BOUNDARIES = {
         "evidence_type": "future_pathway_intervention",
         "causal_status": "causal_only_if_promotion_passed",
         "scope": "future_to_action_pathway_dependence",
-    },
-    "fcs": {
-        "evidence_type": "independent_execution",
-        "causal_status": "not_mediation",
-        "scope": "task_success_under_external_rollout",
     },
 }
 

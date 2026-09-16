@@ -27,7 +27,7 @@ D_norm(t) = D(t) / max(abs(C(t)), epsilon)
   action-to-structure 标定后，比较单分支结构剖面与 action 结构剖面。
 * `Grounding Score (GS)`（旧组件名 `FAU`）：仍需 logged-GT-compatible 的独立
   通道；本协议不提供米制 GT 误差。
-* `FCS`：继续由 native action 和独立模拟器完成，不依赖本协议。
+* 独立模拟器执行：作为外部任务验证单独报告，不属于本协议的 IAC 指标。
 
 ## 反事实边界
 

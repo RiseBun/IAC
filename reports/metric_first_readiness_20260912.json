@@ -7,11 +7,10 @@
     "reports/mas_yaw_drivewam_20260912.json",
     "reports/rcs_yaw_epona_20260912.json",
     "reports/rcs_yaw_drivewam_20260912.json",
-    "reports/grounding_score_candidate_20260911.json",
-    "reports/fcs_drivewam_summary_20260912.json"
+    "reports/grounding_score_candidate_20260911.json"
   ],
   "summary": {
-    "candidates": 7,
+    "candidates": 6,
     "contract_scored_or_weak": 0,
     "unavailable": 7,
     "invalid": 0
@@ -23,7 +22,6 @@
     "RCS_DriveWAM": {"legacy_direction_accuracy": 0.8571, "legacy_pair_coverage": 1.0, "contract_status": "unavailable", "missing": ["counterfactual_group_id", "branches>=2", "action_delta"]},
     "GS_Epona": {"legacy_score_median": 0.5529, "legacy_coverage": 0.9492, "contract_status": "unavailable", "missing": ["reference_source", "generated_representation", "reference_representation"]},
     "GS_DriveWAM": {"legacy_score_median": 0.1908, "legacy_coverage": 0.9419, "contract_status": "unavailable", "missing": ["reference_source", "generated_representation", "reference_representation"]},
-    "FCS_DriveWAM": {"legacy_success_rate": 0.5143, "legacy_coverage": 1.0, "contract_status": "unavailable", "missing": ["intervention", "task_success"]}
   },
   "interpretation": [
     "The audit does not say the legacy measurements are numerically wrong; it says their published evidence bundles are insufficient for the metric-specific claims.",

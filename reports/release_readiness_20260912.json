@@ -61,13 +61,11 @@
       "identity_specificity_audit": "reports/metric_credibility_audit_20260913.json",
       "not_claimed": ["two-model identity-specificity", "native action was caused by predicted future"]
     },
-    "fcs": {
-      "status": "single_model_validated",
+    "external_task_validation": {
+      "status": "diagnostic_only",
       "models": ["DriveWAM"],
-      "cross_model_status": "pending",
       "scope": "independent simulator execution and explicit task label",
-      "cross_model_assessor": "tools/assess_fcs_cross_model.py",
-      "cross_model_readiness": "reports/fcs_cross_model_readiness_20260912.json"
+      "claim_boundary": "reported separately; not an IAC metric or future-to-action mediation evidence"
     },
     "future_to_action_mediation": {
       "status": "pilot_worlddrive_unqualified_confirmation_pending",
@@ -125,5 +123,5 @@
     "does_not_reproduce_private_benchmark_reference": true
   },
   "model_capability_matrix": "reports/model_capability_matrix_20260912.json",
-  "release_boundary": "The package is publishable as a conditional consistency-and-grounding standard. It is not a complete causal future-driven benchmark until mediation confirmation and cross-model FCS are supplied."
+  "release_boundary": "The package is publishable as a conditional consistency-and-grounding standard. It is not a complete causal future-driven benchmark until mediation confirmation is supplied; independent task execution is external validation."
 }

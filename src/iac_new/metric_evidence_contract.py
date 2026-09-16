@@ -1,4 +1,4 @@
-"""Metric-first evidence contracts for MAS, RCS, GS, and FCS.
+"""Metric-first evidence contracts for MAS, RCS, and GS.
 
 The benchmark is not allowed to infer one metric from another.  Each metric
 has a minimal evidence bundle and fails closed when that bundle is absent.
@@ -13,7 +13,7 @@ from typing import Any
 import numpy as np
 
 
-METRIC_IDS = ("MAS", "RCS", "GS", "FCS")
+METRIC_IDS = ("MAS", "RCS", "GS")
 _FORBIDDEN_ACTION_SOURCES = {"logged", "oracle", "gt", "ground_truth", "proxy"}
 
 
@@ -102,22 +102,6 @@ def validate_metric_evidence_packet(metric_id: str, packet: dict[str, Any]) -> d
         if isinstance(comparison, dict) and status in {"scored", "weak"}:
             _missing(_finite_number(comparison.get("score")), "comparison.score", missing)
 
-    elif metric == "FCS" and status != "unavailable":
-        _missing(_native_action_source(packet.get("native_action_source")), "native_action_source", missing)
-        rollout = packet.get("independent_rollout")
-        _missing(isinstance(rollout, dict), "independent_rollout", missing)
-        if isinstance(rollout, dict):
-            _missing(rollout.get("realized_state_available") is True, "independent_rollout.realized_state_available", missing)
-            _missing(rollout.get("action_injection_verified") is True, "independent_rollout.action_injection_verified", missing)
-            _missing(bool(str(rollout.get("simulator_id") or "")), "independent_rollout.simulator_id", missing)
-        intervention = packet.get("intervention")
-        _missing(isinstance(intervention, dict), "intervention", missing)
-        if isinstance(intervention, dict):
-            _missing(intervention.get("paired") is True, "intervention.paired", missing)
-            _missing(bool(str(intervention.get("type") or "")), "intervention.type", missing)
-        if status in {"scored", "weak"}:
-            _missing(isinstance(packet.get("task_success"), bool), "task_success", missing)
-
     valid = not missing
     if status == "unavailable" and valid:
         result_status = "unavailable"
@@ -136,7 +120,6 @@ def validate_metric_evidence_packet(metric_id: str, packet: dict[str, Any]) -> d
             "MAS": "Visual compatibility with a supplied native action; not future-to-action causality.",
             "RCS": "Paired counterfactual visual response matching; not a single-branch action readout.",
             "GS": "Generated future grounding against an external reference; not action mediation.",
-            "FCS": "Independent realized-task outcome under native action and explicit intervention evidence.",
         }[metric],
     }
 

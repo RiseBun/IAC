@@ -161,7 +161,7 @@ def _load_rcs(path: Path) -> dict[str, dict[str, Any]]:
     return {k: {"rcs_yaw": _mean(v), "rcs_rows": len(v)} for k, v in grouped.items()}
 
 
-def _load_fcs(path: Path) -> dict[str, dict[str, Any]]:
+def _load_execution(path: Path) -> dict[str, dict[str, Any]]:
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     with path.open("r", encoding="utf-8") as handle:
         for line in handle:
@@ -175,15 +175,15 @@ def _load_fcs(path: Path) -> dict[str, dict[str, Any]]:
         successes = [float(bool(row["task_success"])) for row in rows if isinstance(row.get("task_success"), bool)]
         scores = [float(row["task_score"]) for row in rows if isinstance(row.get("task_score"), (int, float))]
         output[source] = {
-            "fcs_success": _mean(successes),
-            "fcs_task_score": _mean(scores),
-            "fcs_rows": len(rows),
+            "execution_success": _mean(successes),
+            "execution_task_score": _mean(scores),
+            "execution_rows": len(rows),
         }
     return output
 
 
-def analyse(as_path: Path, fcs_path: Path, *, rcs_path: Path | None = None) -> dict[str, Any]:
-    channels = {"as": _load_as(as_path), "fcs": _load_fcs(fcs_path)}
+def analyse(as_path: Path, execution_path: Path, *, rcs_path: Path | None = None) -> dict[str, Any]:
+    channels = {"as": _load_as(as_path), "execution": _load_execution(execution_path)}
     if rcs_path:
         channels["rcs"] = _load_rcs(rcs_path)
     sources = sorted(set().union(*(set(x) for x in channels.values())))
@@ -192,7 +192,7 @@ def analyse(as_path: Path, fcs_path: Path, *, rcs_path: Path | None = None) -> d
         row = {"source_key": source}
         for values in channels.values():
             row.update(values.get(source, {}))
-        row["joined_channels"] = sum(key in row for key in ("as_score", "rcs_yaw", "fcs_success"))
+        row["joined_channels"] = sum(key in row for key in ("as_score", "rcs_yaw", "execution_success"))
         table.append(row)
 
     def pair(left: str, right: str) -> dict[str, Any]:
@@ -210,17 +210,17 @@ def analyse(as_path: Path, fcs_path: Path, *, rcs_path: Path | None = None) -> d
             "source_keys": [r["source_key"] for r in rows],
         }
 
-    joins = [pair("as_score", "fcs_success"), pair("as_score", "fcs_task_score")]
+    joins = [pair("as_score", "execution_success"), pair("as_score", "execution_task_score")]
     if rcs_path:
-        joins += [pair("rcs_yaw", "fcs_success"), pair("rcs_yaw", "fcs_task_score")]
+        joins += [pair("rcs_yaw", "execution_success"), pair("rcs_yaw", "execution_task_score")]
     return {
         "protocol": "iac-joint-source-analysis-v1",
         "status": "computed",
-        "inputs": {"as": str(as_path), "rcs": str(rcs_path) if rcs_path else None, "fcs": str(fcs_path)},
+        "inputs": {"as": str(as_path), "rcs": str(rcs_path) if rcs_path else None, "execution": str(execution_path)},
         "source_counts": {name: len(value) for name, value in channels.items()},
         "joined_source_count": sum(1 for row in table if row["joined_channels"] >= 2),
-        "as_fcs_joined_source_count": sum(1 for row in table if "as_score" in row and "fcs_success" in row),
-        "rcs_fcs_joined_source_count": sum(1 for row in table if "rcs_yaw" in row and "fcs_success" in row),
+        "as_execution_joined_source_count": sum(1 for row in table if "as_score" in row and "execution_success" in row),
+        "rcs_execution_joined_source_count": sum(1 for row in table if "rcs_yaw" in row and "execution_success" in row),
         "correlations": joins,
         "table": table,
         "claim_boundary": "Exploratory source-level association only. Shared source does not verify shared model revision, command branch or executed action; no causal, predictive or same-rollout validation claim.",
@@ -230,11 +230,12 @@ def analyse(as_path: Path, fcs_path: Path, *, rcs_path: Path | None = None) -> d
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--as", dest="as_path", type=Path, required=True)
-    parser.add_argument("--fcs", dest="fcs_path", type=Path, required=True)
+    parser.add_argument("--execution", dest="execution_path", type=Path, required=True,
+                        help="JSONL of independent simulator execution outcomes; not an IAC metric")
     parser.add_argument("--rcs", dest="rcs_path", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    report = analyse(args.as_path, args.fcs_path, rcs_path=args.rcs_path)
+    report = analyse(args.as_path, args.execution_path, rcs_path=args.rcs_path)
     args.output.write_text(json.dumps(report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
     summary = {k: report[k] for k in ("source_counts", "joined_source_count")}
     summary["correlations"] = [{k: v for k, v in item.items() if k != "source_keys"} for item in report["correlations"]]

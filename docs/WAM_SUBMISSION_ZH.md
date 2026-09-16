@@ -4,7 +4,7 @@
 当前主榜使用 `benchmark` split。统一准入是“future visual state +
 native action”；生成形式不设限，详见
 [`WAM_SCOPE_AND_UNIFIED_PROTOCOL_ZH.md`](WAM_SCOPE_AND_UNIFIED_PROTOCOL_ZH.md)。
-MAS、RCS、GS、FCS 是能力分层记分板列：模型提供对应证据就计分，不支持或
+MAS、RCS、GS 是能力分层记分板列：模型提供对应证据就计分，不支持或
 无法测量就标记 `unavailable`，不得填 0。`ineligible` 只用于违反硬准入条件的提交。
 
 ## 0. 新提交的硬条件
@@ -54,7 +54,7 @@ decoder 和重建协议生成与模型原生时间轴对应的 RGB 文件（至�
 
 | 值 | 必须交 | 可打的格子 |
 |---|---|---|
-| `native_action_conditioned` | ≥4 个未来点覆盖 4 秒 + 同轴 native action | MAS（旧 CFAC）；RCS、GS、FCS 需额外证据 |
+| `native_action_conditioned` | ≥4 个未来点覆盖 4 秒 + 同轴 native action | MAS（旧 CFAC）；RCS、GS 需额外证据 |
 | `externally_controlled_video` | ≥4 个未来点覆盖 4 秒 + 外控轨迹；`action_source=external_control` | 仅 A→F |
 | `video_only` | ≥4 个未来点覆盖 4 秒 | 无 IAC 主格 |
 | `action_only` | 仅动作 | 无 IAC 主格 |
@@ -106,7 +106,7 @@ python scripts/score_iac_submission.py \
 
 记分板不把不同能力强行压成一个总分，而是并列展示每个通道的 `n`、coverage、
 置信区间、分层和状态。它不假设 WAM 一定由预测未来驱动：没有 future-only
-干预的模型仍可报告 MAS/RCS/GS/FCS 中实际支持的通道，不会因缺少 mediation 被
+干预的模型仍可报告 MAS/RCS/GS 中实际支持的通道，不会因缺少 mediation 被
 判零分；但 `unavailable` 不能当作可比的低分。
 
 ### 3.1 条件式分数的固定口径
@@ -133,9 +133,8 @@ lateral/纵向距离、速度和曲率仍为 diagnostic。任何通道未达到�
 | `MAS`（旧 CFAC） | 单次推理中，视觉 yaw 结构与 native action 方向是否一致 | 一条 future visual + 一条 native action | `unavailable` |
 | `RCS`（旧 CCFC） | 固定条件干预下，视觉差分与动作差分方向是否一致 | 同 history/seed/nuisance 的成对分支 | `unavailable` |
 | `GS`（旧 FAU 组件） | 生成视觉结构是否接近外部 logged future | future visual + 私有 GT-compatible reference | `unavailable` |
-| `FCS` | native action 在独立执行中是否成功 | 兼容 simulator、realized state、task label | `unavailable` |
 
-MAS/RCS/GS/FCS 都不是所有模型的硬性准入条件；按能力列和 coverage 分层报告，
+MAS/RCS/GS 都不是所有模型的硬性准入条件；按能力列和 coverage 分层报告，
 不对缺失列做零填充或未经校准的总平均。future-to-action mediation 是额外的
 因果证据列，缺少 future-only/pathway intervention 时为 `unavailable`。
 
@@ -155,10 +154,9 @@ MAS/RCS/GS/FCS 都不是所有模型的硬性准入条件；按能力列和 cove
 | `mas` | 单支视觉 yaw 结构↔native action 方向 | MAS-yaw；缺图像或动作则 `unavailable` |
 | `rcs` | 同 history 的可重复双分支，Δstructure↔Δaction | RCS-yaw；缺少双分支则 `unavailable` |
 | `gs` | 生成视觉结构↔外部 logged future | GS；缺 reference 则 `unavailable` |
-| `fcs` | 再加独立 rollout | 主榜 FCS；无兼容环境则 `unavailable` |
 
 不具备某项可选能力 = `unavailable`；声称具备但材料不完整 = `missing`；违反硬准入
 = `ineligible`；小 n 已有结果 = `pilot`。禁止把这些状态写成 0 分。
 
-参考记分板示例：`datasets/scorecard_example.json`。RCS/GS/FCS 是否可用按实际证据
+参考记分板示例：`datasets/scorecard_example.json`。RCS/GS 是否可用按实际证据
 填写；没有证据的列标记 `unavailable`，而不是伪造分数。
