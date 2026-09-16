@@ -19,13 +19,13 @@ AS 总输入 745 source，其中直行等 source 没有适用的 yaw 通道，�
 
 ## 为什么不能作正式有效性验证
 
-这些表只通过 source identity 相交。旧 FCS 执行 `drivewam_native` 分支，而 AS/RCS 使用左右命令分支；model revision 标识也不一致。尚未验证同一生成样本、命令、随机种子、模型版本和实际执行动作。
+动作指纹审计已经确认这个问题不是推测：728 个 source 有交集，但 FCS 执行 `drivewam_native` 分支，而 AS 使用左右命令分支；0/728 条轨迹达到 `1e-6` 精确一致，0/728 达到 `1e-2` 近似一致，最近分支的最大坐标误差中位数为 `12.41`、95 分位为 `39.69`。model revision 标识也不一致。结果见 [`action_alignment_drivewam_as_fcs_20260916.json`](../reports/action_alignment_drivewam_as_fcs_20260916.json)。
 
 因此不能把弱相关解释为指标有效，也不能把近零相关解释为指标无效。尚未完成 bootstrap/置换和场景分层，但更优先的问题是样本/动作同一性，不应先给错配关联添加统计显著性。
 
 ## 最短下一步
 
-直接对 AS 已通过 lineage 的 manifest 中原生动作运行独立 NAVSIM PDM rollout，保存与视觉分支一致的 source、branch、model revision、seed 和 action fingerprint。先用小样本验证动作指纹完全一致，再扩展；不需要重新生成视频，不需要更换视觉后端。
+直接对 AS 已通过 lineage 的 manifest 中左右分支动作运行独立 NAVSIM PDM rollout，保存与视觉分支一致的 source、branch、model revision、seed 和 action fingerprint。先用小样本验证动作指纹完全一致，再扩展；不需要重新生成视频，不需要更换视觉后端。
 
 只有同动作配对闭合后，才能检验“一致性与执行质量是否有关”。即使最终关系弱，AS/RCS 作为一致性指标的定义也不自动失效；是否预测驾驶成功是另一个待验证主张。
 

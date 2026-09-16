@@ -1,0 +1,142 @@
+{
+  "protocol": "iac-action-alignment-audit-v1",
+  "status": "failed_action_mismatch",
+  "visual_manifest_rows": 1490,
+  "rollout_rows": 978,
+  "source_overlap_rows": 728,
+  "matched_rows": 728,
+  "exact_matches": 0,
+  "approximate_matches": 0,
+  "exact_tolerance": 1e-06,
+  "approximate_tolerance": 0.01,
+  "nearest_visual_branch_counts": {
+    "right": 355,
+    "left": 373
+  },
+  "nearest_max_abs_error_median": 12.410803318023682,
+  "nearest_max_abs_error_p95": 39.68503379821776,
+  "examples": [
+    {
+      "source_key": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0018:2c757b2eaf465d16",
+      "rollout_branch": "navsim:2021.05.12.22.00.38_veh-35_01008_01518:log-0001-scene-0018:2c757b2eaf465d16::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 0.4220085144042969
+    },
+    {
+      "source_key": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0010:5a2838c61b395dba",
+      "rollout_branch": "navsim:2021.05.12.23.36.44_veh-35_00152_00504:log-0003-scene-0010:5a2838c61b395dba::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 5.877968788146973
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0022:dc6469ce6e015141",
+      "rollout_branch": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0022:dc6469ce6e015141::drivewam_native",
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 2.495875358581543
+    },
+    {
+      "source_key": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0012:a64901e3d8c85233",
+      "rollout_branch": "navsim:2021.06.03.13.55.17_veh-35_00073_00426:log-0008-scene-0012:a64901e3d8c85233::drivewam_native",
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 2.0738680362701416
+    },
+    {
+      "source_key": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0010:422cef22a8e65a1b",
+      "rollout_branch": "navsim:2021.06.07.18.53.26_veh-26_00005_00427:log-0010-scene-0010:422cef22a8e65a1b::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 1.6880323886871338
+    },
+    {
+      "source_key": "navsim:2021.06.08.16.31.33_veh-38_01589_02072:log-0013-scene-0006:9d7c6e45b61b514c",
+      "rollout_branch": "navsim:2021.06.08.16.31.33_veh-38_01589_02072:log-0013-scene-0006:9d7c6e45b61b514c::drivewam_native",
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 30.918119430541992
+    },
+    {
+      "source_key": "navsim:2021.06.08.16.31.33_veh-38_01589_02072:log-0013-scene-0008:33066eb64b1c5c6e",
+      "rollout_branch": "navsim:2021.06.08.16.31.33_veh-38_01589_02072:log-0013-scene-0008:33066eb64b1c5c6e::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 11.263092041015625
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.37.09_veh-12_00404_00864:log-0022-scene-0009:d5964eb5a73a565c",
+      "rollout_branch": "navsim:2021.06.09.17.37.09_veh-12_00404_00864:log-0022-scene-0009:d5964eb5a73a565c::drivewam_native",
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 20.168970108032227
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.37.09_veh-12_00404_00864:log-0022-scene-0011:377ca66f04da5fe8",
+      "rollout_branch": "navsim:2021.06.09.17.37.09_veh-12_00404_00864:log-0022-scene-0011:377ca66f04da5fe8::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 27.864591598510742
+    },
+    {
+      "source_key": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0006:9bc82d3f78095c40",
+      "rollout_branch": "navsim:2021.06.14.17.26.26_veh-38_04544_04920:log-0026-scene-0006:9bc82d3f78095c40::drivewam_native",
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 13.070189476013184
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.29.11_veh-38_01415_01821:log-0035-scene-0014:d2c7bb24957c56ad",
+      "rollout_branch": "navsim:2021.06.28.16.29.11_veh-38_01415_01821:log-0035-scene-0014:d2c7bb24957c56ad::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 3.01434326171875
+    },
+    {
+      "source_key": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0022:9f5ac897aea35174",
+      "rollout_branch": "navsim:2021.06.28.16.57.59_veh-26_00016_00484:log-0037-scene-0022:9f5ac897aea35174::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 12.087515592575073
+    },
+    {
+      "source_key": "navsim:2021.07.16.18.06.21_veh-38_04471_04922:log-0042-scene-0010:3e3f233a838d5e46",
+      "rollout_branch": "navsim:2021.07.16.18.06.21_veh-38_04471_04922:log-0042-scene-0010:3e3f233a838d5e46::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 5.17883825302124
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0007:2f123b74c9f45375",
+      "rollout_branch": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0007:2f123b74c9f45375::drivewam_native",
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 17.021995067596436
+    },
+    {
+      "source_key": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0012:c608040f87375baa",
+      "rollout_branch": "navsim:2021.08.17.18.54.02_veh-45_00665_01065:log-0052-scene-0012:c608040f87375baa::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 22.027311325073242
+    },
+    {
+      "source_key": "navsim:2021.08.30.14.54.34_veh-40_00439_00835:log-0054-scene-0011:2bcd81c410995e6a",
+      "rollout_branch": "navsim:2021.08.30.14.54.34_veh-40_00439_00835:log-0054-scene-0011:2bcd81c410995e6a::drivewam_native",
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 12.410048484802246
+    },
+    {
+      "source_key": "navsim:2021.10.11.02.57.41_veh-50_01522_02088:log-0062-scene-0029:4cdbe637b8fb5e7f",
+      "rollout_branch": "navsim:2021.10.11.02.57.41_veh-50_01522_02088:log-0062-scene-0029:4cdbe637b8fb5e7f::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 7.234423637390137
+    },
+    {
+      "source_key": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0008:456ef599efa85659",
+      "rollout_branch": "navsim:2021.05.25.14.16.10_veh-35_01690_02183:log-0006-scene-0008:456ef599efa85659::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 12.538158416748047
+    },
+    {
+      "source_key": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0006:0fb815b347a359ca",
+      "rollout_branch": "navsim:2021.06.03.12.02.06_veh-35_00233_00609:log-0007-scene-0006:0fb815b347a359ca::drivewam_native",
+      "nearest_visual_branch": "right",
+      "max_abs_coordinate_error": 11.840339660644531
+    },
+    {
+      "source_key": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0018:f08d7babff3f5651",
+      "rollout_branch": "navsim:2021.06.09.17.23.18_veh-38_02526_03027:log-0021-scene-0018:f08d7babff3f5651::drivewam_native",
+      "nearest_visual_branch": "left",
+      "max_abs_coordinate_error": 35.780253410339355
+    }
+  ],
+  "decision": "do_not_use_joint_correlation_as_same_action_validation",
+  "claim_boundary": "Source overlap is not action alignment; model, seed, branch and trajectory identity must be verified before joint validity claims."
+}
